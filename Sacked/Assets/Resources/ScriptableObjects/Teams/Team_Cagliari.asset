@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b7c5d00934bd924c900c3af11a25509, type: 3}
+  m_Name: Team_Cagliari
+  m_EditorClassIdentifier: 
+  teamName: Casteddu
+  SkillLevel: 2
+  teamColor1: {r: 0.7924528, g: 0.4448202, b: 0.4448202, a: 1}
+  teamColor2: {r: 0.35933605, g: 0.3812858, b: 0.8018868, a: 1}
+  teamLogo: {fileID: 21300000, guid: 066c7a4396b72b74eb64cec0bc7fb809, type: 3}

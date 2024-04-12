@@ -1,0 +1,120 @@
+using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEngine;
+
+public class SO_TeamObjective : SO_CardData
+{
+    public float objectiveGenerosity = 0; //the value increases when you tell the president that he's asking for a goal that is hard to reach
+    public int minRequiredPlace;
+    public int optimalRequiredPlace;
+    public void SetTeamObjectivesData()
+    {
+        SO_TeamObjective nextTeamObjective=this;
+        leftBranchCard.branchData = nextTeamObjective;
+        leftBranchCard.addPosition = 0;
+        rightValues.addedPresident = -10f;
+        
+        
+
+        int skillLevel = S_GlobalManager.selectedTeam.SkillLevel;
+        switch (skillLevel)
+        {
+            default:
+                break;
+            
+            case int i when i <= 2: //max 2 stars team
+                switch (objectiveGenerosity)
+                {
+                    case 0: //save from relegation
+                        minRequiredPlace = 17;
+                        optimalRequiredPlace = 14;
+                        cardDescription = "avoid relegation";
+                        break;
+
+                    case 1: //try saving from relegation
+                        minRequiredPlace = 19;
+                        optimalRequiredPlace = 17;
+                        cardDescription = "try avoiding relegation";
+                        break;
+                }
+                break;
+            case 3: //mid team
+                switch (objectiveGenerosity)
+                {
+                    case 0: //between the left and right side of the table
+                        minRequiredPlace = 12;
+                        optimalRequiredPlace = 9;
+                        cardDescription = "reach the mid of the table";
+                        break;
+
+                    case 1: //avoid relegation without pain
+                        minRequiredPlace = 15;
+                        optimalRequiredPlace = 12;
+                        cardDescription = "avoid risking relegation";
+                        break;
+                }
+                break;
+            case 4: //good team
+                switch (objectiveGenerosity)
+                {
+                    case 0: //reach champions league
+                        minRequiredPlace = 4;
+                        optimalRequiredPlace = 2;
+                        cardDescription = "reach the top 4";
+                        break;
+                    case 1: //between conference and champions league
+                        minRequiredPlace = 7;
+                        optimalRequiredPlace = 4;
+                        cardDescription = "qualify for an international competition";
+                        break;
+                }
+                break;
+            case 5: //top team
+                switch (objectiveGenerosity)
+                {
+                    case 0://win
+                        minRequiredPlace = 1;
+                        optimalRequiredPlace = 1;
+                        cardDescription = "Win the title";
+                        break;
+                    
+                    case 1://fight for the title
+                        minRequiredPlace = 3;
+                        optimalRequiredPlace = 1;
+                        cardDescription = "Try winning the title";
+                        break;
+                }
+                break;
+        }
+
+        leftChoice = "Accept";
+        rightChoice = "Too hard";
+    }
+
+    public override void leftEffect()
+    {
+        S_GlobalManager.minRankingObjective = minRequiredPlace;
+        S_GlobalManager.optimalRankingObjective = optimalRequiredPlace;
+        S_GlobalManager.deckManagerRef.ChangeCurrentPhase(1,1, S_GlobalManager.CardsPhase.Market); //start transfer market
+        S_GlobalManager.squad.GenerateTeam();
+        base.leftEffect();
+    }
+    public override void rightEffect()
+    {
+        SO_TeamObjective to = leftBranchCard.branchData as SO_TeamObjective;
+        to.objectiveGenerosity += 1;
+        if (to.objectiveGenerosity >= 2)
+        {
+            S_GlobalManager.deckManagerRef.AddCardToDeck(Resources.Load<SO_CardData>("ScriptableObjects/Sacking/Sacking_TooLowObjective"));
+            base.rightEffect();
+        }
+        else
+        {
+            to.SetTeamObjectivesData();
+            S_GlobalManager.deckManagerRef.AddCardToDeck(to);
+            base.rightEffect();
+        }
+    }
+
+}

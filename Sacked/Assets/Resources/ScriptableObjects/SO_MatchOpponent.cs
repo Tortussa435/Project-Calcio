@@ -7,6 +7,7 @@ public class SO_MatchOpponent : SO_CardData
 {
     public int teamRating;
     public CardsPool previewPool;
+    public CardsPool firsthalfbreakPool;
     public SO_MatchOpponent()
     {
         cardDescription = S_GlobalManager.nextOpponent.teamName;
@@ -17,6 +18,7 @@ public class SO_MatchOpponent : SO_CardData
     private void OnEnable()
     {
         previewPool = Resources.Load<CardsPool>("ScriptableObjects/CardsPools/MatchPreviewCardsPool");
+        firsthalfbreakPool = Resources.Load<CardsPool>("ScriptableObjects/CardsPools/MatchSpeechPool");
     }
     public override void leftEffect()
     {
@@ -31,6 +33,10 @@ public class SO_MatchOpponent : SO_CardData
         List<SO_CardData> possibleScores = S_GlobalManager.deckManagerRef.cardSelector.ChooseCardByScore(previewPool,0.25f);
         S_GlobalManager.deckManagerRef.AddCardToDeck(possibleScores[Random.Range(0,possibleScores.Count)], 0);
         S_GlobalManager.deckManagerRef.AddCardToDeck(possibleScores[Random.Range(0, possibleScores.Count)], 1);
+        
+        //REDO - la carta va generata esattamente a fine primo tempo per renderla contestuale al risultato (creare fasi primo tempo-secondo tempo?)
+        S_GlobalManager.deckManagerRef.AddCardToDeck(firsthalfbreakPool.cardsPool[Random.Range(0, firsthalfbreakPool.cardsPool.Length)], S_GlobalManager.deckManagerRef.nextPhaseCountdown/2);
+        
         S_GlobalManager.deckManagerRef.GenerateCard();
     }
 

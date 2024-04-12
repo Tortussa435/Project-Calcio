@@ -23,7 +23,7 @@ public class S_DeckManager : MonoBehaviour
     public SO_League selectedLeague;
     public TextMeshProUGUI PhaseText;
     public S_CardSelector cardSelector;
-    [SerializeField] private int nextPhaseCountdown;
+    public int nextPhaseCountdown;
 
     [Header("Phases Durations")]
     public IntRange weekDuration;

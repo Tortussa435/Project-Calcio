@@ -12,6 +12,7 @@ public class SO_CardData : ScriptableObject
     public string cardDescription;
     public string leftChoice;
     public string rightChoice;
+    public bool canAppearMoreThanOnce=false;
     [System.Serializable]
     public struct ChangeValues
     {
@@ -73,10 +74,9 @@ public class SO_CardData : ScriptableObject
     public void SetCardScore()
     {
         cardScore = 0;
-        foreach(S_CardsScoreFormula score in scoreCard)
+        if(canAppearMoreThanOnce || !alreadyPicked)
         {
-            score.alreadyPicked = alreadyPicked;
-            cardScore += score.CalculateScore();
+            foreach(S_CardsScoreFormula score in scoreCard) cardScore += score.CalculateScore();
         }
         cardScoreNotNormalized = cardScore;
     }

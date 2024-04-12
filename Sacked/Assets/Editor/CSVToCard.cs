@@ -60,9 +60,10 @@ public class CSVToCard
         //card.rightBranchCard.branchData = splitData[17]; //TODO, set generated card from sheet (might use string as directory?)
         card.rightBranchCard.addPosition = int.Parse(splitData[18]);
 
+        card.canAppearMoreThanOnce = (splitData[19] == "1");
 
         card.scoreCard = new System.Collections.Generic.List<S_CardsScoreFormula>();
-        for(int i = 19; i < splitData.Length; i++)
+        for(int i = 20; i < splitData.Length; i++)
         {
             if (splitData[i] != "") GenerateCardFormula(splitData[i], card);
         }

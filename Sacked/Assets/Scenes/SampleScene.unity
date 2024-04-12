@@ -334,8 +334,8 @@ MonoBehaviour:
     min: 2
     max: 3
   matchDuration:
-    min: 5
-    max: 6
+    min: 2
+    max: 3
   marketDuration:
     min: 1
     max: 1
@@ -355,6 +355,7 @@ MonoBehaviour:
   baseCardsPool: {fileID: 11400000, guid: 0eb46feea095a2d4e9c253231046a1de, type: 2}
   matchCardsPool: {fileID: 11400000, guid: 0eb46feea095a2d4e9c253231046a1de, type: 2}
   marketCardsPool: {fileID: 11400000, guid: 0eb46feea095a2d4e9c253231046a1de, type: 2}
+  firstHalfBreakCardsPool: {fileID: 11400000, guid: 2164480ab8627594b8333f73a210175b, type: 2}
   currentPool: {fileID: 0}
   appendedWeekCards: []
   appendedMatchCards: []

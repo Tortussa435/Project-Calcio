@@ -116,12 +116,15 @@ public class S_DeckManager : MonoBehaviour
                 case CardsPhase.Contract:
                     break;
                 case CardsPhase.Week:
-                    ChangeCurrentPhase(matchDuration.min, matchDuration.max, CardsPhase.Match);
+                    ChangeCurrentPhase(matchDuration.min, matchDuration.max, CardsPhase.MatchFirstHalf);
                     break;
                 case CardsPhase.Market:
                     ChangeCurrentPhase(marketDuration.min, marketDuration.max, CardsPhase.Week);
                     break;
-                case CardsPhase.Match:
+                case CardsPhase.MatchFirstHalf:
+                    ChangeCurrentPhase(matchDuration.min, matchDuration.max, CardsPhase.MatchSecondHalf);
+                    break;
+                case CardsPhase.MatchSecondHalf:
                     ChangeCurrentPhase(matchDuration.min, matchDuration.max, CardsPhase.Week);
                     break;
             }
@@ -164,8 +167,11 @@ public class S_DeckManager : MonoBehaviour
             case CardsPhase.Week:
                 PhaseText.text = "Week"; //TODO write week number
                 break;
-            case CardsPhase.Match:
+            case CardsPhase.MatchFirstHalf:
                 PhaseText.text = "";//TODO cool graphics for season match
+                break;
+            case CardsPhase.MatchSecondHalf:
+                PhaseText.text = "";
                 break;
             case CardsPhase.Market:
                 PhaseText.text = "Transfer Market";
@@ -195,12 +201,23 @@ public class S_DeckManager : MonoBehaviour
         if (sacked) return;
         nextPhaseCountdown = Random.Range(minCardsAmount, maxCardsAmount+1); //max exclusive
         SetPhaseText(newPhase);
-        if (newPhase == CardsPhase.Match)
+        switch (newPhase)
         {
-            Destroy(deck.transform.GetChild(0).gameObject);
-            GenerateCard(ScriptableObject.CreateInstance<SO_MatchOpponent>(), matchCardPrefab);
+            default:
+                break;
+            case CardsPhase.MatchFirstHalf:
+                Destroy(deck.transform.GetChild(0).gameObject);
+                GenerateCard(ScriptableObject.CreateInstance<SO_MatchOpponent>(), matchCardPrefab);
+                break;
+            case CardsPhase.MatchSecondHalf:
+                
+                List<SO_CardData> possibleSpeech = cardSelector.ChooseCardByScore(cardSelector.firstHalfBreakCardsPool , 0.5f);
+                deckManagerRef.AddCardToDeck(possibleSpeech[Random.Range(0, possibleSpeech.Count)], 0);
+                break;
         }
+        
         cardSelector.SetCurrentPool(newPhase);
         currentPhase = newPhase;
+
     }
 }

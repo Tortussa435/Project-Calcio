@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: tocca fa qualocsa
   cardColor: {r: 1, g: 1, b: 1, a: 1}
-  cardDescription: 
+  cardDescription: tocca fa qualocsa
   leftChoice: boooh
   rightChoice: ci sta alla fine no?
   leftValues:

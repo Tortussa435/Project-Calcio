@@ -1,7 +1,8 @@
-Card Name,Directory,Card Color,Card Description,Left Choice,Right Choice,Left Money,Left Team,Left President,Left Supporters,Right Money,Right Team,Right President,Right Supporters,Card Icon,Left Branch Card Data,Left Branch Card Add Position,Right Branch Card Data,Right Branch Card Add Position,Spawn Formulas,,
-Casino,BaseCards,,I tuoi giocatori vengono paparazzati ad un casino!,Non Punire,Punisci,0,0,-20,-10,0,-10,10,10,,,0,,0,AlreadyPicked;InverseLinear;100,Team;InverseLinear;100,
-Nuovo Stemma,BaseCards,,La societa presenta il nuovo stemma e i tifosi lo odiano,Segui Tifosi,Segui Societa,-5,0,-30,30,0,0,5,-10,,,0,,0,AlreadyPicked;InverseLinear;100,President;Linear;75,Supporters;Linear;25
-Costo Biglietti,BaseCards,,Il presidente vuole alzare il prezzo dei biglietti e ti chiede un parere,Opponiti,Concorda,0,0,-20,20,30,0,10,-30,,,0,,0,AlreadyPicked;InverseLinear;100,Supporters;Linear;75,President;InverseLinear;25
-Evento di beneficenza,BaseCards,,Ti viene chiesto di partecipare a un evento di beneficenza,Non andare,Vai,0,0,-15,-5,-10,0,10,10,,,0,,0,AlreadyPicked;InverseLinear;100,Supporters;Linear;100,
-Chi Vince,MatchCards/MatchPreviewCards,,Chi credi vincera il match?,{Team},{Opponent},0,0,0,0,0,0,0,0,,,0,,0,,,
-Screzio,MatchCards/MatchPreviewCards,,L'allenatore di {Opponent} ti ha attaccato. cosa ne pensi?,{Opponent} merda,Ci sta dai,0,0,0,0,0,0,0,0,,,0,,0,,,
+Card Name,Directory,Card Color,Card Description,Left Choice,Right Choice,Left Money,Left Team,Left President,Left Supporters,Right Money,Right Team,Right President,Right Supporters,Card Icon,Left Branch Card Data,Left Branch Card Add Position,Right Branch Card Data,Right Branch Card Add Position,Can appear twice,Spawn Formulas,
+Casino,BaseCards,,I tuoi giocatori vengono paparazzati ad un casino!,Non Punire,Punisci,0,0,-20,-10,0,-10,10,10,,,0,,0,1,Team;InverseLinear;100,
+Nuovo Stemma,BaseCards,,La societa presenta il nuovo stemma e i tifosi lo odiano,Segui Tifosi,Segui Societa,-5,0,-30,30,0,0,5,-10,,,0,,0,0,President;Linear;75,Supporters;Linear;25
+Costo Biglietti,BaseCards,,Il presidente vuole alzare il prezzo dei biglietti e ti chiede un parere,Opponiti,Concorda,0,0,-20,20,30,0,10,-30,,,0,,0,1,Supporters;Linear;75,President;InverseLinear;25
+Evento di beneficenza,BaseCards,,Ti viene chiesto di partecipare a un evento di beneficenza,Non andare,Vai,0,0,-15,-5,-10,0,10,10,,,0,,0,0,Supporters;Linear;100,
+Preview_ChiVince,MatchCards/MatchPreviewCards,,Chi credi vincera il match?,{Team},{Opponent},0,0,0,0,0,0,0,0,,,0,,0,,,
+Preview_Screzio,MatchCards/MatchPreviewCards,,L'allenatore di {Opponent} ti ha attaccato. cosa ne pensi?,{Opponent} merda,Ci sta dai,0,0,0,0,0,0,0,0,,,0,,0,,,
+Discorso_Nazione,TeamSpeeches,,{Opponent} è in vantaggio che volemo fa?,Picchia calciatori,Non picchiare calciatori,0,0,0,0,0,0,0,0,,,0,,0,,,

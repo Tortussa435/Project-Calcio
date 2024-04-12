@@ -14,7 +14,7 @@ public static class S_GlobalManager
         public int min;
         public int max;
     }
-    public enum CardsPhase { Contract, Week, Market, Match };
+    public enum CardsPhase { Contract, Week, Market, MatchFirstHalf, MatchSecondHalf };
     static public CardsPhase currentPhase = CardsPhase.Contract;
 
     static public Vector2 CardsSpawnOffset = new Vector2(0,0);

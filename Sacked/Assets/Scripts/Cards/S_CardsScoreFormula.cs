@@ -7,11 +7,11 @@ public class S_CardsScoreFormula
 {
     [System.Serializable]
     public enum ScoreDirection { Linear, InverseLinear }
-    public enum Rule {President, Team, Supporters, Money, AlreadyPicked }
+    public enum Rule {President, Team, Supporters, Money}
     public Rule desiredValue;
     public ScoreDirection direction;
     public float scoreMultiplier=1.0f;
-    public bool alreadyPicked;
+
     public float CalculateScore()
     {
         float valueToCheck = 0.0f;
@@ -32,10 +32,6 @@ public class S_CardsScoreFormula
             
             case Rule.Money:
                 valueToCheck = S_GlobalManager.Money;
-                break;
-            
-            case Rule.AlreadyPicked:
-                valueToCheck = Convert.ToInt32(alreadyPicked) * 100;
                 break;
         }
         

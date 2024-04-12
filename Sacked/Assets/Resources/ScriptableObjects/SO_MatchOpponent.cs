@@ -34,8 +34,8 @@ public class SO_MatchOpponent : SO_CardData
         S_GlobalManager.deckManagerRef.AddCardToDeck(possibleScores[Random.Range(0,possibleScores.Count)], 0);
         S_GlobalManager.deckManagerRef.AddCardToDeck(possibleScores[Random.Range(0, possibleScores.Count)], 1);
         
-        //REDO - la carta va generata esattamente a fine primo tempo per renderla contestuale al risultato (creare fasi primo tempo-secondo tempo?)
-        S_GlobalManager.deckManagerRef.AddCardToDeck(firsthalfbreakPool.cardsPool[Random.Range(0, firsthalfbreakPool.cardsPool.Length)], S_GlobalManager.deckManagerRef.nextPhaseCountdown/2);
+        
+        
         
         S_GlobalManager.deckManagerRef.GenerateCard();
     }

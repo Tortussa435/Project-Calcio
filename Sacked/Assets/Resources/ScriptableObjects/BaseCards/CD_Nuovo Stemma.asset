@@ -17,6 +17,7 @@ MonoBehaviour:
   cardDescription: La societa presenta il nuovo stemma e i tifosi lo odiano
   leftChoice: Segui Tifosi
   rightChoice: Segui Societa
+  canAppearMoreThanOnce: 0
   leftValues:
     addedMoney: -5
     addedTeam: 0
@@ -36,17 +37,11 @@ MonoBehaviour:
     branchData: {fileID: 0}
     addPosition: 0
   scoreCard:
-  - desiredValue: 4
-    direction: 1
-    scoreMultiplier: 1
-    alreadyPicked: 0
   - desiredValue: 0
     direction: 0
     scoreMultiplier: 0.75
-    alreadyPicked: 0
   - desiredValue: 2
     direction: 0
     scoreMultiplier: 0.25
-    alreadyPicked: 0
   cardScore: 0
   cardScoreNotNormalized: 0

@@ -13,6 +13,7 @@ public class S_CardSelector : MonoBehaviour
     public CardsPool baseCardsPool;
     public CardsPool matchCardsPool;
     public CardsPool marketCardsPool;
+    public CardsPool firstHalfBreakCardsPool;
     [SerializeField] private CardsPool currentPool;
 
     [Header("Card Stacks")]
@@ -81,9 +82,11 @@ public class S_CardSelector : MonoBehaviour
                 currentListToRead = appendedMarketCards;
                 currentPool = marketCardsPool;
                 break;
-            case S_GlobalManager.CardsPhase.Match:
+            case S_GlobalManager.CardsPhase.MatchFirstHalf:
                 currentListToRead = appendedMatchCards;
                 currentPool = matchCardsPool;
+                break;
+            case S_GlobalManager.CardsPhase.MatchSecondHalf:
                 break;
         }
     }

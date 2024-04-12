@@ -10,25 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: acddcb2ef5ce4c84b8aa4c3a78bf158c, type: 3}
-  m_Name: CD_Costo Biglietti
+  m_Name: CD_Discorso_Nazione
   m_EditorClassIdentifier: 
-  cardName: Costo Biglietti
+  cardName: Discorso_Nazione
   cardColor: {r: 1, g: 1, b: 1, a: 1}
-  cardDescription: Il presidente vuole alzare il prezzo dei biglietti e ti chiede
-    un parere
-  leftChoice: Opponiti
-  rightChoice: Concorda
-  canAppearMoreThanOnce: 1
+  cardDescription: "{Opponent} \xE8 in vantaggio che volemo fa?"
+  leftChoice: Picchia calciatori
+  rightChoice: Non picchiare calciatori
+  canAppearMoreThanOnce: 0
   leftValues:
     addedMoney: 0
     addedTeam: 0
-    addedPresident: -20
-    addedSupporters: 20
+    addedPresident: 0
+    addedSupporters: 0
   rightValues:
-    addedMoney: 30
+    addedMoney: 0
     addedTeam: 0
-    addedPresident: 10
-    addedSupporters: -30
+    addedPresident: 0
+    addedSupporters: 0
   alreadyPicked: 0
   cardIcon: {fileID: 0}
   leftBranchCard:
@@ -37,12 +36,6 @@ MonoBehaviour:
   rightBranchCard:
     branchData: {fileID: 0}
     addPosition: 0
-  scoreCard:
-  - desiredValue: 2
-    direction: 0
-    scoreMultiplier: 0.75
-  - desiredValue: 0
-    direction: 1
-    scoreMultiplier: 0.25
+  scoreCard: []
   cardScore: 0
   cardScoreNotNormalized: 0

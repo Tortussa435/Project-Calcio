@@ -17,6 +17,7 @@ MonoBehaviour:
   cardDescription: I tuoi giocatori vengono paparazzati ad un casino!
   leftChoice: Non Punire
   rightChoice: Punisci
+  canAppearMoreThanOnce: 1
   leftValues:
     addedMoney: 0
     addedTeam: 0
@@ -36,13 +37,8 @@ MonoBehaviour:
     branchData: {fileID: 0}
     addPosition: 0
   scoreCard:
-  - desiredValue: 4
-    direction: 1
-    scoreMultiplier: 1
-    alreadyPicked: 0
   - desiredValue: 1
     direction: 1
     scoreMultiplier: 1
-    alreadyPicked: 0
   cardScore: 0
   cardScoreNotNormalized: 0

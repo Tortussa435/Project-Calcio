@@ -61,6 +61,13 @@ static public class S_Calendar
                 calendar[i][j] = ShuffleHomeAwayTeam(calendar[i][j]);
             }
         }
+
+        List<List<Match>> secondRound = new List<List<Match>>(calendar);
+        secondRound.Reverse();
+        for(int i = 0; i < secondRound.Count; i++)
+        {
+            calendar.Add(secondRound[i]);
+        }
     }
     static bool WeekAlreadyContainsTeam(SO_Team team, List<Match> matches)
     {
@@ -71,9 +78,11 @@ static public class S_Calendar
         return false;
     }
 
-    static Match ShuffleHomeAwayTeam(Match match)
+    static Match ShuffleHomeAwayTeam(Match match, bool alwaysSwap=false)
     {
         bool shuffle = UnityEngine.Random.Range(0, 2) == 1;
+        if (alwaysSwap) shuffle = true;
+
         if (shuffle)
         {
             SO_Team handle = match.homeTeam;
@@ -93,6 +102,19 @@ static public class S_Calendar
             teams[j] = temp;
         }
         return teams;
+    }
+
+    public static SO_Team FindOpponent()
+    {
+        List<Match> matchday = calendar[S_GlobalManager.currentMatchDay];
+        
+        foreach(Match match in matchday)
+        {
+            if (match.homeTeam.teamName == S_GlobalManager.selectedTeam.teamName) return match.awayTeam;
+            if (match.awayTeam.teamName == S_GlobalManager.selectedTeam.teamName) return match.homeTeam;
+        }
+        
+        return null;
     }
 }
 

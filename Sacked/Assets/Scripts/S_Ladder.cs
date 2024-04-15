@@ -8,7 +8,7 @@ public class S_Ladder : MonoBehaviour
 {
     public SO_League league;
     public bool ladderVisible = false;
-    
+
     [System.Serializable]
     public struct teamPosition
     {
@@ -19,7 +19,7 @@ public class S_Ladder : MonoBehaviour
     private void Awake()
     {
         leagueLadder = new List<teamPosition>();
-        foreach(SO_Team team in league.teamlist)
+        foreach (SO_Team team in league.teamlist)
         {
             teamPosition tp;
             tp.team = team;
@@ -36,7 +36,7 @@ public class S_Ladder : MonoBehaviour
             gameObject.SetActive(false);
 
             //REDO avoid recreating each time the ladder instances
-            foreach(Transform child in gameObject.transform)
+            foreach (Transform child in gameObject.transform)
             {
                 Destroy(child.gameObject);
             }
@@ -58,7 +58,7 @@ public class S_Ladder : MonoBehaviour
 
     public static List<teamPosition> QuickSortLadder(List<teamPosition> ladder, int leftIndex, int rightIndex)
     {
-        
+
         var i = leftIndex;
         var j = rightIndex;
 
@@ -70,7 +70,7 @@ public class S_Ladder : MonoBehaviour
             {
                 i++;
             }
-            
+
             while (ladder[j].points < pivot.points)
             {
                 j--;
@@ -100,15 +100,30 @@ public class S_Ladder : MonoBehaviour
     }
     static public int LeagueRank(SO_Team team)
     {
-        List<teamPosition> localLadder = QuickSortLadder(leagueLadder, 0, leagueLadder.Count-1); //TODO there's something wrong in quicksorting
+        List<teamPosition> localLadder = QuickSortLadder(leagueLadder, 0, leagueLadder.Count - 1); //TODO there's something wrong in quicksorting
         for (int i = 0; i < localLadder.Count; i++)
         {
             //Debug.Log(localLadder[i].team.teamName);
-            if(localLadder[i].team == team)
+            if (localLadder[i].team == team)
             {
-                return i+1;
+                return i + 1;
             }
         }
         return -1;
+    }
+
+    static public void UpdateTeamPoints(SO_Team team, int points)
+    {
+        for (int i = 0; i < leagueLadder.Count; i++)
+        {
+            if (leagueLadder[i].team.teamName == team.teamName)
+            {
+                teamPosition newTeamPosition;
+                newTeamPosition.team = team;
+                newTeamPosition.points = leagueLadder[i].points + points;
+
+                leagueLadder[i] = newTeamPosition;
+            }
+        }
     }
 }

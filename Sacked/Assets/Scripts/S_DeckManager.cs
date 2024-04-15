@@ -8,6 +8,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using System.Linq;
 using static S_GlobalManager;
+using System.Globalization;
 
 public class S_DeckManager : MonoBehaviour
 {
@@ -38,6 +39,8 @@ public class S_DeckManager : MonoBehaviour
         
         cardSelector.currentListToRead = new List<SO_CardData.Branch>();
         ChangeCurrentPhase(0,0, CardsPhase.Contract);
+        
+        S_Calendar.GenerateCalendar();
 
         if (selectedTeam == null)
         {   
@@ -60,7 +63,7 @@ public class S_DeckManager : MonoBehaviour
             GenerateCard(null);
         }
 
-        nextOpponent = FindPossibleTeams()[0];
+        S_MatchSimulator.SimulateWholeTournament();
     }
 
     // Update is called once per frame

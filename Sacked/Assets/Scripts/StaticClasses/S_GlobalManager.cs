@@ -42,6 +42,8 @@ public static class S_GlobalManager
     static public UnityEvent OnUpdatePresident;
 
     static public SO_Team nextOpponent;
+
+    public static int currentMatchDay = 0;
     static S_GlobalManager()
     {
     

@@ -24,7 +24,8 @@ public class SO_TeamCardData : SO_CardData
         SO_TeamObjective teamobjective = ScriptableObject.CreateInstance<SO_TeamObjective>();
         teamobjective.SetTeamObjectivesData();
         S_GlobalManager.deckManagerRef.AddCardToDeck(teamobjective);
-        
+        //Generate calendar
+        S_Calendar.GenerateCalendar();
         base.leftEffect();
         //----
     }

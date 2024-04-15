@@ -6,8 +6,8 @@ using UnityEngine;
 public class S_CardsScoreFormula
 {
     [System.Serializable]
-    public enum ScoreDirection { Linear, InverseLinear }
-    public enum Rule {President, Team, Supporters, Money}
+    public enum ScoreDirection { Linear, InverseLinear, Round, InverseRound }
+    public enum Rule {President, Team, Supporters, Money, TeamsSkillDifference}
     public Rule desiredValue;
     public ScoreDirection direction;
     public float scoreMultiplier=1.0f;
@@ -33,20 +33,31 @@ public class S_CardsScoreFormula
             case Rule.Money:
                 valueToCheck = S_GlobalManager.Money;
                 break;
+            
+            case Rule.TeamsSkillDifference:
+                valueToCheck = ((S_GlobalManager.selectedTeam.SkillLevel - S_GlobalManager.nextOpponent.SkillLevel)+S_GlobalManager.MAXTEAMSKILLLEVEL)*(S_GlobalManager.MAXTEAMSKILLLEVEL*2);
+                break;
         }
         
         valueToCheck = valueToCheck / 100;
-        
-        if (direction == ScoreDirection.InverseLinear)
+
+        switch (direction)
         {
-            valueToCheck = 1 - valueToCheck; //REDO to do cooler calculi
-        }
-        
-        if (direction == ScoreDirection.Linear)
-        {
+            case ScoreDirection.InverseLinear:
+                valueToCheck = 1 - valueToCheck;
+                break;
+            case ScoreDirection.Linear:
+                break;
             
+            case ScoreDirection.Round:
+                valueToCheck = Mathf.Round(valueToCheck);
+                break;
+           
+            case ScoreDirection.InverseRound:
+                valueToCheck = 1 - Mathf.Round(valueToCheck);
+                break;
         }
-        
+
         valueToCheck = valueToCheck * scoreMultiplier;
 
         return valueToCheck;

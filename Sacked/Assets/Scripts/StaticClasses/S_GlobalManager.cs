@@ -8,6 +8,10 @@ using Unity.VisualScripting;
 
 public static class S_GlobalManager
 {
+    //Constants
+    public const int MAXTEAMSKILLLEVEL=5;
+    //---------
+
     [System.Serializable]
     public struct IntRange
     {
@@ -16,6 +20,7 @@ public static class S_GlobalManager
     }
     public enum CardsPhase { Contract, Week, Market, MatchFirstHalf, MatchSecondHalf };
     static public CardsPhase currentPhase = CardsPhase.Contract;
+
 
     static public Vector2 CardsSpawnOffset = new Vector2(0,0);
 

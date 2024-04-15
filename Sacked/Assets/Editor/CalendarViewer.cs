@@ -21,10 +21,12 @@ public class CalendarViewer : EditorWindow
         {
             for (int i = 0; i < S_Calendar.calendar.Count; i++)
             {
-                GUILayout.Label("\nGIORNATA "+i, EditorStyles.boldLabel);
+                GUILayout.Label("\nGIORNATA "+ (i+1), EditorStyles.boldLabel);
+                int j = 0;
                 foreach (S_Calendar.Match match in S_Calendar.calendar[i])
                 {
-                    GUILayout.Label(match.homeTeam.teamName + " VS " + match.awayTeam.teamName);
+                    GUILayout.Label(j+1 +". "+match.homeTeam.teamName + " VS " + match.awayTeam.teamName);
+                    j++;
                 }
             }
         }

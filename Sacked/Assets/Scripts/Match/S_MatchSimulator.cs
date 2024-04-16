@@ -5,6 +5,15 @@ using UnityEngine;
 
 public static class S_MatchSimulator
 {
+    static float goalChanceDecreasePerGoal = 0.5f;
+    static float defaultGoalChance = 0.33f;
+    static int goalCheckFrequency = 10;
+    static SO_Curve goalChanceCurve;
+
+    static S_MatchSimulator()
+    {
+        goalChanceCurve = Resources.Load<SO_Curve>("ScriptableObjects/Curves/GoalChanceCurveSimplified");
+    }
     public struct Score
     {
         public int home;
@@ -17,35 +26,35 @@ public static class S_MatchSimulator
         finalScore.home = 0;
         finalScore.away = 0;
         
-        double homeTeamGoalChance = Mathf.Abs(((homeTeam.SkillLevel - awayTeam.SkillLevel) + 1) / (S_GlobalManager.MAXTEAMSKILLLEVEL * 2)) ;
-        double awayTeamGoalChance = Mathf.Abs(((homeTeam.SkillLevel - awayTeam.SkillLevel) + 1) / (S_GlobalManager.MAXTEAMSKILLLEVEL * 2));
+        double homeTeamGoalChance = CalcGoalChance(homeTeam.SkillLevel,awayTeam.SkillLevel,0);
+        double awayTeamGoalChance = CalcGoalChance(awayTeam.SkillLevel,homeTeam.SkillLevel,0);
 
 
-        for(int i=0; i < 90; i += 5)
+        for(int i=0; i < 90; i += goalCheckFrequency)
         {
-            float homeSeed = (float)Random.Range(0, 11) / 10;
-            float awaySeed = (float)Random.Range(0, 11) / 10;
+            float homeSeed = (float)Random.Range(0, 101) / 100;
+            float awaySeed = (float)Random.Range(0, 101) / 100;
             //Debug.Log("Il semes è: " + seed);
             
             if (homeSeed <= homeTeamGoalChance)
             {
+                homeTeamGoalChance = CalcGoalChance(homeTeam.SkillLevel,awayTeam.SkillLevel,finalScore.home);
                 finalScore.home += 1;
-                homeTeamGoalChance *=.75f;
             }
 
             if (awaySeed <= awayTeamGoalChance)
             {
+                awayTeamGoalChance = CalcGoalChance(homeTeam.SkillLevel, awayTeam.SkillLevel, finalScore.away);
                 finalScore.away += 1;
-                awayTeamGoalChance *=.5f;
-
             }
         }
         
         //Debug.Log("Final Score: "+ homeTeam.teamName + " " + finalScore.home + " " + awayTeam.teamName + " " + finalScore.away);
+        Debug.Log("Final Score: " + finalScore.home + " "  + finalScore.away);
 
         if (finalScore.home == finalScore.away) return 0; //Golden punticino
-        if (finalScore.home > finalScore.away) return 1;
-        if (finalScore.home < finalScore.away) return 2;
+        if (finalScore.home > finalScore.away)  return 1;
+        if (finalScore.home < finalScore.away)  return 2;
         return -1;
 
     }
@@ -74,5 +83,17 @@ public static class S_MatchSimulator
                 }
             }
         }
+    }
+
+    static double CalcGoalChance(int skillA,int skillB,int alreadyScoredGoals)
+    {
+        int skillDifference = skillA - skillB;
+        double goalChance = Mathf.Clamp(goalChanceCurve.curve.Evaluate(skillDifference) * Mathf.Pow(goalChanceDecreasePerGoal,alreadyScoredGoals),0,1);
+        
+        //double goalChance = defaultGoalChance + ((skillA - skillB) * 0.1f) * Mathf.Pow(goalChanceDecreasePerGoal,alreadyScoredGoals);
+        
+        if (alreadyScoredGoals == 0) goalChance = Mathf.Clamp((float)goalChance,0,0.1f);
+        
+        return goalChance;
     }
 }

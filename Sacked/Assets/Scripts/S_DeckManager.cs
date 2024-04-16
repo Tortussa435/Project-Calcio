@@ -100,7 +100,7 @@ public class S_DeckManager : MonoBehaviour
 
     public void GenerateCard(SO_CardData cardData=null, GameObject cardFormat = null)
     {
-        if (S_GlobalManager.sacked) return; //do not generate cards if sacked
+        if (sacked) return; //do not generate cards if sacked
         
         nextPhaseCountdown -= 1;
         if (cardFormat == null)
@@ -115,6 +115,7 @@ public class S_DeckManager : MonoBehaviour
         lastCard.transform.SetAsFirstSibling();
         
         if (cardData == null) lastCard.GenerateCardData(FindNextCard());
+        
         else lastCard.GenerateCardData(cardData);
     }
 

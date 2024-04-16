@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -6,24 +5,44 @@ using UnityEngine;
 
 public static class S_MatchSimulator
 {
+    [Header("Fast Simulation Values")]
     static float goalChanceDecreasePerGoal = 0.5f;
     static float defaultGoalChance = 0.33f;
     static int goalCheckFrequency = 10;
     static SO_Curve goalChanceCurve;
 
+    [Header("Player Simulation Values")]
     static private S_Calendar.Match playerMatch;
     static private Score playerScore;
     static private int currentGameMinute;
+    static private float playerGoalChance;
+    static private float opponentGoalChance;
     public static SO_CardData SimulateNextMinutes(int minMinutesRange=9,int maxMinutesRange=13)
     {
         S_GlobalManager.deckManagerRef.nextPhaseCountdown++;
 
         if(currentGameMinute==0) StartMatch();
 
-        currentGameMinute += UnityEngine.Random.Range(minMinutesRange, maxMinutesRange);
+        currentGameMinute += Random.Range(minMinutesRange, maxMinutesRange);
 
         if(currentGameMinute>=45 && S_GlobalManager.currentPhase==S_GlobalManager.CardsPhase.MatchFirstHalf) EndFirstHalf();
 
+        //debug---------------
+        playerGoalChance = 0.5f;
+        opponentGoalChance = 0.5f;
+        if ((float)Random.Range(0, 101) / 100 < playerGoalChance)
+        {
+            Debug.Log("Player scores!");
+            playerScore.home++;
+            //player scores
+        }
+        if ((float)Random.Range(0, 101) / 100 < opponentGoalChance)
+        {
+            playerScore.away++;
+            Debug.Log("Opponent scores!");
+            //opponent scores
+        }
+        //-------------------
         Debug.Log("siamo al "+currentGameMinute+"o minuto di gioco");
 
         if(currentGameMinute>=90) EndMatch();
@@ -43,12 +62,12 @@ public static class S_MatchSimulator
     {
         if (playerScore.home > playerScore.away) S_Ladder.UpdateTeamPoints(playerMatch.homeTeam, 3);
         if (playerScore.home < playerScore.away) S_Ladder.UpdateTeamPoints(playerMatch.awayTeam, 3);
-        else
+        if(playerScore.home==playerScore.away)
         {
             S_Ladder.UpdateTeamPoints(playerMatch.awayTeam, 1);
             S_Ladder.UpdateTeamPoints(playerMatch.homeTeam, 1);
         }
-        
+        Debug.Log("Final score: "+playerScore.home+" : "+playerScore.away);
         playerScore.home = 0;
         playerScore.away = 0;
         currentGameMinute = 0;

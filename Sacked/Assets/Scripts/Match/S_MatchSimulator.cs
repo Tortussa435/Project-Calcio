@@ -50,7 +50,7 @@ public static class S_MatchSimulator
         }
         
         //Debug.Log("Final Score: "+ homeTeam.teamName + " " + finalScore.home + " " + awayTeam.teamName + " " + finalScore.away);
-        Debug.Log("Final Score: " + finalScore.home + " "  + finalScore.away);
+        //Debug.Log("Final Score: " + finalScore.home + " "  + finalScore.away);
 
         if (finalScore.home == finalScore.away) return 0; //Golden punticino
         if (finalScore.home > finalScore.away)  return 1;
@@ -63,24 +63,31 @@ public static class S_MatchSimulator
     {
         for(int i = 0; i < S_Calendar.calendar.Count; i++)
         {
-            foreach(S_Calendar.Match match in S_Calendar.calendar[i])
+            SimulateWeekMatches(i);
+        }
+    }
+
+    public static void SimulateWeekMatches(int week, SO_Team excludedMatch=null)
+    {
+        foreach(S_Calendar.Match match in S_Calendar.calendar[week])
+        {
+            if(excludedMatch!=null) if (match.homeTeam.teamName == excludedMatch.teamName || match.awayTeam.teamName == excludedMatch.teamName) continue;
+            
+            switch (FastSimulateMatch(match.homeTeam, match.awayTeam))
             {
-                switch(FastSimulateMatch(match.homeTeam, match.awayTeam))
-                {
-                    case 0:
-                        S_Ladder.UpdateTeamPoints(match.homeTeam, 1);
-                        S_Ladder.UpdateTeamPoints(match.awayTeam, 1);
-                        Debug.Log("Pareggio");
-                        break;
-                    case 1:
-                        S_Ladder.UpdateTeamPoints(match.homeTeam, 3);
-                        Debug.Log("Vince casa");
-                        break;
-                    case 2:
-                        S_Ladder.UpdateTeamPoints(match.awayTeam, 3);
-                        Debug.Log("Vince trasferta");
-                        break;
-                }
+                case 0:
+                    S_Ladder.UpdateTeamPoints(match.homeTeam, 1);
+                    S_Ladder.UpdateTeamPoints(match.awayTeam, 1);
+                    //Debug.Log("Pareggio");
+                    break;
+                case 1:
+                    S_Ladder.UpdateTeamPoints(match.homeTeam, 3);
+                    //Debug.Log("Vince casa");
+                    break;
+                case 2:
+                    S_Ladder.UpdateTeamPoints(match.awayTeam, 3);
+                    //Debug.Log("Vince trasferta");
+                    break;
             }
         }
     }

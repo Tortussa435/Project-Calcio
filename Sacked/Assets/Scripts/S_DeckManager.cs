@@ -62,8 +62,14 @@ public class S_DeckManager : MonoBehaviour
             GenerateCard(null);
             GenerateCard(null);
         }
-
-        S_MatchSimulator.SimulateWholeTournament();
+        
+        for (int i = 0; i < 1; i++)
+        {
+            S_MatchSimulator.SimulateWholeTournament();
+            Debug.Log(S_Ladder.QuickSortLadder(S_Ladder.leagueLadder, 0, S_Ladder.leagueLadder.Count - 1)[0].team.teamName);
+            //S_Ladder.ClearLadder();
+        }
+        
     }
 
     // Update is called once per frame
@@ -97,7 +103,7 @@ public class S_DeckManager : MonoBehaviour
         nextPhaseCountdown -= 1;
         if (cardFormat == null)
         {
-            Debug.Log("eccolo");
+            //Debug.Log("eccolo");
             cardFormat = cardPrefab;
         }
         if(cardData==null) cardData = DecreaseCardsCounter(cardSelector.currentListToRead); //if generate card has no imposed card, carddata is used to see if theres a branch card to add

@@ -46,7 +46,7 @@ public class S_Ladder : MonoBehaviour
             ladderVisible = true;
             gameObject.SetActive(true);
             QuickSortLadder(leagueLadder, 0, leagueLadder.Count - 1);
-            for (int i = 0; i < leagueLadder.Count - 1; i++)
+            for (int i = 0; i < leagueLadder.Count; i++)
             {
                 GameObject teambox = Resources.Load<GameObject>("Prefabs/Teambox");
                 teambox = Instantiate(teambox, Vector3.zero, Quaternion.identity, gameObject.transform);
@@ -124,6 +124,17 @@ public class S_Ladder : MonoBehaviour
 
                 leagueLadder[i] = newTeamPosition;
             }
+        }
+    }
+
+    static public void ClearLadder()
+    {
+        for(int i = 0; i < leagueLadder.Count; i++)
+        {
+            teamPosition newTeamPosition;
+            newTeamPosition.team = leagueLadder[i].team;
+            newTeamPosition.points = 0;
+            leagueLadder[i] = newTeamPosition;
         }
     }
 }

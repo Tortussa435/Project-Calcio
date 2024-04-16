@@ -17,6 +17,7 @@ MonoBehaviour:
   cardDescription: tocca fa qualocsa
   leftChoice: boooh
   rightChoice: ci sta alla fine no?
+  canAppearMoreThanOnce: 0
   leftValues:
     addedMoney: 0
     addedTeam: 0
@@ -35,6 +36,9 @@ MonoBehaviour:
   rightBranchCard:
     branchData: {fileID: 0}
     addPosition: 0
-  scoreCard: []
-  cardScore: 0
-  cardScoreNotNormalized: 0
+  scoreCard:
+  - desiredValue: 0
+    direction: 0
+    scoreMultiplier: 1
+  cardScore: 2.857143
+  cardScoreNotNormalized: 0.35

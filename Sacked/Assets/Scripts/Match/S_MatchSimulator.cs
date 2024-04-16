@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -10,6 +11,61 @@ public static class S_MatchSimulator
     static int goalCheckFrequency = 10;
     static SO_Curve goalChanceCurve;
 
+    static private S_Calendar.Match playerMatch;
+    static private Score playerScore;
+    static private int currentGameMinute;
+    public static SO_CardData SimulateNextMinutes(int minMinutesRange=9,int maxMinutesRange=13)
+    {
+        S_GlobalManager.deckManagerRef.nextPhaseCountdown++;
+
+        if(currentGameMinute==0) StartMatch();
+
+        currentGameMinute += UnityEngine.Random.Range(minMinutesRange, maxMinutesRange);
+
+        if(currentGameMinute>=45 && S_GlobalManager.currentPhase==S_GlobalManager.CardsPhase.MatchFirstHalf) EndFirstHalf();
+
+        Debug.Log("siamo al "+currentGameMinute+"o minuto di gioco");
+
+        if(currentGameMinute>=90) EndMatch();
+
+        return ScriptableObject.CreateInstance<SO_CardData>();
+
+    }
+
+    private static void StartMatch()
+    {
+        playerScore.home = 0;
+        playerScore.away = 0;
+        playerMatch = S_Calendar.FindMatchByTeam(S_GlobalManager.selectedTeam, S_GlobalManager.currentMatchDay);
+    }
+
+    private static void EndMatch()
+    {
+        if (playerScore.home > playerScore.away) S_Ladder.UpdateTeamPoints(playerMatch.homeTeam, 3);
+        if (playerScore.home < playerScore.away) S_Ladder.UpdateTeamPoints(playerMatch.awayTeam, 3);
+        else
+        {
+            S_Ladder.UpdateTeamPoints(playerMatch.awayTeam, 1);
+            S_Ladder.UpdateTeamPoints(playerMatch.homeTeam, 1);
+        }
+        
+        playerScore.home = 0;
+        playerScore.away = 0;
+        currentGameMinute = 0;
+
+        S_GlobalManager.currentMatchDay++;
+
+        S_GlobalManager.IntRange weekDuration = S_GlobalManager.deckManagerRef.weekDuration;
+
+        S_GlobalManager.deckManagerRef.ChangeCurrentPhase(weekDuration.min, weekDuration.max, S_GlobalManager.CardsPhase.Week);
+
+    }
+
+    private static void EndFirstHalf()
+    {
+        S_GlobalManager.deckManagerRef.ChangeCurrentPhase(3,3,S_GlobalManager.CardsPhase.MatchSecondHalf);
+        Debug.Log("tutti a bere un te caldo");
+    }
     static S_MatchSimulator()
     {
         goalChanceCurve = Resources.Load<SO_Curve>("ScriptableObjects/Curves/GoalChanceCurveSimplified");
@@ -32,8 +88,8 @@ public static class S_MatchSimulator
 
         for(int i=0; i < 90; i += goalCheckFrequency)
         {
-            float homeSeed = (float)Random.Range(0, 101) / 100;
-            float awaySeed = (float)Random.Range(0, 101) / 100;
+            float homeSeed = (float)UnityEngine.Random.Range(0, 101) / 100;
+            float awaySeed = (float)UnityEngine.Random.Range(0, 101) / 100;
             //Debug.Log("Il semes è: " + seed);
             
             if (homeSeed <= homeTeamGoalChance)

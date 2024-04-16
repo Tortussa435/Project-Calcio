@@ -116,5 +116,17 @@ static public class S_Calendar
         
         return null;
     }
+
+    public static Match FindMatchByTeam(SO_Team team, int week)
+    {
+        foreach(Match match in calendar[week])
+        {
+            if (match.homeTeam.teamName == team.teamName || match.awayTeam.teamName == team.teamName) return match;
+        }
+        Match matchFailed;
+        matchFailed.homeTeam = null;
+        matchFailed.awayTeam = null;
+        return matchFailed;
+    }
 }
 

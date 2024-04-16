@@ -63,12 +63,14 @@ public class S_DeckManager : MonoBehaviour
             GenerateCard(null);
         }
         
+        /*
         for (int i = 0; i < 1; i++)
         {
             S_MatchSimulator.SimulateWholeTournament();
             Debug.Log(S_Ladder.QuickSortLadder(S_Ladder.leagueLadder, 0, S_Ladder.leagueLadder.Count - 1)[0].team.teamName);
-            //S_Ladder.ClearLadder();
+            S_Ladder.ClearLadder();
         }
+        */
         
     }
 
@@ -108,6 +110,7 @@ public class S_DeckManager : MonoBehaviour
         }
         if(cardData==null) cardData = DecreaseCardsCounter(cardSelector.currentListToRead); //if generate card has no imposed card, carddata is used to see if theres a branch card to add
 
+        
         lastCard = Instantiate(cardFormat, transform.position+(Vector3)S_GlobalManager.CardsSpawnOffset, Quaternion.identity,deck.transform).GetComponent<S_Card>();
         lastCard.transform.SetAsFirstSibling();
         
@@ -139,9 +142,16 @@ public class S_DeckManager : MonoBehaviour
             }
         }
         
-        SO_CardData[] result;
-        result = cardSelector.ChooseCardByScore().ToArray();
-        return result[Random.Range(0,result.Length)];
+        if(currentPhase == CardsPhase.MatchFirstHalf || currentPhase == CardsPhase.MatchSecondHalf) //If playing a match
+        {
+            return S_MatchSimulator.SimulateNextMinutes();
+        }
+        else
+        {
+            SO_CardData[] result;
+            result = cardSelector.ChooseCardByScore().ToArray();
+            return result[Random.Range(0,result.Length)];
+        }
 
     }
 
@@ -219,7 +229,6 @@ public class S_DeckManager : MonoBehaviour
                 GenerateCard(ScriptableObject.CreateInstance<SO_MatchOpponent>(), matchCardPrefab);
                 break;
             case CardsPhase.MatchSecondHalf:
-                
                 List<SO_CardData> possibleSpeech = cardSelector.ChooseCardByScore(cardSelector.firstHalfBreakCardsPool , 0.5f);
                 deckManagerRef.AddCardToDeck(possibleSpeech[Random.Range(0, possibleSpeech.Count)], 0);
                 break;

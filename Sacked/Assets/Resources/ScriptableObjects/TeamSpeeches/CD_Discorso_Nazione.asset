@@ -36,6 +36,9 @@ MonoBehaviour:
   rightBranchCard:
     branchData: {fileID: 0}
     addPosition: 0
-  scoreCard: []
+  scoreCard:
+  - desiredValue: 0
+    direction: 0
+    scoreMultiplier: 1
   cardScore: 0
   cardScoreNotNormalized: 0

@@ -31,13 +31,23 @@ public class SO_MatchOpponent : SO_CardData
     public void GenerateMatchPreviewCard()
     {
         List<SO_CardData> possibleScores = S_GlobalManager.deckManagerRef.cardSelector.ChooseCardByScore(previewPool,0.25f);
-        S_GlobalManager.deckManagerRef.AddCardToDeck(possibleScores[Random.Range(0,possibleScores.Count)], 0);
-        S_GlobalManager.deckManagerRef.AddCardToDeck(possibleScores[Random.Range(0, possibleScores.Count)], 1);
+
+        SO_CardData firstPreviewCard = possibleScores[Random.Range(0, possibleScores.Count)];
+        firstPreviewCard.decreaseCountDown = false;
+        
+        possibleScores.Remove(firstPreviewCard);
+        
+        SO_CardData secondPreviewCard = possibleScores[Random.Range(0, possibleScores.Count)];
+        secondPreviewCard.decreaseCountDown = false;
+
+
+        S_GlobalManager.deckManagerRef.AddCardToDeck(firstPreviewCard, 0);
+        S_GlobalManager.deckManagerRef.AddCardToDeck(secondPreviewCard, 0);
         
         
         
         
-        S_GlobalManager.deckManagerRef.GenerateCard();
+        S_GlobalManager.deckManagerRef.GenerateCard(null,null,false);
     }
 
 }

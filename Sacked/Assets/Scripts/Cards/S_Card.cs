@@ -14,15 +14,14 @@ public class S_Card : MonoBehaviour
     public Image cardIcon;
     public Image cardBackground;
 
-
     public virtual void GenerateCardData(SO_CardData data)
     {
         cardData = data;
         //Debug.Log(cardData.cardDescription);
         cardDescription.text = S_GlobalManager.ReplaceVariablesInString(cardData.cardDescription);
         cardBackground.color = data.cardColor;
-        leftChoice.text = S_GlobalManager.ReplaceVariablesInString(data.leftChoice);
-        rightChoice.text = S_GlobalManager.ReplaceVariablesInString(data.rightChoice);
+        if(leftChoice!=null) leftChoice.text = S_GlobalManager.ReplaceVariablesInString(data.leftChoice);
+        if(rightChoice!=null) rightChoice.text = S_GlobalManager.ReplaceVariablesInString(data.rightChoice);
         cardIcon.sprite = data.cardIcon;
     }
     // Start is called before the first frame update

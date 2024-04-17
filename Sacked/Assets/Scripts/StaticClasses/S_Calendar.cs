@@ -8,7 +8,6 @@ using UnityEngine;
 static public class S_Calendar
 {
     static SO_League currentLeague;
-
     public struct Match
     {
         public SO_Team homeTeam;

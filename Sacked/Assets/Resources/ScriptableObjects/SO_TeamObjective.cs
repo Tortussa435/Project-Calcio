@@ -8,6 +8,11 @@ public class SO_TeamObjective : SO_CardData
     public float objectiveGenerosity = 0; //the value increases when you tell the president that he's asking for a goal that is hard to reach
     public int minRequiredPlace;
     public int optimalRequiredPlace;
+    
+    private SO_TeamObjective()
+    {
+        decreaseCountDown = false;
+    }
     public void SetTeamObjectivesData()
     {
         SO_TeamObjective nextTeamObjective=this;
@@ -109,6 +114,7 @@ public class SO_TeamObjective : SO_CardData
             S_GlobalManager.deckManagerRef.AddCardToDeck(Resources.Load<SO_CardData>("ScriptableObjects/Sacking/Sacking_TooLowObjective"));
             base.rightEffect();
         }
+
         else
         {
             to.SetTeamObjectivesData();

@@ -7,12 +7,18 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Card Data", menuName = "Cards/Card")]
 public class SO_CardData : ScriptableObject
 {
+
     public string cardName;
     public Color cardColor=Color.white;
     public string cardDescription;
     public string leftChoice;
     public string rightChoice;
     public bool canAppearMoreThanOnce=false;
+    public bool decreaseCountDown = true;
+
+
+    public string desiredCardPrefabDirectory=new string("");
+
     [System.Serializable]
     public struct ChangeValues
     {
@@ -44,7 +50,7 @@ public class SO_CardData : ScriptableObject
     public float cardScore;
     [DisplayWithoutEdit()]
     public float cardScoreNotNormalized;
-    
+
     virtual public void leftEffect()
     {
         //Debug.Log("left effect");
@@ -56,7 +62,7 @@ public class SO_CardData : ScriptableObject
         S_GlobalManager.SetTeam(leftValues.addedTeam);
 
 
-        if (!S_GlobalManager.DefeatCheck()) S_GlobalManager.deckManagerRef.GenerateCard();
+        if (!S_GlobalManager.DefeatCheck()) S_GlobalManager.deckManagerRef.GenerateCard(null,null,decreaseCountDown);
     }
     virtual public void rightEffect()
     {
@@ -66,7 +72,7 @@ public class SO_CardData : ScriptableObject
         S_GlobalManager.SetSupporters(rightValues.addedSupporters);
         S_GlobalManager.SetTeam(rightValues.addedTeam);
 
-        if(!S_GlobalManager.DefeatCheck()) S_GlobalManager.deckManagerRef.GenerateCard(); //when the player reaches a defeat, card generation is handled by S_ValueManager
+        if(!S_GlobalManager.DefeatCheck()) S_GlobalManager.deckManagerRef.GenerateCard(null,null,decreaseCountDown); //when the player reaches a defeat, card generation is handled by S_ValueManager
 
         //Debug.Log("right effect");
     }

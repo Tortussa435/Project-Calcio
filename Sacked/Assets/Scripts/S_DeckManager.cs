@@ -22,7 +22,10 @@ public class S_DeckManager : MonoBehaviour
     public GameObject background;
     public GameObject deck;
     public SO_League selectedLeague;
+
     public TextMeshProUGUI PhaseText;
+    public TextMeshProUGUI MatchScoreText;
+    
     public S_CardSelector cardSelector;
     public int nextPhaseCountdown;
 
@@ -50,7 +53,8 @@ public class S_DeckManager : MonoBehaviour
             {
                 SO_TeamCardData tcd = ScriptableObject.CreateInstance<SO_TeamCardData>();
                 tcd.SetTeamData(team);
-                GenerateCard(tcd);
+                tcd.decreaseCountDown = false;
+                GenerateCard(tcd,null,false);
             }
             
         }
@@ -59,8 +63,8 @@ public class S_DeckManager : MonoBehaviour
         else
         {
             SetBackGroundColor(selectedTeam.teamColor1, selectedTeam.teamColor2);
-            GenerateCard(null);
-            GenerateCard(null);
+            GenerateCard(null,null,false);
+            
         }
         
         /*
@@ -95,14 +99,51 @@ public class S_DeckManager : MonoBehaviour
             }
         }
         cardSelector.currentListToRead.Add(branch);
-        nextPhaseCountdown++;
     }
 
-    public void GenerateCard(SO_CardData cardData=null, GameObject cardFormat = null)
+    public void GenerateCard(SO_CardData cardData=null, GameObject cardFormat = null,bool decreaseCountdown=true)
     {
         if (sacked) return; //do not generate cards if sacked
+
+        if (decreaseCountdown) nextPhaseCountdown--;
         
-        nextPhaseCountdown -= 1;
+        if (nextPhaseCountdown < 0)
+        {
+            switch (currentPhase)
+            {
+                case CardsPhase.Contract:
+                    ChangeCurrentPhase(weekDuration.min, weekDuration.max, CardsPhase.Week);
+                    break;
+                
+                case CardsPhase.Week:
+                    
+                    S_PlayerMatchSimulator.StartMatch();
+
+                    ChangeCurrentPhase(matchDuration.min, matchDuration.max, CardsPhase.MatchFirstHalf);
+                    break;
+                
+                case CardsPhase.Market:
+                    ChangeCurrentPhase(marketDuration.min, marketDuration.max, CardsPhase.Week);
+                    break;
+                
+                case CardsPhase.MatchFirstHalf:    
+                    ChangeCurrentPhase(matchDuration.min, matchDuration.max, CardsPhase.MatchSecondHalf);
+                    break;
+                
+                case CardsPhase.MatchSecondHalf:
+                    
+                    S_PlayerMatchSimulator.EndMatch();
+
+                    MatchScoreText.gameObject.SetActive(false);
+                    PhaseText.gameObject.SetActive(true);
+
+                    ChangeCurrentPhase(matchDuration.min, matchDuration.max, CardsPhase.Week);
+                    
+                    break;
+            }
+            return;
+        }
+
         if (cardFormat == null)
         {
             //Debug.Log("eccolo");
@@ -110,50 +151,41 @@ public class S_DeckManager : MonoBehaviour
         }
         if(cardData==null) cardData = DecreaseCardsCounter(cardSelector.currentListToRead); //if generate card has no imposed card, carddata is used to see if theres a branch card to add
 
+
+        if (cardData == null)
+        {
+            cardData = FindNextCard();
+            
+            if (cardData.desiredCardPrefabDirectory != "")
+            {
+                cardFormat = Resources.Load<GameObject>(cardData.desiredCardPrefabDirectory);
+            }
+        }
         
-        lastCard = Instantiate(cardFormat, transform.position+(Vector3)S_GlobalManager.CardsSpawnOffset, Quaternion.identity,deck.transform).GetComponent<S_Card>();
+
+        lastCard = Instantiate(cardFormat, transform.position+(Vector3)CardsSpawnOffset, Quaternion.identity,deck.transform).GetComponent<S_Card>();
+        
         lastCard.transform.SetAsFirstSibling();
-        
-        if (cardData == null) lastCard.GenerateCardData(FindNextCard());
-        
-        else lastCard.GenerateCardData(cardData);
+
+        lastCard.GenerateCardData(cardData);
     }
 
     public SO_CardData FindNextCard()
     {
-        if (nextPhaseCountdown <= 0) //Change phase after n cards in each phase
+
+        //event if during match
+        if (currentPhase == CardsPhase.MatchFirstHalf || currentPhase == CardsPhase.MatchSecondHalf)
         {
-            Debug.Log("Ora siamo nel " + currentPhase);
-            switch (currentPhase)
-            {
-                case CardsPhase.Contract:
-                    break;
-                case CardsPhase.Week:
-                    ChangeCurrentPhase(matchDuration.min, matchDuration.max, CardsPhase.MatchFirstHalf);
-                    break;
-                case CardsPhase.Market:
-                    ChangeCurrentPhase(marketDuration.min, marketDuration.max, CardsPhase.Week);
-                    break;
-                case CardsPhase.MatchFirstHalf:
-                    ChangeCurrentPhase(matchDuration.min, matchDuration.max, CardsPhase.MatchSecondHalf);
-                    break;
-                case CardsPhase.MatchSecondHalf:
-                    ChangeCurrentPhase(matchDuration.min, matchDuration.max, CardsPhase.Week);
-                    break;
-            }
+            SO_CardData matchCard = S_PlayerMatchSimulator.SimulateMatchSegment(45/matchDuration.max , 45/matchDuration.min);
+            return matchCard;
         }
-        
-        if(currentPhase == CardsPhase.MatchFirstHalf || currentPhase == CardsPhase.MatchSecondHalf) //If playing a match
-        {
-            return S_MatchSimulator.SimulateNextMinutes();
-        }
+
         else
         {
             SO_CardData[] result;
             result = cardSelector.ChooseCardByScore().ToArray();
             return result[Random.Range(0,result.Length)];
         }
-
     }
 
     public void SetBackGroundColor(Color color1, Color color2)
@@ -221,22 +253,33 @@ public class S_DeckManager : MonoBehaviour
         if (sacked) return;
         nextPhaseCountdown = Random.Range(minCardsAmount, maxCardsAmount+1); //max exclusive
         SetPhaseText(newPhase);
+        
+        cardSelector.SetCurrentPool(newPhase);
+        currentPhase = newPhase;
+
         switch (newPhase)
         {
-            default:
+            case CardsPhase.Week:
+                GenerateCard();
                 break;
+
             case CardsPhase.MatchFirstHalf:
                 Destroy(deck.transform.GetChild(0).gameObject);
                 GenerateCard(ScriptableObject.CreateInstance<SO_MatchOpponent>(), matchCardPrefab);
                 break;
+            
             case CardsPhase.MatchSecondHalf:
-                List<SO_CardData> possibleSpeech = cardSelector.ChooseCardByScore(cardSelector.firstHalfBreakCardsPool , 0.5f);
-                deckManagerRef.AddCardToDeck(possibleSpeech[Random.Range(0, possibleSpeech.Count)], 0);
+
+                List<SO_CardData> possibleSpeech = (cardSelector.ChooseCardByScore(cardSelector.firstHalfBreakCardsPool , 0.5f));
+                SO_CardData speech = possibleSpeech[Random.Range(0, possibleSpeech.Count)];
+                speech.decreaseCountDown = false;
+                GenerateCard(speech);
+                S_PlayerMatchSimulator.matchMinute = 45;
+                S_PlayerMatchSimulator.UpdateMatchTextData();
                 break;
         }
+
         
-        cardSelector.SetCurrentPool(newPhase);
-        currentPhase = newPhase;
 
     }
 }

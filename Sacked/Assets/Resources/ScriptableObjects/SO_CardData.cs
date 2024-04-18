@@ -77,7 +77,7 @@ public class SO_CardData : ScriptableObject
         //Debug.Log("right effect");
     }
     
-    public void SetCardScore()
+    public virtual void SetCardScore()
     {
         cardScore = 0;
         if(canAppearMoreThanOnce || !alreadyPicked)

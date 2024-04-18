@@ -7,12 +7,12 @@ public class S_CardsScoreFormula
 {
     [System.Serializable]
     public enum ScoreDirection { Linear, InverseLinear, Round, InverseRound }
-    public enum Rule {President, Team, Supporters, Money, TeamsSkillDifference}
+    public enum Rule {President, Team, Supporters, Money, TeamsSkillDifference, Constant, None}
     public Rule desiredValue;
     public ScoreDirection direction;
     public float scoreMultiplier=1.0f;
 
-    public float CalculateScore()
+    public virtual float CalculateScore()
     {
         float valueToCheck = 0.0f;
         
@@ -36,6 +36,12 @@ public class S_CardsScoreFormula
             
             case Rule.TeamsSkillDifference:
                 valueToCheck = ((S_GlobalManager.selectedTeam.SkillLevel - S_GlobalManager.nextOpponent.SkillLevel)+S_GlobalManager.MAXTEAMSKILLLEVEL)*(S_GlobalManager.MAXTEAMSKILLLEVEL*2);
+                break;
+            case Rule.Constant:
+                valueToCheck = 100;
+                break;
+            case Rule.None:
+                valueToCheck = 0;
                 break;
         }
         

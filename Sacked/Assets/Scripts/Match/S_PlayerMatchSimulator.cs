@@ -11,6 +11,7 @@ public static class S_PlayerMatchSimulator
     public static S_FastMatchSimulator.Score matchScore; //REDO its pretty ugly using a struct here coming from that class
     public static SO_Curve goalChancePerMinute;
     const float MAXGOALCHANCE = 0.75f;
+    const float GOALCHANCEDECREASEPERGOAL = 0.75f;
     
     static S_PlayerMatchSimulator()
     {
@@ -33,6 +34,7 @@ public static class S_PlayerMatchSimulator
 
     public static void StartMatch()
     {
+
         S_GlobalManager.deckManagerRef.MatchScoreText.gameObject.SetActive(true);
         S_GlobalManager.deckManagerRef.PhaseText.gameObject.SetActive(false);
 
@@ -40,6 +42,8 @@ public static class S_PlayerMatchSimulator
         matchScore.home = 0;
         matchScore.away = 0;
         UpdateMatchTextData();
+
+        GetOpponentTeam().GenerateRandomTraits();
     }
 
     public static void EndMatch()
@@ -150,6 +154,10 @@ public static class S_PlayerMatchSimulator
         //third calc = home team gets a goal chance boost
         if (homeTeam) goalCheck += 0.1f;
 
+        //decrease goal chance for each already scored goal
+        goalCheck *= Mathf.Pow(GOALCHANCEDECREASEPERGOAL, homeTeam ? matchScore.home : matchScore.away);
+
+        //takes the score (should be in 0-1 range) and sets it in range of 0 - max possible score
         goalCheck = Mathf.Lerp(0, MAXGOALCHANCE, goalCheck);
 
         return goalCheck;
@@ -161,5 +169,11 @@ public static class S_PlayerMatchSimulator
         skillDifference += 5;
         skillDifference /= 10;
         return skillDifference;
+    }
+
+    private static SO_Team GetOpponentTeam()
+    {
+        if (S_GlobalManager.selectedTeam.teamName == match.homeTeam.teamName) return match.awayTeam;
+        else return match.homeTeam;
     }
 }

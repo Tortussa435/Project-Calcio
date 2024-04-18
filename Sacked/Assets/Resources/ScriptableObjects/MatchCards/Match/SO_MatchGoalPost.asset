@@ -9,15 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acddcb2ef5ce4c84b8aa4c3a78bf158c, type: 3}
-  m_Name: SO_MatchEvent
+  m_Script: {fileID: 11500000, guid: 324455af10ec1b44f81a1c65019448d2, type: 3}
+  m_Name: SO_MatchGoalPost
   m_EditorClassIdentifier: 
-  cardName: test
+  cardName: Goal Post
   cardColor: {r: 1, g: 1, b: 1, a: 1}
-  cardDescription: Evento partita(assurdo)
-  leftChoice: tocchera
-  rightChoice: per forza
-  canAppearMoreThanOnce: 1
+  cardDescription: Nooo paloo zioperguson
+  leftChoice: 
+  rightChoice: 
+  canAppearMoreThanOnce: 0
   decreaseCountDown: 1
   desiredCardPrefabDirectory: 
   leftValues:
@@ -39,8 +39,13 @@ MonoBehaviour:
     branchData: {fileID: 0}
     addPosition: 0
   scoreCard:
-  - desiredValue: 2
+  - desiredValue: 0
     direction: 0
     scoreMultiplier: 1
-  cardScore: 0
-  cardScoreNotNormalized: 0
+  cardScore: 0.71428573
+  cardScoreNotNormalized: 1.4
+  matchScoreCard:
+  - desiredValue: 6
+    direction: 0
+    scoreMultiplier: 1
+    matchFormula: 0

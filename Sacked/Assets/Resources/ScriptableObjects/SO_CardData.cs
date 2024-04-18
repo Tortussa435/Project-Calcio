@@ -46,9 +46,9 @@ public class SO_CardData : ScriptableObject
     [Header("Scoring")]
     public List<S_CardsScoreFormula> scoreCard;
     
-    [DisplayWithoutEdit] 
+
     public float cardScore;
-    [DisplayWithoutEdit()]
+
     public float cardScoreNotNormalized;
 
     virtual public void leftEffect()

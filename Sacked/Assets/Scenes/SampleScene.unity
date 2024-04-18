@@ -355,7 +355,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debugScoresViewer: {fileID: 887350449}
   baseCardsPool: {fileID: 11400000, guid: 0eb46feea095a2d4e9c253231046a1de, type: 2}
-  matchCardsPool: {fileID: 11400000, guid: 0eb46feea095a2d4e9c253231046a1de, type: 2}
+  matchCardsPool: {fileID: 11400000, guid: ad0e9ca6ac54f9248b012afa6173d775, type: 2}
   marketCardsPool: {fileID: 11400000, guid: 0eb46feea095a2d4e9c253231046a1de, type: 2}
   firstHalfBreakCardsPool: {fileID: 11400000, guid: 2164480ab8627594b8333f73a210175b, type: 2}
   currentPool: {fileID: 0}

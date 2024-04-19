@@ -8,6 +8,8 @@ public class SO_MatchOpponent : SO_CardData
     public int teamRating;
     public CardsPool previewPool;
     public CardsPool firsthalfbreakPool;
+    [Tooltip("\nItem 1: trait name\nItem 2: positive trait?")]
+    public List<(string,bool)> traitsInfo;
     public SO_MatchOpponent()
     {
         cardDescription = S_GlobalManager.nextOpponent.teamName;
@@ -15,10 +17,23 @@ public class SO_MatchOpponent : SO_CardData
         cardIcon = S_GlobalManager.nextOpponent.teamLogo;
         teamRating = S_GlobalManager.nextOpponent.SkillLevel;
     }
+
+
     private void OnEnable()
     {
         previewPool = Resources.Load<CardsPool>("ScriptableObjects/CardsPools/MatchPreviewCardsPool");
         firsthalfbreakPool = Resources.Load<CardsPool>("ScriptableObjects/CardsPools/MatchSpeechPool");
+        
+        S_GlobalManager.nextOpponent.GenerateRandomTraits();
+        
+        //REDO use cleaner methods
+        SO_Team nextTeam = S_GlobalManager.nextOpponent;
+        traitsInfo = new List<(string, bool)>();
+        for(int i = 0; i < nextTeam.teamTraits.Count; i++)
+        {
+           traitsInfo.Add((nextTeam.teamTraits[i].traitName, nextTeam.teamTraits[i].positiveTrait));
+        }
+            
     }
     public override void leftEffect()
     {

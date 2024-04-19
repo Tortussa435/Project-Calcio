@@ -131,14 +131,25 @@ public class S_DeckManager : MonoBehaviour
                     break;
                 
                 case CardsPhase.MatchSecondHalf:
-                    
+
+                    //generates end game card before erasing data about the match                    
+                    SO_CardData card = ScriptableObject.CreateInstance<SO_CardData>();
+                    //REDO make better system for generating the end game card
+                    card.cardDescription = ("Match Over!\n"+S_PlayerMatchSimulator.match.homeTeam.teamName+" "+S_PlayerMatchSimulator.matchScore.home+" - "+ S_PlayerMatchSimulator.matchScore.away+" "+S_PlayerMatchSimulator.match.awayTeam.teamName);
+
+                    //ends the match
                     S_PlayerMatchSimulator.EndMatch();
 
                     MatchScoreText.gameObject.SetActive(false);
                     PhaseText.gameObject.SetActive(true);
-
+                    
                     ChangeCurrentPhase(matchDuration.min, matchDuration.max, CardsPhase.Week);
                     
+                    //destroys the first week card and replaces it with the endgame card
+                    Destroy(deck.transform.GetChild(0).gameObject);
+                    
+                    GenerateCard(card, null, false);
+
                     break;
             }
             return;
@@ -255,6 +266,7 @@ public class S_DeckManager : MonoBehaviour
         SetPhaseText(newPhase);
         
         cardSelector.SetCurrentPool(newPhase);
+        CardsPhase previousPhase = currentPhase;
         currentPhase = newPhase;
 
         switch (newPhase)

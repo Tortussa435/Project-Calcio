@@ -7,5 +7,6 @@ public class S_TeamTrait_Violent : S_TeamTrait
     public S_TeamTrait_Violent()
     {
         traitName = "Violent";
+        positiveTrait = false;
     }
 }

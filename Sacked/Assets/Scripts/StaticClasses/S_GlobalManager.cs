@@ -123,4 +123,11 @@ public static class S_GlobalManager
         }
         
     }
+    public static Color FindAppropriateColor(SO_Team team)
+    {
+        if (team.teamColor1 == Color.white && team.teamColor2 == Color.black) return Color.gray;
+        if (team.teamColor1 == Color.black && team.teamColor2 == Color.white) return Color.gray;
+        if (team.teamColor1 == Color.white || team.teamColor1 == Color.black) return team.teamColor2;
+        else return team.teamColor1;
+    }
 }

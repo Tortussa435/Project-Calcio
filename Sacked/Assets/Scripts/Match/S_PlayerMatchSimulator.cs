@@ -43,13 +43,13 @@ public static class S_PlayerMatchSimulator
         matchScore.away = 0;
         UpdateMatchTextData();
 
-        GetOpponentTeam().GenerateRandomTraits();
     }
 
     public static void EndMatch()
     {
 
         EndMatchAddPoints();
+
 
 
         matchMinute = 0;
@@ -59,6 +59,7 @@ public static class S_PlayerMatchSimulator
         S_FastMatchSimulator.SimulateWeekMatches(S_GlobalManager.currentMatchDay,S_GlobalManager.selectedTeam);
         
         S_GlobalManager.currentMatchDay++;
+        S_GlobalManager.nextOpponent = S_Calendar.FindOpponent();
         
         UpdateMatchTextData();
 

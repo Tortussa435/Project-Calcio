@@ -9,7 +9,10 @@ public static class S_TraitsList
     {
         AllTraits = new List<S_TeamTrait>
         {
-            new S_TeamTrait_Violent()
+            new S_TeamTrait_Violent(),
+            new S_TeamTrait_Tall(),
+            new S_TeamTrait_Small(),
+            new S_TeamTrait_Dribblers()
         };
     }
 

@@ -12,6 +12,8 @@ public static class S_PlayerMatchSimulator
     public static SO_Curve goalChancePerMinute;
     const float MAXGOALCHANCE = 0.75f;
     const float GOALCHANCEDECREASEPERGOAL = 0.75f;
+
+    static public (float homeTraitsGoalChance, float awayTraitsGoalChance) teamsTraitsGoalChances; 
     
     static S_PlayerMatchSimulator()
     {
@@ -158,8 +160,16 @@ public static class S_PlayerMatchSimulator
         //decrease goal chance for each already scored goal
         goalCheck *= Mathf.Pow(GOALCHANCEDECREASEPERGOAL, homeTeam ? matchScore.home : matchScore.away);
 
+        //gives the game goal chance a range of 0,0.5
+        goalCheck = Mathf.Lerp(0, 0.5f, goalCheck);
+
+        //add goal chance boost/drop from teams traits (max score = 0.5)
+        goalCheck += homeTeam ? teamsTraitsGoalChances.homeTraitsGoalChance : teamsTraitsGoalChances.awayTraitsGoalChance;
+        
         //takes the score (should be in 0-1 range) and sets it in range of 0 - max possible score
         goalCheck = Mathf.Lerp(0, MAXGOALCHANCE, goalCheck);
+
+        //Debug.Log("goal chance: " + goalCheck);
 
         return goalCheck;
     }
@@ -172,9 +182,8 @@ public static class S_PlayerMatchSimulator
         return skillDifference;
     }
 
-    private static SO_Team GetOpponentTeam()
-    {
-        if (S_GlobalManager.selectedTeam.teamName == match.homeTeam.teamName) return match.awayTeam;
-        else return match.homeTeam;
-    }
+    private static SO_Team GetOpponentTeam() => S_GlobalManager.selectedTeam.teamName == match.homeTeam.teamName ? match.awayTeam : match.homeTeam;
+
+    private static bool IsOpponentHomeTeam() => !(S_GlobalManager.selectedTeam.teamName == match.homeTeam.teamName);
+
 }

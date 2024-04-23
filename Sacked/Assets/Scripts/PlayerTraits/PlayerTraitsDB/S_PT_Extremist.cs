@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class S_TeamTrait_Violent : S_TeamTrait
+public class S_PT_Extremist : S_PlayerTrait
 {
-    public S_TeamTrait_Violent()
+    public S_PT_Extremist()
     {
-        traitName = "Violent";
+        traitName = "Political Extremist";
         positiveTrait = false;
     }
 }

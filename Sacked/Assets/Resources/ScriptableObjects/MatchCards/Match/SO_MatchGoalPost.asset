@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Goal Post
   cardColor: {r: 1, g: 1, b: 1, a: 1}
-  cardDescription: Nooo paloo zioperguson
+  cardDescription: Palo! (non ci sono altre carte partita)
   leftChoice: 
   rightChoice: 
   canAppearMoreThanOnce: 0

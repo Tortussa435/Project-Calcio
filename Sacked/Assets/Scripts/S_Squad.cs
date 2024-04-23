@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class S_Squad : MonoBehaviour
 {
@@ -11,6 +13,8 @@ public class S_Squad : MonoBehaviour
     public List<SO_PlayerData> Defense;
     public List<SO_PlayerData> Midfield;
     public List<SO_PlayerData> Attack;
+
+    public bool teamListVisible = false;
     
     public SO_PlayerData captain;
     // Start is called before the first frame update
@@ -106,4 +110,44 @@ public class S_Squad : MonoBehaviour
                 break;
         }
     }
+
+    public void ShowTeam()
+    {
+        if (teamListVisible)
+        {
+            //REDO avoid creating items each time the list pops up
+            foreach (Transform child in gameObject.transform)
+            {
+                Destroy(child.gameObject);
+            }
+            gameObject.SetActive(false);
+            teamListVisible = false;
+            Debug.Log("misavero");
+        }
+        else
+        {
+            gameObject.SetActive(true);
+            teamListVisible = true;
+            GeneratePlayersSlots(Goalkeepers);
+            GeneratePlayersSlots(Defense);
+            GeneratePlayersSlots(Midfield);
+            GeneratePlayersSlots(Attack);
+        }
+    }
+
+    private void GeneratePlayersSlots(List<SO_PlayerData> playersList)
+    {
+        for (int i = 0; i < playersList.Count; i++)
+        {
+            GameObject teambox = Resources.Load<GameObject>("Prefabs/PlayerBox");
+            teambox = Instantiate(teambox, Vector3.zero, Quaternion.identity, gameObject.transform);
+            teambox.GetComponent<Image>().color = i % 2 == 0 ? Color.gray : Color.white; //REDO give color based on role
+            teambox.transform.GetChild(0).GetComponent<TextMeshProUGUI>().SetText(playersList[i].playerName);
+            teambox.transform.GetChild(1).GetComponent<TextMeshProUGUI>().SetText(playersList[i].skillLevel.ToString());
+            teambox.transform.GetChild(2).GetComponent<TextMeshProUGUI>().SetText(playersList[i].playerRole.ToString());
+            teambox.transform.GetChild(3).GetComponent<TextMeshProUGUI>().SetText(playersList[i].playerTraits[0].GetTraitName());
+            teambox.transform.GetChild(4).GetComponent<TextMeshProUGUI>().SetText(playersList[i].playerNationality.ToString());
+        }
+    }
+    
 }

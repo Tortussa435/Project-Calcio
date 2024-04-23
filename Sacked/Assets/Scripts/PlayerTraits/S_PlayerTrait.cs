@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class S_TeamTrait
+
+public class S_PlayerTrait
 {
     public string traitName;
 

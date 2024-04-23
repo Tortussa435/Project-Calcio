@@ -46,4 +46,6 @@ public class SO_PlayerData : ScriptableObject
     public Nationality playerNationality;
     public PlayerRole playerRole;
     public int skillLevel;
+    public List<SO_PlayerTrait> playerTraits=new List<SO_PlayerTrait>();
+
 }

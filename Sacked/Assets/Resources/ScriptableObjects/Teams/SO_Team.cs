@@ -12,7 +12,7 @@ public class SO_Team : ScriptableObject
     public Color teamColor2=Color.black;
     public Sprite teamLogo;
 
-    public List<S_TeamTrait> teamTraits;
+    public List<SO_TeamTrait> teamTraits;
 
     public struct TeamValues
     {
@@ -23,7 +23,7 @@ public class SO_Team : ScriptableObject
 
     public void SetTeamValuesByTraits()
     {
-        foreach(S_TeamTrait trait in teamTraits)
+        foreach(SO_TeamTrait trait in teamTraits)
         {
             trait.ApplyTrait(teamValues);
         }
@@ -33,8 +33,8 @@ public class SO_Team : ScriptableObject
 
     public void GenerateRandomTraits()
     {
-        teamTraits = new List<S_TeamTrait>();
-        List<S_TeamTrait> localpossibletraits = new List<S_TeamTrait>(S_TraitsList.AllTraits);
+        teamTraits = new List<SO_TeamTrait>();
+        List<SO_TeamTrait> localpossibletraits = new List<SO_TeamTrait>(S_TraitsList.AllTraits);
         
         if (teamTraits.Count > 0) return;
      
@@ -42,7 +42,7 @@ public class SO_Team : ScriptableObject
         {
             if (localpossibletraits.Count < 1) break;
 
-            S_TeamTrait trait=localpossibletraits[Random.Range(0,localpossibletraits.Count)];
+            SO_TeamTrait trait=localpossibletraits[Random.Range(0,localpossibletraits.Count)];
 
             teamTraits.Add(trait);
 

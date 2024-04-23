@@ -43,7 +43,12 @@ public class S_TraitsCombinationsManager : MonoBehaviour
                 break;
             }
         }
-        if (combinationToCheck.playerTraitName == SO_PlayerTrait.PlayerTraitNames.None) return false;
+
+        if (combinationToCheck.playerTraitName == SO_PlayerTrait.PlayerTraitNames.None)
+        {
+            //Debug.Log("non trovo nulaaa");
+            return false;
+        }
 
         foreach(TriggeredEvent tevent in combinationToCheck.reactions)
         {
@@ -51,12 +56,14 @@ public class S_TraitsCombinationsManager : MonoBehaviour
             {
                 if (tevent.teamTrait == trait.traitName)
                 {
+                    Debug.Log("Tratto giocatore: "+combinationToCheck.playerTraitName+" Tratto di squadra:"+tevent.teamTrait);
                     tevent.triggeredEvent.Invoke();
                     return true;
                 }
             }
         }
 
+        //Debug.Log("Che amarezza");
         return false;
     }
 

@@ -1146,9 +1146,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   traitsEventsCombinations:
-  - playerTraitName: 7
+  - playerTraitName: 1
     reactions:
-    - teamTrait: 6
+    - teamTrait: 8
       triggeredEvent:
         m_PersistentCalls:
           m_Calls:
@@ -1159,6 +1159,520 @@ MonoBehaviour:
             m_Arguments:
               m_ObjectArgument: {fileID: 0}
               m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+  - playerTraitName: 2
+    reactions:
+    - teamTrait: 1
+      triggeredEvent:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 927191550}
+            m_TargetAssemblyTypeName: S_TraitsCombinationsManager, Assembly-CSharp
+            m_MethodName: TraitCombinationFound
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    - teamTrait: 2
+      triggeredEvent:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 927191550}
+            m_TargetAssemblyTypeName: S_TraitsCombinationsManager, Assembly-CSharp
+            m_MethodName: TraitCombinationFound
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    - teamTrait: 5
+      triggeredEvent:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 927191550}
+            m_TargetAssemblyTypeName: S_TraitsCombinationsManager, Assembly-CSharp
+            m_MethodName: TraitCombinationFound
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+  - playerTraitName: 3
+    reactions:
+    - teamTrait: 1
+      triggeredEvent:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 927191550}
+            m_TargetAssemblyTypeName: 
+            m_MethodName: 
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: 
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    - teamTrait: 6
+      triggeredEvent:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 927191550}
+            m_TargetAssemblyTypeName: 
+            m_MethodName: 
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: 
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    - teamTrait: 7
+      triggeredEvent:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 927191550}
+            m_TargetAssemblyTypeName: 
+            m_MethodName: 
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: 
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+  - playerTraitName: 4
+    reactions:
+    - teamTrait: 1
+      triggeredEvent:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 927191550}
+            m_TargetAssemblyTypeName: 
+            m_MethodName: 
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: 
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    - teamTrait: 2
+      triggeredEvent:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 927191550}
+            m_TargetAssemblyTypeName: 
+            m_MethodName: 
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: 
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    - teamTrait: 4
+      triggeredEvent:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 927191550}
+            m_TargetAssemblyTypeName: 
+            m_MethodName: 
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: 
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    - teamTrait: 7
+      triggeredEvent:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 927191550}
+            m_TargetAssemblyTypeName: 
+            m_MethodName: 
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: 
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    - teamTrait: 8
+      triggeredEvent:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 927191550}
+            m_TargetAssemblyTypeName: 
+            m_MethodName: 
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: 
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+  - playerTraitName: 6
+    reactions:
+    - teamTrait: 9
+      triggeredEvent:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 927191550}
+            m_TargetAssemblyTypeName: 
+            m_MethodName: 
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: 
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+  - playerTraitName: 5
+    reactions:
+    - teamTrait: 2
+      triggeredEvent:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 927191550}
+            m_TargetAssemblyTypeName: 
+            m_MethodName: 
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: 
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    - teamTrait: 3
+      triggeredEvent:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 927191550}
+            m_TargetAssemblyTypeName: 
+            m_MethodName: 
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: 
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    - teamTrait: 7
+      triggeredEvent:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 927191550}
+            m_TargetAssemblyTypeName: 
+            m_MethodName: 
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: 
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+  - playerTraitName: 8
+    reactions:
+    - teamTrait: 1
+      triggeredEvent:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 927191550}
+            m_TargetAssemblyTypeName: 
+            m_MethodName: 
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: 
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    - teamTrait: 2
+      triggeredEvent:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 927191550}
+            m_TargetAssemblyTypeName: 
+            m_MethodName: 
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: 
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    - teamTrait: 3
+      triggeredEvent:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 927191550}
+            m_TargetAssemblyTypeName: 
+            m_MethodName: 
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: 
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    - teamTrait: 4
+      triggeredEvent:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 927191550}
+            m_TargetAssemblyTypeName: 
+            m_MethodName: 
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: 
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    - teamTrait: 5
+      triggeredEvent:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 927191550}
+            m_TargetAssemblyTypeName: 
+            m_MethodName: 
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: 
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    - teamTrait: 6
+      triggeredEvent:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 927191550}
+            m_TargetAssemblyTypeName: 
+            m_MethodName: 
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: 
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    - teamTrait: 7
+      triggeredEvent:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 927191550}
+            m_TargetAssemblyTypeName: 
+            m_MethodName: 
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: 
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    - teamTrait: 9
+      triggeredEvent:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 927191550}
+            m_TargetAssemblyTypeName: 
+            m_MethodName: 
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: 
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+  - playerTraitName: 10
+    reactions:
+    - teamTrait: 1
+      triggeredEvent:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 927191550}
+            m_TargetAssemblyTypeName: 
+            m_MethodName: 
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: 
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    - teamTrait: 2
+      triggeredEvent:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 927191550}
+            m_TargetAssemblyTypeName: 
+            m_MethodName: 
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: 
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+  - playerTraitName: 14
+    reactions:
+    - teamTrait: 1
+      triggeredEvent:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 927191550}
+            m_TargetAssemblyTypeName: 
+            m_MethodName: 
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: 
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    - teamTrait: 2
+      triggeredEvent:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 927191550}
+            m_TargetAssemblyTypeName: 
+            m_MethodName: 
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: 
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    - teamTrait: 3
+      triggeredEvent:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 927191550}
+            m_TargetAssemblyTypeName: 
+            m_MethodName: 
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: 
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    - teamTrait: 4
+      triggeredEvent:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 927191550}
+            m_TargetAssemblyTypeName: 
+            m_MethodName: 
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: 
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    - teamTrait: 7
+      triggeredEvent:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 927191550}
+            m_TargetAssemblyTypeName: 
+            m_MethodName: 
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: 
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+  - playerTraitName: 15
+    reactions:
+    - teamTrait: 5
+      triggeredEvent:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 927191550}
+            m_TargetAssemblyTypeName: 
+            m_MethodName: 
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: 
               m_IntArgument: 0
               m_FloatArgument: 0
               m_StringArgument: 

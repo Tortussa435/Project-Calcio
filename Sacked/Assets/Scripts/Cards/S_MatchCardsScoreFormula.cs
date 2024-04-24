@@ -22,6 +22,7 @@ public class S_MatchCardsScoreFormula : S_CardsScoreFormula
             default:
                 valueToCheck = 100;
                 break;
+
         }
 
         valueToCheck = valueToCheck / 100;

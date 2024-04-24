@@ -12,7 +12,7 @@ public static class S_PlayerMatchSimulator
     public static S_FastMatchSimulator.Score matchScore; //REDO its pretty ugly using a struct here coming from that class
     public static SO_Curve goalChancePerMinute;
     
-    const float MAXGOALCHANCE = 0.75f;
+    const float MAXGOALCHANCE = 0.5f;
     const float GOALCHANCEDECREASEPERGOAL = 0.75f;
 
     public static (float home, float away) matchAggressivity = ( 0, 0 );
@@ -182,12 +182,6 @@ public static class S_PlayerMatchSimulator
 
         //decrease goal chance for each already scored goal
         goalCheck *= Mathf.Pow(GOALCHANCEDECREASEPERGOAL, homeTeam ? matchScore.home : matchScore.away);
-
-        //gives the game goal chance a range of 0,0.5
-        goalCheck = Mathf.Lerp(0, 0.5f, goalCheck);
-
-        //add goal chance boost/drop from teams traits (max score = 0.5)
-        
         
         //takes the score (should be in 0-1 range) and sets it in range of 0 - max possible score
         goalCheck = Mathf.Lerp(0, MAXGOALCHANCE, goalCheck);

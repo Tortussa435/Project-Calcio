@@ -21,6 +21,9 @@ public static class S_PlayerMatchSimulator
 
     public static (float home, float away) traitsScoreChance = ( 0, 0 );
 
+    public static float homeGoalCheck = 0.0f;
+    public static float awayGoalCheck = 0.0f;
+    
     public static UnityEvent OnMatchEnd;
     public static UnityEvent OnMatchStart;
     static S_PlayerMatchSimulator()
@@ -123,9 +126,9 @@ public static class S_PlayerMatchSimulator
     {
         SO_CardData card=null;
 
-        float homeGoalCheck = GoalCheck(true);
+        homeGoalCheck = GoalCheck(true);
 
-        float awayGoalCheck = GoalCheck(false);
+        awayGoalCheck = GoalCheck(false);
 
         float homeRoll = (float)Random.Range(0, 1001) / 1000;
         float awayRoll = (float)Random.Range(0, 1001) / 1000;

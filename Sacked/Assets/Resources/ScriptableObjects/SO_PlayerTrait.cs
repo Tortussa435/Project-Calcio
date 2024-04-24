@@ -47,14 +47,14 @@ public class SO_PlayerTrait : ScriptableObject
 
     public void T_LovesBigMatches()
     {
-        if (S_GlobalManager.nextOpponent.SkillLevel >= 0)
+        if (S_GlobalManager.nextOpponent.SkillLevel >= 4)
         {
             playerRef.skillLevel += 1;
         }
-        S_PlayerMatchSimulator.OnMatchEnd.AddListener(DecreaseSkillLevelOnBigMatchEnd);
+        //if the value gets clamped then it should not be decreased on match end (it would not be very epic!)
+        if (playerRef.skillLevel > 5) playerRef.skillLevel = 5;
+        else S_PlayerMatchSimulator.OnMatchEnd.AddListener(DecreaseSkillLevelOnBigMatchEnd);
     }
-    private void DecreaseSkillLevelOnBigMatchEnd()
-    {
-        playerRef.skillLevel -= 1;
-    }
+    private void DecreaseSkillLevelOnBigMatchEnd() => playerRef.skillLevel -= 1;
+    
 }

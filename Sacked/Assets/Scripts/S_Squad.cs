@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,6 +14,8 @@ public class S_Squad : MonoBehaviour
     public List<SO_PlayerData> Defense;
     public List<SO_PlayerData> Midfield;
     public List<SO_PlayerData> Attack;
+
+    public List<SO_PlayerData> playingEleven;
 
     public bool teamListVisible = false;
     
@@ -109,6 +112,9 @@ public class S_Squad : MonoBehaviour
                 Attack[Random.Range(0, Goalkeepers.Count)].skillLevel = 5;
                 break;
         }
+
+        SetBestPlayingEleven();
+        
     }
 
     public void ShowTeam()
@@ -133,6 +139,7 @@ public class S_Squad : MonoBehaviour
             GeneratePlayersSlots(Midfield);
             GeneratePlayersSlots(Attack);
         }
+        
     }
 
     private void GeneratePlayersSlots(List<SO_PlayerData> playersList)
@@ -150,4 +157,84 @@ public class S_Squad : MonoBehaviour
         }
     }
     
+    private void SetBestPlayingEleven()
+    {
+        playingEleven = new List<SO_PlayerData>();
+        //sets goalkeeper
+        playingEleven.Add(Goalkeepers[0].skillLevel > Goalkeepers[1].skillLevel ? Goalkeepers[0] : Goalkeepers[1]);
+
+        int def = 0;
+        int mid = 0;
+        int atk = 0;
+
+        //sorts other players by skill
+        List<SO_PlayerData> sortedPlayers = new List<SO_PlayerData>();
+        sortedPlayers.AddRange(Defense);
+        sortedPlayers.AddRange(Midfield);
+        sortedPlayers.AddRange(Attack);
+        sortedPlayers = sortTeamListBySkill(sortedPlayers);
+
+        foreach(SO_PlayerData player in sortedPlayers)
+        {
+            switch (player.playerRole)
+            {
+                default:
+                    break;
+
+                case SO_PlayerData.PlayerRole.Def:
+                    if (def >= 4) break;
+                    playingEleven.Add(player);
+                    def++;
+                    break;
+
+                case SO_PlayerData.PlayerRole.Mid:
+                    if (mid >= 4) break;
+                    playingEleven.Add(player);
+                    mid++;
+                    break;
+
+                case SO_PlayerData.PlayerRole.Atk:
+                    if (atk >= 3) break;
+                    playingEleven.Add(player);
+                    atk++;
+                    break;
+            }
+            if (playingEleven.Count >= 11) break;
+        }
+
+        foreach(SO_PlayerData player in playingEleven)
+        {
+            Debug.Log(player.playerName);
+        }
+        Debug.Log("Formazione: " + def + mid + atk);
+    }
+
+    private List<SO_PlayerData> sortTeamListBySkill(List<SO_PlayerData> datalist)
+    {
+        int n = datalist.Count;
+
+        for (int i = 0; i < n - 1; i++)
+
+            for (int j = 0; j < n - i - 1; j++)
+
+                if (datalist[j].skillLevel > datalist[j + 1].skillLevel)
+                {
+                    SO_PlayerData player = datalist[j];
+                    datalist[j] = datalist[j + 1];
+                    datalist[j + 1] = player;
+                }
+        datalist.Reverse();
+        return datalist;
+    }
+
+    public int FindGameSkillLevel()
+    {
+        int totalskill = 0;
+        foreach(SO_PlayerData player in playingEleven)
+        {
+            totalskill += player.skillLevel;
+        }
+        totalskill /= 11;
+        return totalskill;
+    }
 }

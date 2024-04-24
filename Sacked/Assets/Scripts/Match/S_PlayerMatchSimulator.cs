@@ -58,6 +58,9 @@ public static class S_PlayerMatchSimulator
         matchScore.away = 0;
         UpdateMatchTextData();
 
+        //changes the team's skill level based on the player's playing 11
+        S_GlobalManager.selectedTeam.SkillLevel = S_GlobalManager.squad.FindGameSkillLevel();
+
         S_GlobalManager.nextOpponent.GenerateRandomTraits();
 
         CheckPlayerOpponentTraitsInteraction();
@@ -205,25 +208,9 @@ public static class S_PlayerMatchSimulator
     public static bool IsPlayerHomeTeam() => (S_GlobalManager.selectedTeam.teamName == match.homeTeam.teamName);
     private static void CheckPlayerOpponentTraitsInteraction()
     {
-        //REDO really ugly way of doing this, also maybe we can store GetOpponentTeam() once instead of calling it each time
-        foreach (SO_PlayerData player in S_GlobalManager.squad.Goalkeepers)
+        foreach (SO_PlayerData player in S_GlobalManager.squad.playingEleven)
         {
             //REDO currently works only with players with one trait only, if players will have more than one trait it will be necessary to check against all of them
-            S_TraitsCombinationsManager.CheckTraitsCombination(player, GetOpponentTeam());
-        }
-
-        foreach (SO_PlayerData player in S_GlobalManager.squad.Defense)
-        {
-            S_TraitsCombinationsManager.CheckTraitsCombination(player, GetOpponentTeam());
-        }
-
-        foreach (SO_PlayerData player in S_GlobalManager.squad.Midfield)
-        {
-            S_TraitsCombinationsManager.CheckTraitsCombination(player, GetOpponentTeam());
-        }
-
-        foreach (SO_PlayerData player in S_GlobalManager.squad.Attack)
-        {
             S_TraitsCombinationsManager.CheckTraitsCombination(player, GetOpponentTeam());
         }
 
@@ -250,20 +237,8 @@ public static class S_PlayerMatchSimulator
 
     private static void ApplyPlayersTraits()
     {
-        //REDO pretty ugly and works with only 1 player trait
-        foreach (SO_PlayerData player in S_GlobalManager.squad.Goalkeepers)
-        {
-            player.playerTraits[0].traitEffect.Invoke();
-        }
-        foreach (SO_PlayerData player in S_GlobalManager.squad.Defense)
-        {
-            player.playerTraits[0].traitEffect.Invoke();
-        }
-        foreach (SO_PlayerData player in S_GlobalManager.squad.Midfield)
-        {
-            player.playerTraits[0].traitEffect.Invoke();
-        }
-        foreach (SO_PlayerData player in S_GlobalManager.squad.Attack)
+        //REDO works with only 1 player trait
+        foreach (SO_PlayerData player in S_GlobalManager.squad.playingEleven)
         {
             player.playerTraits[0].traitEffect.Invoke();
         }

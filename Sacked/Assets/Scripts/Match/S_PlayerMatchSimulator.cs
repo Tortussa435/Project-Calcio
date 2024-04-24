@@ -10,9 +10,15 @@ public static class S_PlayerMatchSimulator
     public static S_Calendar.Match match;
     public static S_FastMatchSimulator.Score matchScore; //REDO its pretty ugly using a struct here coming from that class
     public static SO_Curve goalChancePerMinute;
+    
     const float MAXGOALCHANCE = 0.75f;
     const float GOALCHANCEDECREASEPERGOAL = 0.75f;
 
+    public static (float home, float away) matchAggressivity = ( 0, 0 );
+    
+    public static (float home, float away) injuryChance = ( 0, 0 );
+
+    public static (float home, float away) traitsScoreChance = ( 0, 0 );
     
     
     static S_PlayerMatchSimulator()
@@ -48,6 +54,8 @@ public static class S_PlayerMatchSimulator
         S_GlobalManager.nextOpponent.GenerateRandomTraits();
 
         CheckPlayerOpponentTraitsInteraction();
+        ApplyPlayersTraits();
+        ApplyTeamTraits();
 
     }
 
@@ -188,30 +196,53 @@ public static class S_PlayerMatchSimulator
 
     private static SO_Team GetOpponentTeam() => S_GlobalManager.selectedTeam.teamName == match.homeTeam.teamName ? match.awayTeam : match.homeTeam;
 
-    private static bool IsOpponentHomeTeam() => !(S_GlobalManager.selectedTeam.teamName == match.homeTeam.teamName);
-
+    public static bool IsOpponentHomeTeam() => !(S_GlobalManager.selectedTeam.teamName == match.homeTeam.teamName);
+    public static bool IsPlayerHomeTeam() => (S_GlobalManager.selectedTeam.teamName == match.homeTeam.teamName);
     private static void CheckPlayerOpponentTraitsInteraction()
     {
         //REDO really ugly way of doing this, also maybe we can store GetOpponentTeam() once instead of calling it each time
         foreach (SO_PlayerData player in S_GlobalManager.squad.Goalkeepers)
         {
             //REDO currently works only with players with one trait only, if players will have more than one trait it will be necessary to check against all of them
-            S_TraitsCombinationsManager.CheckTraitsCombination(player.playerTraits[0].traitName, GetOpponentTeam());
+            S_TraitsCombinationsManager.CheckTraitsCombination(player, GetOpponentTeam());
         }
 
         foreach (SO_PlayerData player in S_GlobalManager.squad.Defense)
         {
-            S_TraitsCombinationsManager.CheckTraitsCombination(player.playerTraits[0].traitName, GetOpponentTeam());
+            S_TraitsCombinationsManager.CheckTraitsCombination(player, GetOpponentTeam());
         }
 
         foreach (SO_PlayerData player in S_GlobalManager.squad.Midfield)
         {
-            S_TraitsCombinationsManager.CheckTraitsCombination(player.playerTraits[0].traitName, GetOpponentTeam());
+            S_TraitsCombinationsManager.CheckTraitsCombination(player, GetOpponentTeam());
         }
 
         foreach (SO_PlayerData player in S_GlobalManager.squad.Attack)
         {
-            S_TraitsCombinationsManager.CheckTraitsCombination(player.playerTraits[0].traitName, GetOpponentTeam());
+            S_TraitsCombinationsManager.CheckTraitsCombination(player, GetOpponentTeam());
         }
+
+        ClampParameters();
+    }
+    private static void ClampParameters()
+    {
+        Mathf.Clamp(matchAggressivity.home,0,100);
+        Mathf.Clamp(matchAggressivity.away,0,100);
+        
+        Mathf.Clamp(injuryChance.home, 0, 100);
+        Mathf.Clamp(injuryChance.away, 0, 100);
+
+        Mathf.Clamp(traitsScoreChance.home, 0, 100);
+        Mathf.Clamp(traitsScoreChance.away, 0, 100);
+    }
+
+    private static void ApplyTeamTraits()
+    {
+
+    }
+
+    private static void ApplyPlayersTraits()
+    {
+
     }
 }

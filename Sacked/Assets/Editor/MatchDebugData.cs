@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-
+using static S_PlayerMatchSimulator;
 public class MatchDebugData : EditorWindow
 {
     [MenuItem("ProjectCalcio/MatchDebugData")]
@@ -14,7 +14,12 @@ public class MatchDebugData : EditorWindow
     {
         try
         {
-
+            GUILayout.Label(matchMinute.ToString());
+            GUILayout.Label(matchScore.home+" - "+matchScore.away);
+            GUILayout.Label(match.homeTeam.teamName + " vs " + match.awayTeam.teamName);
+            GUILayout.Label("Home Traits Score Chance: "+traitsScoreChance.home+"\nAway Traits Score Chance: "+traitsScoreChance.away);
+            GUILayout.Label("Home Injury Chance: "+injuryChance.home+"\nAway Injury Chance: "+injuryChance.away);
+            GUILayout.Label("Home Aggressivity: "+matchAggressivity.home+"\nAway Aggressivity: "+matchAggressivity.away);
         }
         catch
         {

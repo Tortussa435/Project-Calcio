@@ -5,6 +5,8 @@ using UnityEngine.Events;
 
 public class S_TraitsCombinationsManager : MonoBehaviour
 {
+    private static SO_PlayerData triggeringPlayer;
+
     [System.Serializable]
     public struct TriggeredEvent
     {
@@ -16,10 +18,10 @@ public class S_TraitsCombinationsManager : MonoBehaviour
     public struct TraitsEventCombination
     {
         public SO_PlayerTrait.PlayerTraitNames playerTraitName;
-        
+
         public List<TriggeredEvent> reactions;
     }
-    
+
     [SerializeField]
     List<TraitsEventCombination> traitsEventsCombinations;
 
@@ -31,13 +33,15 @@ public class S_TraitsCombinationsManager : MonoBehaviour
         globalTraitsCombation = traitsEventsCombinations;
     }
 
-    public static bool CheckTraitsCombination(SO_PlayerTrait.PlayerTraitNames playerTrait, SO_Team team)
+    public static bool CheckTraitsCombination(SO_PlayerData player, SO_Team team)
     {
+        triggeringPlayer = player;
+
         TraitsEventCombination combinationToCheck = new TraitsEventCombination();
-        
-        foreach(TraitsEventCombination combination in globalTraitsCombation)
+
+        foreach (TraitsEventCombination combination in globalTraitsCombation)
         {
-            if (combination.playerTraitName == playerTrait)
+            if (combination.playerTraitName == player.playerTraits[0].traitName)
             {
                 combinationToCheck = combination;
                 break;
@@ -50,13 +54,14 @@ public class S_TraitsCombinationsManager : MonoBehaviour
             return false;
         }
 
-        foreach(TriggeredEvent tevent in combinationToCheck.reactions)
+        foreach (TriggeredEvent tevent in combinationToCheck.reactions)
         {
-            foreach(SO_TeamTrait trait in team.teamTraits)
+            foreach (SO_TeamTrait trait in team.teamTraits)
             {
                 if (tevent.teamTrait == trait.traitName)
                 {
-                    Debug.Log("Tratto giocatore: "+combinationToCheck.playerTraitName+" Tratto di squadra:"+tevent.teamTrait);
+                    //triggeringPlayer = 
+                    Debug.Log("Tratto giocatore: " + combinationToCheck.playerTraitName + " Tratto di squadra:" + tevent.teamTrait);
                     tevent.triggeredEvent.Invoke();
                     return true;
                 }
@@ -73,4 +78,91 @@ public class S_TraitsCombinationsManager : MonoBehaviour
     {
         Debug.Log("Zio marconius!");
     }
+    public void IncreasePlayerGoalChance(float increase = 1.0f)
+    {
+        if (S_PlayerMatchSimulator.IsPlayerHomeTeam())
+        {
+            S_PlayerMatchSimulator.traitsScoreChance.home += increase;
+        }
+
+        else S_PlayerMatchSimulator.traitsScoreChance.away += increase;
+    }
+    public void IncreaseOpponentGoalChance(float increase = 1.0f)
+    {
+        if (!S_PlayerMatchSimulator.IsPlayerHomeTeam())
+        {
+            S_PlayerMatchSimulator.traitsScoreChance.home += increase;
+        }
+
+        else S_PlayerMatchSimulator.traitsScoreChance.away += increase;
+    }
+    public void IncreasePlayerInjuryChance(float injuryChance)
+    {
+        if (S_PlayerMatchSimulator.IsPlayerHomeTeam())
+        {
+            S_PlayerMatchSimulator.injuryChance.home += injuryChance;
+        }
+
+        else S_PlayerMatchSimulator.injuryChance.away += injuryChance;
+    }
+    public void IncreaseOpponentInjuryChance(float injuryChance)
+    {
+        if (!S_PlayerMatchSimulator.IsPlayerHomeTeam())
+        {
+            S_PlayerMatchSimulator.injuryChance.home += injuryChance;
+        }
+
+        else S_PlayerMatchSimulator.injuryChance.away += injuryChance;
+    }
+    public void IncreasePlayerAggressivity(float aggressivity)
+    {
+        if (S_PlayerMatchSimulator.IsPlayerHomeTeam())
+        {
+            S_PlayerMatchSimulator.matchAggressivity.home += aggressivity;
+        }
+
+        else S_PlayerMatchSimulator.matchAggressivity.away += aggressivity;
+    }
+    public void IncreaseOpponentAggressivity(float aggressivity)
+    {
+        if (!S_PlayerMatchSimulator.IsPlayerHomeTeam())
+        {
+            S_PlayerMatchSimulator.matchAggressivity.home += aggressivity;
+        }
+
+        else S_PlayerMatchSimulator.matchAggressivity.away += aggressivity;
+    }
+
+    // TRAIT SPECIFIC EVENTS
+    public void TallPlayerVSSmallTeam(float addedValue = 1.0f)
+    {
+        switch (triggeringPlayer.playerRole)
+        {
+            default:
+                break;
+
+            case SO_PlayerData.PlayerRole.Def:
+
+                if (!S_PlayerMatchSimulator.IsPlayerHomeTeam())
+                {
+                    S_PlayerMatchSimulator.traitsScoreChance.home -= addedValue;
+                }
+
+                else S_PlayerMatchSimulator.traitsScoreChance.away -= addedValue;
+
+                break;
+
+            case SO_PlayerData.PlayerRole.Atk:
+
+                if (S_PlayerMatchSimulator.IsPlayerHomeTeam())
+                {
+                    S_PlayerMatchSimulator.traitsScoreChance.home += addedValue;
+                }
+
+                else S_PlayerMatchSimulator.traitsScoreChance.away += addedValue;
+
+                break;
+        }
+    }
+
 }

@@ -35,10 +35,26 @@ public class SO_PlayerTrait : ScriptableObject
 
     public List<PlayerTraitNames> excludedTraits;
 
-    public void ApplyTrait(SO_Team.TeamValues teamValues)
-    {
+    public SO_PlayerData playerRef;
 
-    }
     public string GetTraitName() => traitName.ToString().Replace('_', ' ');
 
+    //Trait events library
+    public void Test()
+    {
+        Debug.Log("test func");
+    }
+
+    public void T_LovesBigMatches()
+    {
+        if (S_GlobalManager.nextOpponent.SkillLevel >= 0)
+        {
+            playerRef.skillLevel += 1;
+        }
+        S_PlayerMatchSimulator.OnMatchEnd.AddListener(DecreaseSkillLevelOnBigMatchEnd);
+    }
+    private void DecreaseSkillLevelOnBigMatchEnd()
+    {
+        playerRef.skillLevel -= 1;
+    }
 }

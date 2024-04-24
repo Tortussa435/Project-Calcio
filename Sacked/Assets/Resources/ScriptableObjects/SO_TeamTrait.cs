@@ -27,9 +27,11 @@ public class SO_TeamTrait : ScriptableObject
 
     public List<TraitNames> excludedTraits;
 
-    public void ApplyTrait(SO_Team.TeamValues teamValues)
-    {
-
-    }
     public string GetTraitName() => traitName.ToString().Replace('_',' ');
+
+    //Team Traits Library
+    public void Test()
+    {
+        Debug.Log("Test func");
+    }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 public static class S_PlayerMatchSimulator
 {
@@ -19,8 +20,9 @@ public static class S_PlayerMatchSimulator
     public static (float home, float away) injuryChance = ( 0, 0 );
 
     public static (float home, float away) traitsScoreChance = ( 0, 0 );
-    
-    
+
+    public static UnityEvent OnMatchEnd;
+    public static UnityEvent OnMatchStart;
     static S_PlayerMatchSimulator()
     {
         goalChancePerMinute = Resources.Load<SO_Curve>("ScriptableObjects/Curves/PlayerMatch/MatchGoalChanceMultiplier");
@@ -42,7 +44,9 @@ public static class S_PlayerMatchSimulator
 
     public static void StartMatch()
     {
-
+        OnMatchStart = new UnityEvent();
+        OnMatchEnd = new UnityEvent();
+        
         S_GlobalManager.deckManagerRef.MatchScoreText.gameObject.SetActive(true);
         S_GlobalManager.deckManagerRef.PhaseText.gameObject.SetActive(false);
 
@@ -56,6 +60,8 @@ public static class S_PlayerMatchSimulator
         CheckPlayerOpponentTraitsInteraction();
         ApplyPlayersTraits();
         ApplyTeamTraits();
+
+        OnMatchStart.Invoke();
 
     }
 
@@ -76,6 +82,8 @@ public static class S_PlayerMatchSimulator
         S_GlobalManager.nextOpponent = S_Calendar.FindOpponent();
         
         UpdateMatchTextData();
+
+        OnMatchEnd.Invoke();
 
     }
     private static void EndMatchAddPoints()
@@ -226,23 +234,41 @@ public static class S_PlayerMatchSimulator
     }
     private static void ClampParameters()
     {
-        Mathf.Clamp(matchAggressivity.home,0,100);
-        Mathf.Clamp(matchAggressivity.away,0,100);
+        matchAggressivity.home = Mathf.Clamp(matchAggressivity.home,0,100);
+        matchAggressivity.away = Mathf.Clamp(matchAggressivity.away,0,100);
         
-        Mathf.Clamp(injuryChance.home, 0, 100);
-        Mathf.Clamp(injuryChance.away, 0, 100);
+        injuryChance.home = Mathf.Clamp(injuryChance.home, 0, 100);
+        injuryChance.away = Mathf.Clamp(injuryChance.away, 0, 100);
 
-        Mathf.Clamp(traitsScoreChance.home, 0, 100);
-        Mathf.Clamp(traitsScoreChance.away, 0, 100);
+        traitsScoreChance.home = Mathf.Clamp(traitsScoreChance.home, 0, 100);
+        traitsScoreChance.away = Mathf.Clamp(traitsScoreChance.away, 0, 100);
     }
-
     private static void ApplyTeamTraits()
     {
-
+        foreach(SO_TeamTrait trait in GetOpponentTeam().teamTraits)
+        {
+            trait.traitEffect.Invoke();
+        }
     }
 
     private static void ApplyPlayersTraits()
     {
-
+        //REDO pretty ugly and works with only 1 player trait
+        foreach (SO_PlayerData player in S_GlobalManager.squad.Goalkeepers)
+        {
+            player.playerTraits[0].traitEffect.Invoke();
+        }
+        foreach (SO_PlayerData player in S_GlobalManager.squad.Defense)
+        {
+            player.playerTraits[0].traitEffect.Invoke();
+        }
+        foreach (SO_PlayerData player in S_GlobalManager.squad.Midfield)
+        {
+            player.playerTraits[0].traitEffect.Invoke();
+        }
+        foreach (SO_PlayerData player in S_GlobalManager.squad.Attack)
+        {
+            player.playerTraits[0].traitEffect.Invoke();
+        }
     }
 }

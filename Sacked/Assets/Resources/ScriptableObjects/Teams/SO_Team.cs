@@ -14,23 +14,6 @@ public class SO_Team : ScriptableObject
 
     public List<SO_TeamTrait> teamTraits;
 
-    public struct TeamValues
-    {
-        public float aggressivity;
-        public float goalchanceboost;
-    }
-    public TeamValues teamValues;
-
-    public void SetTeamValuesByTraits()
-    {
-        foreach(SO_TeamTrait trait in teamTraits)
-        {
-            trait.ApplyTrait(teamValues);
-        }
-        Debug.Log("Aggressivity: " + teamValues.aggressivity + "\nGoal Chance Boost: " + teamValues.goalchanceboost);
-
-    }
-
     public void GenerateRandomTraits()
     {
         teamTraits = new List<SO_TeamTrait>();

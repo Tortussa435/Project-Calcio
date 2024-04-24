@@ -29,6 +29,7 @@ static public class S_PlayersGenerator
         playerData.name = playerData.playerName + " " + playerData.skillLevel;
 
         SO_PlayerTrait randomTrait = S_PlayerTraitsList.playerTraitsDatabase[Random.Range(0, S_PlayerTraitsList.playerTraitsDatabase.Count)];
+        randomTrait.playerRef = playerData;
         playerData.playerTraits.Add(randomTrait);
         
         

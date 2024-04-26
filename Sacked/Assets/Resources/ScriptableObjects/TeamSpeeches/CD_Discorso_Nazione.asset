@@ -14,10 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Discorso_Nazione
   cardColor: {r: 1, g: 1, b: 1, a: 1}
-  cardDescription: "{Opponent} \xE8 in vantaggio che volemo fa?"
+  cardDescriptions:
+  - "{Opponent} \xE8 in vantaggio che volemo fa?"
   leftChoice: Picchia calciatori
   rightChoice: Non picchiare calciatori
   canAppearMoreThanOnce: 0
+  decreaseCountDown: 1
+  desiredCardPrefabDirectory: 
   leftValues:
     addedMoney: 0
     addedTeam: 0

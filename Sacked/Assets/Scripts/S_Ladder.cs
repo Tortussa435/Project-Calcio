@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class S_Ladder : MonoBehaviour
 {
@@ -52,6 +53,21 @@ public class S_Ladder : MonoBehaviour
                 teambox = Instantiate(teambox, Vector3.zero, Quaternion.identity, gameObject.transform);
                 teambox.transform.GetChild(0).GetComponent<TextMeshProUGUI>().SetText(leagueLadder[i].team.teamName);
                 teambox.transform.GetChild(1).GetComponent<TextMeshProUGUI>().SetText(leagueLadder[i].points.ToString());
+                switch (i+1)
+                {
+                    default:
+                        teambox.GetComponent<Image>().color = Color.gray;
+                        break;
+                    case 1:
+                        teambox.GetComponent<Image>().color = Color.cyan;
+                        break;
+                    case int n when n <= 7:
+                        teambox.GetComponent<Image>().color = Color.green;
+                        break;
+                    case int n when n >= 18:
+                        teambox.GetComponent<Image>().color = Color.red;
+                        break;
+                }
             }
         }
     }

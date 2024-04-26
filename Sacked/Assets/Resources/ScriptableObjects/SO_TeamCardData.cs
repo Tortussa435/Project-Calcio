@@ -46,8 +46,8 @@ public class SO_TeamCardData : SO_CardData
         else if (cardTeam.teamColor1 == Color.black || cardTeam.teamColor1 == Color.white) cardColor = cardTeam.teamColor2;
         
         else cardColor = cardTeam.teamColor1;
-        
-        cardDescription = team.teamName;
+
+        cardDescriptions.Add(team.teamName);
     }
     
 }

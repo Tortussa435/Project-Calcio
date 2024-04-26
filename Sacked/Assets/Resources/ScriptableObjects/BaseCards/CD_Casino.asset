@@ -14,10 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Casino
   cardColor: {r: 1, g: 1, b: 1, a: 1}
-  cardDescription: I tuoi giocatori vengono paparazzati ad un casino!
+  cardDescriptions:
+  - I tuoi giocatori vengono paparazzati ad un casino!
+  - Un tuo giocatore viene paparazzato mentre giocava a una bisca clandestina
   leftChoice: Non Punire
   rightChoice: Punisci
   canAppearMoreThanOnce: 1
+  decreaseCountDown: 1
+  desiredCardPrefabDirectory: 
   leftValues:
     addedMoney: 0
     addedTeam: 0

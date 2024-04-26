@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 263524c22e6300f4aaa03d9c821f3b47, type: 3}
   m_Name: Common Cards Pool
   m_EditorClassIdentifier: 
+  poolDirectories:
+  - ScriptableObjects/BaseCards
   cardsPool:
   - {fileID: 11400000, guid: 35e72c8536ceb2247a04016afec071b3, type: 2}
   - {fileID: 11400000, guid: ccd274bf26690b04387d7ca5b34be451, type: 2}
   - {fileID: 11400000, guid: e12199a098c2ee144abf62215941f1a0, type: 2}
   - {fileID: 11400000, guid: 61ef9878b4fb8914eaee0f25f9ddfba0, type: 2}
+  updateList: 0

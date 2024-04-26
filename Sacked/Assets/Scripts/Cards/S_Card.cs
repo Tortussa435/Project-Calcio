@@ -18,7 +18,12 @@ public class S_Card : MonoBehaviour
     {
         cardData = data;
         //Debug.Log(cardData.cardDescription);
-        cardDescription.text = S_GlobalManager.ReplaceVariablesInString(cardData.cardDescription);
+
+        Debug.Log(data.cardDescriptions.Count + "è la contas");
+
+        string cardText = data.cardDescriptions[Random.Range(0, data.cardDescriptions.Count)];
+        cardDescription.text = S_GlobalManager.ReplaceVariablesInString(cardText);
+        
         cardBackground.color = data.cardColor;
         if(leftChoice!=null) leftChoice.text = S_GlobalManager.ReplaceVariablesInString(data.leftChoice);
         if(rightChoice!=null) rightChoice.text = S_GlobalManager.ReplaceVariablesInString(data.rightChoice);

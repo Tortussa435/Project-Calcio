@@ -14,10 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Evento di beneficenza
   cardColor: {r: 1, g: 1, b: 1, a: 1}
-  cardDescription: Ti viene chiesto di partecipare a un evento di beneficenza
+  cardDescriptions:
+  - Ti viene chiesto di partecipare a un evento di beneficenza
   leftChoice: Non andare
   rightChoice: Vai
   canAppearMoreThanOnce: 0
+  decreaseCountDown: 1
+  desiredCardPrefabDirectory: 
   leftValues:
     addedMoney: 0
     addedTeam: 0

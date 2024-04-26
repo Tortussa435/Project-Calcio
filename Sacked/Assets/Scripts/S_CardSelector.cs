@@ -8,7 +8,6 @@ using Unity.Collections.LowLevel.Unsafe;
 
 public class S_CardSelector : MonoBehaviour
 {
-    public TextMeshProUGUI debugScoresViewer;
     [Header("Pools")]
     public CardsPool baseCardsPool;
     public CardsPool matchCardsPool;
@@ -44,16 +43,6 @@ public class S_CardSelector : MonoBehaviour
                 approvedCards.Add(card);
             }
         }
-
-#if UNITY_EDITOR
-        debugScoresViewer.text = "";
-        string text=new string("");
-        foreach(SO_CardData card in pool.cardsPool)
-        {
-            text += "\n" + card.cardName +" Normalized Score: "+card.cardScore+" Score: "+card.cardScoreNotNormalized;
-        }
-        debugScoresViewer.text = text;
-#endif
 
         if (approvedCards.Count <= 0)
         {

@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 263524c22e6300f4aaa03d9c821f3b47, type: 3}
   m_Name: MatchSpeechPool
   m_EditorClassIdentifier: 
+  poolDirectories:
+  - ScriptableObjects/TeamSpeeches
   cardsPool:
+  - {fileID: 11400000, guid: 1cb805533f63b6b46902764f9feeaad0, type: 2}
   - {fileID: 11400000, guid: cab1bf3c883f2784aa5da60bd0a75d1e, type: 2}
-  - {fileID: 11400000, guid: cab1bf3c883f2784aa5da60bd0a75d1e, type: 2}
+  updateList: 0

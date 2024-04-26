@@ -9,11 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 263524c22e6300f4aaa03d9c821f3b47, type: 3}
-  m_Name: MatchPool
+  m_Script: {fileID: 11500000, guid: 28987566429995541b625431620bf7d6, type: 3}
+  m_Name: Longshots
   m_EditorClassIdentifier: 
-  poolDirectories:
-  - ScriptableObjects/MatchCards/Match
-  cardsPool:
-  - {fileID: 11400000, guid: 900790f2cbfb04341a054db1760575a4, type: 2}
-  updateList: 0
+  goalReason: 3
+  goalDescriptions:
+  - '{Scorer} tira da fuori con violenza extrema'

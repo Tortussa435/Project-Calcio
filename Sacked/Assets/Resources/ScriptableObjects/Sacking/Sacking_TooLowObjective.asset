@@ -12,8 +12,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1cae471cd0e85a4d99075fd6cf088fa, type: 3}
   m_Name: Sacking_TooLowObjective
   m_EditorClassIdentifier: 
+  cardName: 
   cardColor: {r: 0.2924528, g: 0.2924528, b: 0.2924528, a: 1}
-  cardDescription: Your goals for our team are too low! You're sacked.
+  cardDescriptions:
+  - Il presidente non apprezza la tua carenza di ambizione. sei esonerato
   leftChoice: Ziopera
   rightChoice: Zioperas
+  canAppearMoreThanOnce: 0
+  decreaseCountDown: 1
+  desiredCardPrefabDirectory: 
+  leftValues:
+    addedMoney: 0
+    addedTeam: 0
+    addedPresident: 0
+    addedSupporters: 0
+  rightValues:
+    addedMoney: 0
+    addedTeam: 0
+    addedPresident: 0
+    addedSupporters: 0
+  alreadyPicked: 0
   cardIcon: {fileID: 0}
+  leftBranchCard:
+    branchData: {fileID: 0}
+    addPosition: 0
+  rightBranchCard:
+    branchData: {fileID: 0}
+    addPosition: 0
+  scoreCard:
+  - desiredValue: 0
+    direction: 0
+    scoreMultiplier: 1
+  cardScore: 0
+  cardScoreNotNormalized: 0

@@ -10,7 +10,7 @@ public class SO_CardData : ScriptableObject
 
     public string cardName;
     public Color cardColor=Color.white;
-    public string cardDescription;
+    public List<string> cardDescriptions=new List<string>();
     public string leftChoice;
     public string rightChoice;
     public bool canAppearMoreThanOnce=false;

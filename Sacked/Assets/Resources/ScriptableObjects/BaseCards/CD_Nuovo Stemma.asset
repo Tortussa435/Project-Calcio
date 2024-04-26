@@ -14,10 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Nuovo Stemma
   cardColor: {r: 1, g: 1, b: 1, a: 1}
-  cardDescription: La societa presenta il nuovo stemma e i tifosi lo odiano
+  cardDescriptions:
+  - La societa presenta il nuovo stemma e i tifosi lo odiano
   leftChoice: Segui Tifosi
   rightChoice: Segui Societa
   canAppearMoreThanOnce: 0
+  decreaseCountDown: 1
+  desiredCardPrefabDirectory: 
   leftValues:
     addedMoney: -5
     addedTeam: 0

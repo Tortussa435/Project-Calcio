@@ -12,7 +12,7 @@ public class SO_MatchOpponent : SO_CardData
     public List<(SO_TeamTrait.TraitNames,bool)> traitsInfo;
     public SO_MatchOpponent()
     {
-        cardDescription = S_GlobalManager.nextOpponent.teamName;
+        cardDescriptions.Add(S_GlobalManager.nextOpponent.teamName);
         cardColor = S_GlobalManager.nextOpponent.teamColor1;
         cardIcon = S_GlobalManager.nextOpponent.teamLogo;
         teamRating = S_GlobalManager.nextOpponent.SkillLevel;

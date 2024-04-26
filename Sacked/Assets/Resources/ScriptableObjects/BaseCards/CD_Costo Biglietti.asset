@@ -14,11 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Costo Biglietti
   cardColor: {r: 1, g: 1, b: 1, a: 1}
-  cardDescription: Il presidente vuole alzare il prezzo dei biglietti e ti chiede
-    un parere
+  cardDescriptions:
+  - Il presidente vuole alzare il prezzo dei biglietti e ti chiede un parere
   leftChoice: Opponiti
   rightChoice: Concorda
   canAppearMoreThanOnce: 1
+  decreaseCountDown: 1
+  desiredCardPrefabDirectory: 
   leftValues:
     addedMoney: 0
     addedTeam: 0

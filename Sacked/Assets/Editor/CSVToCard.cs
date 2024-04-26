@@ -37,7 +37,16 @@ public class CSVToCard
         card.cardName = splitData[0];
         //card.cardColor = splitData[2]; TODO, might use Enum in google sheet and fixed colors from palette
         
-        card.cardDescription = splitData[3].Replace(';',','); //; is used instead of , in google sheet to avoid confusing the comma used to split string from the one used for text
+        string[] splitCardDescriptions = splitData[3].Split('$');
+        card.cardDescriptions = new System.Collections.Generic.List<string>();
+        foreach(string s in splitCardDescriptions)
+        {
+            Debug.Log(s);
+
+            card.cardDescriptions.Add(s.Replace(';', ','));
+            //; is used instead of , in google sheet to avoid confusing the comma used to split string from the one used for text
+        }
+
         card.leftChoice = splitData[4].Replace(';', ',');
         card.rightChoice = splitData[5].Replace(';', ',');
         

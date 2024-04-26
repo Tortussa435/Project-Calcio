@@ -14,10 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: tocca fa qualocsa
   cardColor: {r: 1, g: 1, b: 1, a: 1}
-  cardDescription: tocca fa qualocsa
+  cardDescriptions:
+  - se ci pensi tocchera forse fare qualcosa no?
   leftChoice: boooh
   rightChoice: ci sta alla fine no?
   canAppearMoreThanOnce: 0
+  decreaseCountDown: 0
+  desiredCardPrefabDirectory: 
   leftValues:
     addedMoney: 0
     addedTeam: 0
@@ -40,5 +43,5 @@ MonoBehaviour:
   - desiredValue: 0
     direction: 0
     scoreMultiplier: 1
-  cardScore: 2.857143
-  cardScoreNotNormalized: 0.35
+  cardScore: 1
+  cardScoreNotNormalized: 0.1

@@ -34,13 +34,13 @@ public class SO_TeamObjective : SO_CardData
                     case 0: //save from relegation
                         minRequiredPlace = 17;
                         optimalRequiredPlace = 14;
-                        cardDescription = "avoid relegation";
+                        cardDescriptions.Add( "avoid relegation");
                         break;
 
                     case 1: //try saving from relegation
                         minRequiredPlace = 19;
                         optimalRequiredPlace = 17;
-                        cardDescription = "try avoiding relegation";
+                        cardDescriptions.Add( "try avoiding relegation");
                         break;
                 }
                 break;
@@ -50,13 +50,13 @@ public class SO_TeamObjective : SO_CardData
                     case 0: //between the left and right side of the table
                         minRequiredPlace = 12;
                         optimalRequiredPlace = 9;
-                        cardDescription = "reach the mid of the table";
+                        cardDescriptions.Add("reach the mid of the table");
                         break;
 
                     case 1: //avoid relegation without pain
                         minRequiredPlace = 15;
                         optimalRequiredPlace = 12;
-                        cardDescription = "avoid risking relegation";
+                        cardDescriptions.Add("avoid risking relegation");
                         break;
                 }
                 break;
@@ -66,12 +66,12 @@ public class SO_TeamObjective : SO_CardData
                     case 0: //reach champions league
                         minRequiredPlace = 4;
                         optimalRequiredPlace = 2;
-                        cardDescription = "reach the top 4";
+                        cardDescriptions.Add("reach the top 4");
                         break;
                     case 1: //between conference and champions league
                         minRequiredPlace = 7;
                         optimalRequiredPlace = 4;
-                        cardDescription = "qualify for an international competition";
+                        cardDescriptions.Add( "qualify for an international competition");
                         break;
                 }
                 break;
@@ -81,13 +81,13 @@ public class SO_TeamObjective : SO_CardData
                     case 0://win
                         minRequiredPlace = 1;
                         optimalRequiredPlace = 1;
-                        cardDescription = "Win the title";
+                        cardDescriptions.Add( "Win the title");
                         break;
                     
                     case 1://fight for the title
                         minRequiredPlace = 3;
                         optimalRequiredPlace = 1;
-                        cardDescription = "Try winning the title";
+                        cardDescriptions.Add( "Try winning the title");
                         break;
                 }
                 break;

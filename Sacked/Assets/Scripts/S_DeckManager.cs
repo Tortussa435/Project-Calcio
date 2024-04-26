@@ -135,11 +135,12 @@ public class S_DeckManager : MonoBehaviour
                     //generates end game card before erasing data about the match                    
                     SO_CardData card = ScriptableObject.CreateInstance<SO_CardData>();
                     //REDO make better system for generating the end game card
-                    card.cardDescription =
-                        ("Match Over!\n"+S_PlayerMatchSimulator.match.homeTeam.teamName+" "+S_PlayerMatchSimulator.matchScore.home+
-                         " - "+ 
-                         S_PlayerMatchSimulator.matchScore.away+" "+S_PlayerMatchSimulator.match.awayTeam.teamName
-                        );
+                    card.cardDescriptions.Add(
+                        ("Match Over!\n" + S_PlayerMatchSimulator.match.homeTeam.teamName + " " + S_PlayerMatchSimulator.matchScore.home +
+                         " - " +
+                         S_PlayerMatchSimulator.matchScore.away + " " + S_PlayerMatchSimulator.match.awayTeam.teamName
+                        )
+                    );
 
                     //ends the match
                     S_PlayerMatchSimulator.EndMatch();

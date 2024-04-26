@@ -12,7 +12,7 @@ public class S_MatchCard : S_Card
     public override void GenerateCardData(SO_CardData data)
     {
         cardData = data;
-        cardDescription.text = cardData.cardDescription;
+        cardDescription.text = cardData.cardDescriptions[Random.Range(0, cardData.cardDescriptions.Count)];
         cardBackground.color = data.cardColor;
         cardIcon.sprite = data.cardIcon;
         starsRating.fillAmount = (data as SO_MatchOpponent).teamRating * 0.2f;

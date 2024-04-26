@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 263524c22e6300f4aaa03d9c821f3b47, type: 3}
   m_Name: MatchPreviewCardsPool
   m_EditorClassIdentifier: 
+  poolDirectories:
+  - ScriptableObjects/MatchCards/MatchPreviewCards
   cardsPool:
-  - {fileID: 11400000, guid: 993a6fd0bd39cce4183e1127da20e9d5, type: 2}
-  - {fileID: 11400000, guid: b68871582ee099b42a93e90e4ff3171f, type: 2}
+  - {fileID: 11400000, guid: 58e41810de9094543b2b4141483cb6b7, type: 2}
+  - {fileID: 11400000, guid: 9ddb552c78e121a438989f369520caff, type: 2}
+  updateList: 0

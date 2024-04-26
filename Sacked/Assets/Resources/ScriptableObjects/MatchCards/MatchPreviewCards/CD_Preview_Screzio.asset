@@ -14,10 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Preview_Screzio
   cardColor: {r: 1, g: 1, b: 1, a: 1}
-  cardDescription: L'allenatore di {Opponent} ti ha attaccato. cosa ne pensi?
+  cardDescriptions:
+  - L'allenatore di {Opponent} ti ha attaccato. cosa ne pensi?
   leftChoice: '{Opponent} merda'
   rightChoice: Ci sta dai
   canAppearMoreThanOnce: 0
+  decreaseCountDown: 1
+  desiredCardPrefabDirectory: 
   leftValues:
     addedMoney: 0
     addedTeam: 0
@@ -36,6 +39,9 @@ MonoBehaviour:
   rightBranchCard:
     branchData: {fileID: 0}
     addPosition: 0
-  scoreCard: []
-  cardScore: 0
+  scoreCard:
+  - desiredValue: 0
+    direction: 0
+    scoreMultiplier: 1
+  cardScore: NaN
   cardScoreNotNormalized: 0

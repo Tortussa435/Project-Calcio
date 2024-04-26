@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Goal Post
   cardColor: {r: 1, g: 1, b: 1, a: 1}
-  cardDescription: Palo! (non ci sono altre carte partita)
+  cardDescriptions:
+  - "Preso palo (non pu\xF2 accadere altro)"
   leftChoice: 
   rightChoice: 
   canAppearMoreThanOnce: 0
@@ -42,7 +43,7 @@ MonoBehaviour:
   cardScore: 1
   cardScoreNotNormalized: 1
   matchScoreCard:
-  - desiredValue: 6
+  - desiredValue: 1
     direction: 0
     scoreMultiplier: 1
     matchFormula: 0

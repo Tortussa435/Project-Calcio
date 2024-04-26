@@ -4,6 +4,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UIElements;
 
 public static class S_PlayerMatchSimulator
 {
@@ -111,8 +112,20 @@ public static class S_PlayerMatchSimulator
     private static SO_CardData GenerateGolCard(bool homeTeam=true)
     {
 
-        SO_CardData golCard = ScriptableObject.CreateInstance<SO_CardData>();
-        golCard.cardDescription = "Gooool";
+        SO_GoalCardData golCard = ScriptableObject.CreateInstance<SO_GoalCardData>();
+        
+        golCard.cardDescriptions.Add("GOOOOL");
+
+        if (homeTeam == IsPlayerHomeTeam()) //returns if player has scored
+        {
+            golCard.goalDescription = S_GoalDescriptionGenerator.GenerateGoalDescription(FindPlayerGoalScorer());
+        }
+
+        //REDO generate gol description also for opponent
+        else
+        {
+            golCard.goalDescription = " ";
+        }
         golCard.desiredCardPrefabDirectory = "Prefabs/P_GolCard";
         //golCard.decreaseCountDown = false;
         golCard.cardIcon = homeTeam ? match.homeTeam.teamLogo : match.awayTeam.teamLogo;
@@ -243,4 +256,54 @@ public static class S_PlayerMatchSimulator
             player.playerTraits[0].traitEffect.Invoke();
         }
     }
+
+    private static SO_PlayerData FindPlayerGoalScorer()
+    {
+        List<(SO_PlayerData player, float chance)> playerChance = new List<(SO_PlayerData player, float chance)>();
+
+        float totalchance = 0;
+
+        foreach(SO_PlayerData player in S_GlobalManager.squad.playingEleven)
+        {
+            float chance = 0;
+            switch (player.playerRole)
+            {
+                case SO_PlayerData.PlayerRole.Def:
+                    chance = 1;
+                    break;
+                
+                case SO_PlayerData.PlayerRole.Mid:
+                    chance = 2;
+                    break;
+                
+                case SO_PlayerData.PlayerRole.Atk:
+                    chance = 3;
+                    break;
+                
+                case SO_PlayerData.PlayerRole.Gk:
+                    chance = 0.005f;
+                    break;
+            }
+            chance *= player.skillLevel;
+
+            chance += totalchance;
+            
+            totalchance = chance;
+
+            playerChance.Add((player, chance));
+        }
+        float random = Random.Range(0, totalchance + 1);
+        
+        for(int i = 0; i < playerChance.Count; i++)
+        {
+            if (playerChance[i].chance >= random)
+            {
+                Debug.Log(playerChance[i].player.playerName + " " + playerChance[i].chance);
+                return playerChance[i].player;
+            }
+        }
+
+        return null;
+    }
+    
 }

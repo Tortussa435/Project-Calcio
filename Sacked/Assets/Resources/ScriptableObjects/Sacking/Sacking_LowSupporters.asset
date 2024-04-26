@@ -12,11 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1cae471cd0e85a4d99075fd6cf088fa, type: 3}
   m_Name: Sacking_LowSupporters
   m_EditorClassIdentifier: 
+  cardName: 
   cardColor: {r: 1, g: 1, b: 1, a: 1}
-  cardDescription: Tutti i tifosi non ti sopportano piu, all'uscita dallo stadio
-    un ultra ti accoltella
+  cardDescriptions:
+  - I tifosi ti vogliono morto vez
   leftChoice: rip
   rightChoice: rip
+  canAppearMoreThanOnce: 0
+  decreaseCountDown: 1
+  desiredCardPrefabDirectory: 
   leftValues:
     addedMoney: 0
     addedTeam: 0
@@ -27,6 +31,7 @@ MonoBehaviour:
     addedTeam: 0
     addedPresident: 0
     addedSupporters: 0
+  alreadyPicked: 0
   cardIcon: {fileID: 0}
   leftBranchCard:
     branchData: {fileID: 0}
@@ -34,3 +39,9 @@ MonoBehaviour:
   rightBranchCard:
     branchData: {fileID: 0}
     addPosition: 0
+  scoreCard:
+  - desiredValue: 0
+    direction: 0
+    scoreMultiplier: 1
+  cardScore: 0
+  cardScoreNotNormalized: 0

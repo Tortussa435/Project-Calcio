@@ -15,4 +15,4 @@ MonoBehaviour:
   goalReason: 1
   goalDescriptions:
   - Colpo di testa folle
-  - Svetta col capo egli
+  - "Svetta col capo {Scorer}, {Opponent} non pu\xF2 nulla"

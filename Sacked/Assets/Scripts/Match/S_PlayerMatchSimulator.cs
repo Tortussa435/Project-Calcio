@@ -124,8 +124,9 @@ public static class S_PlayerMatchSimulator
         //REDO generate gol description also for opponent
         else
         {
-            golCard.goalDescription = " ";
+            golCard.goalDescription = S_GoalDescriptionGenerator.GenerateOpponentGoalDescription();
         }
+
         golCard.desiredCardPrefabDirectory = "Prefabs/P_GolCard";
         //golCard.decreaseCountDown = false;
         golCard.cardIcon = homeTeam ? match.homeTeam.teamLogo : match.awayTeam.teamLogo;

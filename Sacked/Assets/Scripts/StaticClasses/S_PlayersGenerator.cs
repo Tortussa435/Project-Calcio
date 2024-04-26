@@ -53,5 +53,9 @@ static public class S_PlayersGenerator
         }
         return finalName;
     }
+
+    static public string CreateRandomName() => FindNameByNationality((SO_PlayerData.Nationality)Random.Range(0, System.Enum.GetValues(typeof(SO_PlayerData.Nationality)).Length),false);
+        
+    
 }
 

@@ -17,7 +17,8 @@ public static class S_GoalDescriptionGenerator
 
         if (goalReason == SO_GoalDescriptions.GoalReason.None || Random.Range(0,100) < 25 ) //there's a 25% chance that the goal reason is not the most likely (to avoid that a tall player always scores with his head)
         {
-            goalReason = (SO_GoalDescriptions.GoalReason)Random.Range(1, System.Enum.GetValues(typeof(SO_GoalDescriptions.GoalReason)).Length); //sets goal reason to a random one, starts from 1 because 0=none
+            List<SO_GoalDescriptions.GoalReason> possibleGoalReasons = FindPossibleGoalReasons(goalScorer);
+            goalReason = possibleGoalReasons[Random.Range(0, possibleGoalReasons.Count)];
         }
 
         List<string> possibleDescriptions = FindRightDescriptionsDatabase(goalReason);
@@ -36,6 +37,31 @@ public static class S_GoalDescriptionGenerator
         List<string> possibleDescriptions = FindRightDescriptionsDatabase(goalReason);
         string goalDescription = possibleDescriptions[Random.Range(0, possibleDescriptions.Count)];
         return ReplaceVariablesInOpponentGoalDescripion(goalDescription);
+    }
+
+    //REDO the player should have a low chance of scoring with his bad trait, not 0 (ex. small player should have a low chance of scoring with head, not 0) Sau Moment
+    private static List<SO_GoalDescriptions.GoalReason> FindPossibleGoalReasons(SO_PlayerData player)
+    {
+        List<SO_GoalDescriptions.GoalReason> possibleGoalReasons = new List<SO_GoalDescriptions.GoalReason>();
+
+        for(int i=0; i < System.Enum.GetValues(typeof(SO_GoalDescriptions.GoalReason)).Length; i++)
+        {
+            possibleGoalReasons.Add((SO_GoalDescriptions.GoalReason)i);
+        }
+
+        possibleGoalReasons.Remove(SO_GoalDescriptions.GoalReason.None);
+
+        switch (player.playerTraits[0].traitName) //excludes possible scoring methods based on player traits
+        {
+            default:
+                break;
+
+            case SO_PlayerTrait.PlayerTraitNames.Small:
+                possibleGoalReasons.Remove(SO_GoalDescriptions.GoalReason.Head);
+                break;
+        }
+
+        return possibleGoalReasons;
     }
 
     private static SO_GoalDescriptions.GoalReason FindMostLikelyGoalReason(SO_PlayerData goalScorer)

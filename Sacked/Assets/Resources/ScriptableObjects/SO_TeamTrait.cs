@@ -18,12 +18,18 @@ public class SO_TeamTrait : ScriptableObject
         Small,
         Hot_Heads,
         Depressed,
-        Short_Bench
+        Short_Bench,
+        BallPossession,
+        Counterattack
     }
 
+    [HideInInspector]
+    public SO_Team teamRef;
+
     public TraitNames traitName;
-    public bool positiveTrait;
+    public S_FootballEnums.Positivity positiveTrait;
     public UnityEvent traitEffect;
+
 
     public List<TraitNames> excludedTraits;
 
@@ -33,5 +39,10 @@ public class SO_TeamTrait : ScriptableObject
     public void Test()
     {
         Debug.Log("Test func");
+    }
+
+    public void SetTrait(string trait)
+    {
+        teamRef.teamTactics = ScriptableObject.Instantiate<SO_Tactics>(Resources.Load<SO_Tactics>("ScriptableObjects/TeamTactics/"+trait));
     }
 }

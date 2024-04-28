@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fadb9d2fbe0f696488cc143c5692986a, type: 3}
   m_Name: Dribblers
   m_EditorClassIdentifier: 
+  teamRef: {fileID: 0}
   traitName: 4
-  positiveTrait: 0
+  positiveTrait: 2
   traitEffect:
     m_PersistentCalls:
       m_Calls:

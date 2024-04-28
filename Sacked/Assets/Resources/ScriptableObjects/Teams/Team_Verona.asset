@@ -16,3 +16,6 @@ MonoBehaviour:
   SkillLevel: 3
   teamColor1: {r: 0.8962264, g: 0.73747194, b: 0.32551616, a: 1}
   teamColor2: {r: 0.42733178, g: 0.47650582, b: 0.9150943, a: 1}
+  teamLogo: {fileID: 0}
+  teamTraits: []
+  teamTactics: {fileID: 11400000, guid: bff7afe3d07f4074eb66ddd5d39a2ce1, type: 2}

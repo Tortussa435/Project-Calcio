@@ -9,7 +9,7 @@ public class SO_MatchOpponent : SO_CardData
     public CardsPool previewPool;
     public CardsPool firsthalfbreakPool;
     [Tooltip("\nItem 1: trait name\nItem 2: positive trait?")]
-    public List<(SO_TeamTrait.TraitNames,bool)> traitsInfo;
+    public List<(SO_TeamTrait.TraitNames,S_FootballEnums.Positivity)> traitsInfo;
     public SO_MatchOpponent()
     {
         cardDescriptions.Add(S_GlobalManager.nextOpponent.teamName);
@@ -28,7 +28,7 @@ public class SO_MatchOpponent : SO_CardData
         
         //REDO use cleaner methods
         SO_Team nextTeam = S_GlobalManager.nextOpponent;
-        traitsInfo = new List<(SO_TeamTrait.TraitNames, bool)>();
+        traitsInfo = new List<(SO_TeamTrait.TraitNames, S_FootballEnums.Positivity)>();
         for(int i = 0; i < nextTeam.teamTraits.Count; i++)
         {
            traitsInfo.Add((nextTeam.teamTraits[i].traitName, nextTeam.teamTraits[i].positiveTrait));

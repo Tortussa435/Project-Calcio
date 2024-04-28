@@ -17,3 +17,8 @@ MonoBehaviour:
   teamColor1: {r: 0.44316965, g: 0.6698113, b: 0.40757385, a: 1}
   teamColor2: {r: 0, g: 0, b: 0, a: 1}
   teamLogo: {fileID: 21300000, guid: 63b4908ef35502247afa7c0d12ed85a1, type: 3}
+  teamTraits:
+  - {fileID: 11400000, guid: d6e2ba042ebe779489c66c2faeeb4ef8, type: 2}
+  - {fileID: 11400000, guid: e1af766a835f7b14599f353a98309902, type: 2}
+  - {fileID: 11400000, guid: ed18ccb4b9ee0124b8bb98105de7b681, type: 2}
+  teamTactics: {fileID: 11400000, guid: bff7afe3d07f4074eb66ddd5d39a2ce1, type: 2}

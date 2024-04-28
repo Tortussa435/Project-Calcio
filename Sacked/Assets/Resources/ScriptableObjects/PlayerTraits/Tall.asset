@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Tall
   m_EditorClassIdentifier: 
   traitName: 3
-  positiveTrait: 0
+  positiveTrait: 2
   traitEffect:
     m_PersistentCalls:
       m_Calls:
@@ -30,3 +30,4 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   excludedTraits: 
+  playerRef: {fileID: 0}

@@ -21,15 +21,29 @@ public class S_MatchCard : S_Card
         //REDO as loop (and less cringe)
         if (traits.Count < 1) return;
         traits[0].SetText((data as SO_MatchOpponent).traitsInfo[0].Item1.ToString().Replace('_',' '));
-        traits[0].color = (data as SO_MatchOpponent).traitsInfo[0].Item2 ? Color.green : Color.red;
-        
+        traits[0].color = SetColorByPositivity((data as SO_MatchOpponent).traitsInfo[0].Item2);
+
         if (traits.Count < 2) return;
         traits[1].SetText((data as SO_MatchOpponent).traitsInfo[1].Item1.ToString().Replace('_', ' '));
-        traits[1].color = (data as SO_MatchOpponent).traitsInfo[1].Item2 ? Color.green : Color.red;
+        traits[1].color = SetColorByPositivity((data as SO_MatchOpponent).traitsInfo[1].Item2);
 
         if (traits.Count < 3) return;
         traits[2].SetText((data as SO_MatchOpponent).traitsInfo[2].Item1.ToString().Replace('_', ' '));
-        traits[2].color = (data as SO_MatchOpponent).traitsInfo[2].Item2 ? Color.green : Color.red;
+        traits[2].color = SetColorByPositivity((data as SO_MatchOpponent).traitsInfo[2].Item2);
 
+    }
+
+    public Color SetColorByPositivity(S_FootballEnums.Positivity positivity)
+    {
+        switch (positivity)
+        {
+            case S_FootballEnums.Positivity.Negative:
+                return Color.red;
+            case S_FootballEnums.Positivity.Neutral:
+                return Color.black;
+            case S_FootballEnums.Positivity.Positive:
+                return Color.green;
+        }
+        return Color.black;
     }
 }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LovesBigMatches
   m_EditorClassIdentifier: 
   traitName: 1
-  positiveTrait: 1
+  positiveTrait: 2
   traitEffect:
     m_PersistentCalls:
       m_Calls:

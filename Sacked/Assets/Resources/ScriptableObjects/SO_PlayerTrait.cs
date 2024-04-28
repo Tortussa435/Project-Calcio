@@ -30,7 +30,7 @@ public class SO_PlayerTrait : ScriptableObject
     }
 
     public PlayerTraitNames traitName;
-    public bool positiveTrait;
+    public S_FootballEnums.Positivity positiveTrait;
     public UnityEvent traitEffect;
 
     public List<PlayerTraitNames> excludedTraits;

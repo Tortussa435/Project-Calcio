@@ -14,6 +14,8 @@ public class SO_Team : ScriptableObject
 
     public List<SO_TeamTrait> teamTraits;
 
+    public SO_Tactics teamTactics;
+
     public void GenerateRandomTraits()
     {
         teamTraits = new List<SO_TeamTrait>();
@@ -26,6 +28,8 @@ public class SO_Team : ScriptableObject
             if (localpossibletraits.Count < 1) break;
 
             SO_TeamTrait trait=localpossibletraits[Random.Range(0,localpossibletraits.Count)];
+
+            trait.teamRef = this;
 
             teamTraits.Add(trait);
 

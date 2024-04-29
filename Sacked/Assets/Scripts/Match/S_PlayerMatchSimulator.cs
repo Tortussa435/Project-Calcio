@@ -29,6 +29,9 @@ public static class S_PlayerMatchSimulator
     
     public static UnityEvent OnMatchEnd;
     public static UnityEvent OnMatchStart;
+
+    public static List<SO_PlayerData> YellowCards = new List<SO_PlayerData>();
+    public static List<SO_PlayerData> RedCards = new List<SO_PlayerData>();
     static S_PlayerMatchSimulator()
     {
         goalChancePerMinute = Resources.Load<SO_Curve>("ScriptableObjects/Curves/PlayerMatch/MatchGoalChanceMultiplier");
@@ -36,15 +39,19 @@ public static class S_PlayerMatchSimulator
     
     public static SO_CardData SimulateMatchSegment(int minMinutes=9,int maxMinutes=13)
     {
-        matchMinute += Random.Range(minMinutes, maxMinutes);
 
         UpdateMatchTextData();
 
         SO_CardData rollData = ScoreGoalRoll();
-        if (rollData!=null) return rollData;
-
-        List<SO_CardData> matchCards = S_GlobalManager.deckManagerRef.cardSelector.ChooseCardByScore();
-        return matchCards[Random.Range(0, matchCards.Count)];
+        if (rollData == null)
+        {
+            List<SO_CardData> matchCards = S_GlobalManager.deckManagerRef.cardSelector.ChooseCardByScore();
+            rollData = matchCards[Random.Range(0, matchCards.Count)];
+        }
+        
+        if(rollData.decreaseCountDown) matchMinute += Random.Range(minMinutes, maxMinutes);
+        
+        return rollData;
 
     }
 
@@ -80,7 +87,8 @@ public static class S_PlayerMatchSimulator
 
         EndMatchAddPoints();
 
-
+        YellowCards.Clear();
+        RedCards.Clear();
 
         matchMinute = 0;
         matchScore.home = 0;
@@ -92,6 +100,9 @@ public static class S_PlayerMatchSimulator
         S_GlobalManager.nextOpponent = S_Calendar.FindOpponent();
         
         UpdateMatchTextData();
+
+        //REDO non molto elegante metodo
+        S_GlobalManager.selectedTeam.teamTactics = ScriptableObject.Instantiate<SO_Tactics>(Resources.Load<SO_Tactics>("ScriptableObjects/TeamTactics/Generic"));
 
         OnMatchEnd.Invoke();
 
@@ -323,4 +334,17 @@ public static class S_PlayerMatchSimulator
     private static float GoalChanceFromTactics(bool homeTeam) => homeTeam ? (float)tacticEffectiveness.home/10.0f : (float)tacticEffectiveness.away/10.0f;
 
     private static float GoalChanceFromTraits(bool homeTeam) => homeTeam ? (float)traitsScoreChance.home/10.0f : (float)traitsScoreChance.away/10.0f;
+    
+    public static void ExpelPlayerFootballer(SO_PlayerData player)
+    {
+        YellowCards.Remove(player);
+        RedCards.Add(player);
+        S_GlobalManager.squad.playingEleven.Remove(player);
+
+        S_GlobalManager.selectedTeam.SkillLevel = S_GlobalManager.squad.FindGameSkillLevel();
+    }
+    public static void ExpelOpponentFootballer(SO_PlayerData player)
+    {
+
+    }
 }

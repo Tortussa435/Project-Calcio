@@ -20,7 +20,6 @@ public class S_Card : MonoBehaviour
         //Debug.Log(cardData.cardDescription);
 
         //Debug.Log(data.cardDescriptions.Count + "è la contas");
-
         string cardText = data.cardDescriptions[Random.Range(0, data.cardDescriptions.Count)];
         cardDescription.text = S_GlobalManager.ReplaceVariablesInString(cardText);
         
@@ -28,6 +27,9 @@ public class S_Card : MonoBehaviour
         if(leftChoice!=null) leftChoice.text = S_GlobalManager.ReplaceVariablesInString(data.leftChoice);
         if(rightChoice!=null) rightChoice.text = S_GlobalManager.ReplaceVariablesInString(data.rightChoice);
         cardIcon.sprite = data.cardIcon;
+        
+        cardData.onGeneratedEffects.Invoke();
+
     }
     // Start is called before the first frame update
     void Awake()

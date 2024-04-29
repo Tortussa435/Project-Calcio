@@ -237,4 +237,14 @@ public class S_Squad : MonoBehaviour
         totalskill /= 11;
         return totalskill;
     }
+
+    public List<SO_PlayerData> GetHotHeadPlayers()
+    {
+        List<SO_PlayerData> hotheads = new List<SO_PlayerData>();
+        foreach(SO_PlayerData player in playingEleven)
+        {
+            if (player.playerTraits[0].traitName==SO_PlayerTrait.PlayerTraitNames.Hot_Head) hotheads.Add(player);
+        }
+        return hotheads;
+    }
 }

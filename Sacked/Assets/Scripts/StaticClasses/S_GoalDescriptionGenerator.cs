@@ -113,7 +113,7 @@ public static class S_GoalDescriptionGenerator
     {
         string scorer = S_PlayersGenerator.CreateRandomName();
         string supporter = S_PlayersGenerator.CreateRandomName();
-        string opponent = S_GlobalManager.squad.playingEleven[Random.Range(0,11)].playerName;
+        string opponent = S_GlobalManager.squad.playingEleven[Random.Range(0,S_GlobalManager.squad.playingEleven.Count)].playerName;
 
         description = description.Replace("{Scorer}", scorer);
 

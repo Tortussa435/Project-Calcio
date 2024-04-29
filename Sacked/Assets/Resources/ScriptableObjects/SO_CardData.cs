@@ -34,6 +34,7 @@ public class SO_CardData : ScriptableObject
 
     public UnityEvent leftEffects=new UnityEvent();
     public UnityEvent rightEffects=new UnityEvent();
+    public UnityEvent onGeneratedEffects=new UnityEvent();
 
     public bool alreadyPicked=false;
 

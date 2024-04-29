@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fadb9d2fbe0f696488cc143c5692986a, type: 3}
   m_Name: HotHeads
   m_EditorClassIdentifier: 
+  teamRef: {fileID: 0}
   traitName: 7
   positiveTrait: 0
   traitEffect:

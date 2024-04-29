@@ -30,4 +30,4 @@ MonoBehaviour:
           m_StringArgument: Pressing
           m_BoolArgument: 0
         m_CallState: 2
-  excludedTraits: 010000000a000000
+  excludedTraits: 010000000a0000000b000000

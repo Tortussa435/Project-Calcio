@@ -23,6 +23,18 @@ public class MatchDebugData : EditorWindow
             GUILayout.Label("Home Aggressivity: "+matchAggressivity.home+"\nAway Aggressivity: "+matchAggressivity.away);
 
             GUILayout.Label("Home Tactics: "+ match.homeTeam.teamTactics.teamTactic + " " +  tacticEffectiveness.home +"\nAway Tactics: " + match.awayTeam.teamTactics.teamTactic + " " + tacticEffectiveness.away);
+            
+            GUILayout.Label("\nGiocatori Ammoniti:");
+            foreach(SO_PlayerData player in YellowCards)
+            {
+                GUILayout.Label(player.playerName);
+            }
+
+            GUILayout.Label("\nGiocatori Espulsi:");
+            foreach (SO_PlayerData player in RedCards)
+            {
+                GUILayout.Label(player.playerName);
+            }
         }
 
         catch

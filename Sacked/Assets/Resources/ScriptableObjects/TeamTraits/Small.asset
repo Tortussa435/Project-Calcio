@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fadb9d2fbe0f696488cc143c5692986a, type: 3}
   m_Name: Small
   m_EditorClassIdentifier: 
+  teamRef: {fileID: 0}
   traitName: 6
   positiveTrait: 0
   traitEffect:
@@ -29,4 +30,4 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  excludedTraits: 04000000
+  excludedTraits: 05000000

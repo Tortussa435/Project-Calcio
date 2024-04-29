@@ -21,7 +21,10 @@ public class MatchDebugData : EditorWindow
             GUILayout.Label("Home Traits Score Chance: "+traitsScoreChance.home+"\nAway Traits Score Chance: "+traitsScoreChance.away);
             GUILayout.Label("Home Injury Chance: "+injuryChance.home+"\nAway Injury Chance: "+injuryChance.away);
             GUILayout.Label("Home Aggressivity: "+matchAggressivity.home+"\nAway Aggressivity: "+matchAggressivity.away);
+
+            GUILayout.Label("Home Tactics: "+ match.homeTeam.teamTactics.teamTactic + " " +  tacticEffectiveness.home +"\nAway Tactics: " + match.awayTeam.teamTactics.teamTactic + " " + tacticEffectiveness.away);
         }
+
         catch
         {
             GUILayout.Label("Start the game to see values");

@@ -13,24 +13,24 @@ MonoBehaviour:
   m_Name: SerieA
   m_EditorClassIdentifier: 
   teamlist:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: cf066b6a574719f4ebea1b2e4fbc9899, type: 2}
+  - {fileID: 11400000, guid: 394e5070732798940ac5ba4beafe1138, type: 2}
+  - {fileID: 11400000, guid: 6fb795d8248361b408b42b4b57724de3, type: 2}
+  - {fileID: 11400000, guid: fee107222d01f734baf9e602ebc43272, type: 2}
+  - {fileID: 11400000, guid: 711ed7d46e2c37842ab42f014946fa49, type: 2}
+  - {fileID: 11400000, guid: a3d3e5862c94ea245923c925bed6d355, type: 2}
+  - {fileID: 11400000, guid: 4695261b326876f41a7cd7b2a7d581d3, type: 2}
+  - {fileID: 11400000, guid: 0b3b906bceb14dd4f9ea1cc97f1b1fbb, type: 2}
+  - {fileID: 11400000, guid: bd35133a1db36614a965219229dfb19b, type: 2}
+  - {fileID: 11400000, guid: 7cdfd103592f7374babc3d3d175e048f, type: 2}
+  - {fileID: 11400000, guid: 02a4c2a406d0ca949bffc614efc5d3cb, type: 2}
+  - {fileID: 11400000, guid: 6ccb94b12c080c84cb2a831719be55b9, type: 2}
+  - {fileID: 11400000, guid: f0c32a6d2118cab43a114e129e4db8dd, type: 2}
+  - {fileID: 11400000, guid: 8c1f78789ff2e144cb69dffacfb8b7d4, type: 2}
+  - {fileID: 11400000, guid: 64dd77a090249464eb60902ee44f480e, type: 2}
+  - {fileID: 11400000, guid: f86094006678ad545988d1d8304e01a8, type: 2}
+  - {fileID: 11400000, guid: 0d2241c763d8a0b469d63ce2c21c6172, type: 2}
+  - {fileID: 11400000, guid: d68034ce12f577f4e92f30295f4ad684, type: 2}
+  - {fileID: 11400000, guid: 17006065a3a0536478f42b2b89f74e6b, type: 2}
+  - {fileID: 11400000, guid: b5ae52574b0c7e845b1b372f9a721e76, type: 2}
   teamsDirectory: ScriptableObjects/Teams

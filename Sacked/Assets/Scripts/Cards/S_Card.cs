@@ -19,7 +19,7 @@ public class S_Card : MonoBehaviour
         cardData = data;
         //Debug.Log(cardData.cardDescription);
 
-        Debug.Log(data.cardDescriptions.Count + "è la contas");
+        //Debug.Log(data.cardDescriptions.Count + "è la contas");
 
         string cardText = data.cardDescriptions[Random.Range(0, data.cardDescriptions.Count)];
         cardDescription.text = S_GlobalManager.ReplaceVariablesInString(cardText);

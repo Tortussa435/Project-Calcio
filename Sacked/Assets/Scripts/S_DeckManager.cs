@@ -40,6 +40,7 @@ public class S_DeckManager : MonoBehaviour
     {
         deckManagerRef = this;
 
+        selectedLeague = ScriptableObject.Instantiate(selectedLeague);
         selectedLeague.GenerateTeamInstances(); //makes instances of the teams scriptable objects to avoid editing the source assets during game time
 
         cardSelector.currentListToRead = new List<SO_CardData.Branch>();

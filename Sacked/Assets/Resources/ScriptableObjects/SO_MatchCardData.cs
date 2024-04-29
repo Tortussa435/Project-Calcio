@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [CreateAssetMenu(fileName = "New Match Card Data", menuName = "Cards/Match Card")]
 public class SO_MatchCardData : SO_CardData
 {
     [Header("Scoring")]
     public List<S_MatchCardsScoreFormula> matchScoreCard;
+
     public override void SetCardScore()
     {
         base.SetCardScore();

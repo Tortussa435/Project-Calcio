@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.Events;
+using System;
 
 [CreateAssetMenu(fileName = "New Card Data", menuName = "Cards/Card")]
 public class SO_CardData : ScriptableObject
@@ -29,6 +31,9 @@ public class SO_CardData : ScriptableObject
     };
     public ChangeValues leftValues;
     public ChangeValues rightValues;
+
+    public UnityEvent leftEffects=new UnityEvent();
+    public UnityEvent rightEffects=new UnityEvent();
 
     public bool alreadyPicked=false;
 
@@ -60,7 +65,7 @@ public class SO_CardData : ScriptableObject
         S_GlobalManager.SetPresident(leftValues.addedPresident);
         S_GlobalManager.SetSupporters(leftValues.addedSupporters);
         S_GlobalManager.SetTeam(leftValues.addedTeam);
-
+        leftEffects.Invoke();
 
         if (!S_GlobalManager.DefeatCheck()) S_GlobalManager.deckManagerRef.GenerateCard(null,null,decreaseCountDown);
     }
@@ -71,6 +76,7 @@ public class SO_CardData : ScriptableObject
         S_GlobalManager.SetPresident(rightValues.addedPresident);
         S_GlobalManager.SetSupporters(rightValues.addedSupporters);
         S_GlobalManager.SetTeam(rightValues.addedTeam);
+        rightEffects.Invoke();
 
         if(!S_GlobalManager.DefeatCheck()) S_GlobalManager.deckManagerRef.GenerateCard(null,null,decreaseCountDown); //when the player reaches a defeat, card generation is handled by S_ValueManager
 
@@ -95,4 +101,18 @@ public class SO_CardData : ScriptableObject
     {
         cardScore /= max;
     }
+
+    #region Card Events
+    public void TestEvent()
+    {
+        Debug.Log("test");
+    }
+
+    public void SetPlayerTeamTactic(string tactic)
+    {
+        S_GlobalManager.selectedTeam.teamTactics = Resources.Load<SO_Tactics>("ScriptableObjects/TeamTactics/" + tactic);
+        Debug.Log(S_GlobalManager.selectedTeam.teamTactics);
+        S_PlayerMatchSimulator.UpdateTacticsEffectiveness();
+    }
+    #endregion
 }

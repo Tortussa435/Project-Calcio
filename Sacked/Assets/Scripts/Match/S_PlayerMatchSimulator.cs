@@ -22,6 +22,8 @@ public static class S_PlayerMatchSimulator
 
     public static (float home, float away) traitsScoreChance = ( 0, 0 );
 
+    public static (int home, int away) tacticEffectiveness = ( 0, 0);
+
     public static float homeGoalCheck = 0.0f;
     public static float awayGoalCheck = 0.0f;
     
@@ -67,6 +69,7 @@ public static class S_PlayerMatchSimulator
         CheckPlayerOpponentTraitsInteraction();
         ApplyPlayersTraits();
         ApplyTeamTraits();
+        UpdateTacticsEffectiveness();
 
         OnMatchStart.Invoke();
 
@@ -200,10 +203,15 @@ public static class S_PlayerMatchSimulator
         //decrease goal chance for each already scored goal
         goalCheck *= Mathf.Pow(GOALCHANCEDECREASEPERGOAL, homeTeam ? matchScore.home : matchScore.away);
         
+        //adds a -0.2:0.2 chance bonus based on tactic effectiveness
+        goalCheck += GoalChanceFromTactics(homeTeam);
+        //Debug.Log("la tattica stabilisce che il boost alla goal chance è" + GoalChanceFromTactics(homeTeam));
+
+        //adds a chance bonus based on traits advantages
+        goalCheck += GoalChanceFromTraits(homeTeam);
+
         //takes the score (should be in 0-1 range) and sets it in range of 0 - max possible score
         goalCheck = Mathf.Lerp(0, MAXGOALCHANCE, goalCheck);
-
-        //Debug.Log("goal chance: " + goalCheck);
 
         return goalCheck;
     }
@@ -217,7 +225,6 @@ public static class S_PlayerMatchSimulator
     }
 
     private static SO_Team GetOpponentTeam() => S_GlobalManager.selectedTeam.teamName == match.homeTeam.teamName ? match.awayTeam : match.homeTeam;
-
     public static bool IsOpponentHomeTeam() => !(S_GlobalManager.selectedTeam.teamName == match.homeTeam.teamName);
     public static bool IsPlayerHomeTeam() => (S_GlobalManager.selectedTeam.teamName == match.homeTeam.teamName);
     private static void CheckPlayerOpponentTraitsInteraction()
@@ -306,5 +313,14 @@ public static class S_PlayerMatchSimulator
 
         return null;
     }
-    
+
+    public static void UpdateTacticsEffectiveness()
+    {
+        tacticEffectiveness.home = match.homeTeam.teamTactics.FindEffectivenessAgainstTactic(match.awayTeam.teamTactics.teamTactic);
+        tacticEffectiveness.away = match.awayTeam.teamTactics.FindEffectivenessAgainstTactic(match.homeTeam.teamTactics.teamTactic);
+    }
+
+    private static float GoalChanceFromTactics(bool homeTeam) => homeTeam ? (float)tacticEffectiveness.home/10.0f : (float)tacticEffectiveness.away/10.0f;
+
+    private static float GoalChanceFromTraits(bool homeTeam) => homeTeam ? (float)traitsScoreChance.home/10.0f : (float)traitsScoreChance.away/10.0f;
 }

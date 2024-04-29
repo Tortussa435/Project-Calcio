@@ -9,17 +9,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 324455af10ec1b44f81a1c65019448d2, type: 3}
-  m_Name: SO_MatchGoalPost
+  m_Script: {fileID: 11500000, guid: acddcb2ef5ce4c84b8aa4c3a78bf158c, type: 3}
+  m_Name: CD_Preview_Catenaccio
   m_EditorClassIdentifier: 
-  cardName: Goal Post
+  cardName: Catenaccio
   cardColor: {r: 1, g: 1, b: 1, a: 1}
   cardDescriptions:
-  - "Preso palo (non pu\xF2 accadere altro)"
-  leftChoice: 
-  rightChoice: 
+  - Vuoi fare il catenaccio?
+  - Catenaccio? toccherebbe
+  - Categnaccio! womp womp
+  leftChoice: No
+  rightChoice: Si
   canAppearMoreThanOnce: 0
-  decreaseCountDown: 1
+  decreaseCountDown: 0
   desiredCardPrefabDirectory: 
   leftValues:
     addedMoney: 0
@@ -33,32 +35,20 @@ MonoBehaviour:
     addedSupporters: 0
   leftEffects:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11400000}
-        m_TargetAssemblyTypeName: SO_CardData, Assembly-CSharp
-        m_MethodName: TestEvent
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   rightEffects:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 11400000}
         m_TargetAssemblyTypeName: SO_CardData, Assembly-CSharp
-        m_MethodName: TestEvent
-        m_Mode: 1
+        m_MethodName: SetPlayerTeamTactic
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Catenaccio
           m_BoolArgument: 0
         m_CallState: 2
   alreadyPicked: 0
@@ -69,11 +59,9 @@ MonoBehaviour:
   rightBranchCard:
     branchData: {fileID: 0}
     addPosition: 0
-  scoreCard: []
-  cardScore: 0.5
-  cardScoreNotNormalized: 1
-  matchScoreCard:
-  - desiredValue: 5
+  scoreCard:
+  - desiredValue: 4
     direction: 0
     scoreMultiplier: 1
-    matchFormula: 0
+  cardScore: 0.75
+  cardScoreNotNormalized: 0.3

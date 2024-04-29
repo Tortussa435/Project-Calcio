@@ -51,13 +51,17 @@ public class SO_MatchOpponent : SO_CardData
         firstPreviewCard.decreaseCountDown = false;
         
         possibleScores.Remove(firstPreviewCard);
-        
-        SO_CardData secondPreviewCard = possibleScores[Random.Range(0, possibleScores.Count)];
-        secondPreviewCard.decreaseCountDown = false;
+
+        SO_CardData secondPreviewCard=null;
+        if (possibleScores.Count > 0)
+        {
+            secondPreviewCard = possibleScores[Random.Range(0, possibleScores.Count)];
+            secondPreviewCard.decreaseCountDown = false;
+        }
 
 
         S_GlobalManager.deckManagerRef.AddCardToDeck(firstPreviewCard, 0);
-        S_GlobalManager.deckManagerRef.AddCardToDeck(secondPreviewCard, 0);
+        if(secondPreviewCard!=null) S_GlobalManager.deckManagerRef.AddCardToDeck(secondPreviewCard, 0);
         
         
         

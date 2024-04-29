@@ -44,5 +44,6 @@ public class SO_TeamTrait : ScriptableObject
     public void SetTrait(string trait)
     {
         teamRef.teamTactics = ScriptableObject.Instantiate<SO_Tactics>(Resources.Load<SO_Tactics>("ScriptableObjects/TeamTactics/"+trait));
+        S_PlayerMatchSimulator.UpdateTacticsEffectiveness();
     }
 }

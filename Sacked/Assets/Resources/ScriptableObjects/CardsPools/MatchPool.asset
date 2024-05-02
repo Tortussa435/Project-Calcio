@@ -15,6 +15,8 @@ MonoBehaviour:
   poolDirectories:
   - ScriptableObjects/MatchCards/Match
   cardsPool:
+  - {fileID: 11400000, guid: ddc8530a75dd66a44ba2115a1e471964, type: 2}
+  - {fileID: 11400000, guid: 64f7315f336bfd1478ed81bd72ca4d3f, type: 2}
   - {fileID: 11400000, guid: 900790f2cbfb04341a054db1760575a4, type: 2}
   - {fileID: 11400000, guid: e7eaeae7c1d34464584ed75174b00944, type: 2}
   - {fileID: 11400000, guid: 5a6b5258dcbc2214cb245e778263ac5a, type: 2}

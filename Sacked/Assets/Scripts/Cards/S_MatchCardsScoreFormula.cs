@@ -1,18 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using static S_FootballEnums;
 using UnityEngine;
 
 [System.Serializable]
 public class S_MatchCardsScoreFormula : S_CardsScoreFormula
 {
-    [System.Serializable]
-    public enum MatchRule { Aggressivity, SkillDifference};
+
     public MatchRule matchFormula;
     
     private S_MatchCardsScoreFormula()
     {
         desiredValue = Rule.None;
     }
+
+    //REDO al momento calculate score ignora i parametri imposti
     public override float CalculateScore()
     {
         float valueToCheck = 0.0f;
@@ -20,6 +22,10 @@ public class S_MatchCardsScoreFormula : S_CardsScoreFormula
         switch (matchFormula)
         {
             default:
+                valueToCheck = 100;
+                break;
+            
+            case MatchRule.Constant:
                 valueToCheck = 100;
                 break;
 

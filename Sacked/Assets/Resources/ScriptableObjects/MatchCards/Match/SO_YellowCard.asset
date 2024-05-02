@@ -15,7 +15,7 @@ MonoBehaviour:
   cardName: Yellow
   cardColor: {r: 1, g: 0.9635534, b: 0, a: 1}
   cardDescriptions:
-  - "Sergej Ivanovic \xE8 stato ammonito"
+  - "Francois Palmieri \xE8 stato ammonito"
   leftChoice: 
   rightChoice: 
   canAppearMoreThanOnce: 1
@@ -68,3 +68,11 @@ MonoBehaviour:
     direction: 0
     scoreMultiplier: 1
     matchFormula: 0
+  chanceOfAppearance: 0
+  matchCardDropChance:
+  - rule: 0
+    direction: 0
+    weight: 0.5
+  - rule: 2
+    direction: 1
+    weight: 0.5

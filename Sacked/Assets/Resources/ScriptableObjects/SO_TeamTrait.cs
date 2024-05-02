@@ -35,6 +35,7 @@ public class SO_TeamTrait : ScriptableObject
 
     public string GetTraitName() => traitName.ToString().Replace('_',' ');
 
+    #region TRAITS FUNCTIONS
     //Team Traits Library
     public void Test()
     {
@@ -46,4 +47,16 @@ public class SO_TeamTrait : ScriptableObject
         teamRef.teamTactics = ScriptableObject.Instantiate<SO_Tactics>(Resources.Load<SO_Tactics>("ScriptableObjects/TeamTactics/"+trait));
         S_PlayerMatchSimulator.UpdateTacticsEffectiveness();
     }
+
+    public void SetAggressivity()
+    {
+        if (S_PlayerMatchSimulator.IsOpponentHomeTeam())
+        {
+            S_PlayerMatchSimulator.matchAggressivity.home = Random.Range(1, 4);
+        }
+
+        else S_PlayerMatchSimulator.matchAggressivity.away = Random.Range(1, 4);
+    }
+
+    #endregion
 }

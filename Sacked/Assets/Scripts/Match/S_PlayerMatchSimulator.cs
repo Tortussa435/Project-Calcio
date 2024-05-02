@@ -46,7 +46,8 @@ public static class S_PlayerMatchSimulator
         if (rollData == null)
         {
             List<SO_CardData> matchCards = S_GlobalManager.deckManagerRef.cardSelector.ChooseCardByScore();
-            rollData = matchCards[Random.Range(0, matchCards.Count)];
+            //rollData = matchCards[Random.Range(0, matchCards.Count)];
+            rollData = FindChanceWeightedMatchCard(matchCards);
         }
         
         if(rollData.decreaseCountDown) matchMinute += Random.Range(minMinutes, maxMinutes);
@@ -235,7 +236,7 @@ public static class S_PlayerMatchSimulator
         return skillDifference;
     }
 
-    private static SO_Team GetOpponentTeam() => S_GlobalManager.selectedTeam.teamName == match.homeTeam.teamName ? match.awayTeam : match.homeTeam;
+    public static SO_Team GetOpponentTeam() => S_GlobalManager.selectedTeam.teamName == match.homeTeam.teamName ? match.awayTeam : match.homeTeam;
     public static bool IsOpponentHomeTeam() => !(S_GlobalManager.selectedTeam.teamName == match.homeTeam.teamName);
     public static bool IsPlayerHomeTeam() => (S_GlobalManager.selectedTeam.teamName == match.homeTeam.teamName);
     private static void CheckPlayerOpponentTraitsInteraction()
@@ -346,5 +347,41 @@ public static class S_PlayerMatchSimulator
     public static void ExpelOpponentFootballer(SO_PlayerData player)
     {
 
+    }
+
+    public static SO_MatchCardData FindChanceWeightedMatchCard(List<SO_CardData> cards)
+    {
+        List<(SO_CardData card, float chance)> chancedCards = new List<(SO_CardData card, float chance)>();
+
+        float totalscore = 0;
+
+        foreach (SO_CardData card in cards)
+        {
+            totalscore += (card as SO_MatchCardData).chanceOfAppearance;
+            chancedCards.Add((card, totalscore));
+        }
+
+        float selectedCardRoll = Random.Range(0, totalscore + 1);
+        SO_MatchCardData chosencard=null;
+
+        bool cardFound = false;
+
+        for (int i = 0; i < chancedCards.Count; i++)
+        {
+            if (chancedCards[i].chance >= selectedCardRoll)
+            {
+                chosencard = chancedCards[i].card as SO_MatchCardData;
+                cardFound = true;
+                break;
+            }
+        }
+
+        if (!cardFound)
+        {
+            Debug.LogWarning("Non è stata trovata nessuna match card con uno chance di apparire maggiore di 0!");
+            chosencard = cards[0] as SO_MatchCardData;
+        }
+
+        return chosencard;
     }
 }

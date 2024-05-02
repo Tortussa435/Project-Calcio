@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEditor;
 using System.IO;
 using System.Linq;
+using static S_FootballEnums;
 using NUnit.Framework;
 
 public class CSVToCard
@@ -84,11 +85,11 @@ public class CSVToCard
     {
         string[] splitFormula = splitData.Split(';');
         S_CardsScoreFormula newformula = new S_CardsScoreFormula();
-        if (System.Enum.TryParse(splitFormula[0].ToString(), out S_CardsScoreFormula.Rule foundrule))
+        if (System.Enum.TryParse(splitFormula[0].ToString(), out Rule foundrule))
         {
             newformula.desiredValue = foundrule;
         }
-        if(splitFormula.Length>1) newformula.direction = splitFormula[1] == "Linear" ? S_CardsScoreFormula.ScoreDirection.Linear : S_CardsScoreFormula.ScoreDirection.InverseLinear;
+        if(splitFormula.Length>1) newformula.direction = splitFormula[1] == "Linear" ? ScoreDirection.Linear : ScoreDirection.InverseLinear;
         if(splitFormula.Length>2) newformula.scoreMultiplier = (float)int.Parse(splitFormula[2])/100;
         card.scoreCard.Add(newformula);
     }

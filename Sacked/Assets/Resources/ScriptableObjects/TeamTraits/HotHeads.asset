@@ -20,7 +20,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 11400000}
         m_TargetAssemblyTypeName: SO_TeamTrait, Assembly-CSharp
-        m_MethodName: Test
+        m_MethodName: SetAggressivity
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

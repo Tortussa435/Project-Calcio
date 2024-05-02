@@ -20,6 +20,8 @@ public class S_CardSelector : MonoBehaviour
     public List<SO_CardData.Branch> appendedMatchCards;
     public List<SO_CardData.Branch> appendedMarketCards;
     public List<SO_CardData.Branch> currentListToRead;
+    
+    //REDO avoid errors if cards do not have any formula in it
     public List<SO_CardData> ChooseCardByScore(CardsPool pool=null, float minRequiredScore=0.75f)
     {
         if (pool == null) pool = currentPool;

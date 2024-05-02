@@ -7,4 +7,13 @@ public static class S_FootballEnums
         Neutral,
         Positive
     }
+
+    [System.Serializable]
+    public enum ScoreDirection { Linear, InverseLinear, Round, InverseRound }
+    
+    [System.Serializable]
+    public enum Rule { President, Team, Supporters, Money, TeamsSkillDifference, Constant, None }
+
+    [System.Serializable]
+    public enum MatchRule { Aggressivity, SkillDifference, YellowCards, RedCards, Constant};
 }

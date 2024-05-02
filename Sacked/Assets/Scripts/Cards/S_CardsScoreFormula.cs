@@ -1,13 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using static S_FootballEnums;
 using UnityEngine;
 [System.Serializable]
 public class S_CardsScoreFormula
 {
-    [System.Serializable]
-    public enum ScoreDirection { Linear, InverseLinear, Round, InverseRound }
-    public enum Rule {President, Team, Supporters, Money, TeamsSkillDifference, Constant, None}
+
+    
+
     public Rule desiredValue;
     public ScoreDirection direction;
     public float scoreMultiplier=1.0f;

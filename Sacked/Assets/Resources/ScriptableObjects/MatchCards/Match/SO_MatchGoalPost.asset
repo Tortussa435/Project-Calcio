@@ -61,6 +61,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  onGeneratedEffects:
+    m_PersistentCalls:
+      m_Calls: []
   alreadyPicked: 0
   cardIcon: {fileID: 0}
   leftBranchCard:
@@ -73,7 +76,12 @@ MonoBehaviour:
   cardScore: 0.5
   cardScoreNotNormalized: 1
   matchScoreCard:
-  - desiredValue: 5
+  - desiredValue: 6
     direction: 0
     scoreMultiplier: 1
     matchFormula: 0
+  chanceOfAppearance: 0
+  matchCardDropChance:
+  - rule: 4
+    direction: 0
+    weight: 1

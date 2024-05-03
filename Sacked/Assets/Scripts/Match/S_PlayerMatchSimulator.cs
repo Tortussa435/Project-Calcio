@@ -35,12 +35,14 @@ public static class S_PlayerMatchSimulator
 
     public static string refereeName;
 
+    public static List<string> opponentTeamNames = new List<string>();
+
     static S_PlayerMatchSimulator()
     {
         goalChancePerMinute = Resources.Load<SO_Curve>("ScriptableObjects/Curves/PlayerMatch/MatchGoalChanceMultiplier");
         
     }
-    
+    #region MATCH SIMULATION
     public static SO_CardData SimulateMatchSegment(int minMinutes=9,int maxMinutes=13)
     {
 
@@ -99,6 +101,8 @@ public static class S_PlayerMatchSimulator
         YellowCards.Clear();
         RedCards.Clear();
 
+        opponentTeamNames.Clear();
+
         matchMinute = 0;
         matchScore.home = 0;
         matchScore.away = 0;
@@ -116,6 +120,7 @@ public static class S_PlayerMatchSimulator
         OnMatchEnd.Invoke();
 
     }
+    
     private static void EndMatchAddPoints()
     {
         if (matchScore.home > matchScore.away) S_Ladder.UpdateTeamPoints(match.homeTeam, 3);
@@ -127,11 +132,16 @@ public static class S_PlayerMatchSimulator
         }
 
     }
+    #endregion
+
+    #region UI
     public static void UpdateMatchTextData()
     {
         S_GlobalManager.deckManagerRef.MatchScoreText.SetText(matchMinute.ToString() + "'\n" + match.homeTeam.teamName + " " + matchScore.home + " - " + matchScore.away + " " + match.awayTeam.teamName);
     }
+    #endregion
 
+    #region GOAL
     private static SO_CardData GenerateGolCard(bool homeTeam=true)
     {
 
@@ -235,56 +245,6 @@ public static class S_PlayerMatchSimulator
 
         return goalCheck;
     }
-
-    private static float GetSkillDifference(int skillA, int skillB)
-    {
-        float skillDifference = skillA - skillB;
-        skillDifference += 5;
-        skillDifference /= 10;
-        return skillDifference;
-    }
-
-    public static SO_Team GetOpponentTeam() => S_GlobalManager.selectedTeam.teamName == match.homeTeam.teamName ? match.awayTeam : match.homeTeam;
-    public static bool IsOpponentHomeTeam() => !(S_GlobalManager.selectedTeam.teamName == match.homeTeam.teamName);
-    public static bool IsPlayerHomeTeam() => (S_GlobalManager.selectedTeam.teamName == match.homeTeam.teamName);
-    private static void CheckPlayerOpponentTraitsInteraction()
-    {
-        foreach (SO_PlayerData player in S_GlobalManager.squad.playingEleven)
-        {
-            //REDO currently works only with players with one trait only, if players will have more than one trait it will be necessary to check against all of them
-            S_TraitsCombinationsManager.CheckTraitsCombination(player, GetOpponentTeam());
-        }
-
-        ClampParameters();
-    }
-    private static void ClampParameters()
-    {
-        matchAggressivity.home = Mathf.Clamp(matchAggressivity.home,0,100);
-        matchAggressivity.away = Mathf.Clamp(matchAggressivity.away,0,100);
-        
-        injuryChance.home = Mathf.Clamp(injuryChance.home, 0, 100);
-        injuryChance.away = Mathf.Clamp(injuryChance.away, 0, 100);
-
-        traitsScoreChance.home = Mathf.Clamp(traitsScoreChance.home, 0, 100);
-        traitsScoreChance.away = Mathf.Clamp(traitsScoreChance.away, 0, 100);
-    }
-    private static void ApplyTeamTraits()
-    {
-        foreach(SO_TeamTrait trait in GetOpponentTeam().teamTraits)
-        {
-            trait.traitEffect.Invoke();
-        }
-    }
-
-    private static void ApplyPlayersTraits()
-    {
-        //REDO works with only 1 player trait
-        foreach (SO_PlayerData player in S_GlobalManager.squad.playingEleven)
-        {
-            player.playerTraits[0].traitEffect.Invoke();
-        }
-    }
-
     private static SO_PlayerData FindPlayerGoalScorer()
     {
         List<(SO_PlayerData player, float chance)> playerChance = new List<(SO_PlayerData player, float chance)>();
@@ -334,16 +294,85 @@ public static class S_PlayerMatchSimulator
         return null;
     }
 
+    #endregion
+
+    #region UTILITIES
+    private static float GetSkillDifference(int skillA, int skillB)
+    {
+        float skillDifference = skillA - skillB;
+        skillDifference += 5;
+        skillDifference /= 10;
+        return skillDifference;
+    }
+    public static SO_Team GetOpponentTeam() => S_GlobalManager.selectedTeam.teamName == match.homeTeam.teamName ? match.awayTeam : match.homeTeam;
+    public static bool IsOpponentHomeTeam() => !(S_GlobalManager.selectedTeam.teamName == match.homeTeam.teamName);
+    public static bool IsPlayerHomeTeam() => (S_GlobalManager.selectedTeam.teamName == match.homeTeam.teamName);
+    private static float GoalChanceFromTactics(bool homeTeam) => homeTeam ? (float)tacticEffectiveness.home/10.0f : (float)tacticEffectiveness.away/10.0f;
+    private static float GoalChanceFromTraits(bool homeTeam) => homeTeam ? (float)traitsScoreChance.home/10.0f : (float)traitsScoreChance.away/10.0f;
+    public static bool PlayerWinning() => (IsPlayerHomeTeam() && matchScore.HomeWinning()) || matchScore.AwayWinning();
+    public static bool OpponentWinning() => (IsPlayerHomeTeam() && matchScore.AwayWinning()) || matchScore.HomeWinning();
+    public static string GetGeneratedOpponentPlayer() => opponentTeamNames[Random.Range(0, opponentTeamNames.Count)];
+    private static void ClampParameters()
+    {
+        matchAggressivity.home = Mathf.Clamp(matchAggressivity.home,0,100);
+        matchAggressivity.away = Mathf.Clamp(matchAggressivity.away,0,100);
+        
+        injuryChance.home = Mathf.Clamp(injuryChance.home, 0, 100);
+        injuryChance.away = Mathf.Clamp(injuryChance.away, 0, 100);
+
+        traitsScoreChance.home = Mathf.Clamp(traitsScoreChance.home, 0, 100);
+        traitsScoreChance.away = Mathf.Clamp(traitsScoreChance.away, 0, 100);
+    }
+    public static string RandomlyGetNewOrExistingOpponentPlayer(int newPlayerChance=50)
+    {
+        int ran = Random.Range(0, 101);
+        
+        if ((ran < newPlayerChance && opponentTeamNames.Count<11) || opponentTeamNames.Count==0) return S_PlayersGenerator.GenerateFakeOpponentPlayer();
+        
+        else return opponentTeamNames[Random.Range(0, opponentTeamNames.Count)];
+        
+    }
+
+    #endregion
+
+    #region TRAITS
+    private static void ApplyTeamTraits()
+    {
+        foreach(SO_TeamTrait trait in GetOpponentTeam().teamTraits)
+        {
+            trait.traitEffect.Invoke();
+        }
+    }
+    private static void ApplyPlayersTraits()
+    {
+        //REDO works with only 1 player trait
+        foreach (SO_PlayerData player in S_GlobalManager.squad.playingEleven)
+        {
+            player.playerTraits[0].traitEffect.Invoke();
+        }
+    }
+    private static void CheckPlayerOpponentTraitsInteraction()
+    {
+        foreach (SO_PlayerData player in S_GlobalManager.squad.playingEleven)
+        {
+            //REDO currently works only with players with one trait only, if players will have more than one trait it will be necessary to check against all of them
+            S_TraitsCombinationsManager.CheckTraitsCombination(player, GetOpponentTeam());
+        }
+
+        ClampParameters();
+    }
+
+    #endregion
+
+    #region TACTICS
     public static void UpdateTacticsEffectiveness()
     {
         tacticEffectiveness.home = match.homeTeam.teamTactics.FindEffectivenessAgainstTactic(match.awayTeam.teamTactics.teamTactic);
         tacticEffectiveness.away = match.awayTeam.teamTactics.FindEffectivenessAgainstTactic(match.homeTeam.teamTactics.teamTactic);
     }
+    #endregion
 
-    private static float GoalChanceFromTactics(bool homeTeam) => homeTeam ? (float)tacticEffectiveness.home/10.0f : (float)tacticEffectiveness.away/10.0f;
-
-    private static float GoalChanceFromTraits(bool homeTeam) => homeTeam ? (float)traitsScoreChance.home/10.0f : (float)traitsScoreChance.away/10.0f;
-    
+    #region CARDS
     public static void ExpelPlayerFootballer(SO_PlayerData player)
     {
         YellowCards.Remove(player);
@@ -352,11 +381,10 @@ public static class S_PlayerMatchSimulator
 
         S_GlobalManager.selectedTeam.SkillLevel = S_GlobalManager.squad.FindGameSkillLevel();
     }
-    public static void ExpelOpponentFootballer(SO_PlayerData player)
-    {
 
-    }
+    #endregion
 
+    #region MATCH CARD SELECTION
     public static SO_MatchCardData FindChanceWeightedMatchCard(List<SO_CardData> cards)
     {
         List<(SO_CardData card, float chance)> chancedCards = new List<(SO_CardData card, float chance)>();
@@ -394,5 +422,5 @@ public static class S_PlayerMatchSimulator
 
         return chosencard;
     }
-
+    #endregion
 }

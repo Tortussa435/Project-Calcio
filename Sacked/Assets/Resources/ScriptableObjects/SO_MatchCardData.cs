@@ -99,6 +99,48 @@ public class SO_MatchCardData : SO_CardData
 
 
     }
+
+    public void OpponentYellowCard()
+    {
+        SO_PlayerData player=ScriptableObject.CreateInstance<SO_PlayerData>();
+
+        player.playerName = S_PlayerMatchSimulator.RandomlyGetNewOrExistingOpponentPlayer();
+
+        foreach(SO_PlayerData p in S_PlayerMatchSimulator.YellowCards)
+        {
+            if(p.playerName == player.playerName)
+            {
+                S_PlayerMatchSimulator.YellowCards.Remove(p);
+                S_PlayerMatchSimulator.RedCards.Add(p);
+
+                //REDO ricalcolare skill level avversario in seguito ad expulsione
+                
+                S_PlayerMatchSimulator.opponentTeamNames.Remove(p.playerName);
+                break;
+            }
+        }
+
+        string description = S_GlobalManager.ReplaceVariablesInString(cardDescriptions[Random.Range(0, cardDescriptions.Count)]);
+        description = description.Replace("{Expelled}", player.playerName);
+        ownerCard.GetComponent<S_Card>().cardDescription.text = description;
+    }
+
+    public void OpponentRedCard()
+    {
+        SO_PlayerData player = ScriptableObject.CreateInstance<SO_PlayerData>();
+
+        player.playerName = S_PlayerMatchSimulator.RandomlyGetNewOrExistingOpponentPlayer();
+
+        S_PlayerMatchSimulator.YellowCards.Remove(player);
+        S_PlayerMatchSimulator.RedCards.Add(player);
+        S_PlayerMatchSimulator.opponentTeamNames.Remove(player.playerName);
+
+
+        string description = S_GlobalManager.ReplaceVariablesInString(cardDescriptions[Random.Range(0, cardDescriptions.Count)]);
+        description = description.Replace("{Expelled}", player.playerName);
+        ownerCard.GetComponent<S_Card>().cardDescription.text = description;
+    }
+
     #endregion
 }
 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 
 public static class S_FastMatchSimulator
@@ -19,6 +20,9 @@ public static class S_FastMatchSimulator
     {
         public int home;
         public int away;
+        public bool HomeWinning() => home > away;
+        public bool AwayWinning() => home < away;
+        public bool Drawing() => home == away;
     }    
     public static int FastSimulateMatch(SO_Team homeTeam, SO_Team awayTeam)
     {

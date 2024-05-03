@@ -104,13 +104,14 @@ public static class S_GlobalManager
     {
         try 
         {
+
             Dictionary<string, string> varsDictionary = new Dictionary<string, string>
             {
                 { "{Team}", selectedTeam.teamName },
                 { "{Opponent}", nextOpponent.teamName },
                 { "{Ref}", "L'arbitro " + S_PlayerMatchSimulator.refereeName },
                 { "{Player}", squad.playingEleven[Random.Range(0,squad.playingEleven.Count)].playerName },
-                { "{OppPlayer}", S_PlayersGenerator.CreateRandomName() } //REDO bindare il create random name per giocatori avversari a generazione giocatori per match cosi da renderli persistenti
+                { "{OppPlayer}", S_PlayerMatchSimulator.RandomlyGetNewOrExistingOpponentPlayer() }
             };
 
             foreach (string key in varsDictionary.Keys)

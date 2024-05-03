@@ -67,7 +67,14 @@ static public class S_PlayersGenerator
             FindNameByNationality(nationality,false)
         );
     }
-        
+
+    public static string GenerateFakeOpponentPlayer()
+    {
+        if (S_PlayerMatchSimulator.opponentTeamNames.Count >= 11) return null;
+        string name = CreateRandomName();
+        S_PlayerMatchSimulator.opponentTeamNames.Add(name);
+        return name;
+    }
     
 }
 

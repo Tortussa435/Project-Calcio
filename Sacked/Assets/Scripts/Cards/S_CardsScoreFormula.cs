@@ -62,6 +62,19 @@ public class S_CardsScoreFormula
                     Debug.LogWarning("Avversario o tattica avversario non trovata");
                 }
                 break;
+
+            case Rule.PlayerWinning:
+                valueToCheck = Convert.ToInt32(S_PlayerMatchSimulator.PlayerWinning())*100;
+                break;
+
+            case Rule.PlayerLosing:
+                valueToCheck = Convert.ToInt32(S_PlayerMatchSimulator.OpponentWinning())*100;
+                break;
+
+            case Rule.PlayerDrawing:
+                valueToCheck = Convert.ToInt32(S_PlayerMatchSimulator.matchScore.Drawing()) * 100;
+                break;
+
         }
         
         valueToCheck = valueToCheck / 100;

@@ -104,15 +104,17 @@ public static class S_GoalDescriptionGenerator
         description = description.Replace("{Supporter}", S_GlobalManager.squad.playingEleven[Random.Range(0, S_GlobalManager.squad.playingEleven.Count)].playerName);
 
         //REDO a little ugly, not the worst thing I've seen
-        description = description.Replace("{Opponent}", S_PlayersGenerator.FindNameByNationality((SO_PlayerData.Nationality)Random.Range(0, System.Enum.GetValues(typeof(SO_PlayerData.Nationality)).Length),false));
+        description = description.Replace("{Opponent}", S_PlayerMatchSimulator.RandomlyGetNewOrExistingOpponentPlayer());
 
         return description;
     }
 
     private static string ReplaceVariablesInOpponentGoalDescripion(string description)
     {
-        string scorer = S_PlayersGenerator.CreateRandomName();
-        string supporter = S_PlayersGenerator.CreateRandomName();
+        string scorer = S_PlayerMatchSimulator.RandomlyGetNewOrExistingOpponentPlayer();
+        string supporter = S_PlayerMatchSimulator.RandomlyGetNewOrExistingOpponentPlayer();
+
+        //REDO opponent generato in maniera un po piu contestuale
         string opponent = S_GlobalManager.squad.playingEleven[Random.Range(0,S_GlobalManager.squad.playingEleven.Count)].playerName;
 
         description = description.Replace("{Scorer}", scorer);

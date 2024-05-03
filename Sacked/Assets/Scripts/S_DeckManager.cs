@@ -89,19 +89,22 @@ public class S_DeckManager : MonoBehaviour
 
 
 
-    public void AddCardToDeck(SO_CardData data, int position = 0)
+    public void AddCardToDeck(SO_CardData data, int position = 0, List<SO_CardData.Branch> listToAppend=null)
     {
         SO_CardData.Branch branch;
         branch.branchData = data;
         branch.addPosition = position;
-        for (int i = 0; i < cardSelector.currentListToRead.Count; i++)
+        List<SO_CardData.Branch> listToManage = listToAppend;
+        if (listToManage == null) listToManage = cardSelector.currentListToRead;
+
+        for (int i = 0; i < listToManage.Count; i++)
         {
-            if (branch.addPosition == cardSelector.currentListToRead[i].addPosition)
+            if (branch.addPosition == listToManage[i].addPosition)
             {
                 branch.addPosition += 1; //TODO make iterative until sure it does not coincide with another card in list
             }
         }
-        cardSelector.currentListToRead.Add(branch);
+        listToManage.Add(branch);
     }
 
     public void GenerateCard(SO_CardData cardData=null, GameObject cardFormat = null,bool decreaseCountdown=true)
@@ -123,6 +126,7 @@ public class S_DeckManager : MonoBehaviour
                     S_PlayerMatchSimulator.StartMatch();
 
                     ChangeCurrentPhase(matchDuration.min, matchDuration.max, CardsPhase.MatchFirstHalf);
+
                     break;
                 
                 case CardsPhase.Market:
@@ -168,7 +172,9 @@ public class S_DeckManager : MonoBehaviour
             //Debug.Log("eccolo");
             cardFormat = cardPrefab;
         }
-        if(cardData==null) cardData = DecreaseCardsCounter(cardSelector.currentListToRead); //if generate card has no imposed card, carddata is used to see if theres a branch card to add
+        
+        //if generate card has no imposed card and the card counter is decreasing, carddata is used to see if theres a branch card to add
+        if(cardData==null) cardData = DecreaseCardsCounter(cardSelector.currentListToRead); 
 
 
         if (cardData == null)

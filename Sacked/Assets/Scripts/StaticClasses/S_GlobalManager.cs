@@ -132,4 +132,7 @@ public static class S_GlobalManager
         if (team.teamColor1 == Color.white || team.teamColor1 == Color.black) return team.teamColor2;
         else return team.teamColor1;
     }
+
+    public static SO_CardData GetCardOnTop() => deckManagerRef.deck.transform.GetChild(0).GetComponent<S_Card>().cardData;
+    
 }

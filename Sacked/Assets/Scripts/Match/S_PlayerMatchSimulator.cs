@@ -33,15 +33,11 @@ public static class S_PlayerMatchSimulator
     public static List<SO_PlayerData> YellowCards = new List<SO_PlayerData>();
     public static List<SO_PlayerData> RedCards = new List<SO_PlayerData>();
 
-    public static SO_MatchCardData yellowCardRef;
-    public static SO_MatchCardData redCardRef;
 
     static S_PlayerMatchSimulator()
     {
         goalChancePerMinute = Resources.Load<SO_Curve>("ScriptableObjects/Curves/PlayerMatch/MatchGoalChanceMultiplier");
         
-        yellowCardRef = Resources.Load<SO_MatchCardData>("ScriptableObjects/MatchCards/SO_YellowCard");
-        redCardRef = Resources.Load<SO_MatchCardData>("ScriptableObjects/MatchCards/SO_RedCard");
     }
     
     public static SO_CardData SimulateMatchSegment(int minMinutes=9,int maxMinutes=13)
@@ -372,10 +368,12 @@ public static class S_PlayerMatchSimulator
             chancedCards.Add((card, totalscore));
         }
 
-        float selectedCardRoll = Random.Range(0, totalscore + 1);
+        float selectedCardRoll = (float)Random.Range(0, totalscore);
         SO_MatchCardData chosencard=null;
 
         bool cardFound = false;
+
+        
 
         for (int i = 0; i < chancedCards.Count; i++)
         {
@@ -395,4 +393,5 @@ public static class S_PlayerMatchSimulator
 
         return chosencard;
     }
+
 }

@@ -118,13 +118,13 @@ public class CardDropChance
                 score = (S_PlayerMatchSimulator.matchAggressivity.home + S_PlayerMatchSimulator.matchAggressivity.away)/6; //6 should be the max aggressivity of a match 
                 break;
             case MatchRule.SkillDifference:
-                score = S_GlobalManager.selectedTeam.SkillLevel - S_PlayerMatchSimulator.GetOpponentTeam().SkillLevel;
+                score = (float) (S_GlobalManager.selectedTeam.SkillLevel - S_PlayerMatchSimulator.GetOpponentTeam().SkillLevel+5) / 10;
                 break;
             case MatchRule.YellowCards:
-                score = S_PlayerMatchSimulator.YellowCards.Count;
+                score = (float)S_PlayerMatchSimulator.YellowCards.Count/3; //REDO funny number
                 break;
             case MatchRule.RedCards:
-                score = S_PlayerMatchSimulator.RedCards.Count;
+                score = (float)S_PlayerMatchSimulator.RedCards.Count/6; //REDO funny number
                 break;
             case MatchRule.Constant:
                 score = 1;

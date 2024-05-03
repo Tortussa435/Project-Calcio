@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 324455af10ec1b44f81a1c65019448d2, type: 3}
   m_Name: SO_YellowCard
   m_EditorClassIdentifier: 
+  ownerCard: {fileID: 0}
   cardName: Yellow
   cardColor: {r: 1, g: 0.9635534, b: 0, a: 1}
   cardDescriptions:
-  - "Francois Palmieri \xE8 stato ammonito"
+  - "{Expelled} \xE8 stato ammonito"
+  - "{Expelled} si prende un cartellino giallo perch\xE9 fa l'antipatico"
   leftChoice: 
   rightChoice: 
   canAppearMoreThanOnce: 1
@@ -68,14 +70,14 @@ MonoBehaviour:
     direction: 0
     scoreMultiplier: 1
     matchFormula: 0
-  chanceOfAppearance: 0
+  chanceOfAppearance: 0.26666668
   matchCardDropChance:
   - rule: 0
     direction: 0
-    weight: 2
+    weight: 0.33333334
   - rule: 2
     direction: 0
-    weight: -0.5
+    weight: -0.25
   - rule: 4
     direction: 0
     weight: 0.1

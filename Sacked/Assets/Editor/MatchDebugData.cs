@@ -25,6 +25,7 @@ public class MatchDebugData : EditorWindow
             GUILayout.Label("Home Tactics: "+ match.homeTeam.teamTactics.teamTactic + " " +  tacticEffectiveness.home +"\nAway Tactics: " + match.awayTeam.teamTactics.teamTactic + " " + tacticEffectiveness.away);
             
             GUILayout.Label("\nGiocatori Ammoniti:");
+
             foreach(SO_PlayerData player in YellowCards)
             {
                 GUILayout.Label(player.playerName);

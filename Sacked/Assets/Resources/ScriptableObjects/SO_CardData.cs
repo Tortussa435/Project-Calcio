@@ -9,6 +9,7 @@ using System;
 [CreateAssetMenu(fileName = "New Card Data", menuName = "Cards/Card")]
 public class SO_CardData : ScriptableObject
 {
+    [HideInInspector] public GameObject ownerCard;
 
     public string cardName;
     public Color cardColor=Color.white;

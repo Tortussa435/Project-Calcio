@@ -38,11 +38,29 @@ public class S_CardsScoreFormula
             case Rule.TeamsSkillDifference:
                 valueToCheck = ((S_GlobalManager.selectedTeam.SkillLevel - S_GlobalManager.nextOpponent.SkillLevel)+S_GlobalManager.MAXTEAMSKILLLEVEL)*(S_GlobalManager.MAXTEAMSKILLLEVEL*2);
                 break;
+
             case Rule.Constant:
                 valueToCheck = 100;
                 break;
+
             case Rule.None:
                 valueToCheck = 0;
+                break;
+
+            case Rule.PlayerTacticGeneric:
+                valueToCheck = Convert.ToInt32((S_GlobalManager.selectedTeam.teamTactics.teamTactic == SO_Tactics.Tactic.Generic)) * 100;
+                break;
+
+            case Rule.OpponentTacticGeneric:
+                try
+                {
+                    valueToCheck = Convert.ToInt32(S_PlayerMatchSimulator.GetOpponentTeam().teamTactics.teamTactic == SO_Tactics.Tactic.Generic) * 100;
+                }
+                catch
+                {
+                    valueToCheck = 0;
+                    Debug.LogWarning("Avversario o tattica avversario non trovata");
+                }
                 break;
         }
         

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acddcb2ef5ce4c84b8aa4c3a78bf158c, type: 3}
   m_Name: CD_Preview_Catenaccio
   m_EditorClassIdentifier: 
+  ownerCard: {fileID: 0}
   cardName: Catenaccio
   cardColor: {r: 1, g: 1, b: 1, a: 1}
   cardDescriptions:
@@ -51,6 +52,9 @@ MonoBehaviour:
           m_StringArgument: Catenaccio
           m_BoolArgument: 0
         m_CallState: 2
+  onGeneratedEffects:
+    m_PersistentCalls:
+      m_Calls: []
   alreadyPicked: 0
   cardIcon: {fileID: 0}
   leftBranchCard:
@@ -60,8 +64,11 @@ MonoBehaviour:
     branchData: {fileID: 0}
     addPosition: 0
   scoreCard:
-  - desiredValue: 4
+  - desiredValue: 5
     direction: 0
     scoreMultiplier: 1
+  - desiredValue: 7
+    direction: 1
+    scoreMultiplier: -1
   cardScore: 0.75
   cardScoreNotNormalized: 0.3

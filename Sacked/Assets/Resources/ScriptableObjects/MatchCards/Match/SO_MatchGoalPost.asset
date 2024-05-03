@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 324455af10ec1b44f81a1c65019448d2, type: 3}
   m_Name: SO_MatchGoalPost
   m_EditorClassIdentifier: 
+  ownerCard: {fileID: 0}
   cardName: Goal Post
   cardColor: {r: 1, g: 1, b: 1, a: 1}
   cardDescriptions:
-  - "Preso palo (non pu\xF2 accadere altro)"
+  - Preso palo assurdor
   leftChoice: 
   rightChoice: 
   canAppearMoreThanOnce: 0
@@ -73,14 +74,14 @@ MonoBehaviour:
     branchData: {fileID: 0}
     addPosition: 0
   scoreCard: []
-  cardScore: 0.5
+  cardScore: 1
   cardScoreNotNormalized: 1
   matchScoreCard:
   - desiredValue: 6
     direction: 0
     scoreMultiplier: 1
     matchFormula: 0
-  chanceOfAppearance: 0
+  chanceOfAppearance: 1
   matchCardDropChance:
   - rule: 4
     direction: 0

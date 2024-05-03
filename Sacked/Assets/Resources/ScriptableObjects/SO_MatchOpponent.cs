@@ -37,36 +37,31 @@ public class SO_MatchOpponent : SO_CardData
     }
     public override void leftEffect()
     {
-        GenerateMatchPreviewCard();
+        bothSidesEffect();
     }
     public override void rightEffect()
     {
-        GenerateMatchPreviewCard();
+        bothSidesEffect();
     }
-    public void GenerateMatchPreviewCard()
+
+    public void bothSidesEffect()
     {
-        List<SO_CardData> possibleScores = S_GlobalManager.deckManagerRef.cardSelector.ChooseCardByScore(previewPool,0.25f);
-
-        SO_CardData firstPreviewCard = possibleScores[Random.Range(0, possibleScores.Count)];
-        firstPreviewCard.decreaseCountDown = false;
-        
-        possibleScores.Remove(firstPreviewCard);
-
-        SO_CardData secondPreviewCard=null;
-        if (possibleScores.Count > 0)
-        {
-            secondPreviewCard = possibleScores[Random.Range(0, possibleScores.Count)];
-            secondPreviewCard.decreaseCountDown = false;
-        }
-
-
-        S_GlobalManager.deckManagerRef.AddCardToDeck(firstPreviewCard, 0);
-        if(secondPreviewCard!=null) S_GlobalManager.deckManagerRef.AddCardToDeck(secondPreviewCard, 0);
-        
-        
-        
-        
-        S_GlobalManager.deckManagerRef.GenerateCard(null,null,false);
+        SO_CardData previewcard = GenerateMatchPreviewCard();
+        previewcard.leftEffects.AddListener(() => GenerateMatchPreviewCard());
+        previewcard.rightEffects.AddListener(() => GenerateMatchPreviewCard());
     }
+    public SO_CardData GenerateMatchPreviewCard()
+    {      
+        List<SO_CardData> possibleScores = S_GlobalManager.deckManagerRef.cardSelector.ChooseCardByScore(previewPool,0.25f);
+        
+        SO_CardData previewCard = possibleScores[Random.Range(0, possibleScores.Count)];
+        
+        previewCard.decreaseCountDown = false;
 
+        S_GlobalManager.deckManagerRef.AddCardToDeck(previewCard, 0);
+
+        S_GlobalManager.deckManagerRef.GenerateCard(null, null, false);
+
+        return previewCard;
+    }
 }

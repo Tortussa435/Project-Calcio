@@ -97,7 +97,7 @@ public class EditorScoreDebugViewer : EditorWindow
         {
             //REDO most values are >1, they should stay in a 0-1 range as much as possible
             case MatchRule.Aggressivity:
-                score = (float)aggressivitySlider / 6; //6 should be the max aggressivity of a match 
+                score = (float)aggressivitySlider;
                 break;
 
             case MatchRule.SkillDifference:
@@ -105,7 +105,7 @@ public class EditorScoreDebugViewer : EditorWindow
                 break;
 
             case MatchRule.YellowCards:
-                score = (float)yellowCards/2;
+                score = (float)yellowCards;
                 break;
 
             case MatchRule.RedCards:

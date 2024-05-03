@@ -12,6 +12,8 @@ using System.Globalization;
 
 public class S_DeckManager : MonoBehaviour
 {
+    [Header("Debug")]
+    public bool DebugImmortal = false;
 
     [Header("Prefabs References")]
     public GameObject cardPrefab;
@@ -109,7 +111,7 @@ public class S_DeckManager : MonoBehaviour
 
     public void GenerateCard(SO_CardData cardData=null, GameObject cardFormat = null,bool decreaseCountdown=true)
     {
-        if (sacked) return; //do not generate cards if sacked
+        if (sacked && !deckManagerRef.DebugImmortal) return; //do not generate cards if sacked
 
         if (decreaseCountdown) nextPhaseCountdown--;
         
@@ -275,7 +277,7 @@ public class S_DeckManager : MonoBehaviour
 
     public void ChangeCurrentPhase(int minCardsAmount, int maxCardsAmount, CardsPhase newPhase)
     {
-        if (sacked) return;
+        if (sacked && !DebugImmortal) return;
         nextPhaseCountdown = Random.Range(minCardsAmount, maxCardsAmount+1); //max exclusive
         SetPhaseText(newPhase);
         

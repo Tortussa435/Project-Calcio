@@ -8,6 +8,7 @@ using Unity.VisualScripting;
 
 public static class S_GlobalManager
 {
+
     //Constants
     public const int MAXTEAMSKILLLEVEL=5;
     //---------
@@ -106,7 +107,10 @@ public static class S_GlobalManager
             Dictionary<string, string> varsDictionary = new Dictionary<string, string>
             {
                 { "{Team}", selectedTeam.teamName },
-                { "{Opponent}", nextOpponent.teamName }
+                { "{Opponent}", nextOpponent.teamName },
+                { "{Ref}", "L'arbitro " + S_PlayerMatchSimulator.refereeName },
+                { "{Player}", squad.playingEleven[Random.Range(0,squad.playingEleven.Count)].playerName },
+                { "{OppPlayer}", S_PlayersGenerator.CreateRandomName() } //REDO bindare il create random name per giocatori avversari a generazione giocatori per match cosi da renderli persistenti
             };
 
             foreach (string key in varsDictionary.Keys)

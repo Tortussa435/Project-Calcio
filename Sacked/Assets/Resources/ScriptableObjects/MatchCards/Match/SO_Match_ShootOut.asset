@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 324455af10ec1b44f81a1c65019448d2, type: 3}
   m_Name: SO_Match_ShootOut
   m_EditorClassIdentifier: 
+  ownerCard: {fileID: 0}
   cardName: fuori
   cardColor: {r: 1, g: 1, b: 1, a: 1}
   cardDescriptions:
   - '{Player} tira fuori dallo stadio!'
+  - '{OppPlayer} tira fuori dallo stadio!'
   leftChoice: 
   rightChoice: 
   canAppearMoreThanOnce: 1

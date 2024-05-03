@@ -66,10 +66,12 @@ public class SO_MatchCardData : SO_CardData
             S_PlayerMatchSimulator.YellowCards.Add(player);
         }
 
-        cardDescriptions.Clear();
-        cardDescriptions.Add(player.playerName + " è stato ammonito");
+        string description = cardDescriptions[Random.Range(0, cardDescriptions.Count)];
+        description = description.Replace("{Expelled}", player.playerName);
+        ownerCard.GetComponent<S_Card>().cardDescription.text = description;
 
-        //REDO per qualche motivo il nome del giocatore espulso nel menu di debug non coincide con quello che appare sulla carta ammonito/espulso, indagare
+        //ownerCard.GetComponent<S_Card>().GenerateCardData(this);
+
 
     }
 
@@ -91,10 +93,10 @@ public class SO_MatchCardData : SO_CardData
 
         S_PlayerMatchSimulator.ExpelPlayerFootballer(player);
 
-        cardDescriptions.Clear();
-        cardDescriptions.Add(player.playerName + " è stato espulso!");
+        string description = S_GlobalManager.ReplaceVariablesInString(cardDescriptions[Random.Range(0, cardDescriptions.Count)]);
+        description = description.Replace("{Expelled}", player.playerName);
+        ownerCard.GetComponent<S_Card>().cardDescription.text = description;
 
-        //REDO per qualche motivo il nome del giocatore espulso nel menu di debug non coincide con quello che appare sulla carta ammonito/espulso, indagare
 
     }
     #endregion
@@ -115,16 +117,16 @@ public class CardDropChance
         {
             //REDO most values are >1, they should stay in a 0-1 range as much as possible
             case MatchRule.Aggressivity:
-                score = (S_PlayerMatchSimulator.matchAggressivity.home + S_PlayerMatchSimulator.matchAggressivity.away)/6; //6 should be the max aggressivity of a match 
+                score = (S_PlayerMatchSimulator.matchAggressivity.home + S_PlayerMatchSimulator.matchAggressivity.away); //6 should be the max aggressivity of a match 
                 break;
             case MatchRule.SkillDifference:
                 score = (float) (S_GlobalManager.selectedTeam.SkillLevel - S_PlayerMatchSimulator.GetOpponentTeam().SkillLevel+5) / 10;
                 break;
             case MatchRule.YellowCards:
-                score = (float)S_PlayerMatchSimulator.YellowCards.Count/3; //REDO funny number
+                score = (float)S_PlayerMatchSimulator.YellowCards.Count;
                 break;
             case MatchRule.RedCards:
-                score = (float)S_PlayerMatchSimulator.RedCards.Count/6; //REDO funny number
+                score = (float)S_PlayerMatchSimulator.RedCards.Count; //REDO funny number
                 break;
             case MatchRule.Constant:
                 score = 1;

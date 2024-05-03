@@ -33,6 +33,7 @@ public static class S_PlayerMatchSimulator
     public static List<SO_PlayerData> YellowCards = new List<SO_PlayerData>();
     public static List<SO_PlayerData> RedCards = new List<SO_PlayerData>();
 
+    public static string refereeName;
 
     static S_PlayerMatchSimulator()
     {
@@ -61,9 +62,9 @@ public static class S_PlayerMatchSimulator
 
     public static void StartMatch()
     {
-       
 
-        
+
+        refereeName = S_PlayersGenerator.CreateRandomName(false); //the ref has only a surname
 
         OnMatchStart = new UnityEvent();
         OnMatchEnd = new UnityEvent();

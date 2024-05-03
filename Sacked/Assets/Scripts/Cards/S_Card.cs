@@ -17,6 +17,8 @@ public class S_Card : MonoBehaviour
     public virtual void GenerateCardData(SO_CardData data)
     {
         cardData = data;
+
+        data.ownerCard = gameObject;
         //Debug.Log(cardData.cardDescription);
 
         //Debug.Log(data.cardDescriptions.Count + "è la contas");

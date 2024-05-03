@@ -81,7 +81,8 @@ public class S_ValueManager : MonoBehaviour
                 break;
         }
         //generate ending if value reaches 0
-        if (targetValue == 0)
+
+        if (targetValue == 0 && !S_GlobalManager.deckManagerRef.DebugImmortal) //REDO remove this check in published version
         {
             SO_Sacking sackingReason = Resources.Load<SO_Sacking>(ending);
             S_GlobalManager.deckManagerRef.AddCardToDeck(sackingReason, 0);

@@ -71,7 +71,6 @@ public class S_DeckManager : MonoBehaviour
             GenerateCard(null,null,false);
             
         }
-        
         /*
         for (int i = 0; i < 1; i++)
         {
@@ -99,13 +98,23 @@ public class S_DeckManager : MonoBehaviour
         List<SO_CardData.Branch> listToManage = listToAppend;
         if (listToManage == null) listToManage = cardSelector.currentListToRead;
 
-        for (int i = 0; i < listToManage.Count; i++)
+        //checks if there's a free spot for the card in that specific position until it finds a spot
+        // >using do while unironically
+        bool occupied;
+        do
         {
-            if (branch.addPosition == listToManage[i].addPosition)
+            occupied = false;
+            for (int i = 0; i < listToManage.Count; i++)
             {
-                branch.addPosition += 1; //TODO make iterative until sure it does not coincide with another card in list
+                if (branch.addPosition == listToManage[i].addPosition)
+                {
+                    branch.addPosition += 1;
+                    occupied = true;
+                }
             }
-        }
+        } while (occupied);
+
+
         listToManage.Add(branch);
     }
 

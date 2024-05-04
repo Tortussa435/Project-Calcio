@@ -66,6 +66,12 @@ public static class S_GoalDescriptionGenerator
 
     private static SO_GoalDescriptions.GoalReason FindMostLikelyGoalReason(SO_PlayerData goalScorer)
     {
+        if (goalScorer == null)
+        {
+            Debug.LogWarning("No decent golscorer found!");
+            return SO_GoalDescriptions.GoalReason.None;
+        }
+
         if (goalScorer.playerTraits.Count == 0)
         {
             Debug.Log("QUESTO GIOCATORE NON HA TRATTI (SUS)");

@@ -68,6 +68,7 @@ public class SO_CardData : ScriptableObject
         S_GlobalManager.SetSupporters(leftValues.addedSupporters);
         S_GlobalManager.SetTeam(leftValues.addedTeam);
         leftEffects.Invoke();
+        leftEffects.RemoveAllListeners();
 
         if (!S_GlobalManager.DefeatCheck()) S_GlobalManager.deckManagerRef.GenerateCard(null,null,decreaseCountDown);
     }
@@ -79,8 +80,9 @@ public class SO_CardData : ScriptableObject
         S_GlobalManager.SetSupporters(rightValues.addedSupporters);
         S_GlobalManager.SetTeam(rightValues.addedTeam);
         rightEffects.Invoke();
+        rightEffects.RemoveAllListeners();
 
-        if(!S_GlobalManager.DefeatCheck()) S_GlobalManager.deckManagerRef.GenerateCard(null,null,decreaseCountDown); //when the player reaches a defeat, card generation is handled by S_ValueManager
+        if (!S_GlobalManager.DefeatCheck()) S_GlobalManager.deckManagerRef.GenerateCard(null,null,decreaseCountDown); //when the player reaches a defeat, card generation is handled by S_ValueManager
 
         //Debug.Log("right effect");
     }

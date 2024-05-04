@@ -58,9 +58,12 @@ public class SO_MatchOpponent : SO_CardData
         
         SO_CardData previewCard = possibleScores[Random.Range(0, possibleScores.Count)];
         
+        previewCard = ScriptableObject.Instantiate(previewCard);
+        
         previewCard.decreaseCountDown = false;
 
         S_GlobalManager.deckManagerRef.AddCardToDeck(previewCard, 0);
+
 
         return previewCard;
     }

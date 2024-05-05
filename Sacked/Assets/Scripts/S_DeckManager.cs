@@ -79,7 +79,7 @@ public class S_DeckManager : MonoBehaviour
             S_Ladder.ClearLadder();
         }
         */
-        
+
     }
 
     // Update is called once per frame

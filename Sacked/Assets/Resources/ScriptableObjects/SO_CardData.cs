@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.Events;
-using System;
 
 [CreateAssetMenu(fileName = "New Card Data", menuName = "Cards/Card")]
 public class SO_CardData : ScriptableObject
@@ -117,6 +116,34 @@ public class SO_CardData : ScriptableObject
         S_GlobalManager.selectedTeam.teamTactics = Resources.Load<SO_Tactics>("ScriptableObjects/TeamTactics/" + tactic);
         Debug.Log(S_GlobalManager.selectedTeam.teamTactics);
         S_PlayerMatchSimulator.UpdateTacticsEffectiveness();
+    }
+
+    public void GeneratePossibleTactics()
+    {
+        List<SO_Tactics.Tactic> possibleTactics = new List<SO_Tactics.Tactic> 
+        {
+            SO_Tactics.Tactic.BallPossession,
+            SO_Tactics.Tactic.Pressing,
+            SO_Tactics.Tactic.Counterattack,
+            SO_Tactics.Tactic.Catenaccio
+
+        };
+
+        SO_Tactics.Tactic left = possibleTactics[Random.Range(0, possibleTactics.Count)];
+        possibleTactics.Remove(left);
+        SO_Tactics.Tactic right = possibleTactics[Random.Range(0, possibleTactics.Count)];
+
+        leftEffects.RemoveAllListeners();
+        leftEffects.AddListener(()=>SetPlayerTeamTactic(left.ToString()));
+
+        rightEffects.RemoveAllListeners();
+        rightEffects.AddListener(() => SetPlayerTeamTactic(right.ToString()));
+
+        leftChoice = left.ToString();
+        rightChoice = right.ToString();
+
+        ownerCard.GetComponent<S_Card>().RefreshCardData(this);
+
     }
     #endregion
 }

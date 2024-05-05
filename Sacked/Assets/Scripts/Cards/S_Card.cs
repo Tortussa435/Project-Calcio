@@ -55,5 +55,20 @@ public class S_Card : MonoBehaviour
         cardData.rightEffect();
     }
 
+    public void RefreshCardData(SO_CardData data)
+    {
+        cardData = data;
+
+        data.ownerCard = gameObject;
+
+        string cardText = data.cardDescriptions[Random.Range(0, data.cardDescriptions.Count)];
+        cardDescription.text = S_GlobalManager.ReplaceVariablesInString(cardText);
+
+        cardBackground.color = data.cardColor;
+        if (leftChoice != null) leftChoice.text = S_GlobalManager.ReplaceVariablesInString(data.leftChoice);
+        if (rightChoice != null) rightChoice.text = S_GlobalManager.ReplaceVariablesInString(data.rightChoice);
+        cardIcon.sprite = data.cardIcon;
+
+    }
 
 }

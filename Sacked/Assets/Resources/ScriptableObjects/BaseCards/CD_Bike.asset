@@ -55,5 +55,5 @@ MonoBehaviour:
     compareString: 
     compareFloat: 0
     scoreMultiplier: 1
-  cardScore: 1
-  cardScoreNotNormalized: 1
+  cardScore: 0
+  cardScoreNotNormalized: 0

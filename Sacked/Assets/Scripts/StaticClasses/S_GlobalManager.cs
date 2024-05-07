@@ -95,10 +95,8 @@ public static class S_GlobalManager
         return Money;
     }
 
-    static public bool DefeatCheck()
-    {
-        return President <= 0 || Team <= 0 || Supporters <= 0 || Money <= 0;
-    }
+    static public bool DefeatCheck() => (President <= 0 || Team <= 0 || Supporters <= 0 || Money <= 0) && (!deckManagerRef.DebugImmortal);
+    
 
     static public string ReplaceVariablesInString(string inString)
     {

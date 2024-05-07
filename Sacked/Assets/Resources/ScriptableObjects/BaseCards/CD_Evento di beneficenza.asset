@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acddcb2ef5ce4c84b8aa4c3a78bf158c, type: 3}
   m_Name: CD_Evento di beneficenza
   m_EditorClassIdentifier: 
+  ownerCard: {fileID: 0}
   cardName: Evento di beneficenza
   cardColor: {r: 1, g: 1, b: 1, a: 1}
   cardDescriptions:
@@ -31,6 +32,15 @@ MonoBehaviour:
     addedTeam: 0
     addedPresident: 10
     addedSupporters: 10
+  leftEffects:
+    m_PersistentCalls:
+      m_Calls: []
+  rightEffects:
+    m_PersistentCalls:
+      m_Calls: []
+  onGeneratedEffects:
+    m_PersistentCalls:
+      m_Calls: []
   alreadyPicked: 0
   cardIcon: {fileID: 0}
   leftBranchCard:
@@ -42,6 +52,8 @@ MonoBehaviour:
   scoreCard:
   - desiredValue: 2
     direction: 0
+    compareString: 
+    compareFloat: 0
     scoreMultiplier: 1
-  cardScore: 0
-  cardScoreNotNormalized: 0
+  cardScore: 0.5
+  cardScoreNotNormalized: 0.5

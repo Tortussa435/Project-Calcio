@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acddcb2ef5ce4c84b8aa4c3a78bf158c, type: 3}
   m_Name: tmpSpeech
   m_EditorClassIdentifier: 
+  ownerCard: {fileID: 0}
   cardName: tocca fa qualocsa
   cardColor: {r: 1, g: 1, b: 1, a: 1}
   cardDescriptions:
   - se ci pensi tocchera forse fare qualcosa no?
   leftChoice: boooh
   rightChoice: ci sta alla fine no?
-  canAppearMoreThanOnce: 0
+  canAppearMoreThanOnce: 1
   decreaseCountDown: 0
   desiredCardPrefabDirectory: 
   leftValues:
@@ -31,7 +32,16 @@ MonoBehaviour:
     addedTeam: 0
     addedPresident: 0
     addedSupporters: 0
-  alreadyPicked: 0
+  leftEffects:
+    m_PersistentCalls:
+      m_Calls: []
+  rightEffects:
+    m_PersistentCalls:
+      m_Calls: []
+  onGeneratedEffects:
+    m_PersistentCalls:
+      m_Calls: []
+  alreadyPicked: 1
   cardIcon: {fileID: 0}
   leftBranchCard:
     branchData: {fileID: 0}
@@ -42,6 +52,8 @@ MonoBehaviour:
   scoreCard:
   - desiredValue: 0
     direction: 0
+    compareString: 
+    compareFloat: 0
     scoreMultiplier: 1
-  cardScore: 1
-  cardScoreNotNormalized: 0.1
+  cardScore: NaN
+  cardScoreNotNormalized: 0

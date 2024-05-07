@@ -23,6 +23,7 @@ public class SO_TeamObjective : SO_CardData
         
 
         int skillLevel = S_GlobalManager.selectedTeam.SkillLevel;
+        cardDescriptions.Clear();
         switch (skillLevel)
         {
             default:

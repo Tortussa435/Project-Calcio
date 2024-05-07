@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.Events;
+using System.Linq;
 
 [CreateAssetMenu(fileName = "New Card Data", menuName = "Cards/Card")]
 public class SO_CardData : ScriptableObject
@@ -106,6 +107,9 @@ public class SO_CardData : ScriptableObject
         cardScore /= max;
     }
 
+    public void SetCardAlreadyPicked(bool picked=true) => alreadyPicked = picked && !canAppearMoreThanOnce;
+    
+
     #region Card Events
     public void TestEvent()
     {
@@ -145,6 +149,21 @@ public class SO_CardData : ScriptableObject
 
         ownerCard.GetComponent<S_Card>().RefreshCardData(this);
 
+    }
+
+    public void GenerateEndMatchData()
+    {
+        cardDescriptions.Clear();
+        cardDescriptions.Add(GetCalendarResults());
+        ownerCard.GetComponent<S_Card>().RefreshCardData(this);
+    }
+
+    private string GetCalendarResults()
+    {
+        string result = new string("");
+        result = ("Match Over!\n");
+        result= string.Concat(result, S_PlayerMatchSimulator.match.homeTeam.teamName + " " + S_PlayerMatchSimulator.matchScore.home + " - " + S_PlayerMatchSimulator.matchScore.away + " " + S_PlayerMatchSimulator.match.awayTeam.teamName);
+        return result;
     }
     #endregion
 }

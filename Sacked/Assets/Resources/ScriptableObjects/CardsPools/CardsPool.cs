@@ -22,4 +22,13 @@ public class CardsPool : ScriptableObject
             updateList = false;
         }
     }
+
+    [ContextMenu("Disable Already Picked")]
+    private void DisableAlreadyPicked()
+    {
+        foreach(SO_CardData card in cardsPool)
+        {
+            card.alreadyPicked = false;
+        }
+    }
 }

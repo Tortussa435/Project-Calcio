@@ -98,6 +98,18 @@ public class S_DeckManager : MonoBehaviour
         List<SO_CardData.Branch> listToManage = listToAppend;
         if (listToManage == null) listToManage = cardSelector.currentListToRead;
 
+        if (position == 0)
+        {
+            for(int i = 0; i < listToManage.Count; i++)
+            {
+                if (listToManage[i].addPosition == 0)
+                {
+                    SO_CardData.Branch handle=listToManage[i];
+                    handle.addPosition += 1;
+                }
+            }
+        }
+
         //checks if there's a free spot for the card in that specific position until it finds a spot
         // >using do while unironically
         bool occupied;
@@ -151,14 +163,10 @@ public class S_DeckManager : MonoBehaviour
                 case CardsPhase.MatchSecondHalf:
 
                     //generates end game card before erasing data about the match                    
-                    SO_CardData card = ScriptableObject.CreateInstance<SO_CardData>();
+                    SO_CardData endMatchCard = ScriptableObject.CreateInstance<SO_CardData>();
+
                     //REDO make better system for generating the end game card
-                    card.cardDescriptions.Add(
-                        ("Match Over!\n" + S_PlayerMatchSimulator.match.homeTeam.teamName + " " + S_PlayerMatchSimulator.matchScore.home +
-                         " - " +
-                         S_PlayerMatchSimulator.matchScore.away + " " + S_PlayerMatchSimulator.match.awayTeam.teamName
-                        )
-                    );
+                    endMatchCard.onGeneratedEffects.AddListener(()=>endMatchCard.GenerateEndMatchData());
 
                     //ends the match
                     S_PlayerMatchSimulator.EndMatch();
@@ -171,7 +179,7 @@ public class S_DeckManager : MonoBehaviour
                     //destroys the first week card and replaces it with the endgame card
                     Destroy(deck.transform.GetChild(0).gameObject);
                     
-                    GenerateCard(card, null, false);
+                    GenerateCard(endMatchCard, null, false);
 
                     break;
             }

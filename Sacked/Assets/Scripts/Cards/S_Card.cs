@@ -22,7 +22,15 @@ public class S_Card : MonoBehaviour
         //Debug.Log(cardData.cardDescription);
 
         //Debug.Log(data.cardDescriptions.Count + "è la contas");
-        string cardText = data.cardDescriptions[Random.Range(0, data.cardDescriptions.Count)];
+        string cardText;
+        if (data.cardDescriptions.Count > 0) cardText = data.cardDescriptions[Random.Range(0, data.cardDescriptions.Count)];
+        
+        else
+        {
+            Debug.LogWarning("This card has no default descriptions");
+            cardText = "placeholder";
+        }
+
         cardDescription.text = S_GlobalManager.ReplaceVariablesInString(cardText);
         
         cardBackground.color = data.cardColor;
@@ -31,6 +39,8 @@ public class S_Card : MonoBehaviour
         cardIcon.sprite = data.cardIcon;
         
         cardData.onGeneratedEffects.Invoke();
+        
+        cardData.SetCardAlreadyPicked();
 
     }
     // Start is called before the first frame update

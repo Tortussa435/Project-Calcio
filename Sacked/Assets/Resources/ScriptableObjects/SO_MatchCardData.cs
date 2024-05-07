@@ -15,8 +15,10 @@ public class SO_MatchCardData : SO_CardData
 
     public override void SetCardScore()
     {
+        cardScore = 0;
+
         base.SetCardScore();
-        
+
         if (canAppearMoreThanOnce || !alreadyPicked)
         {
             for (int i=0;i<matchScoreCard.Count;i++)

@@ -51,6 +51,12 @@ public static class S_GoalDescriptionGenerator
 
         possibleGoalReasons.Remove(SO_GoalDescriptions.GoalReason.None);
 
+        if (player == null)
+        {
+            Debug.LogWarning("No Goal Scorer Found");
+            return possibleGoalReasons;
+        }
+
         switch (player.playerTraits[0].traitName) //excludes possible scoring methods based on player traits
         {
             default:

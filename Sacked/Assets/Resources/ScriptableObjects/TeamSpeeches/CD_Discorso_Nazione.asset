@@ -19,8 +19,8 @@ MonoBehaviour:
   - "{Opponent} \xE8 in vantaggio che volemo fa?"
   leftChoice: Picchia calciatori
   rightChoice: Non picchiare calciatori
-  canAppearMoreThanOnce: 0
-  decreaseCountDown: 1
+  canAppearMoreThanOnce: 1
+  decreaseCountDown: 0
   desiredCardPrefabDirectory: 
   leftValues:
     addedMoney: 0
@@ -41,7 +41,7 @@ MonoBehaviour:
   onGeneratedEffects:
     m_PersistentCalls:
       m_Calls: []
-  alreadyPicked: 0
+  alreadyPicked: 1
   cardIcon: {fileID: 0}
   leftBranchCard:
     branchData: {fileID: 0}
@@ -52,6 +52,8 @@ MonoBehaviour:
   scoreCard:
   - desiredValue: 11
     direction: 0
+    compareString: 
+    compareFloat: 0
     scoreMultiplier: 1
-  cardScore: 0
+  cardScore: NaN
   cardScoreNotNormalized: 0

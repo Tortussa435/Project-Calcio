@@ -11,6 +11,10 @@ public class S_CardsScoreFormula
 
     public Rule desiredValue;
     public ScoreDirection direction;
+
+    public string compareString;
+    public float compareFloat;
+
     public float scoreMultiplier=1.0f;
 
     public virtual float CalculateScore()
@@ -75,6 +79,11 @@ public class S_CardsScoreFormula
                 valueToCheck = Convert.ToInt32(S_PlayerMatchSimulator.matchScore.Drawing()) * 100;
                 break;
 
+            case Rule.PlayerTrait:
+                valueToCheck = Convert.ToInt32(S_GlobalManager.squad.TeamContainsTrait((SO_PlayerTrait.PlayerTraitNames)System.Enum.Parse(typeof(SO_PlayerTrait.PlayerTraitNames), compareString)));
+                valueToCheck *= 100;
+                break;
+
         }
         
         valueToCheck = valueToCheck / 100;
@@ -93,6 +102,18 @@ public class S_CardsScoreFormula
            
             case ScoreDirection.InverseRound:
                 valueToCheck = 1 - Mathf.Round(valueToCheck);
+                break;
+            
+            case ScoreDirection.LowerThan:
+                valueToCheck = Convert.ToInt32(valueToCheck < compareFloat);
+                break;
+            
+            case ScoreDirection.HigherThan:
+                valueToCheck = Convert.ToInt32(valueToCheck > compareFloat);
+                break;
+            
+            case ScoreDirection.Equal:
+                valueToCheck = Convert.ToInt32(valueToCheck == compareFloat);
                 break;
         }
 

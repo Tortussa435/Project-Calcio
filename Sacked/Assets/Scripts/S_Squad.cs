@@ -247,4 +247,55 @@ public class S_Squad : MonoBehaviour
         }
         return hotheads;
     }
+
+    public bool TeamContainsTrait(SO_PlayerTrait.PlayerTraitNames trait, bool playingElevenOnly=false)
+    {
+        if (playingElevenOnly)
+        {
+            foreach(SO_PlayerData player in playingEleven)
+            {
+                if (player.playerTraits[0].traitName == trait)
+                {
+                    return true;
+                }
+            }
+        }
+        else
+        {
+            foreach(SO_PlayerData player in Goalkeepers)
+            {
+                if (player.playerTraits[0].traitName == trait)
+                {
+                    return true;
+                }
+            }
+
+            foreach (SO_PlayerData player in Defense)
+            {
+                if (player.playerTraits[0].traitName == trait)
+                {
+                    return true;
+                }
+            }
+
+            foreach (SO_PlayerData player in Midfield)
+            {
+                if (player.playerTraits[0].traitName == trait)
+                {
+                    return true;
+                }
+            }
+
+            foreach (SO_PlayerData player in Attack)
+            {
+                if (player.playerTraits[0].traitName == trait)
+                {
+                    return true;
+                }
+            }
+        }
+
+
+        return false;
+    }
 }

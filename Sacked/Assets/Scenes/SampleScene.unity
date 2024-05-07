@@ -335,8 +335,8 @@ MonoBehaviour:
   cardSelector: {fileID: 319474451}
   nextPhaseCountdown: 0
   weekDuration:
-    min: 0
-    max: 0
+    min: 1
+    max: 2
   matchDuration:
     min: 3
     max: 4

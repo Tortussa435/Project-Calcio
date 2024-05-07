@@ -16,7 +16,7 @@ MonoBehaviour:
   cardName: Goal Post
   cardColor: {r: 1, g: 1, b: 1, a: 1}
   cardDescriptions:
-  - Preso palo assurdor
+  - Il tiro di {Player} prende il palo!
   leftChoice: 
   rightChoice: 
   canAppearMoreThanOnce: 0
@@ -79,6 +79,8 @@ MonoBehaviour:
   matchScoreCard:
   - desiredValue: 6
     direction: 0
+    compareString: 
+    compareFloat: 0
     scoreMultiplier: 1
     matchFormula: 0
   chanceOfAppearance: 1

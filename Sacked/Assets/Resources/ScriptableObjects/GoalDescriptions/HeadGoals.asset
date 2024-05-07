@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   goalReason: 1
   goalDescriptions:
-  - Colpo di testa folle
+  - Colpo di testa devastante di {Player}!
   - "Svetta col capo {Scorer}, {Opponent} non pu\xF2 nulla"

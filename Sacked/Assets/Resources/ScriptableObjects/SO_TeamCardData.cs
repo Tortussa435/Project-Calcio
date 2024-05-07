@@ -8,8 +8,13 @@ public class SO_TeamCardData : SO_CardData
     public override void rightEffect()
     {
         //respawn card after other 2 offers
+        
         S_GlobalManager.deckManagerRef.AddCardToDeck(leftBranchCard.branchData,leftBranchCard.addPosition);
-        base.rightEffect();
+
+        if (!S_GlobalManager.DefeatCheck()) S_GlobalManager.deckManagerRef.GenerateCard(null, null, decreaseCountDown);
+
+
+        //base.rightEffect();
     }
     public override void leftEffect()
     {
@@ -23,10 +28,14 @@ public class SO_TeamCardData : SO_CardData
         //Generates team objective
         SO_TeamObjective teamobjective = ScriptableObject.CreateInstance<SO_TeamObjective>();
         teamobjective.SetTeamObjectivesData();
+
         S_GlobalManager.deckManagerRef.AddCardToDeck(teamobjective);
+        
         S_GlobalManager.nextOpponent = S_Calendar.FindOpponent();
 
-        base.leftEffect();
+        //base.leftEffect();
+        if (!S_GlobalManager.DefeatCheck()) S_GlobalManager.deckManagerRef.GenerateCard(null, null, decreaseCountDown);
+
         //----
     }
 

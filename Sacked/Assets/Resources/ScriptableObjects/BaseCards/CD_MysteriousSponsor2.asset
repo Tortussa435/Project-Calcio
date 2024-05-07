@@ -9,26 +9,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 324455af10ec1b44f81a1c65019448d2, type: 3}
-  m_Name: SO_InvasioneDiCampo
+  m_Script: {fileID: 11500000, guid: acddcb2ef5ce4c84b8aa4c3a78bf158c, type: 3}
+  m_Name: CD_MysteriousSponsor2
   m_EditorClassIdentifier: 
   ownerCard: {fileID: 0}
-  cardName: 
+  cardName: MysteriousSponsor2
   cardColor: {r: 1, g: 1, b: 1, a: 1}
   cardDescriptions:
-  - Un tifoso fa invasione di campo
+  - "Lo sponsor con cui avevi un contratto non ha pagato met\xE0 dei soldi promessi"
   leftChoice: 
   rightChoice: 
-  canAppearMoreThanOnce: 1
-  decreaseCountDown: 1
+  canAppearMoreThanOnce: 0
+  decreaseCountDown: 0
   desiredCardPrefabDirectory: 
   leftValues:
-    addedMoney: 0
+    addedMoney: -15
     addedTeam: 0
     addedPresident: 0
     addedSupporters: 0
   rightValues:
-    addedMoney: 0
+    addedMoney: -15
     addedTeam: 0
     addedPresident: 0
     addedSupporters: 0
@@ -49,18 +49,11 @@ MonoBehaviour:
   rightBranchCard:
     branchData: {fileID: 0}
     addPosition: 0
-  scoreCard: []
-  cardScore: 1
-  cardScoreNotNormalized: 1
-  matchScoreCard:
-  - desiredValue: 6
+  scoreCard:
+  - desiredValue: 5
     direction: 0
     compareString: 
     compareFloat: 0
-    scoreMultiplier: 1
-    matchFormula: 4
-  chanceOfAppearance: 1
-  matchCardDropChance:
-  - rule: 4
-    direction: 0
-    weight: 1
+    scoreMultiplier: 0
+  cardScore: 0
+  cardScoreNotNormalized: 0

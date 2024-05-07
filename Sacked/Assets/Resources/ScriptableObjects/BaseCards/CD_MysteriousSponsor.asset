@@ -9,29 +9,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 324455af10ec1b44f81a1c65019448d2, type: 3}
-  m_Name: SO_InvasioneDiCampo
+  m_Script: {fileID: 11500000, guid: acddcb2ef5ce4c84b8aa4c3a78bf158c, type: 3}
+  m_Name: CD_MysteriousSponsor
   m_EditorClassIdentifier: 
   ownerCard: {fileID: 0}
-  cardName: 
+  cardName: MysteriousSponsor
   cardColor: {r: 1, g: 1, b: 1, a: 1}
   cardDescriptions:
-  - Un tifoso fa invasione di campo
-  leftChoice: 
-  rightChoice: 
-  canAppearMoreThanOnce: 1
+  - E' arrivata una proposta da uno sponsor losco
+  leftChoice: Accetta
+  rightChoice: Rifiuta
+  canAppearMoreThanOnce: 0
   decreaseCountDown: 1
   desiredCardPrefabDirectory: 
   leftValues:
-    addedMoney: 0
+    addedMoney: 30
     addedTeam: 0
     addedPresident: 0
-    addedSupporters: 0
+    addedSupporters: 10
   rightValues:
     addedMoney: 0
     addedTeam: 0
     addedPresident: 0
-    addedSupporters: 0
+    addedSupporters: -10
   leftEffects:
     m_PersistentCalls:
       m_Calls: []
@@ -44,23 +44,16 @@ MonoBehaviour:
   alreadyPicked: 0
   cardIcon: {fileID: 0}
   leftBranchCard:
-    branchData: {fileID: 0}
-    addPosition: 0
+    branchData: {fileID: 11400000, guid: dc367c0d3706acd4da335900dbe75924, type: 2}
+    addPosition: 4
   rightBranchCard:
     branchData: {fileID: 0}
     addPosition: 0
-  scoreCard: []
-  cardScore: 1
-  cardScoreNotNormalized: 1
-  matchScoreCard:
-  - desiredValue: 6
+  scoreCard:
+  - desiredValue: 5
     direction: 0
     compareString: 
     compareFloat: 0
     scoreMultiplier: 1
-    matchFormula: 4
-  chanceOfAppearance: 1
-  matchCardDropChance:
-  - rule: 4
-    direction: 0
-    weight: 1
+  cardScore: 0
+  cardScoreNotNormalized: 0

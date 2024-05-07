@@ -101,9 +101,22 @@ public class SO_TeamObjective : SO_CardData
     {
         S_GlobalManager.minRankingObjective = minRequiredPlace;
         S_GlobalManager.optimalRankingObjective = optimalRequiredPlace;
-        S_GlobalManager.deckManagerRef.ChangeCurrentPhase(1,1, S_GlobalManager.CardsPhase.Market); //start transfer market
+
+        //REDO add transfer market phase back
+        //S_GlobalManager.deckManagerRef.ChangeCurrentPhase(1,1, S_GlobalManager.CardsPhase.Market);
+        
+        //REDO metodo per evitare che riappaia una carta scegli squadra molto grezzo
+        S_GlobalManager.deckManagerRef.cardSelector.appendedWeekCards.Clear();
+
+        S_GlobalManager.deckManagerRef.ChangeCurrentPhase(2,3, S_GlobalManager.CardsPhase.Week);
+        
+
         S_GlobalManager.squad.GenerateTeam();
-        base.leftEffect();
+
+        
+        //base.leftEffect();
+        if (!S_GlobalManager.DefeatCheck()) S_GlobalManager.deckManagerRef.GenerateCard(null, null, decreaseCountDown);
+
     }
     public override void rightEffect()
     {
@@ -112,15 +125,14 @@ public class SO_TeamObjective : SO_CardData
         if (to.objectiveGenerosity >= 2)
         {
             S_GlobalManager.deckManagerRef.AddCardToDeck(Resources.Load<SO_CardData>("ScriptableObjects/Sacking/Sacking_TooLowObjective"));
-            base.rightEffect();
         }
-
         else
         {
             to.SetTeamObjectivesData();
             S_GlobalManager.deckManagerRef.AddCardToDeck(to);
-            base.rightEffect();
         }
+        if (!S_GlobalManager.DefeatCheck()) S_GlobalManager.deckManagerRef.GenerateCard(null, null, decreaseCountDown);
+        //base.rightEffect();
     }
 
 }

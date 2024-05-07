@@ -60,7 +60,7 @@ public class SO_CardData : ScriptableObject
     virtual public void leftEffect()
     {
         //Debug.Log("left effect");
-        //if (leftBranchCard.branchData != null) S_GlobalManager.deckManagerRef.AddCardToDeck(leftBranchCard.branchData,leftBranchCard.addPosition);
+        if (leftBranchCard.branchData != null) S_GlobalManager.deckManagerRef.AddCardToDeck(leftBranchCard.branchData,leftBranchCard.addPosition);
         
         S_GlobalManager.SetMoney(leftValues.addedMoney);
         S_GlobalManager.SetPresident(leftValues.addedPresident);
@@ -73,7 +73,8 @@ public class SO_CardData : ScriptableObject
     }
     virtual public void rightEffect()
     {
-        //if(rightBranchCard.branchData!=null) S_GlobalManager.deckManagerRef.AddCardToDeck(rightBranchCard.branchData, rightBranchCard.addPosition);
+        if(rightBranchCard.branchData!=null) S_GlobalManager.deckManagerRef.AddCardToDeck(rightBranchCard.branchData, rightBranchCard.addPosition);
+
         S_GlobalManager.SetMoney(rightValues.addedMoney);
         S_GlobalManager.SetPresident(rightValues.addedPresident);
         S_GlobalManager.SetSupporters(rightValues.addedSupporters);

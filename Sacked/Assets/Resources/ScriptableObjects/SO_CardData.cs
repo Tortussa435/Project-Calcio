@@ -108,7 +108,11 @@ public class SO_CardData : ScriptableObject
     }
 
     public void SetCardAlreadyPicked(bool picked=true) => alreadyPicked = picked && !canAppearMoreThanOnce;
-    
+
+    private void OnDestroy()
+    {
+        alreadyPicked = false;
+    }
 
     #region Card Events
     public void TestEvent()

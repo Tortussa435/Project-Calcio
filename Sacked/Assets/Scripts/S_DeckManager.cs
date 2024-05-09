@@ -12,6 +12,7 @@ using System.Globalization;
 
 public class S_DeckManager : MonoBehaviour
 {
+
     [Header("Debug")]
     public bool DebugImmortal = false;
 

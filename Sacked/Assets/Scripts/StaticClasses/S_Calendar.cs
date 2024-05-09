@@ -133,21 +133,24 @@ static public class S_Calendar
             }
         }
 
-        //REDO Not working
+        
         List<List<Match>> secondRound = new List<List<Match>>(calendar);
         secondRound.Reverse();
 
         for (int i = 0; i < secondRound.Count; i++)
         {
-            for(int j = 0; j < secondRound[i].Count; j++)
+            List<Match> currentWeek = secondRound[i];
+            List<Match> flippedWeek = new List<Match>();
+            for(int j=0; j < currentWeek.Count; j++)
             {
-
-                secondRound[i][j].Swap();
-                
+                Match match;
+                match.homeTeam = currentWeek[j].awayTeam;
+                match.awayTeam = currentWeek[j].homeTeam;
+                flippedWeek.Add(match);
             }
-            calendar.Add(secondRound[i]);
+            calendar.Add(flippedWeek);
         }
-        //
+        
     }
 }
 

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b7c5d00934bd924c900c3af11a25509, type: 3}
   m_Name: Team_Milan
   m_EditorClassIdentifier: 
-  teamName: Mediolanum
+  teamName: A.C. Mediolanum
   SkillLevel: 4
   teamColor1: {r: 0.6698113, g: 0.3949359, b: 0.3949359, a: 1}
   teamColor2: {r: 0, g: 0, b: 0, a: 1}

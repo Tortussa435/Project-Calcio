@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b7c5d00934bd924c900c3af11a25509, type: 3}
   m_Name: Team_Juventus
   m_EditorClassIdentifier: 
-  teamName: Rubentus
+  teamName: Rubentus F.C.
   SkillLevel: 4
   teamColor1: {r: 0, g: 0, b: 0, a: 1}
   teamColor2: {r: 1, g: 1, b: 1, a: 1}

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b7c5d00934bd924c900c3af11a25509, type: 3}
   m_Name: Team_Roma
   m_EditorClassIdentifier: 
-  teamName: Magggica
+  teamName: A.S. Maggica
   SkillLevel: 4
   teamColor1: {r: 0.7924528, g: 0.3252047, b: 0.37295258, a: 1}
   teamColor2: {r: 0.8867924, g: 0.6484151, b: 0.47267708, a: 1}

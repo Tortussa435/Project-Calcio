@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b7c5d00934bd924c900c3af11a25509, type: 3}
   m_Name: Team_Atalanta
   m_EditorClassIdentifier: 
-  teamName: La Talanta
+  teamName: B.C. La Dea
   SkillLevel: 4
   teamColor1: {r: 0, g: 0, b: 0, a: 1}
   teamColor2: {r: 0.21444462, g: 0.26721883, b: 0.745283, a: 1}

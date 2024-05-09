@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b7c5d00934bd924c900c3af11a25509, type: 3}
   m_Name: Team_Sassuolo
   m_EditorClassIdentifier: 
-  teamName: Sasol
+  teamName: U.S. Sasol
   SkillLevel: 2
   teamColor1: {r: 0.44316965, g: 0.6698113, b: 0.40757385, a: 1}
   teamColor2: {r: 0, g: 0, b: 0, a: 1}

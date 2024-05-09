@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b7c5d00934bd924c900c3af11a25509, type: 3}
   m_Name: Team_Monza
   m_EditorClassIdentifier: 
-  teamName: Monaca
+  teamName: A.C. Brianzoli
   SkillLevel: 3
   teamColor1: {r: 1, g: 1, b: 1, a: 1}
   teamColor2: {r: 0.9150943, g: 0.40143287, b: 0.40143287, a: 1}

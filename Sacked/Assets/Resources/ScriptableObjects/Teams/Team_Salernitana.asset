@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b7c5d00934bd924c900c3af11a25509, type: 3}
   m_Name: Team_Salernitana
   m_EditorClassIdentifier: 
-  teamName: Salerno
+  teamName: U.S. Salerno
   SkillLevel: 1
   teamColor1: {r: 0.3679245, g: 0.019090425, b: 0.019090425, a: 1}
   teamColor2: {r: 0.36862746, g: 0.019607844, b: 0.019607844, a: 1}

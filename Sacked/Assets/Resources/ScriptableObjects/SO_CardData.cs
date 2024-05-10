@@ -169,13 +169,25 @@ public class SO_CardData : ScriptableObject
         string result = new string("");
         result = ("Match Over!\n");
         result= string.Concat(result, GenerateMatchResultText(S_PlayerMatchSimulator.match.homeTeam.teamName, S_PlayerMatchSimulator.matchScore.home, S_PlayerMatchSimulator.matchScore.away, S_PlayerMatchSimulator.match.awayTeam.teamName));
+        result = result + "\n";
+        List<(S_Calendar.Match match, S_FastMatchSimulator.Score score)> matches = S_FastMatchSimulator.weekResults;
+        
+        for(int i = 0; i < matches.Count; i++)
+        {
+            string homeName = matches[i].match.homeTeam.teamName;
+            string awayName = matches[i].match.awayTeam.teamName;
+            int homeScore = matches[i].score.home;
+            int awayScore = matches[i].score.away;
+            result = string.Concat(result, GenerateMatchResultText(homeName, homeScore, awayScore, awayName));
+        }
+        
         return result;
     }
 
     private string GenerateMatchResultText(string homeTeam, int homeScore, int awayScore, string awayTeam)
     {
         string result = new string("");
-        result = homeTeam + " " + homeScore + " - " + awayScore + " " + awayTeam;
+        result = "\n"+homeTeam + " " + homeScore + " - " + awayScore + " " + awayTeam;
         return result;
     }
     #endregion

@@ -166,8 +166,8 @@ public class S_DeckManager : MonoBehaviour
                     //generates end game card before erasing data about the match                    
                     SO_CardData endMatchCard = ScriptableObject.CreateInstance<SO_CardData>();
 
-                    //REDO make better system for generating the end game card
-                    //endMatchCard.onGeneratedEffects.AddListener(()=>endMatchCard.GenerateEndMatchData());
+                    S_FastMatchSimulator.SimulateWeekMatches(S_GlobalManager.currentMatchDay, S_GlobalManager.selectedTeam);
+
                     endMatchCard.GenerateEndMatchData();
 
                     //ends the match
@@ -178,9 +178,11 @@ public class S_DeckManager : MonoBehaviour
                     
                     ChangeCurrentPhase(matchDuration.min, matchDuration.max, CardsPhase.Week);
                     
-                    //destroys the first week card and replaces it with the endgame card
+                    //REDO destroys the first week card and replaces it with the endgame card
                     Destroy(deck.transform.GetChild(0).gameObject);
-                    
+
+
+
                     GenerateCard(endMatchCard, null, false);
 
                     break;

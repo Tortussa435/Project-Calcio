@@ -42,7 +42,7 @@ public class SO_PlayerTrait : ScriptableObject
     //Trait events library
     public void Test()
     {
-        Debug.Log("test func");
+        //Debug.Log("test func");
     }
 
     public void T_LovesBigMatches()

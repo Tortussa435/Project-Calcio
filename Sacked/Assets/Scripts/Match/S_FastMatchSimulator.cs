@@ -11,6 +11,7 @@ public static class S_FastMatchSimulator
     static int goalCheckFrequency = 10;
     static SO_Curve fastGoalChanceCurve;
 
+    public static List<(S_Calendar.Match match,Score score)> weekResults = new List<(S_Calendar.Match,Score)>();
     static S_FastMatchSimulator()
     {
         fastGoalChanceCurve = Resources.Load<SO_Curve>("ScriptableObjects/Curves/GoalChanceCurveSimplified");
@@ -26,6 +27,7 @@ public static class S_FastMatchSimulator
     }    
     public static int FastSimulateMatch(SO_Team homeTeam, SO_Team awayTeam)
     {
+        
         Score finalScore;
 
         finalScore.home = 0;
@@ -53,9 +55,15 @@ public static class S_FastMatchSimulator
                 finalScore.away += 1;
             }
         }
-        
+
         //Debug.Log("Final Score: "+ homeTeam.teamName + " " + finalScore.home + " " + awayTeam.teamName + " " + finalScore.away);
         //Debug.Log("Final Score: " + finalScore.home + " "  + finalScore.away);
+        S_Calendar.Match match;
+        match.homeTeam = homeTeam;
+        match.awayTeam = awayTeam;
+
+
+        weekResults.Add((match, finalScore));
 
         if (finalScore.home == finalScore.away) return 0; //Golden punticino
         if (finalScore.home > finalScore.away)  return 1;
@@ -74,6 +82,7 @@ public static class S_FastMatchSimulator
 
     public static void SimulateWeekMatches(int week, SO_Team excludedMatch=null)
     {
+        weekResults.Clear();
         foreach(S_Calendar.Match match in S_Calendar.calendar[week])
         {
             if(excludedMatch!=null) if (match.homeTeam.teamName == excludedMatch.teamName || match.awayTeam.teamName == excludedMatch.teamName) continue;
@@ -94,6 +103,7 @@ public static class S_FastMatchSimulator
                     //Debug.Log("Vince trasferta");
                     break;
             }
+
         }
     }
 

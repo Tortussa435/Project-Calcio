@@ -22,4 +22,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d6e2ba042ebe779489c66c2faeeb4ef8, type: 2}
   - {fileID: 11400000, guid: e1af766a835f7b14599f353a98309902, type: 2}
   - {fileID: 11400000, guid: 290274b4887aed646a7195ea8b91a0ea, type: 2}
+  derbies:
+  - {fileID: 11400000, guid: 7cdfd103592f7374babc3d3d175e048f, type: 2}
   teamTactics: {fileID: 11400000, guid: bff7afe3d07f4074eb66ddd5d39a2ce1, type: 2}

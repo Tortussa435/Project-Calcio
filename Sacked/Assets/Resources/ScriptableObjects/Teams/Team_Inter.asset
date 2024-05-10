@@ -19,4 +19,7 @@ MonoBehaviour:
   teamColor2: {r: 0.28702387, g: 0.29928032, b: 0.8113208, a: 1}
   teamLogo: {fileID: 21300000, guid: dd7d55df5a89d174eb818698a7c32bd8, type: 3}
   teamTraits: []
+  derbies:
+  - {fileID: 11400000, guid: 6ccb94b12c080c84cb2a831719be55b9, type: 2}
+  - {fileID: 11400000, guid: bd35133a1db36614a965219229dfb19b, type: 2}
   teamTactics: {fileID: 11400000, guid: bff7afe3d07f4074eb66ddd5d39a2ce1, type: 2}

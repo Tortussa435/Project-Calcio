@@ -15,6 +15,8 @@ public class SO_Team : ScriptableObject
     public Sprite teamLogo;
 
     public List<SO_TeamTrait> teamTraits;
+    
+    public List<SO_Team> derbies;
 
     public SO_Tactics teamTactics;
 

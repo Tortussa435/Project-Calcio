@@ -52,6 +52,8 @@ MonoBehaviour:
   scoreCard:
   - desiredValue: 5
     direction: 0
+    compareString: 
+    compareFloat: 0
     scoreMultiplier: 1
   cardScore: NaN
   cardScoreNotNormalized: 0

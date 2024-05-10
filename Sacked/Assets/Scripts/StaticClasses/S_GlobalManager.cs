@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
@@ -108,7 +109,7 @@ public static class S_GlobalManager
                 { "{Team}", selectedTeam.teamName },
                 { "{Opponent}", nextOpponent.teamName },
                 { "{Ref}", "L'arbitro " + S_PlayerMatchSimulator.refereeName },
-                { "{Player}", squad.playingEleven[Random.Range(0,squad.playingEleven.Count)].playerName },
+                { "{Player}", squad.playingEleven[UnityEngine.Random.Range(0,squad.playingEleven.Count)].playerName },
                 { "{OppPlayer}", S_PlayerMatchSimulator.RandomlyGetNewOrExistingOpponentPlayer() }
             };
 
@@ -123,7 +124,7 @@ public static class S_GlobalManager
         }
         catch
         {
-            Debug.Log("Variabili cringe non inizializzate");
+            //Debug.Log("Variabili cringe non inizializzate");
             return inString;
         }
         

@@ -83,7 +83,9 @@ public class S_CardsScoreFormula
                 valueToCheck = Convert.ToInt32(S_GlobalManager.squad.TeamContainsTrait((SO_PlayerTrait.PlayerTraitNames)System.Enum.Parse(typeof(SO_PlayerTrait.PlayerTraitNames), compareString)));
                 valueToCheck *= 100;
                 break;
-
+            case Rule.Derby:
+                valueToCheck = S_PlayerMatchSimulator.isDerby ? 100 : 0;
+                break;
         }
         
         valueToCheck = valueToCheck / 100;

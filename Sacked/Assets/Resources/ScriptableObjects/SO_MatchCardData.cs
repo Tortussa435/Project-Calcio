@@ -219,6 +219,9 @@ public class CardDropChance
             case MatchRule.Constant:
                 score = 1;
                 break;
+            case MatchRule.Derby:
+                score = S_PlayerMatchSimulator.isDerby ? 1 : 0;
+                break;
         }
 
         switch (direction)

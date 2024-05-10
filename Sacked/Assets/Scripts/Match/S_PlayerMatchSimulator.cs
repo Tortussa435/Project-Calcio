@@ -30,6 +30,8 @@ public static class S_PlayerMatchSimulator
     public static UnityEvent OnMatchEnd;
     public static UnityEvent OnMatchStart;
 
+    public static bool isDerby;
+
     static int opponentMatchSkillLevel; //the skill level of the opponent may change depending on red cards, therefore it is stored here
 
     [Header("Yellow/Red Cards")]
@@ -96,7 +98,7 @@ public static class S_PlayerMatchSimulator
         S_GlobalManager.squad.SetBestPlayingEleven();
 
 
-
+        DerbyCheck(); //checks if match is derby, increases aggressivity by 1
         CheckPlayerOpponentTraitsInteraction();
         ApplyPlayersTraits();
         ApplyTeamTraits();
@@ -120,7 +122,6 @@ public static class S_PlayerMatchSimulator
         matchScore.home = 0;
         matchScore.away = 0;
         
-        S_FastMatchSimulator.SimulateWeekMatches(S_GlobalManager.currentMatchDay,S_GlobalManager.selectedTeam);
         
         S_GlobalManager.currentMatchDay++;
         S_GlobalManager.nextOpponent = S_Calendar.FindOpponent();
@@ -131,7 +132,6 @@ public static class S_PlayerMatchSimulator
         S_GlobalManager.selectedTeam.teamTactics = ScriptableObject.Instantiate<SO_Tactics>(Resources.Load<SO_Tactics>("ScriptableObjects/TeamTactics/Generic"));
 
         S_GlobalManager.squad.RemoveExpulsions();
-        
 
         OnMatchEnd.Invoke();
 
@@ -328,6 +328,19 @@ public static class S_PlayerMatchSimulator
     public static bool PlayerWinning() => (IsPlayerHomeTeam() && matchScore.HomeWinning()) || matchScore.AwayWinning();
     public static bool OpponentWinning() => (IsPlayerHomeTeam() && matchScore.AwayWinning()) || matchScore.HomeWinning();
     public static string GetGeneratedOpponentPlayer() => opponentTeamNames[Random.Range(0, opponentTeamNames.Count)];
+    
+    //If match is derby some cards may appear, also aggressivity increases by 1 for both teams
+    public static void DerbyCheck()
+    {
+        isDerby = false;
+        
+        if (match.homeTeam.derbies.Contains(match.awayTeam))
+        {
+            isDerby = true;
+            matchAggressivity.home += 1;
+            matchAggressivity.away += 1;
+        }
+    }
     private static void ClampParameters()
     {
         matchAggressivity.home = Mathf.Clamp(matchAggressivity.home,0,100);

@@ -19,7 +19,7 @@ MonoBehaviour:
   - Il tiro di {Player} prende il palo!
   leftChoice: 
   rightChoice: 
-  canAppearMoreThanOnce: 0
+  canAppearMoreThanOnce: 1
   decreaseCountDown: 1
   desiredCardPrefabDirectory: 
   leftValues:
@@ -65,7 +65,7 @@ MonoBehaviour:
   onGeneratedEffects:
     m_PersistentCalls:
       m_Calls: []
-  alreadyPicked: 0
+  alreadyPicked: 1
   cardIcon: {fileID: 0}
   leftBranchCard:
     branchData: {fileID: 0}
@@ -74,8 +74,8 @@ MonoBehaviour:
     branchData: {fileID: 0}
     addPosition: 0
   scoreCard: []
-  cardScore: 1
-  cardScoreNotNormalized: 1
+  cardScore: 0
+  cardScoreNotNormalized: 0
   matchScoreCard:
   - desiredValue: 6
     direction: 0
@@ -88,3 +88,4 @@ MonoBehaviour:
   - rule: 4
     direction: 0
     weight: 1
+    compareFloat: 0

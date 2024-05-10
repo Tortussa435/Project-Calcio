@@ -20,7 +20,7 @@ MonoBehaviour:
   - '{Ref} si avvicina a {Expelled} e gli rifila un cartellino rosso notevole!'
   leftChoice: 
   rightChoice: 
-  canAppearMoreThanOnce: 0
+  canAppearMoreThanOnce: 1
   decreaseCountDown: 0
   desiredCardPrefabDirectory: 
   leftValues:
@@ -54,7 +54,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  alreadyPicked: 1
+  alreadyPicked: 0
   cardIcon: {fileID: 0}
   leftBranchCard:
     branchData: {fileID: 0}
@@ -72,17 +72,21 @@ MonoBehaviour:
     compareFloat: 0
     scoreMultiplier: 1
     matchFormula: 0
-  chanceOfAppearance: 1.0583333
+  chanceOfAppearance: 0.69166666
   matchCardDropChance:
   - rule: 0
     direction: 0
     weight: 0.16666667
+    compareFloat: 0
   - rule: 2
     direction: 0
     weight: 0.05
+    compareFloat: 0
   - rule: 3
     direction: 0
     weight: -0.041666668
+    compareFloat: 0
   - rule: 4
     direction: 0
     weight: 0.1
+    compareFloat: 0

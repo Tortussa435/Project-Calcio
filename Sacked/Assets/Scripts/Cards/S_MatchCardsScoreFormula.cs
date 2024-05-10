@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using static S_FootballEnums;
+using static S_PlayerMatchSimulator;
 using UnityEngine;
 
 [System.Serializable]
@@ -22,35 +23,43 @@ public class S_MatchCardsScoreFormula : S_CardsScoreFormula
         switch (matchFormula)
         {
             default:
-                valueToCheck = 100;
+                Debug.LogWarning("Rule not implemented!");
+                valueToCheck = 1.0f;
                 break;
             
             case MatchRule.Constant:
-                valueToCheck = 100;
+                valueToCheck = 1.0f;
+                break;
+
+            case MatchRule.Aggressivity:
+                valueToCheck = (float)matchAggressivity.home + (float)matchAggressivity.away; //it should be in range of 0-6, so it should have a low score multiplier
+                break;
+
+            case MatchRule.SkillDifference:
+                valueToCheck =(float)((S_GlobalManager.selectedTeam.SkillLevel - GetOpponentTeam().SkillLevel) + S_GlobalManager.MAXTEAMSKILLLEVEL) / (float)(S_GlobalManager.MAXTEAMSKILLLEVEL * 2);
+                break;
+
+            case MatchRule.YellowCards:
+                //pay attention! the score has to have a very low score multiplier bc it just counts the amount of red cards!
+                valueToCheck = (float)YellowCards.Count + (float)opponentYellowCards.Count;
+                break;
+
+            case MatchRule.RedCards:
+                //pay attention! the score has to have a very low score multiplier bc it just counts the amount of red cards!
+                valueToCheck = (float)RedCards.Count + (float)opponentRedCards.Count;
+                break;
+
+            case MatchRule.Derby:
+                valueToCheck = isDerby ? 1.0f : 0.0f;
                 break;
 
         }
 
-        valueToCheck = valueToCheck / 100;
+        
 
-        switch (direction)
-        {
-            case ScoreDirection.InverseLinear:
-                valueToCheck = 1 - valueToCheck;
-                break;
-            case ScoreDirection.Linear:
-                break;
+        valueToCheck = S_FootballEnums.GetScoreDirection(direction, valueToCheck, compareFloat);
 
-            case ScoreDirection.Round:
-                valueToCheck = Mathf.Round(valueToCheck);
-                break;
-
-            case ScoreDirection.InverseRound:
-                valueToCheck = 1 - Mathf.Round(valueToCheck);
-                break;
-        }
-
-        valueToCheck = valueToCheck * scoreMultiplier;
+        valueToCheck = (float)valueToCheck * scoreMultiplier;
         return valueToCheck;
 
     }

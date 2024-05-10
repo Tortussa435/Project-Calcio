@@ -196,6 +196,7 @@ public class CardDropChance
     public MatchRule rule;
     public ScoreDirection direction;
     public float weight=1.0f;
+    public float compareFloat = 0;
 
     public float FindChance()
     {
@@ -205,16 +206,16 @@ public class CardDropChance
         {
             //REDO most values are >1, they should stay in a 0-1 range as much as possible
             case MatchRule.Aggressivity:
-                score = (S_PlayerMatchSimulator.matchAggressivity.home + S_PlayerMatchSimulator.matchAggressivity.away); //6 should be the max aggressivity of a match 
+                score = (S_PlayerMatchSimulator.matchAggressivity.home + S_PlayerMatchSimulator.matchAggressivity.away);
                 break;
             case MatchRule.SkillDifference:
                 score = (float) (S_GlobalManager.selectedTeam.SkillLevel - S_PlayerMatchSimulator.GetOpponentTeam().SkillLevel+5) / 10;
                 break;
             case MatchRule.YellowCards:
-                score = (float)S_PlayerMatchSimulator.YellowCards.Count;
+                score = (float)S_PlayerMatchSimulator.YellowCards.Count + S_PlayerMatchSimulator.opponentYellowCards.Count;
                 break;
             case MatchRule.RedCards:
-                score = (float)S_PlayerMatchSimulator.RedCards.Count; //REDO funny number
+                score = (float)S_PlayerMatchSimulator.RedCards.Count + S_PlayerMatchSimulator.opponentRedCards.Count;
                 break;
             case MatchRule.Constant:
                 score = 1;
@@ -224,23 +225,7 @@ public class CardDropChance
                 break;
         }
 
-        switch (direction)
-        {
-            default:
-                break;
-            
-            case ScoreDirection.InverseLinear:
-                score = 1 - score;
-                break;
-           
-            case ScoreDirection.Round:
-                score=Mathf.Round(score);
-                break;
-            
-            case ScoreDirection.InverseRound:
-                score=1-Mathf.Round(score);
-                break;
-        }
+        score = S_FootballEnums.GetScoreDirection(direction, score, compareFloat);
 
         score *= weight;
 

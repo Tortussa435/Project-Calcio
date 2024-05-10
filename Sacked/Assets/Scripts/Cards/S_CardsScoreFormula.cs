@@ -24,102 +24,73 @@ public class S_CardsScoreFormula
         switch (desiredValue)
         {
             case Rule.President:
-                valueToCheck = S_GlobalManager.President;
+                valueToCheck = (float)S_GlobalManager.President/100.0f;
                 break;
            
             case Rule.Team:
-                valueToCheck = S_GlobalManager.Team;
+                valueToCheck = (float)S_GlobalManager.Team/100.0f;
                 break;
             
             case Rule.Supporters:
-                valueToCheck = S_GlobalManager.Supporters;
+                valueToCheck = (float)S_GlobalManager.Supporters/100.0f;
                 break;
             
             case Rule.Money:
-                valueToCheck = S_GlobalManager.Money;
+                valueToCheck = (float)S_GlobalManager.Money/100.0f;
                 break;
             
             case Rule.TeamsSkillDifference:
-                valueToCheck = ((S_GlobalManager.selectedTeam.SkillLevel - S_GlobalManager.nextOpponent.SkillLevel)+S_GlobalManager.MAXTEAMSKILLLEVEL)*(S_GlobalManager.MAXTEAMSKILLLEVEL*2);
+                valueToCheck = (float)((S_GlobalManager.selectedTeam.SkillLevel - S_GlobalManager.nextOpponent.SkillLevel)+S_GlobalManager.MAXTEAMSKILLLEVEL)/(float)(S_GlobalManager.MAXTEAMSKILLLEVEL*2);
                 break;
 
             case Rule.Constant:
-                valueToCheck = 100;
+                valueToCheck = 1.0f;
                 break;
 
             case Rule.None:
-                valueToCheck = 0;
+                valueToCheck = 0.0f;
                 break;
 
             case Rule.PlayerTacticGeneric:
-                valueToCheck = Convert.ToInt32((S_GlobalManager.selectedTeam.teamTactics.teamTactic == SO_Tactics.Tactic.Generic)) * 100;
+                valueToCheck = S_GlobalManager.selectedTeam.teamTactics.teamTactic == SO_Tactics.Tactic.Generic ? 1.0f : 0.0f;
                 break;
 
             case Rule.OpponentTacticGeneric:
                 try
                 {
-                    valueToCheck = Convert.ToInt32(S_PlayerMatchSimulator.GetOpponentTeam().teamTactics.teamTactic == SO_Tactics.Tactic.Generic) * 100;
+                    valueToCheck = S_PlayerMatchSimulator.GetOpponentTeam().teamTactics.teamTactic == SO_Tactics.Tactic.Generic ? 1.0f : 0.0f;
                 }
                 catch
                 {
-                    valueToCheck = 0;
+                    valueToCheck = 0.0f;
                     Debug.LogWarning("Avversario o tattica avversario non trovata");
                 }
                 break;
 
             case Rule.PlayerWinning:
-                valueToCheck = Convert.ToInt32(S_PlayerMatchSimulator.PlayerWinning())*100;
+                valueToCheck = S_PlayerMatchSimulator.PlayerWinning() ? 1.0f : 0.0f;
                 break;
 
             case Rule.PlayerLosing:
-                valueToCheck = Convert.ToInt32(S_PlayerMatchSimulator.OpponentWinning())*100;
+                valueToCheck = S_PlayerMatchSimulator.OpponentWinning() ? 1.0f : 0.0f;
                 break;
 
             case Rule.PlayerDrawing:
-                valueToCheck = Convert.ToInt32(S_PlayerMatchSimulator.matchScore.Drawing()) * 100;
+                valueToCheck = S_PlayerMatchSimulator.matchScore.Drawing() ? 1.0f : 0.0f;
                 break;
 
             case Rule.PlayerTrait:
-                valueToCheck = Convert.ToInt32(S_GlobalManager.squad.TeamContainsTrait((SO_PlayerTrait.PlayerTraitNames)System.Enum.Parse(typeof(SO_PlayerTrait.PlayerTraitNames), compareString)));
-                valueToCheck *= 100;
+                valueToCheck = S_GlobalManager.squad.TeamContainsTrait((SO_PlayerTrait.PlayerTraitNames)System.Enum.Parse(typeof(SO_PlayerTrait.PlayerTraitNames), compareString)) ? 1.0f : 0.0f;
                 break;
+
             case Rule.Derby:
-                valueToCheck = S_PlayerMatchSimulator.isDerby ? 100 : 0;
-                break;
-        }
-        
-        valueToCheck = valueToCheck / 100;
-
-        switch (direction)
-        {
-            case ScoreDirection.InverseLinear:
-                valueToCheck = 1 - valueToCheck;
-                break;
-            case ScoreDirection.Linear:
-                break;
-            
-            case ScoreDirection.Round:
-                valueToCheck = Mathf.Round(valueToCheck);
-                break;
-           
-            case ScoreDirection.InverseRound:
-                valueToCheck = 1 - Mathf.Round(valueToCheck);
-                break;
-            
-            case ScoreDirection.LowerThan:
-                valueToCheck = Convert.ToInt32(valueToCheck < compareFloat);
-                break;
-            
-            case ScoreDirection.HigherThan:
-                valueToCheck = Convert.ToInt32(valueToCheck > compareFloat);
-                break;
-            
-            case ScoreDirection.Equal:
-                valueToCheck = Convert.ToInt32(valueToCheck == compareFloat);
+                valueToCheck = S_PlayerMatchSimulator.isDerby ? 1.0f : 0.0f;
                 break;
         }
 
-        valueToCheck = valueToCheck * scoreMultiplier;
+        valueToCheck = S_FootballEnums.GetScoreDirection(direction, valueToCheck, compareFloat);
+
+        valueToCheck = (float)valueToCheck * (float)scoreMultiplier;
 
         return valueToCheck;
     }

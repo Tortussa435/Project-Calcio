@@ -167,7 +167,8 @@ public class S_DeckManager : MonoBehaviour
                     SO_CardData endMatchCard = ScriptableObject.CreateInstance<SO_CardData>();
 
                     //REDO make better system for generating the end game card
-                    endMatchCard.onGeneratedEffects.AddListener(()=>endMatchCard.GenerateEndMatchData());
+                    //endMatchCard.onGeneratedEffects.AddListener(()=>endMatchCard.GenerateEndMatchData());
+                    endMatchCard.GenerateEndMatchData();
 
                     //ends the match
                     S_PlayerMatchSimulator.EndMatch();

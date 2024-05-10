@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Team_Udinese
   m_EditorClassIdentifier: 
   teamName: Zebre
+  shortName: ZEB
   SkillLevel: 2
   teamColor1: {r: 1, g: 1, b: 1, a: 1}
   teamColor2: {r: 0, g: 0, b: 0, a: 1}

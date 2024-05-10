@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Team_Fiorentina
   m_EditorClassIdentifier: 
   teamName: ACF Viola
+  shortName: ACF
   SkillLevel: 4
   teamColor1: {r: 0.33334047, g: 0.18534178, b: 0.46226418, a: 1}
   teamColor2: {r: 0.33333334, g: 0.18431373, b: 0.4627451, a: 1}

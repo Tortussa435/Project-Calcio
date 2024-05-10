@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Team_Lazzie
   m_EditorClassIdentifier: 
   teamName: SS Lazzie
+  shortName: SSL
   SkillLevel: 3
   teamColor1: {r: 1, g: 1, b: 1, a: 1}
   teamColor2: {r: 0.58762014, g: 0.8962264, b: 0.82629377, a: 1}

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Team_Frosinone
   m_EditorClassIdentifier: 
   teamName: Ciociaria
+  shortName: CIO
   SkillLevel: 2
   teamColor1: {r: 0.9245283, g: 0.7164431, b: 0.2747419, a: 1}
   teamColor2: {r: 0.32079923, g: 0.3252115, b: 0.8396226, a: 1}

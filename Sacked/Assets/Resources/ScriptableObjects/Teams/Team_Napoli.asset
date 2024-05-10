@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Team_Napoli
   m_EditorClassIdentifier: 
   teamName: S.S. Vesuvio
+  shortName: VES
   SkillLevel: 4
   teamColor1: {r: 0.5772517, g: 0.7965766, b: 0.8679245, a: 1}
   teamColor2: {r: 0.5764706, g: 0.79607844, b: 0.8666667, a: 1}

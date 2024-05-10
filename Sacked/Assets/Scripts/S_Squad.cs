@@ -157,7 +157,7 @@ public class S_Squad : MonoBehaviour
         }
     }
     
-    private void SetBestPlayingEleven()
+    public void SetBestPlayingEleven()
     {
         playingEleven = new List<SO_PlayerData>();
         //sets goalkeeper
@@ -176,6 +176,12 @@ public class S_Squad : MonoBehaviour
 
         foreach(SO_PlayerData player in sortedPlayers)
         {
+            //do not add expelled players to team
+            if (player.expelled > 0)
+            {
+                Debug.Log("Il giocatore è espulso e non puote giocar");
+                continue;
+            }
             switch (player.playerRole)
             {
                 default:
@@ -297,5 +303,15 @@ public class S_Squad : MonoBehaviour
 
 
         return false;
+    }
+
+    public void RemoveExpulsions()
+    {
+        //REDO pretty awful code ngl
+        foreach(SO_PlayerData player in Goalkeepers) if (player.expelled > 0) player.expelled--;
+        foreach(SO_PlayerData player in Defense) if (player.expelled > 0) player.expelled--;
+        foreach(SO_PlayerData player in Midfield) if (player.expelled > 0) player.expelled--;
+        foreach(SO_PlayerData player in Attack) if (player.expelled > 0) player.expelled--;
+        
     }
 }

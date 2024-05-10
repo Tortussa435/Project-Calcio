@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Team_Bologna
   m_EditorClassIdentifier: 
   teamName: Bolognese F.C.
+  shortName: FCB
   SkillLevel: 4
   teamColor1: {r: 0.754717, g: 0.4521182, b: 0.4521182, a: 1}
   teamColor2: {r: 0.50863296, g: 0.51926064, b: 0.8490566, a: 1}

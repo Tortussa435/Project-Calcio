@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Team_Empoli
   m_EditorClassIdentifier: 
   teamName: Empolaretti F.C.
+  shortName: EMP
   SkillLevel: 2
   teamColor1: {r: 0.23073156, g: 0.50175434, b: 0.8018868, a: 1}
   teamColor2: {r: 0.23137255, g: 0.5019608, b: 0.8, a: 1}

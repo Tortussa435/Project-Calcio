@@ -7,6 +7,8 @@ using UnityEngine;
 public class SO_Team : ScriptableObject
 {
     public string teamName;
+    public string shortName;
+
     public int SkillLevel;
     public Color teamColor1=Color.black;
     public Color teamColor2=Color.black;

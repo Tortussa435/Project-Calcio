@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Team_Salernitana
   m_EditorClassIdentifier: 
   teamName: U.S. Salerno
+  shortName: USS
   SkillLevel: 1
   teamColor1: {r: 0.3679245, g: 0.019090425, b: 0.019090425, a: 1}
   teamColor2: {r: 0.36862746, g: 0.019607844, b: 0.019607844, a: 1}

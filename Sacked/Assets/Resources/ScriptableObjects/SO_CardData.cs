@@ -155,19 +155,28 @@ public class SO_CardData : ScriptableObject
 
     }
 
+    #region END MATCH
     public void GenerateEndMatchData()
     {
         cardDescriptions.Clear();
         cardDescriptions.Add(GetCalendarResults());
-        ownerCard.GetComponent<S_Card>().RefreshCardData(this);
     }
 
     private string GetCalendarResults()
     {
         string result = new string("");
         result = ("Match Over!\n");
-        result= string.Concat(result, S_PlayerMatchSimulator.match.homeTeam.teamName + " " + S_PlayerMatchSimulator.matchScore.home + " - " + S_PlayerMatchSimulator.matchScore.away + " " + S_PlayerMatchSimulator.match.awayTeam.teamName);
+        result= string.Concat(result, GenerateMatchResultText(S_PlayerMatchSimulator.match.homeTeam.teamName, S_PlayerMatchSimulator.matchScore.home, S_PlayerMatchSimulator.matchScore.away, S_PlayerMatchSimulator.match.awayTeam.teamName));
         return result;
     }
+
+    private string GenerateMatchResultText(string homeTeam, int homeScore, int awayScore, string awayTeam)
+    {
+        string result = new string("");
+        result = homeTeam + " " + homeScore + " - " + awayScore + " " + awayTeam;
+        return result;
+    }
+    #endregion
+
     #endregion
 }

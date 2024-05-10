@@ -30,8 +30,14 @@ public static class S_PlayerMatchSimulator
     public static UnityEvent OnMatchEnd;
     public static UnityEvent OnMatchStart;
 
+    static int opponentMatchSkillLevel; //the skill level of the opponent may change depending on red cards, therefore it is stored here
+
+    [Header("Yellow/Red Cards")]
     public static List<SO_PlayerData> YellowCards = new List<SO_PlayerData>();
     public static List<SO_PlayerData> RedCards = new List<SO_PlayerData>();
+
+    public static List<SO_PlayerData> opponentYellowCards = new List<SO_PlayerData>();
+    public static List<SO_PlayerData> opponentRedCards = new List<SO_PlayerData>();
 
     public static string refereeName;
 
@@ -81,8 +87,15 @@ public static class S_PlayerMatchSimulator
 
         //changes the team's skill level based on the player's playing 11
         S_GlobalManager.selectedTeam.SkillLevel = S_GlobalManager.squad.FindGameSkillLevel();
+        
+        opponentMatchSkillLevel = GetOpponentTeam().SkillLevel;
 
         S_GlobalManager.nextOpponent.GenerateRandomTraits();
+
+        //REDO when giving the player the choice of the starting eleven this must be removed
+        S_GlobalManager.squad.SetBestPlayingEleven();
+
+
 
         CheckPlayerOpponentTraitsInteraction();
         ApplyPlayersTraits();
@@ -116,6 +129,9 @@ public static class S_PlayerMatchSimulator
 
         //REDO non molto elegante metodo
         S_GlobalManager.selectedTeam.teamTactics = ScriptableObject.Instantiate<SO_Tactics>(Resources.Load<SO_Tactics>("ScriptableObjects/TeamTactics/Generic"));
+
+        S_GlobalManager.squad.RemoveExpulsions();
+        
 
         OnMatchEnd.Invoke();
 
@@ -215,14 +231,14 @@ public static class S_PlayerMatchSimulator
 
     private static float GoalCheck(bool homeTeam)
     {
-        //check if player's team to do extra calculi
-        bool isCheckingPlayerTeam = homeTeam ? match.homeTeam.teamName == S_GlobalManager.selectedTeam.teamName : match.awayTeam.teamName == S_GlobalManager.selectedTeam.teamName;
         
         float goalCheck=0;
-        
+
         //first calc = skill diff check
-        if (homeTeam) goalCheck = GetSkillDifference(match.homeTeam.SkillLevel, match.awayTeam.SkillLevel);
-        else if (!homeTeam) goalCheck = GetSkillDifference(match.awayTeam.SkillLevel, match.homeTeam.SkillLevel);
+        if (homeTeam && IsPlayerHomeTeam()) goalCheck        =  GetSkillDifference(match.homeTeam.SkillLevel, opponentMatchSkillLevel);
+        else if (homeTeam && !IsPlayerHomeTeam()) goalCheck  =  GetSkillDifference(opponentMatchSkillLevel, match.awayTeam.SkillLevel);
+        else if (!homeTeam && IsPlayerHomeTeam()) goalCheck  =  GetSkillDifference(opponentMatchSkillLevel, match.homeTeam.SkillLevel);
+        else if (!homeTeam && !IsPlayerHomeTeam()) goalCheck =  GetSkillDifference(match.awayTeam.SkillLevel, opponentMatchSkillLevel);
 
         //second calc = goal chance per minute
         goalCheck *= goalChancePerMinute.curve.Evaluate(matchMinute);
@@ -377,9 +393,13 @@ public static class S_PlayerMatchSimulator
     {
         YellowCards.Remove(player);
         RedCards.Add(player);
+
         S_GlobalManager.squad.playingEleven.Remove(player);
 
         S_GlobalManager.selectedTeam.SkillLevel = S_GlobalManager.squad.FindGameSkillLevel();
+
+        opponentMatchSkillLevel = (int)Mathf.Ceil((float)(opponentMatchSkillLevel * (11 - opponentRedCards.Count)) / 11);
+       
     }
 
     #endregion

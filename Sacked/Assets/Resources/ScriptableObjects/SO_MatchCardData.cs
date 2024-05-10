@@ -36,6 +36,37 @@ public class SO_MatchCardData : SO_CardData
     }
 
     #region MATCH EVENTS
+    public void RandomYellowCard()
+    {
+        int playerChance = 1;
+        int opponentChance = 1;
+
+        playerChance += S_PlayerMatchSimulator.IsPlayerHomeTeam() ? (int)S_PlayerMatchSimulator.matchAggressivity.home : (int)S_PlayerMatchSimulator.matchAggressivity.away;
+
+        opponentChance += S_PlayerMatchSimulator.IsPlayerHomeTeam() ? (int)S_PlayerMatchSimulator.matchAggressivity.away : (int)S_PlayerMatchSimulator.matchAggressivity.home;
+
+        int seed = Random.Range(0, playerChance + opponentChance + 1);
+
+        if (seed > playerChance) PlayerYellowCard();
+        else OpponentYellowCard();
+    
+    }
+
+    public void RandomRedCard()
+    {
+        int playerChance = 1;
+        int opponentChance = 1;
+
+        playerChance += S_PlayerMatchSimulator.IsPlayerHomeTeam() ? (int)S_PlayerMatchSimulator.matchAggressivity.home : (int)S_PlayerMatchSimulator.matchAggressivity.away;
+
+        opponentChance += S_PlayerMatchSimulator.IsPlayerHomeTeam() ? (int)S_PlayerMatchSimulator.matchAggressivity.away : (int)S_PlayerMatchSimulator.matchAggressivity.home;
+
+        int seed = Random.Range(0, playerChance + opponentChance + 1);
+
+        if (seed > playerChance) PlayerRedCard();
+        else OpponentRedCard();
+    }
+
     public void PlayerYellowCard()
     {
         SO_PlayerData player;
@@ -53,10 +84,11 @@ public class SO_MatchCardData : SO_CardData
         if (S_PlayerMatchSimulator.YellowCards.Contains(player)) //if player already has a yellow card, it gets expelled
         {
             SO_CardData redcard = ScriptableObject.CreateInstance<SO_CardData>();
-            redcard.cardDescriptions.Add( player.playerName + " è stato espulso per somma di gialli!" );
+            //REDO expel description with variable string
+            redcard.cardDescriptions.Add( player.playerName+" ("+S_GlobalManager.selectedTeam.shortName+")" + " è stato espulso per somma di gialli!" );
             redcard.cardColor = Color.red;
             redcard.decreaseCountDown = false;
-
+            player.expelled = 2;
             S_PlayerMatchSimulator.ExpelPlayerFootballer(player);
             
             S_GlobalManager.deckManagerRef.AddCardToDeck(redcard, 0);
@@ -68,7 +100,7 @@ public class SO_MatchCardData : SO_CardData
         }
 
         string description = cardDescriptions[Random.Range(0, cardDescriptions.Count)];
-        description = description.Replace("{Expelled}", player.playerName);
+        description = description.Replace("{Expelled}", player.playerName + " ("+S_GlobalManager.selectedTeam.shortName+")");
         ownerCard.GetComponent<S_Card>().cardDescription.text = description;
 
         //ownerCard.GetComponent<S_Card>().GenerateCardData(this);
@@ -95,9 +127,10 @@ public class SO_MatchCardData : SO_CardData
         S_PlayerMatchSimulator.ExpelPlayerFootballer(player);
 
         string description = S_GlobalManager.ReplaceVariablesInString(cardDescriptions[Random.Range(0, cardDescriptions.Count)]);
-        description = description.Replace("{Expelled}", player.playerName);
+        description = description.Replace("{Expelled}", player.playerName + " (" + S_GlobalManager.selectedTeam.shortName + ")" );
         ownerCard.GetComponent<S_Card>().cardDescription.text = description;
-
+        
+        player.expelled = 2;
 
     }
 
@@ -107,22 +140,34 @@ public class SO_MatchCardData : SO_CardData
 
         player.playerName = S_PlayerMatchSimulator.RandomlyGetNewOrExistingOpponentPlayer();
 
-        foreach(SO_PlayerData p in S_PlayerMatchSimulator.YellowCards)
+        bool expelled = false;
+        foreach(SO_PlayerData p in S_PlayerMatchSimulator.opponentYellowCards)
         {
             if(p.playerName == player.playerName)
             {
-                S_PlayerMatchSimulator.YellowCards.Remove(p);
-                S_PlayerMatchSimulator.RedCards.Add(p);
+                //Append red card if double yellow
+                SO_CardData redcard = ScriptableObject.CreateInstance<SO_CardData>();
+                //REDO expel description with variable string
+                redcard.cardDescriptions.Add(player.playerName+" ("+S_PlayerMatchSimulator.GetOpponentTeam().shortName+")" + " è stato espulso per somma di gialli!");
+                redcard.cardColor = Color.red;
+                redcard.decreaseCountDown = false;
+                S_GlobalManager.deckManagerRef.AddCardToDeck(redcard, 0);
+
+
+                S_PlayerMatchSimulator.opponentYellowCards.Remove(p);
+                S_PlayerMatchSimulator.opponentRedCards.Add(p);
 
                 //REDO ricalcolare skill level avversario in seguito ad expulsione
                 
                 S_PlayerMatchSimulator.opponentTeamNames.Remove(p.playerName);
+                expelled = true;
                 break;
             }
         }
+        if (!expelled) S_PlayerMatchSimulator.opponentYellowCards.Add(player);
 
         string description = S_GlobalManager.ReplaceVariablesInString(cardDescriptions[Random.Range(0, cardDescriptions.Count)]);
-        description = description.Replace("{Expelled}", player.playerName);
+        description = description.Replace("{Expelled}", player.playerName + " (" + S_PlayerMatchSimulator.GetOpponentTeam().shortName + ")");
         ownerCard.GetComponent<S_Card>().cardDescription.text = description;
     }
 
@@ -132,13 +177,13 @@ public class SO_MatchCardData : SO_CardData
 
         player.playerName = S_PlayerMatchSimulator.RandomlyGetNewOrExistingOpponentPlayer();
 
-        S_PlayerMatchSimulator.YellowCards.Remove(player);
-        S_PlayerMatchSimulator.RedCards.Add(player);
+        S_PlayerMatchSimulator.opponentYellowCards.Remove(player);
+        S_PlayerMatchSimulator.opponentRedCards.Add(player);
         S_PlayerMatchSimulator.opponentTeamNames.Remove(player.playerName);
 
 
         string description = S_GlobalManager.ReplaceVariablesInString(cardDescriptions[Random.Range(0, cardDescriptions.Count)]);
-        description = description.Replace("{Expelled}", player.playerName);
+        description = description.Replace("{Expelled}", player.playerName + " (" + S_PlayerMatchSimulator.GetOpponentTeam().shortName + ")");
         ownerCard.GetComponent<S_Card>().cardDescription.text = description;
     }
 

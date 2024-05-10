@@ -44,7 +44,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 11400000}
         m_TargetAssemblyTypeName: SO_MatchCardData, Assembly-CSharp
-        m_MethodName: PlayerYellowCard
+        m_MethodName: RandomYellowCard
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -68,9 +68,11 @@ MonoBehaviour:
   matchScoreCard:
   - desiredValue: 5
     direction: 0
+    compareString: 
+    compareFloat: 0
     scoreMultiplier: 1
     matchFormula: 0
-  chanceOfAppearance: 0.26666668
+  chanceOfAppearance: 2.1
   matchCardDropChance:
   - rule: 0
     direction: 0

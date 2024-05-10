@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Team_Atalanta
   m_EditorClassIdentifier: 
   teamName: B.C. La Dea
+  shortName: DEA
   SkillLevel: 4
   teamColor1: {r: 0, g: 0, b: 0, a: 1}
   teamColor2: {r: 0.21444462, g: 0.26721883, b: 0.745283, a: 1}

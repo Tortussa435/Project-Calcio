@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Team_Inter
   m_EditorClassIdentifier: 
   teamName: Nazionale F.C.
+  shortName: NAZ
   SkillLevel: 5
   teamColor1: {r: 0, g: 0, b: 0, a: 1}
   teamColor2: {r: 0.28702387, g: 0.29928032, b: 0.8113208, a: 1}

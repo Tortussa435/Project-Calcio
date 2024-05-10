@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Team_Monza
   m_EditorClassIdentifier: 
   teamName: A.C. Brianzoli
+  shortName: ACB
   SkillLevel: 3
   teamColor1: {r: 1, g: 1, b: 1, a: 1}
   teamColor2: {r: 0.9150943, g: 0.40143287, b: 0.40143287, a: 1}

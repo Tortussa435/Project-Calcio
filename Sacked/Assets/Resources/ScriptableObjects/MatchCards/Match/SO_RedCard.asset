@@ -44,7 +44,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 11400000}
         m_TargetAssemblyTypeName: SO_MatchCardData, Assembly-CSharp
-        m_MethodName: PlayerRedCard
+        m_MethodName: RandomRedCard
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -54,7 +54,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  alreadyPicked: 0
+  alreadyPicked: 1
   cardIcon: {fileID: 0}
   leftBranchCard:
     branchData: {fileID: 0}
@@ -63,14 +63,16 @@ MonoBehaviour:
     branchData: {fileID: 0}
     addPosition: 0
   scoreCard: []
-  cardScore: 1
-  cardScoreNotNormalized: 1
+  cardScore: 0
+  cardScoreNotNormalized: 0
   matchScoreCard:
   - desiredValue: 5
     direction: 0
+    compareString: 
+    compareFloat: 0
     scoreMultiplier: 1
     matchFormula: 0
-  chanceOfAppearance: 0.60833335
+  chanceOfAppearance: 1.0583333
   matchCardDropChance:
   - rule: 0
     direction: 0

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Team_Milan
   m_EditorClassIdentifier: 
   teamName: A.C. Mediolanum
+  shortName: MED
   SkillLevel: 4
   teamColor1: {r: 0.6698113, g: 0.3949359, b: 0.3949359, a: 1}
   teamColor2: {r: 0, g: 0, b: 0, a: 1}

@@ -323,7 +323,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fa462f8baade5549a3388a5884d29b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DebugImmortal: 1
+  DebugImmortal: 0
   cardPrefab: {fileID: 1012824099504849803, guid: 89d0253c4a3eff147b59904d86bb4ea3, type: 3}
   matchCardPrefab: {fileID: 2976045572785580038, guid: 51f6ae1a24de7314c9e1b8b5528a464f, type: 3}
   lastCard: {fileID: 0}
@@ -2172,12 +2172,15 @@ MonoBehaviour:
   - rule: 0
     direction: 0
     weight: 0.33333334
+    compareFloat: 0
   - rule: 2
     direction: 0
     weight: -0.25
+    compareFloat: 0
   - rule: 4
     direction: 0
     weight: 0.1
+    compareFloat: 0
 --- !u!4 &1433028864
 Transform:
   m_ObjectHideFlags: 0

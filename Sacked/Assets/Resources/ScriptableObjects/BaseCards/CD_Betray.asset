@@ -20,7 +20,7 @@ MonoBehaviour:
     giocatore!"
   leftChoice: Punisci
   rightChoice: Ignora
-  canAppearMoreThanOnce: 0
+  canAppearMoreThanOnce: 1
   decreaseCountDown: 1
   desiredCardPrefabDirectory: 
   leftValues:

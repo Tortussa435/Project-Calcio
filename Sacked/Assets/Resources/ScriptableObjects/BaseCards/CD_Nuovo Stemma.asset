@@ -19,7 +19,7 @@ MonoBehaviour:
   - La societa presenta il nuovo stemma e i tifosi lo odiano
   leftChoice: Segui Tifosi
   rightChoice: Segui Societa
-  canAppearMoreThanOnce: 0
+  canAppearMoreThanOnce: 1
   decreaseCountDown: 1
   desiredCardPrefabDirectory: 
   leftValues:

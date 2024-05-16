@@ -19,7 +19,7 @@ MonoBehaviour:
   - "Il giocatore a cui avevi prestato la bici \xE8 caduto e si \xE8 rotto il crociato!"
   leftChoice: 
   rightChoice: 
-  canAppearMoreThanOnce: 0
+  canAppearMoreThanOnce: 1
   decreaseCountDown: 0
   desiredCardPrefabDirectory: 
   leftValues:

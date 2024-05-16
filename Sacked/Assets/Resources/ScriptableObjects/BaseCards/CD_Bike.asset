@@ -19,7 +19,7 @@ MonoBehaviour:
   - Un tuo giocatore ti chiede di prestargli la bici
   leftChoice: Presta
   rightChoice: Non Prestare
-  canAppearMoreThanOnce: 0
+  canAppearMoreThanOnce: 1
   decreaseCountDown: 1
   desiredCardPrefabDirectory: 
   leftValues:

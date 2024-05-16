@@ -58,10 +58,10 @@ public class S_Card : MonoBehaviour
     
 
     
-    public void GoLeft() {
+    public virtual void GoLeft() {
         cardData.leftEffect();
     }
-    public void GoRight() {
+    public virtual void GoRight() {
         cardData.rightEffect();
     }
 

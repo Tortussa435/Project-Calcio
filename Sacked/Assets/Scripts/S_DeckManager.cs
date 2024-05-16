@@ -131,14 +131,16 @@ public class S_DeckManager : MonoBehaviour
         listToManage.Add(branch);
     }
 
-    public void GenerateCard(SO_CardData cardData=null, GameObject cardFormat = null,bool decreaseCountdown=true)
+    public GameObject GenerateCard(SO_CardData cardData=null, GameObject cardFormat = null,bool decreaseCountdown=true)
     {
-        if (sacked && !deckManagerRef.DebugImmortal) return; //do not generate cards if sacked
+        if (sacked && !deckManagerRef.DebugImmortal) return null; //do not generate cards if sacked
 
         if (decreaseCountdown) nextPhaseCountdown--;
         
         if (nextPhaseCountdown < 0)
         {
+            GameObject card=null;
+
             switch (currentPhase)
             {
                 case CardsPhase.Contract:
@@ -183,11 +185,11 @@ public class S_DeckManager : MonoBehaviour
 
 
 
-                    GenerateCard(endMatchCard, null, false);
+                    card = GenerateCard(endMatchCard, null, false);
 
                     break;
             }
-            return;
+            return card;
         }
 
         if (cardFormat == null)
@@ -216,6 +218,8 @@ public class S_DeckManager : MonoBehaviour
         lastCard.transform.SetAsFirstSibling();
 
         lastCard.GenerateCardData(cardData);
+
+        return lastCard.gameObject;
     }
 
     public SO_CardData FindNextCard()
@@ -328,7 +332,8 @@ public class S_DeckManager : MonoBehaviour
                 break;
         }
 
-        
-
     }
+
+    public void SetCardOnTop(GameObject card) => card.transform.SetAsLastSibling();
+    
 }

@@ -2566,12 +2566,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 028819224f8ab174491ab00c2bae870d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  teamLineup: 0
   Goalkeepers: []
   Defense: []
   Midfield: []
   Attack: []
   playingEleven: []
   teamListVisible: 0
+  teamCardPrefab: {fileID: 6703929602991736198, guid: adb56aa4cc76c574a92803bb8b7febfa, type: 3}
   captain: {fileID: 0}
 --- !u!114 &1660856490
 MonoBehaviour:
@@ -2685,8 +2687,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1660856489}
         m_TargetAssemblyTypeName: S_Squad, Assembly-CSharp
-        m_MethodName: ShowTeam
-        m_Mode: 1
+        m_MethodName: GenerateTeamElevenCard
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

@@ -193,4 +193,13 @@ public class SO_CardData : ScriptableObject
     #endregion
 
     #endregion
+
+    #region Team Lineup Events
+    public void FindNextLineupDescription()
+    {
+        //on card generated, updates the lineup based on the decided tactic, then sets the left choice to the next tactic
+        S_GlobalManager.squad.SetLineUp(S_GlobalManager.squad.FindNextLineup());  
+        leftChoice = S_GlobalManager.squad.FindNextLineup().ToString(); //REDO pretty weird
+    }
+    #endregion
 }

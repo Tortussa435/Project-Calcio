@@ -2572,6 +2572,7 @@ MonoBehaviour:
   Midfield: []
   Attack: []
   playingEleven: []
+  bench: []
   teamListVisible: 0
   teamCardPrefab: {fileID: 6703929602991736198, guid: adb56aa4cc76c574a92803bb8b7febfa, type: 3}
   captain: {fileID: 0}

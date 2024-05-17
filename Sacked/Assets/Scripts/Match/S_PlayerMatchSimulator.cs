@@ -460,4 +460,34 @@ public static class S_PlayerMatchSimulator
         return chosencard;
     }
     #endregion
+
+    #region CALCULATE END MATCH REACTION
+    private static void EndMatchParametersReaction()
+    {
+        //Find expectations level
+        
+        //Find target ladder position distance
+
+
+        //supporters change their opinion rapidly with a change of results, they care more about the single match
+        //president cares more about reaching the target ladder position
+        //the team cares more about results continuity
+        //money doesn't care about results
+
+        if (matchScore.Drawing())
+        {
+            //match draw
+        }
+
+        else if((matchScore.HomeWinning() && IsPlayerHomeTeam()) || (matchScore.AwayWinning() && !IsPlayerHomeTeam()))
+        {
+            //player won
+        }
+        else
+        {
+            //player lost
+        }
+    }
+
+    #endregion
 }

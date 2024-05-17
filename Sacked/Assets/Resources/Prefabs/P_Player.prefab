@@ -326,6 +326,9 @@ MonoBehaviour:
   playerIcon: {fileID: 6690881241880222544}
   playerSkill: {fileID: 5786890105880418642}
   playerEnergy: {fileID: 3264721069110278402}
+  playerCardRef: {fileID: 0}
+  playerCardPrefab: {fileID: 6799196001980259414, guid: bcc8d77efb8b69143973116c3bd22e06, type: 3}
+  forceSpawn: 0
   ownerCard: {fileID: 0}
 --- !u!1 &7267090442568979610
 GameObject:

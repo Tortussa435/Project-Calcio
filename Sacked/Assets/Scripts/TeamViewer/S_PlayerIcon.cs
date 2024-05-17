@@ -14,6 +14,11 @@ public class S_PlayerIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHandle
     public Image playerSkill;
     public Image playerEnergy;
 
+    [HideInInspector] public GameObject playerCardRef;
+    public GameObject playerCardPrefab;
+
+    [HideInInspector] public bool forceSpawn;
+
     public S_InputHandler ownerCard;
 
     private float clickLength = 0.0f;
@@ -63,7 +68,21 @@ public class S_PlayerIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHandle
 
     public void OpenPlayerCard()
     {
-        Debug.Log("TODO openplayercard");
+        if (playerCardRef == null || forceSpawn)
+        {
+            SO_CardData data = ScriptableObject.Instantiate(Resources.Load<SO_CardData>("ScriptableObjects/TeamCard/PlayerCard"));
+
+            playerCardRef = S_GlobalManager.deckManagerRef.GenerateCard(data, playerCardPrefab, false);
+
+            playerCardRef.GetComponent<S_PlayerInfoCard>().GeneratePlayerInfoData(playerData);
+
+            S_GlobalManager.deckManagerRef.SetCardOnTop(playerCardRef);
+
+            data.rightEffects.AddListener(() => playerCardRef = null); //reference must be lost even before than card destruction
+        }
+
+        else Destroy(playerCardRef);
+        
     }
 
     public void OnBeginDrag(PointerEventData eventData)

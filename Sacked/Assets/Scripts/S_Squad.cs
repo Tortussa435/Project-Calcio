@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,6 +24,7 @@ public class S_Squad : MonoBehaviour
     public List<SO_PlayerData> Attack;
 
     public List<SO_PlayerData> playingEleven;
+    public List<SO_PlayerData> bench;
 
     public bool teamListVisible = false;
 
@@ -250,6 +252,22 @@ public class S_Squad : MonoBehaviour
         
     }
 
+    public void RefillBenchEnergy(float min=10.0f, float max=20.0f)
+    {
+        foreach(SO_PlayerData player in bench)
+        {
+            player.AddEnergy(min, max);
+        }
+    }
+
+    public void DecreaseElevenEnergy(float min=-20.0f, float max=-10.0f)
+    {
+        List<SO_PlayerData> players = S_GlobalManager.squad.playingEleven;
+        foreach (SO_PlayerData p in players)
+        {
+            p.AddEnergy(min, max);
+        }
+    }
     public void GenerateTeamElevenCard(bool forceSpawn=false)
     {
         if (teamCardRef == null || forceSpawn)
@@ -266,7 +284,69 @@ public class S_Squad : MonoBehaviour
 
     #region LINEUPS
     public PossibleTeam FindNextLineup() => (PossibleTeam) ((int)(teamLineup + 1) % System.Enum.GetValues(typeof(PossibleTeam)).Length);
-    
+    public void AddGoalKeeper()
+    {
+        if (Goalkeepers.Count > 1)
+        {
+            if (Goalkeepers[0].skillLevel > Goalkeepers[1].skillLevel)
+            {
+                playingEleven.Add(Goalkeepers[0]);
+                bench.Add(Goalkeepers[1]);
+            }
+            else
+            {
+                playingEleven.Add(Goalkeepers[1]);
+                bench.Add(Goalkeepers[0]);
+            }
+        }
+        else playingEleven.Add(Goalkeepers[0]);
+    }
+    public void AddPlayersToEleven(List<SO_PlayerData> players, float energyThreshold = 0)
+    {
+        int def = 0, mid = 0, atk = 0;
+        List<SO_PlayerData> localBench = new List<SO_PlayerData>(players);
+
+        foreach (SO_PlayerData player in players)
+        {
+            //do not add expelled players to team
+            if (player.expelled > 0 || player.playerEnergy<energyThreshold)
+            {
+                Debug.Log("Il giocatore è espulso e non puote giocar");
+                continue;
+            }
+            switch (player.playerRole)
+            {
+                default:
+                    break;
+
+                case SO_PlayerData.PlayerRole.Def:
+                    if (def >= 4) break;
+                    playingEleven.Add(player);
+                    localBench.Remove(player);
+                    def++;
+                    break;
+
+                case SO_PlayerData.PlayerRole.Mid:
+                    if (mid >= 4) break;
+                    playingEleven.Add(player);
+                    localBench.Remove(player);
+                    mid++;
+                    break;
+
+                case SO_PlayerData.PlayerRole.Atk:
+                    if (atk >= 3) break;
+                    playingEleven.Add(player);
+                    localBench.Remove(player);
+                    atk++;
+                    break;
+            }
+            if (playingEleven.Count >= 11)
+            {
+                bench.AddRange(localBench);
+                break;
+            }
+        }
+    }
     public void SetLineUp(PossibleTeam desiredLineup)
     {
         teamLineup = desiredLineup;
@@ -291,178 +371,62 @@ public class S_Squad : MonoBehaviour
     public void SetBestPlayingEleven()
     {
         playingEleven = new List<SO_PlayerData>();
-        //sets goalkeeper
-        playingEleven.Add(Goalkeepers[0].skillLevel > Goalkeepers[1].skillLevel ? Goalkeepers[0] : Goalkeepers[1]);
+        bench = new List<SO_PlayerData>();
 
-        int def = 0;
-        int mid = 0;
-        int atk = 0;
+        AddGoalKeeper();
 
         //sorts other players by skill
+        
         List<SO_PlayerData> sortedPlayers = new List<SO_PlayerData>();
+        
         sortedPlayers.AddRange(Defense);
         sortedPlayers.AddRange(Midfield);
         sortedPlayers.AddRange(Attack);
+
         sortedPlayers = sortTeamListBySkill(sortedPlayers);
 
-        foreach (SO_PlayerData player in sortedPlayers)
-        {
-            //do not add expelled players to team
-            if (player.expelled > 0)
-            {
-                Debug.Log("Il giocatore è espulso e non puote giocar");
-                continue;
-            }
-            switch (player.playerRole)
-            {
-                default:
-                    break;
-
-                case SO_PlayerData.PlayerRole.Def:
-                    if (def >= 4) break;
-                    playingEleven.Add(player);
-                    def++;
-                    break;
-
-                case SO_PlayerData.PlayerRole.Mid:
-                    if (mid >= 4) break;
-                    playingEleven.Add(player);
-                    mid++;
-                    break;
-
-                case SO_PlayerData.PlayerRole.Atk:
-                    if (atk >= 3) break;
-                    playingEleven.Add(player);
-                    atk++;
-                    break;
-            }
-            if (playingEleven.Count >= 11) break;
-        }
-
-        foreach (SO_PlayerData player in playingEleven)
-        {
-            Debug.Log(player.playerName);
-        }
-        Debug.Log("Formazione: " + def + mid + atk);
+        AddPlayersToEleven(sortedPlayers);
     }
 
     public void SetFittestEleven()
     {
     //REDO missing a few checks to avoid having an energic but awful team on the field
         playingEleven = new List<SO_PlayerData>();
+        bench = new List<SO_PlayerData>();
+        
         //sets goalkeeper
-        playingEleven.Add(Goalkeepers[0].playerEnergy > Goalkeepers[1].playerEnergy ? Goalkeepers[0] : Goalkeepers[1]);
-
-        int def = 0;
-        int mid = 0;
-        int atk = 0;
+        AddGoalKeeper();
 
         //sorts other players by skill
         List<SO_PlayerData> sortedPlayers = new List<SO_PlayerData>();
+
         sortedPlayers.AddRange(Defense);
         sortedPlayers.AddRange(Midfield);
         sortedPlayers.AddRange(Attack);
+
         sortedPlayers = SortTeamListByEnergy(sortedPlayers);
 
-        foreach (SO_PlayerData player in sortedPlayers)
-        {
-            //do not add expelled players to team
-            if (player.expelled > 0)
-            {
-                Debug.Log("Il giocatore è espulso e non puote giocar");
-                continue;
-            }
-            switch (player.playerRole)
-            {
-                default:
-                    break;
-
-                case SO_PlayerData.PlayerRole.Def:
-                    if (def >= 4) break;
-                    playingEleven.Add(player);
-                    def++;
-                    break;
-
-                case SO_PlayerData.PlayerRole.Mid:
-                    if (mid >= 4) break;
-                    playingEleven.Add(player);
-                    mid++;
-                    break;
-
-                case SO_PlayerData.PlayerRole.Atk:
-                    if (atk >= 3) break;
-                    playingEleven.Add(player);
-                    atk++;
-                    break;
-            }
-            if (playingEleven.Count >= 11) break;
-        }
-
-        foreach (SO_PlayerData player in playingEleven)
-        {
-            Debug.Log(player.playerName);
-        }
-        Debug.Log("Formazione: " + def + mid + atk);
+        AddPlayersToEleven(sortedPlayers);
     }
 
     public void SetTurnOverEleven(float energyThreshold=80f)
     {
         //Best team but players with energy below [n] are excluded
         playingEleven = new List<SO_PlayerData>();
+        bench = new List<SO_PlayerData>();
         //sets goalkeeper
-        playingEleven.Add(Goalkeepers[0].skillLevel > Goalkeepers[1].skillLevel ? Goalkeepers[0] : Goalkeepers[1]);
-
-        int def = 0;
-        int mid = 0;
-        int atk = 0;
+        AddGoalKeeper();
 
         //sorts other players by skill
         List<SO_PlayerData> sortedPlayers = new List<SO_PlayerData>();
         sortedPlayers.AddRange(Defense);
         sortedPlayers.AddRange(Midfield);
         sortedPlayers.AddRange(Attack);
+
         sortedPlayers = sortTeamListBySkill(sortedPlayers);
 
-        foreach (SO_PlayerData player in sortedPlayers)
-        {
-            //do not add expelled players to team
-            if (player.expelled > 0 || player.playerEnergy < energyThreshold)
-            {
-                Debug.Log("Il giocatore è espulso o stancor e non puote giocar");
-                continue;
-            }
-            switch (player.playerRole)
-            {
-                default:
-                    break;
+        AddPlayersToEleven(sortedPlayers, energyThreshold);
 
-                case SO_PlayerData.PlayerRole.Def:
-                    if (def >= 4) break;
-                    playingEleven.Add(player);
-                    def++;
-                    break;
-
-                case SO_PlayerData.PlayerRole.Mid:
-                    if (mid >= 4) break;
-                    playingEleven.Add(player);
-                    mid++;
-                    break;
-
-                case SO_PlayerData.PlayerRole.Atk:
-                    if (atk >= 3) break;
-                    playingEleven.Add(player);
-                    atk++;
-                    break;
-            }
-            if (playingEleven.Count >= 11) break;
-        }
-
-        foreach (SO_PlayerData player in playingEleven)
-        {
-            Debug.Log(player.playerName);
-        }
-
-        Debug.Log("Formazione: " + def + mid + atk);
     }
     private List<SO_PlayerData> sortTeamListBySkill(List<SO_PlayerData> datalist)
     {

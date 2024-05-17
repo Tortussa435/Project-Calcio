@@ -52,4 +52,10 @@ public class SO_PlayerData : ScriptableObject
 
     public int expelled;
 
+    public void AddEnergy(float min, float max)
+    {
+        playerEnergy += Random.Range(min, max);
+        playerEnergy = Mathf.Clamp(playerEnergy, 0, 100);
+    }
+
 }

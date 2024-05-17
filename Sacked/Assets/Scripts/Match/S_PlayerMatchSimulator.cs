@@ -132,6 +132,9 @@ public static class S_PlayerMatchSimulator
         S_GlobalManager.selectedTeam.teamTactics = ScriptableObject.Instantiate<SO_Tactics>(Resources.Load<SO_Tactics>("ScriptableObjects/TeamTactics/Generic"));
 
         S_GlobalManager.squad.RemoveExpulsions();
+        
+        S_GlobalManager.squad.DecreaseElevenEnergy();
+        S_GlobalManager.squad.RefillBenchEnergy();
 
         OnMatchEnd.Invoke();
 
@@ -361,6 +364,7 @@ public static class S_PlayerMatchSimulator
         else return opponentTeamNames[Random.Range(0, opponentTeamNames.Count)];
         
     }
+
 
     #endregion
 

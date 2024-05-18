@@ -112,6 +112,7 @@ public static class S_PlayerMatchSimulator
     {
 
         EndMatchAddPoints();
+        EndMatchParametersReaction();
 
         YellowCards.Clear();
         RedCards.Clear();
@@ -464,29 +465,70 @@ public static class S_PlayerMatchSimulator
     #region CALCULATE END MATCH REACTION
     private static void EndMatchParametersReaction()
     {
-        //Find expectations level
-        
-        //Find target ladder position distance
+        float president = 0;
+        float supporters = 0;
+        float team = 0;
 
+        //Find expectations level
+        float teamsSkillDifference = (float)(S_GlobalManager.selectedTeam.SkillLevel - GetOpponentTeam().SkillLevel + 5 ) / 10.0f;
+
+        //Find target ladder position distance
+        int targetLadderDistance = S_Ladder.FindTeamPoints(S_GlobalManager.selectedTeam) - S_Ladder.FindPointsAtLadderPosition(S_GlobalManager.minRankingObjective);
 
         //supporters change their opinion rapidly with a change of results, they care more about the single match
         //president cares more about reaching the target ladder position
         //the team cares more about results continuity
         //money doesn't care about results
 
-        if (matchScore.Drawing())
+        if (matchScore.Drawing()) //match draw
         {
-            //match draw
+            supporters = -(teamsSkillDifference - 0.5f) * 10 + (targetLadderDistance / 3) * 2;
+            team = -(teamsSkillDifference - 0.5f) * 10 + (targetLadderDistance / 3);
+            president = -(teamsSkillDifference - 0.5f) * 5 + (targetLadderDistance / 3) * 4;
+            if (isDerby)
+            {
+                supporters += 2;
+                team += 2;
+                president += 2;
+            }
         }
 
-        else if((matchScore.HomeWinning() && IsPlayerHomeTeam()) || (matchScore.AwayWinning() && !IsPlayerHomeTeam()))
+        else if((matchScore.HomeWinning() && IsPlayerHomeTeam()) || (matchScore.AwayWinning() && !IsPlayerHomeTeam())) //player won
         {
-            //player won
+            supporters = (1 - teamsSkillDifference) * 20 + Mathf.Max(3, targetLadderDistance);
+            team = (1 - teamsSkillDifference) * 10 + Mathf.Max(3, targetLadderDistance * 2);
+            president = (1 - teamsSkillDifference) * 5 + Mathf.Max(3, targetLadderDistance * 3);
+            
+            if (isDerby)
+            {
+                supporters += 15;
+                team += 5;
+                president += 5;
+            }
         }
-        else
+
+        else //player lost
         {
-            //player lost
+            //mathf.min to avoid giving positive values when the points distance is positive
+
+            supporters = - ((teamsSkillDifference * 10) - Mathf.Min(0,(targetLadderDistance / 3) * 5));
+            team = - ((teamsSkillDifference*10) - Mathf.Min(0,(targetLadderDistance / 6) * 5));
+            president = - ((teamsSkillDifference * 5) - Mathf.Min((targetLadderDistance / 3) * 10));
+            
+            if (isDerby)
+            {
+                supporters -= 10;
+                team -= 5;
+                president -= 5;
+            }
         }
+
+        Debug.Log("Punti fine partita: " + " Supporters: " + supporters + " President: " + president + " Team: "+ team);
+
+        S_GlobalManager.SetSupporters(supporters);
+        S_GlobalManager.SetPresident(president);
+        S_GlobalManager.SetTeam(team);
+
     }
 
     #endregion

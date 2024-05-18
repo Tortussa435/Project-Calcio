@@ -16,7 +16,7 @@ public class S_MatchCard : S_Card
         cardBackground.color = data.cardColor;
         cardIcon.sprite = data.cardIcon;
         starsRating.fillAmount = (data as SO_MatchOpponent).teamRating * 0.2f;
-        ranking.text = S_Ladder.LeagueRank(S_GlobalManager.nextOpponent).ToString()+ "°";
+        ranking.text = S_Ladder.FindLeagueRank(S_GlobalManager.nextOpponent).ToString()+ "°";
 
         //REDO as loop (and less cringe)
         if (traits.Count < 1) return;

@@ -114,20 +114,34 @@ public class S_Ladder : MonoBehaviour
 
         return ladder;
     }
-    static public int LeagueRank(SO_Team team)
+    static public int FindLeagueRank(SO_Team team)
     {
-        List<teamPosition> localLadder = QuickSortLadder(leagueLadder, 0, leagueLadder.Count - 1); //TODO there's something wrong in quicksorting
+        List<teamPosition> localLadder = QuickSortLadder(leagueLadder, 0, leagueLadder.Count - 1); //REDO there's something wrong in quicksorting
         for (int i = 0; i < localLadder.Count; i++)
         {
-            //Debug.Log(localLadder[i].team.teamName);
-            if (localLadder[i].team == team)
+            if (localLadder[i].team.teamName == team.teamName)
             {
+                //Debug.Log(localLadder[i].team.teamName);
                 return i + 1;
             }
         }
         return -1;
     }
 
+    static public int FindPointsAtLadderPosition(int position) => QuickSortLadder(leagueLadder, 0, leagueLadder.Count - 1)[position].points;
+
+    static public int FindTeamPoints(SO_Team team)
+    {
+        List<teamPosition> localLadder = QuickSortLadder(leagueLadder, 0, leagueLadder.Count - 1); //REDO there's something wrong in quicksorting
+        for (int i = 0; i < localLadder.Count; i++)
+        {
+            if (localLadder[i].team.teamName == team.teamName)
+            {
+                return localLadder[i].points;
+            }
+        }
+        return -1;
+    }
     static public void UpdateTeamPoints(SO_Team team, int points)
     {
         for (int i = 0; i < leagueLadder.Count; i++)

@@ -51,6 +51,7 @@ public class SO_PlayerData : ScriptableObject
     public float playerEnergy = 100f;
 
     public int expelled;
+    public int injuried=0;
 
     public void AddEnergy(float min, float max)
     {

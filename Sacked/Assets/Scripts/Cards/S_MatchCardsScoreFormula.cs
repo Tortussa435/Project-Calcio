@@ -53,6 +53,18 @@ public class S_MatchCardsScoreFormula : S_CardsScoreFormula
                 valueToCheck = isDerby ? 1.0f : 0.0f;
                 break;
 
+            case MatchRule.Injuries:
+                valueToCheck = S_PlayerMatchSimulator.injuries;
+                break;
+
+            case MatchRule.PlayerSubstitutions:
+                valueToCheck = S_PlayerMatchSimulator.IsPlayerHomeTeam() ? S_PlayerMatchSimulator.substitutions.home : S_PlayerMatchSimulator.substitutions.away;
+                break;
+
+            case MatchRule.OpponentSubstitutions:
+                valueToCheck = !S_PlayerMatchSimulator.IsPlayerHomeTeam() ? S_PlayerMatchSimulator.substitutions.home : S_PlayerMatchSimulator.substitutions.away;
+                break;
+
         }
 
         

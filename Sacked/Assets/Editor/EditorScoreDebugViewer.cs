@@ -8,10 +8,20 @@ using static S_FootballEnums;
 public class EditorScoreDebugViewer : EditorWindow
 {
     static float aggressivitySlider = 0;
-    public static int yellowCards = 0;
-    public static int redCards = 0;
-    public static int teamASkill = 1;
-    public static int teamBSkill = 1;
+   
+    private static int yellowCards = 0;
+    private static int redCards = 0;
+
+    private static int teamASkill = 1;
+    private static int teamBSkill = 1;
+
+    private static int injuries = 0;
+
+    private static int gameMinute = 0;
+
+    private static int homeSubs = 0;
+
+    private static int awaySubs = 0;
 
     public static CardsFormulaHandle formulasmanager;
 
@@ -51,6 +61,11 @@ public class EditorScoreDebugViewer : EditorWindow
         GUILayout.Space(10);
         GUILayout.Label(redCards.ToString());
 
+        GUILayout.Label("Injuries", EditorStyles.boldLabel);
+        injuries = (int)GUILayout.HorizontalSlider(injuries, 0, 6, GUILayout.Width(300));
+        GUILayout.Space(10);
+        GUILayout.Label(injuries.ToString());
+
         GUILayout.Label("Home team skill", EditorStyles.boldLabel);
         teamASkill = (int)GUILayout.HorizontalSlider(teamASkill, 1, 5, GUILayout.Width(300));
         GUILayout.Space(10);
@@ -60,6 +75,21 @@ public class EditorScoreDebugViewer : EditorWindow
         teamBSkill = (int)GUILayout.HorizontalSlider(teamBSkill,1,5,GUILayout.Width(300));
         GUILayout.Space(10);
         GUILayout.Label(teamBSkill.ToString());
+
+        GUILayout.Label("Game Minute", EditorStyles.boldLabel);
+        gameMinute = (int)GUILayout.HorizontalSlider(gameMinute, 0, 90, GUILayout.Width(300));
+        GUILayout.Space(10);
+        GUILayout.Label(gameMinute.ToString());
+
+        GUILayout.Label("Player Subs", EditorStyles.boldLabel);
+        homeSubs = (int)GUILayout.HorizontalSlider(homeSubs, 0, 4, GUILayout.Width(300));
+        GUILayout.Space(10);
+        GUILayout.Label(homeSubs.ToString());
+
+        GUILayout.Label("Opponent Subs", EditorStyles.boldLabel);
+        awaySubs = (int)GUILayout.HorizontalSlider(awaySubs, 0, 4, GUILayout.Width(300));
+        GUILayout.Space(10);
+        GUILayout.Label(awaySubs.ToString());
 
         try
         {
@@ -111,9 +141,27 @@ public class EditorScoreDebugViewer : EditorWindow
             case MatchRule.RedCards:
                 score = redCards;
                 break;
+
             case MatchRule.Constant:
                 score = 1;
                 break;
+
+            case MatchRule.Injuries:
+                score = injuries;
+                break;
+
+            case MatchRule.GameMinute:
+                score = gameMinute;
+                break;
+
+            case MatchRule.PlayerSubstitutions:
+                score = homeSubs;
+                break;
+
+            case MatchRule.OpponentSubstitutions:
+                score = awaySubs;
+                break;
+
         }
 
         switch (chance.direction)
@@ -131,6 +179,18 @@ public class EditorScoreDebugViewer : EditorWindow
 
             case ScoreDirection.InverseRound:
                 score = 1 - Mathf.Round(score);
+                break;
+
+            case ScoreDirection.HigherThan:
+                score = score > chance.compareFloat ? 1 : 0;
+                break;
+
+            case ScoreDirection.Equal:
+                score = score == chance.compareFloat ? 1 : 0;
+                break;
+
+            case ScoreDirection.LowerThan:
+                score = score < chance.compareFloat ? 1 : 0;
                 break;
         }
 

@@ -27,6 +27,7 @@ public class SO_PlayerTrait : ScriptableObject
         Old_Wise_Man,
         Small,
         Unlucky,
+        Glass
     }
 
     public PlayerTraitNames traitName;
@@ -39,6 +40,7 @@ public class SO_PlayerTrait : ScriptableObject
 
     public string GetTraitName() => traitName.ToString().Replace('_', ' ');
 
+    #region TRAITS
     //Trait events library
     public void Test()
     {
@@ -53,8 +55,16 @@ public class SO_PlayerTrait : ScriptableObject
         }
         //if the value gets clamped then it should not be decreased on match end (it would not be very epic!)
         if (playerRef.skillLevel > 5) playerRef.skillLevel = 5;
-        else S_PlayerMatchSimulator.OnMatchEnd.AddListener(DecreaseSkillLevelOnBigMatchEnd);
+        else S_PlayerMatchSimulator.OnMatchEnd.AddListener(() => playerRef.skillLevel -= 1);
     }
-    private void DecreaseSkillLevelOnBigMatchEnd() => playerRef.skillLevel -= 1;
     
+    
+    public void IncreaseInjuryChance()
+    {
+        if (S_PlayerMatchSimulator.IsPlayerHomeTeam()) S_PlayerMatchSimulator.injuryChance.home++;
+        
+        else S_PlayerMatchSimulator.injuryChance.away++;
+    }
+
+    #endregion
 }

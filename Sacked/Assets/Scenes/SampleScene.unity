@@ -2169,17 +2169,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   formulas:
-  - rule: 0
+  - rule: 7
+    direction: 6
+    weight: 1
+    compareFloat: 60
+  - rule: 9
     direction: 0
-    weight: 0.33333334
-    compareFloat: 0
-  - rule: 2
-    direction: 0
-    weight: -0.25
-    compareFloat: 0
-  - rule: 4
-    direction: 0
-    weight: 0.1
+    weight: -0.329
     compareFloat: 0
 --- !u!4 &1433028864
 Transform:
@@ -2688,7 +2684,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1660856489}
         m_TargetAssemblyTypeName: S_Squad, Assembly-CSharp
-        m_MethodName: GenerateTeamElevenCard
+        m_MethodName: ShowTeamElevenCard
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

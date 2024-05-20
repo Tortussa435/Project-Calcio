@@ -181,14 +181,17 @@ public class S_Squad : MonoBehaviour
         return totalskill;
     }
 
-    public List<SO_PlayerData> GetHotHeadPlayers()
+    public List<SO_PlayerData> GetPlayersWithTrait(SO_PlayerTrait.PlayerTraitNames trait)
     {
-        List<SO_PlayerData> hotheads = new List<SO_PlayerData>();
-        foreach(SO_PlayerData player in playingEleven)
+        List<SO_PlayerData> pWithTrait = new List<SO_PlayerData>();
+        foreach (SO_PlayerData player in playingEleven)
         {
-            if (player.playerTraits[0].traitName==SO_PlayerTrait.PlayerTraitNames.Hot_Head) hotheads.Add(player);
+            if (player.playerTraits[0].traitName == trait)
+            {
+                pWithTrait.Add(player);
+            }
         }
-        return hotheads;
+        return pWithTrait;
     }
 
     public bool TeamContainsTrait(SO_PlayerTrait.PlayerTraitNames trait, bool playingElevenOnly=false)
@@ -251,6 +254,15 @@ public class S_Squad : MonoBehaviour
         foreach(SO_PlayerData player in Attack) if (player.expelled > 0) player.expelled--;
         
     }
+    
+    public void ReduceInjuries()
+    {
+        //REDO pretty awful code ngl
+        foreach (SO_PlayerData player in Goalkeepers) if (player.injuried > 0) player.injuried--;
+        foreach (SO_PlayerData player in Defense) if (player.injuried > 0) player.injuried--;
+        foreach (SO_PlayerData player in Midfield) if (player.injuried > 0) player.injuried--;
+        foreach (SO_PlayerData player in Attack) if (player.injuried > 0) player.injuried--;
+    }
 
     public void RefillBenchEnergy(float min=10.0f, float max=20.0f)
     {
@@ -268,18 +280,49 @@ public class S_Squad : MonoBehaviour
             p.AddEnergy(min, max);
         }
     }
-    public void GenerateTeamElevenCard(bool forceSpawn=false)
+
+    /// <summary>
+    /// Difference between ShowTeamElevenCard() and GenerateNextTacticTeamElevenCard() is that show team eleven card does not change the tactic when called, while the other function does so.
+    /// This Shitcode comes from the limitations of UnityEvents, that cannot have more than one parameter or a non void Return type
+    /// </summary>
+    /// <param name="forceSpawn"></param>
+    public void ShowTeamElevenCard(bool forceSpawn = false)
     {
         if (teamCardRef == null || forceSpawn)
         {
             SO_CardData data = ScriptableObject.Instantiate(Resources.Load<SO_CardData>("ScriptableObjects/TeamCard/TeamCard"));
+            data.leftChoice = S_GlobalManager.squad.FindNextLineup().ToString();
             teamCardRef = S_GlobalManager.deckManagerRef.GenerateCard(data, teamCardPrefab, false);
             S_GlobalManager.deckManagerRef.SetCardOnTop(teamCardRef);
-
-            data.rightEffects.AddListener(()=>teamCardRef=null); //reference must be lost even before than card destruction
+            data.rightEffects.AddListener(() => teamCardRef = null); //reference must be lost even before than card destruction
         }
 
-        else Destroy(teamCardRef);
+        else
+        {
+            Destroy(teamCardRef);
+        }
+    }
+
+    /// <summary>
+    /// Difference between ShowTeamElevenCard() and GenerateNextTacticTeamElevenCard() is that show team eleven card does not change the tactic when called, while the other function does so.
+    /// This Shitcode comes from the limitations of UnityEvents, that cannot have more than one parameter or a non void Return type
+    /// </summary>
+    /// <param name="forceSpawn"></param>
+    public void GenerateNextTacticTeamElevenCard(bool forceSpawn = false)
+    {
+        if (teamCardRef == null || forceSpawn)
+        {
+            SO_CardData data = ScriptableObject.Instantiate(Resources.Load<SO_CardData>("ScriptableObjects/TeamCard/TeamCard"));
+            data.onGeneratedEffects.AddListener(data.FindNextLineupDescription);
+            teamCardRef = S_GlobalManager.deckManagerRef.GenerateCard(data, teamCardPrefab, false);
+            S_GlobalManager.deckManagerRef.SetCardOnTop(teamCardRef);
+            data.rightEffects.AddListener(() => teamCardRef = null); //reference must be lost even before than card destruction
+        }
+
+        else
+        {
+            Destroy(teamCardRef);
+        }
     }
 
     #region LINEUPS
@@ -309,7 +352,7 @@ public class S_Squad : MonoBehaviour
         foreach (SO_PlayerData player in players)
         {
             //do not add expelled players to team
-            if (player.expelled > 0 || player.playerEnergy<energyThreshold)
+            if (player.expelled > 0 || player.injuried > 0 || player.playerEnergy < energyThreshold)
             {
                 Debug.Log("Il giocatore è espulso e non puote giocar");
                 continue;

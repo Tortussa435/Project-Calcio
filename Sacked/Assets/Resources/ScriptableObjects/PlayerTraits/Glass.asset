@@ -9,18 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fadb9d2fbe0f696488cc143c5692986a, type: 3}
-  m_Name: HotHeads
+  m_Script: {fileID: 11500000, guid: 3d76aba86a0f8704e90b27559760aa7b, type: 3}
+  m_Name: Glass
   m_EditorClassIdentifier: 
-  teamRef: {fileID: 0}
-  traitName: 7
+  traitName: 17
   positiveTrait: 0
   traitEffect:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 11400000}
-        m_TargetAssemblyTypeName: SO_TeamTrait, Assembly-CSharp
-        m_MethodName: SetOpponentAggressivity
+        m_TargetAssemblyTypeName: SO_PlayerTrait, Assembly-CSharp
+        m_MethodName: IncreaseInjuryChance
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -31,3 +30,4 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   excludedTraits: 
+  playerRef: {fileID: 0}

@@ -93,8 +93,8 @@ public class S_TeamCard : S_Card
     }
 
     public override void GoLeft()
-    {
-        S_GlobalManager.squad.GenerateTeamElevenCard(true);
+    {        
+        S_GlobalManager.squad.GenerateNextTacticTeamElevenCard(true);
     }
     public override void GoRight()
     {

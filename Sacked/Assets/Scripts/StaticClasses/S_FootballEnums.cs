@@ -48,8 +48,38 @@ public static class S_FootballEnums
     }
     
     [System.Serializable]
-    public enum Rule { President, Team, Supporters, Money, TeamsSkillDifference, Constant, None, PlayerTacticGeneric, OpponentTacticGeneric, PlayerWinning, PlayerDrawing, PlayerLosing, PlayerTrait, Derby }
+    public enum Rule {
+        President,
+        Team,
+        Supporters,
+        Money,
+        TeamsSkillDifference,
+        Constant,
+        None,
+        PlayerTacticGeneric,
+        OpponentTacticGeneric,
+        PlayerWinning,
+        PlayerDrawing,
+        PlayerLosing,
+        PlayerTrait,
+        Derby,
+        Injuries,
+        GameMinute,
+        PlayerSubstitutions,
+        OpponentSubstitutions
+    }
 
     [System.Serializable]
-    public enum MatchRule { Aggressivity, SkillDifference, YellowCards, RedCards, Constant, Derby};
+    public enum MatchRule {
+        Aggressivity,
+        SkillDifference,
+        YellowCards,
+        RedCards,
+        Constant,
+        Derby,
+        Injuries,
+        GameMinute,
+        PlayerSubstitutions,
+        OpponentSubstitutions
+    };
 }

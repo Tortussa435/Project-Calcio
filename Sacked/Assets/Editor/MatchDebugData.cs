@@ -6,6 +6,8 @@ using UnityEngine;
 using static S_PlayerMatchSimulator;
 public class MatchDebugData : EditorWindow
 {
+    Vector2 scrollPosition = Vector2.zero;
+
     [MenuItem("ProjectCalcio/MatchDebugData")]
     public static void ShowWindow()
     {
@@ -13,6 +15,8 @@ public class MatchDebugData : EditorWindow
     }
     private void OnGUI()
     {
+        scrollPosition = GUILayout.BeginScrollView(scrollPosition, false, true, GUILayout.ExpandHeight(true));
+
         try
         {
             string playingEleven = "Playing Eleven:\n";
@@ -48,13 +52,22 @@ public class MatchDebugData : EditorWindow
             {
                 GUILayout.Label(player.playerName);
             }
+
+            GUILayout.Label("\n Infortuni: "+injuries);
+
+            GUILayout.Label("\n Opponent Fake Players: ");
+            foreach(string n in opponentTeamNames)
+            {
+                GUILayout.Label(n);
+            }
         }
 
         catch
         {
             GUILayout.Label("Start the game to see values");
         }
-        
+
+        GUILayout.EndScrollView();
     }
     private void Update()
     {

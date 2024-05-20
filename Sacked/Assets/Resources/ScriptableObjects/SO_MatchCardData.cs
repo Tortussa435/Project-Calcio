@@ -13,8 +13,10 @@ public class SO_MatchCardData : SO_CardData
 
     public List<CardDropChance> matchCardDropChance = new List<CardDropChance>();
 
+    [SerializeField] private string formulaDescriptionInfo;
     public override void SetCardScore()
     {
+
         cardScore = 0;
 
         base.SetCardScore();
@@ -29,13 +31,117 @@ public class SO_MatchCardData : SO_CardData
         cardScoreNotNormalized = cardScore;
 
         chanceOfAppearance = 0;
+
         foreach(CardDropChance drop in matchCardDropChance)
         {
             chanceOfAppearance += drop.FindChance();
         }
+
+        chanceOfAppearance = Mathf.Max(0, chanceOfAppearance);
     }
 
     #region MATCH EVENTS
+    #region INJURIES
+    public void RandomInjury()
+    {
+        int playerChance = 1;
+        int opponentChance = 1;
+
+        playerChance += S_PlayerMatchSimulator.IsPlayerHomeTeam() ? (int)S_PlayerMatchSimulator.injuryChance.home : (int)S_PlayerMatchSimulator.injuryChance.away;
+
+        opponentChance += S_PlayerMatchSimulator.IsPlayerHomeTeam() ? (int)S_PlayerMatchSimulator.injuryChance.away : (int)S_PlayerMatchSimulator.injuryChance.home;
+
+        int seed = Random.Range(0, playerChance + opponentChance + 1);
+
+
+        if (seed > playerChance) PlayerInjury();
+        else OpponentInjury();
+
+        S_PlayerMatchSimulator.injuries++;
+    }
+    public void PlayerInjury()
+    {
+        SO_PlayerData player;
+
+        if (Random.Range(0, 100) < 60) //[n]% of the times the player that gets an injury is a glass player
+        {
+            List<SO_PlayerData> glass = S_GlobalManager.squad.GetPlayersWithTrait(SO_PlayerTrait.PlayerTraitNames.Glass);
+            if (glass.Count > 0) player = glass[Random.Range(0, glass.Count)];
+
+            else player = S_GlobalManager.squad.playingEleven[Random.Range(0, S_GlobalManager.squad.playingEleven.Count)];
+        }
+
+        else player = S_GlobalManager.squad.playingEleven[Random.Range(0, S_GlobalManager.squad.playingEleven.Count)];
+
+        //Injuries player for random amount of matches
+        int injurySeed = Random.Range(0, 100);
+        int injuryLength = 0;
+        switch (injurySeed)
+        {
+            //the first day of injury is removed at the end of the match, therefore the count starts at 2
+            case int n when n < 50:
+                injuryLength = 2;
+                break;
+
+            case int n when n < 75:
+                injuryLength = 3;
+                break;
+
+            case int n when n < 90:
+                injuryLength = 4;
+                break;
+
+            case int n when n < 99:
+                injuryLength = 5;
+                break;
+
+            default:
+                injuryLength = Random.Range(7, 11);
+                break;
+        }
+        player.injuried = injuryLength;
+        
+
+        string description = cardDescriptions[Random.Range(0, cardDescriptions.Count)];
+        description = description.Replace("{Injuried}", player.playerName + " (" + S_GlobalManager.selectedTeam.shortName + ")");
+        description = description.Replace("{InjLen}", injuryLength.ToString());
+
+        ownerCard.GetComponent<S_Card>().cardDescription.text = description;
+
+        //ownerCard.GetComponent<S_Card>().GenerateCardData(this);
+
+    }
+    public void OpponentInjury()
+    {
+        SO_PlayerData player = ScriptableObject.CreateInstance<SO_PlayerData>();
+
+        player.playerName = S_PlayerMatchSimulator.RandomlyGetNewOrExistingOpponentPlayer();
+
+
+        S_PlayerMatchSimulator.opponentTeamNames.Remove(player.playerName);
+
+        int injuryLength = Random.Range(1, 12);
+
+        string description = S_GlobalManager.ReplaceVariablesInString(cardDescriptions[Random.Range(0, cardDescriptions.Count)]);
+        description = description.Replace("{Injuried}", player.playerName + " (" + S_GlobalManager.selectedTeam.shortName + ")");
+        description = description.Replace("{InjLen}", injuryLength.ToString());
+
+        ownerCard.GetComponent<S_Card>().cardDescription.text = description;
+
+        //Generates Opponent substitution card
+        Branch substitutionCard;
+        substitutionCard.addPosition = 0;
+        SO_CardData substitution;
+        substitution = ScriptableObject.Instantiate(Resources.Load<SO_CardData>("ScriptableObjects/MatchCards/Match/SO_OpponentSubstitution"));
+        substitution.decreaseCountDown = false;
+        substitutionCard.branchData=substitution;
+        leftBranchCard = substitutionCard;
+        rightBranchCard = substitutionCard;
+
+    }
+    #endregion
+
+    #region CARDS
     public void RandomYellowCard()
     {
         int playerChance = 1;
@@ -51,7 +157,6 @@ public class SO_MatchCardData : SO_CardData
         else OpponentYellowCard();
     
     }
-
     public void RandomRedCard()
     {
         int playerChance = 1;
@@ -73,7 +178,7 @@ public class SO_MatchCardData : SO_CardData
 
         if (Random.Range(0, 100) < 60) //[n]% of the times the player that gets a yellow card is a hothead
         {
-            List<SO_PlayerData> hotheads = S_GlobalManager.squad.GetHotHeadPlayers();
+            List<SO_PlayerData> hotheads = S_GlobalManager.squad.GetPlayersWithTrait(SO_PlayerTrait.PlayerTraitNames.Hot_Head);
             if (hotheads.Count > 0) player = hotheads[Random.Range(0, hotheads.Count)];
 
             else  player=S_GlobalManager.squad.playingEleven[Random.Range(0, S_GlobalManager.squad.playingEleven.Count)];
@@ -114,7 +219,7 @@ public class SO_MatchCardData : SO_CardData
 
         if (Random.Range(0, 100) < 60) //[n]% of the times the player that gets a yellow card is a hothead
         {
-            List<SO_PlayerData> hotheads = S_GlobalManager.squad.GetHotHeadPlayers();
+            List<SO_PlayerData> hotheads = S_GlobalManager.squad.GetPlayersWithTrait(SO_PlayerTrait.PlayerTraitNames.Hot_Head);
             if (hotheads.Count > 0) player = hotheads[Random.Range(0, hotheads.Count)];
 
             else player = S_GlobalManager.squad.playingEleven[Random.Range(0, S_GlobalManager.squad.playingEleven.Count)];
@@ -186,7 +291,7 @@ public class SO_MatchCardData : SO_CardData
         description = description.Replace("{Expelled}", player.playerName + " (" + S_PlayerMatchSimulator.GetOpponentTeam().shortName + ")");
         ownerCard.GetComponent<S_Card>().cardDescription.text = description;
     }
-
+    #endregion
     #endregion
 }
 
@@ -222,6 +327,20 @@ public class CardDropChance
                 break;
             case MatchRule.Derby:
                 score = S_PlayerMatchSimulator.isDerby ? 1 : 0;
+                break;
+            case MatchRule.Injuries:
+                score = S_PlayerMatchSimulator.injuries;
+                break;
+
+            case MatchRule.GameMinute:
+                score = S_PlayerMatchSimulator.matchMinute;
+                break;
+            case MatchRule.PlayerSubstitutions:
+                score = S_PlayerMatchSimulator.IsPlayerHomeTeam() ? S_PlayerMatchSimulator.substitutions.home : S_PlayerMatchSimulator.substitutions.away;
+                break;
+
+            case MatchRule.OpponentSubstitutions:
+                score = !S_PlayerMatchSimulator.IsPlayerHomeTeam() ? S_PlayerMatchSimulator.substitutions.home : S_PlayerMatchSimulator.substitutions.away;
                 break;
         }
 

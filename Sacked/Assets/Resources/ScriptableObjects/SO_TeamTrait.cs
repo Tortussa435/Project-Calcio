@@ -48,14 +48,14 @@ public class SO_TeamTrait : ScriptableObject
         S_PlayerMatchSimulator.UpdateTacticsEffectiveness();
     }
 
-    public void SetAggressivity()
+    public void SetOpponentAggressivity()
     {
         if (S_PlayerMatchSimulator.IsOpponentHomeTeam())
         {
-            S_PlayerMatchSimulator.matchAggressivity.home = Random.Range(1, 4);
+            S_PlayerMatchSimulator.matchAggressivity.home = Random.Range(2, 4);
         }
 
-        else S_PlayerMatchSimulator.matchAggressivity.away = Random.Range(1, 4);
+        else S_PlayerMatchSimulator.matchAggressivity.away = Random.Range(2, 4);
     }
 
     #endregion

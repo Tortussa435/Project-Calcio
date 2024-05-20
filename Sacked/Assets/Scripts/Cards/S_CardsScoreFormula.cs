@@ -86,6 +86,22 @@ public class S_CardsScoreFormula
             case Rule.Derby:
                 valueToCheck = S_PlayerMatchSimulator.isDerby ? 1.0f : 0.0f;
                 break;
+
+            case Rule.Injuries:
+                valueToCheck = (float)S_PlayerMatchSimulator.injuries;
+                break;
+
+            case Rule.GameMinute:
+                valueToCheck = (float)S_PlayerMatchSimulator.matchMinute;
+                break;
+
+            case Rule.PlayerSubstitutions:
+                valueToCheck = S_PlayerMatchSimulator.IsPlayerHomeTeam() ? S_PlayerMatchSimulator.substitutions.home : S_PlayerMatchSimulator.substitutions.away;
+                break;
+
+            case Rule.OpponentSubstitutions:
+                valueToCheck = !S_PlayerMatchSimulator.IsPlayerHomeTeam() ? S_PlayerMatchSimulator.substitutions.home : S_PlayerMatchSimulator.substitutions.away;
+                break;
         }
 
         valueToCheck = S_FootballEnums.GetScoreDirection(direction, valueToCheck, compareFloat);

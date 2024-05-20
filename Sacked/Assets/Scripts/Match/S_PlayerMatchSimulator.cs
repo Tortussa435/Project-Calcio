@@ -24,9 +24,13 @@ public static class S_PlayerMatchSimulator
 
     public static (int home, int away) tacticEffectiveness = ( 0, 0);
 
+    public static (int home, int away) substitutions = (0, 0);
+
     public static float homeGoalCheck = 0.0f;
     public static float awayGoalCheck = 0.0f;
-    
+
+    public static int injuries = 0;
+
     public static UnityEvent OnMatchEnd;
     public static UnityEvent OnMatchStart;
 
@@ -85,6 +89,8 @@ public static class S_PlayerMatchSimulator
         match = S_Calendar.FindMatchByTeam(S_GlobalManager.selectedTeam,S_GlobalManager.currentMatchDay);
         matchScore.home = 0;
         matchScore.away = 0;
+        injuries = 0;
+
         UpdateMatchTextData();
 
         //changes the team's skill level based on the player's playing 11
@@ -122,7 +128,7 @@ public static class S_PlayerMatchSimulator
         matchMinute = 0;
         matchScore.home = 0;
         matchScore.away = 0;
-        
+        injuries = 0;
         
         S_GlobalManager.currentMatchDay++;
         S_GlobalManager.nextOpponent = S_Calendar.FindOpponent();
@@ -133,6 +139,7 @@ public static class S_PlayerMatchSimulator
         S_GlobalManager.selectedTeam.teamTactics = ScriptableObject.Instantiate<SO_Tactics>(Resources.Load<SO_Tactics>("ScriptableObjects/TeamTactics/Generic"));
 
         S_GlobalManager.squad.RemoveExpulsions();
+        S_GlobalManager.squad.ReduceInjuries();
         
         S_GlobalManager.squad.DecreaseElevenEnergy();
         S_GlobalManager.squad.RefillBenchEnergy();
@@ -356,9 +363,9 @@ public static class S_PlayerMatchSimulator
         traitsScoreChance.home = Mathf.Clamp(traitsScoreChance.home, 0, 100);
         traitsScoreChance.away = Mathf.Clamp(traitsScoreChance.away, 0, 100);
     }
-    public static string RandomlyGetNewOrExistingOpponentPlayer(int newPlayerChance=50)
+    public static string RandomlyGetNewOrExistingOpponentPlayer(int newPlayerChance=49)
     {
-        int ran = Random.Range(0, 101);
+        int ran = Random.Range(0, 100);
         
         if ((ran < newPlayerChance && opponentTeamNames.Count<11) || opponentTeamNames.Count==0) return S_PlayersGenerator.GenerateFakeOpponentPlayer();
         

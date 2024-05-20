@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using static S_PlayerMatchSimulator;
@@ -14,6 +15,17 @@ public class MatchDebugData : EditorWindow
     {
         try
         {
+            string playingEleven = "Playing Eleven:\n";
+            foreach(SO_PlayerData player in S_GlobalManager.squad.playingEleven)
+            {
+                playingEleven = string.Concat(playingEleven, player.playerName + "\n");
+            }
+            GUILayout.Label(playingEleven);
+
+            GUILayout.Label("Squad Tactic: " + S_GlobalManager.squad.teamLineup.ToString());
+            GUILayout.Label("Players Number: " + S_GlobalManager.squad.playingEleven.Count);
+            GUILayout.Label("Bench Size: " + S_GlobalManager.squad.bench.Count);
+
             GUILayout.Label(matchMinute.ToString());
             GUILayout.Label(matchScore.home+" - "+matchScore.away);
             GUILayout.Label(match.homeTeam.teamName + " vs " + match.awayTeam.teamName);

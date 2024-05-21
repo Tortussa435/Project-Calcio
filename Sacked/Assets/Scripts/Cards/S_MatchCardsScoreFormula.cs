@@ -69,7 +69,7 @@ public class S_MatchCardsScoreFormula : S_CardsScoreFormula
 
         
 
-        valueToCheck = S_FootballEnums.GetScoreDirection(direction, valueToCheck, compareFloat);
+        valueToCheck = S_FootballEnums.GetScoreDirection(direction, valueToCheck, compareFloat, customCurve);
 
         valueToCheck = (float)valueToCheck * scoreMultiplier;
         return valueToCheck;

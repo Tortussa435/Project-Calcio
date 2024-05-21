@@ -1,3 +1,4 @@
+using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -301,8 +302,16 @@ public class CardDropChance
     public MatchRule rule;
     public ScoreDirection direction;
     public float weight=1.0f;
+    
+    private bool needsCompareFloat() { return direction == ScoreDirection.LowerThan || direction == ScoreDirection.HigherThan || direction == ScoreDirection.Equal; }
+    
+    [ShowIf("needsCompareFloat")]
+    [AllowNesting]
     public float compareFloat = 0;
 
+    [ShowIf("direction",ScoreDirection.CustomCurve)]
+    [AllowNesting]
+    public AnimationCurve customCurve;
     public float FindChance()
     {
         float score = 0;
@@ -344,7 +353,7 @@ public class CardDropChance
                 break;
         }
 
-        score = S_FootballEnums.GetScoreDirection(direction, score, compareFloat);
+        score = S_FootballEnums.GetScoreDirection(direction, score, compareFloat,customCurve);
 
         score *= weight;
 

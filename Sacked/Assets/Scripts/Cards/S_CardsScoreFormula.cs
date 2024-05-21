@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using static S_FootballEnums;
 using UnityEngine;
+using NaughtyAttributes;
+
 [System.Serializable]
 public class S_CardsScoreFormula
 {
@@ -12,8 +14,19 @@ public class S_CardsScoreFormula
     public Rule desiredValue;
     public ScoreDirection direction;
 
+    [ShowIf("direction",ScoreDirection.Equal)]
+    [AllowNesting]
     public string compareString;
+
+    private bool needsCompareFloat() { return direction == ScoreDirection.HigherThan || direction == ScoreDirection.LowerThan || direction == ScoreDirection.Equal; }
+    
+    [ShowIf("needsCompareFloat")]
+    [AllowNesting]
     public float compareFloat;
+
+    [ShowIf("direction",ScoreDirection.CustomCurve)]
+    [AllowNesting]
+    public AnimationCurve customCurve;
 
     public float scoreMultiplier=1.0f;
 
@@ -104,7 +117,7 @@ public class S_CardsScoreFormula
                 break;
         }
 
-        valueToCheck = S_FootballEnums.GetScoreDirection(direction, valueToCheck, compareFloat);
+        valueToCheck = S_FootballEnums.GetScoreDirection(direction, valueToCheck, compareFloat, customCurve);
 
         valueToCheck = (float)valueToCheck * (float)scoreMultiplier;
 

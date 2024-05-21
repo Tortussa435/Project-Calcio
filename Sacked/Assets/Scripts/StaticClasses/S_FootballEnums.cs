@@ -12,9 +12,9 @@ public static class S_FootballEnums
     }
 
     [System.Serializable]
-    public enum ScoreDirection { Linear, InverseLinear, Round, InverseRound, LowerThan, Equal, HigherThan}
+    public enum ScoreDirection { Linear, InverseLinear, Round, InverseRound, LowerThan, Equal, HigherThan, CustomCurve}
 
-    public static float GetScoreDirection(ScoreDirection scoreDirection, float valueToCheck, float compareFloat)
+    public static float GetScoreDirection(ScoreDirection scoreDirection, float valueToCheck, float compareFloat, AnimationCurve customCurve=null)
     {
         switch (scoreDirection)
         {
@@ -42,6 +42,10 @@ public static class S_FootballEnums
 
             case ScoreDirection.Equal:
                 valueToCheck = Convert.ToInt32(valueToCheck == compareFloat);
+                break;
+
+            case ScoreDirection.CustomCurve:
+                valueToCheck = customCurve.Evaluate(valueToCheck);
                 break;
         }
         return valueToCheck;

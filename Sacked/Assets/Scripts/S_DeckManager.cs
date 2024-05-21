@@ -55,12 +55,19 @@ public class S_DeckManager : MonoBehaviour
         {   
             
             List<SO_Team> possibleTeams = FindPossibleTeams();
+
+            bool firstCard = true;
             foreach(SO_Team team in possibleTeams)
             {
                 SO_TeamCardData tcd = ScriptableObject.CreateInstance<SO_TeamCardData>();
                 tcd.SetTeamData(team);
                 tcd.decreaseCountDown = false;
-                GenerateCard(tcd,null,false);
+                GameObject go = GenerateCard(tcd,null,false);
+                if (firstCard)
+                {
+                    go.AddComponent<S_TutorialHint>();
+                    firstCard = false;
+                }
             }
             
         }

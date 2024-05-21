@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 
@@ -11,7 +12,9 @@ public class S_InputHandler : MonoBehaviour, IPointerDownHandler, IBeginDragHand
 {
 
 
-    private bool isCardDragged = false;
+    public bool isCardDragged = false;
+    [HideInInspector] public float totalMovement = 0; //gives how much distance the card has made
+
     //the card is going left or right
     private enum Direction { Center, Left, Right };
     private Direction cardDirection = Direction.Center;
@@ -25,6 +28,10 @@ public class S_InputHandler : MonoBehaviour, IPointerDownHandler, IBeginDragHand
     private float cardXBound = 0.0f;
 
     private Vector2 cardVelocity=Vector2.one; //used to smoothdamp the card position
+    
+    [HideInInspector] public bool overrideMovement = false;
+
+    public UnityEvent OnCardSwiped=new UnityEvent();
     public void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
@@ -37,13 +44,17 @@ public class S_InputHandler : MonoBehaviour, IPointerDownHandler, IBeginDragHand
         //REDO - Cards keep moving on x and y endlessly, creepy!
         if (cardDirection!=Direction.Center) return;
 
-        rectTransform.anchoredPosition = Vector2.SmoothDamp(rectTransform.anchoredPosition,rectTransform.anchoredPosition+eventData.delta,ref cardVelocity, 0.0025f);
+        if (!overrideMovement)
+        {
+            rectTransform.anchoredPosition = Vector2.SmoothDamp(rectTransform.anchoredPosition,rectTransform.anchoredPosition+eventData.delta,ref cardVelocity, 0.0025f);
 
-        rectTransform.anchoredPosition =
-            new Vector2(
-                Mathf.Clamp(rectTransform.anchoredPosition.x, -cardXBound, cardXBound),
-                Mathf.Clamp(rectTransform.anchoredPosition.y, -cardYBound, cardYBound)
-            );
+            rectTransform.anchoredPosition =
+                new Vector2(
+                    Mathf.Clamp(rectTransform.anchoredPosition.x, -cardXBound, cardXBound),
+                    Mathf.Clamp(rectTransform.anchoredPosition.y, -cardYBound, cardYBound)
+                );
+        }
+
 
         rectTransform.eulerAngles = new Vector3(
             0,
@@ -58,6 +69,7 @@ public class S_InputHandler : MonoBehaviour, IPointerDownHandler, IBeginDragHand
         if(cardRef.leftChoice!=null) cardRef.leftChoice.alpha = GetNormalizedCardXPosition()*6;
         if (cardRef.rightChoice != null) cardRef.rightChoice.alpha = GetNormalizedCardXPosition()*-6;
 
+        totalMovement += eventData.delta.magnitude;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -116,7 +128,7 @@ public class S_InputHandler : MonoBehaviour, IPointerDownHandler, IBeginDragHand
 
     IEnumerator SwipeCard()
     {
-        
+        OnCardSwiped.Invoke();
         Vector2 cardSpeed = Vector2.one;
         Vector2 direction = cardDirection == Direction.Left ? new Vector2(Screen.width * 1.25f, 0) : new Vector2(-Screen.width * 1.25f, 0);
         //moves the card totally to the left/right if card dragged enough in that direction

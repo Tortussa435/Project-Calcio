@@ -101,18 +101,30 @@ public static class S_GlobalManager
 
     static public string ReplaceVariablesInString(string inString)
     {
-        try 
+        try
         {
-
+            Dictionary<string, string> varsDictionary = new Dictionary<string, string>{
+                    { "{Team}", S_GlobalManager.selectedTeam.teamName },
+                    { "{Opponent}", S_GlobalManager.nextOpponent.teamName },
+                    { "{Ref}", "L'arbitro " + S_PlayerMatchSimulator.refereeName },
+                    { "{Player}", S_GlobalManager.squad.playingEleven[UnityEngine.Random.Range(0,S_GlobalManager.squad.playingEleven.Count)].playerName },
+                    { "{OppPlayer}", S_PlayerMatchSimulator.RandomlyGetNewOrExistingOpponentPlayer() },
+                    { "{Atk}", S_GlobalManager.squad !=null ? S_GlobalManager.squad.GetPlayingPlayerByRole(SO_PlayerData.PlayerRole.Atk) : "None" },
+                    { "{Mid}", S_GlobalManager.squad !=null ? S_GlobalManager.squad.GetPlayingPlayerByRole(SO_PlayerData.PlayerRole.Mid) : "None" },
+                    { "{Def}",S_GlobalManager.squad !=null ? S_GlobalManager.squad.GetPlayingPlayerByRole(SO_PlayerData.PlayerRole.Def) : "None" },
+                    { "{Gk}",S_GlobalManager.squad !=null ? S_GlobalManager.squad.GetPlayingPlayerByRole(SO_PlayerData.PlayerRole.Gk) : "None" }
+                };
+        
             
-
-            foreach (string key in S_FootballEnums.varsDictionary.Keys)
+            foreach (string key in varsDictionary.Keys)
             {
-                if (S_FootballEnums.varsDictionary.TryGetValue(key, out string outstring))
+                if (varsDictionary.TryGetValue(key, out string outstring))
                 {
                     inString = inString.Replace(key, outstring);
                 }
             }
+            
+
             return inString;
         }
         catch

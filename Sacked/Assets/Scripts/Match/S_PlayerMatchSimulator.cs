@@ -168,7 +168,7 @@ public static class S_PlayerMatchSimulator
     #region UI
     public static void UpdateMatchTextData()
     {
-        S_GlobalManager.deckManagerRef.MatchScoreText.SetText(matchMinute.ToString() + "'\n" + match.homeTeam.teamName + " " + matchScore.home + " - " + matchScore.away + " " + match.awayTeam.teamName);
+        S_GlobalManager.deckManagerRef.MatchScoreText.GetComponent<S_MatchInfo>().UpdateMatchInfo(matchMinute);
     }
     #endregion
 

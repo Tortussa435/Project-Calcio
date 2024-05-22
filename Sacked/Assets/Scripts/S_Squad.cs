@@ -336,8 +336,11 @@ public class S_Squad : MonoBehaviour
             }
         }
 
-        if (eligibleNames.Count < 1) return "None";
-
+        if (eligibleNames.Count < 1)
+        {
+            Debug.Log("Niuno fu trovato");
+            return "Niuno";
+        }
         return eligibleNames[Random.Range(0, eligibleNames.Count)];
     }
 

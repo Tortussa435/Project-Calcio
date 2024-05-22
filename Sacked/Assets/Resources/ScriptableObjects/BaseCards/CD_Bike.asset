@@ -46,14 +46,22 @@ MonoBehaviour:
   leftBranchCard:
     branchData: {fileID: 11400000, guid: 7e87dd182c8e4e94b8b73ae9cfd2ccfa, type: 2}
     addPosition: 2
+    triggerChance: 60
   rightBranchCard:
     branchData: {fileID: 0}
     addPosition: 0
+    triggerChance: 0
   scoreCard:
   - desiredValue: 5
     direction: 0
     compareString: 
     compareFloat: 0
+    customCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
     scoreMultiplier: 1
   cardScore: 0
   cardScoreNotNormalized: 0

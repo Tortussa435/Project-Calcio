@@ -40,13 +40,16 @@ public class SO_CardData : ScriptableObject
     public bool alreadyPicked=false;
 
     public Sprite cardIcon;
-    
+
     [System.Serializable]
     public struct Branch
     {
         public SO_CardData branchData;
         public int addPosition;
+        public float triggerChance;
+        
     }
+
     public Branch leftBranchCard;
     public Branch rightBranchCard;
 
@@ -61,8 +64,11 @@ public class SO_CardData : ScriptableObject
     virtual public void leftEffect()
     {
         //Debug.Log("left effect");
-        if (leftBranchCard.branchData != null) S_GlobalManager.deckManagerRef.AddCardToDeck(leftBranchCard.branchData,leftBranchCard.addPosition);
-        
+        if (leftBranchCard.branchData != null)
+        {
+            if(Random.Range(0,100) < leftBranchCard.triggerChance)
+                S_GlobalManager.deckManagerRef.AddCardToDeck(leftBranchCard.branchData, leftBranchCard.addPosition);
+        }
         S_GlobalManager.SetMoney(leftValues.addedMoney);
         S_GlobalManager.SetPresident(leftValues.addedPresident);
         S_GlobalManager.SetSupporters(leftValues.addedSupporters);
@@ -74,7 +80,11 @@ public class SO_CardData : ScriptableObject
     }
     virtual public void rightEffect()
     {
-        if(rightBranchCard.branchData!=null) S_GlobalManager.deckManagerRef.AddCardToDeck(rightBranchCard.branchData, rightBranchCard.addPosition);
+        if (rightBranchCard.branchData != null)
+        {
+            if (Random.Range(0, 100) < rightBranchCard.triggerChance)
+                S_GlobalManager.deckManagerRef.AddCardToDeck(rightBranchCard.branchData, rightBranchCard.addPosition);
+        }
 
         S_GlobalManager.SetMoney(rightValues.addedMoney);
         S_GlobalManager.SetPresident(rightValues.addedPresident);

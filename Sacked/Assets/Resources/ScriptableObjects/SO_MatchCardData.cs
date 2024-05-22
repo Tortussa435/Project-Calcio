@@ -55,10 +55,26 @@ public class SO_MatchCardData : SO_CardData
         int seed = Random.Range(0, playerChance + opponentChance + 1);
 
 
-        if (seed > playerChance) PlayerInjury();
-        else OpponentInjury();
+        if (seed > playerChance)
+        {
+            if (S_PlayerMatchSimulator.IsPlayerHomeTeam())
+            {
+                S_PlayerMatchSimulator.injuries.home++;
+            }
+            else S_PlayerMatchSimulator.injuries.away++;
 
-        S_PlayerMatchSimulator.injuries++;
+            PlayerInjury();
+        }
+        else
+        {
+            if (S_PlayerMatchSimulator.IsPlayerHomeTeam())
+            {
+                S_PlayerMatchSimulator.injuries.away++;
+            }
+            else S_PlayerMatchSimulator.injuries.home++;
+            
+            OpponentInjury();
+        }
     }
     public void PlayerInjury()
     {
@@ -132,13 +148,22 @@ public class SO_MatchCardData : SO_CardData
         //Generates Opponent substitution card
         Branch substitutionCard;
         substitutionCard.addPosition = 0;
+        substitutionCard.triggerChance = 100;
         SO_CardData substitution;
         substitution = ScriptableObject.Instantiate(Resources.Load<SO_CardData>("ScriptableObjects/MatchCards/Match/SO_OpponentSubstitution"));
         substitution.decreaseCountDown = false;
         substitutionCard.branchData=substitution;
+
+        //tells the substitution card what player is going to be replaced
+        for(int i=0;i<substitutionCard.branchData.cardDescriptions.Count;i++)
+        {
+            substitutionCard.branchData.cardDescriptions[i] = substitutionCard.branchData.cardDescriptions[i].Replace("{OppPlayer}", player.playerName);
+        }
+        
         leftBranchCard = substitutionCard;
         rightBranchCard = substitutionCard;
 
+        S_PlayerMatchSimulator.UpdateOpponentMatchSkillLevel();
     }
     #endregion
 
@@ -280,6 +305,7 @@ public class SO_MatchCardData : SO_CardData
     public void OpponentRedCard()
     {
         SO_PlayerData player = ScriptableObject.CreateInstance<SO_PlayerData>();
+        
 
         player.playerName = S_PlayerMatchSimulator.RandomlyGetNewOrExistingOpponentPlayer();
 
@@ -292,6 +318,47 @@ public class SO_MatchCardData : SO_CardData
         description = description.Replace("{Expelled}", player.playerName + " (" + S_PlayerMatchSimulator.GetOpponentTeam().shortName + ")");
         ownerCard.GetComponent<S_Card>().cardDescription.text = description;
     }
+    
+    public void OpponentSubstitution()
+    {
+        for(int i = 0; i < cardDescriptions.Count; i++)
+        {
+            string newName = S_PlayerMatchSimulator.RandomlyGetNewOrExistingOpponentPlayer();
+            cardDescriptions[i] = cardDescriptions[i].Replace("{Sub}", newName);
+        }
+        ownerCard.GetComponent<S_Card>().RefreshCardData(this);
+
+        if (S_PlayerMatchSimulator.IsOpponentHomeTeam())
+        {
+            if (S_PlayerMatchSimulator.substitutions.home == 3)
+            {
+                float f = Random.Range(0, 100);
+                if (f < 0.005f)
+                {
+                    //sconfitta a tavolino REDO
+                }
+            }
+            else S_PlayerMatchSimulator.substitutions.home++;
+        }
+        else
+        {
+            if (S_PlayerMatchSimulator.substitutions.away == 3)
+            {
+                float f = Random.Range(0, 100);
+                if (f < 0.005f)
+                {
+                    //sconfitta a tavolino REDO
+                }
+            }
+            S_PlayerMatchSimulator.substitutions.away++;
+        }
+    }
+    
+    public void CancelGoal()
+    {
+
+    }
+
     #endregion
     #endregion
 }
@@ -338,7 +405,7 @@ public class CardDropChance
                 score = S_PlayerMatchSimulator.isDerby ? 1 : 0;
                 break;
             case MatchRule.Injuries:
-                score = S_PlayerMatchSimulator.injuries;
+                score = S_PlayerMatchSimulator.injuries.home + S_PlayerMatchSimulator.injuries.away;
                 break;
 
             case MatchRule.GameMinute:

@@ -103,6 +103,8 @@ public class S_DeckManager : MonoBehaviour
         SO_CardData.Branch branch;
         branch.branchData = data;
         branch.addPosition = position;
+        branch.triggerChance = 100;
+
         List<SO_CardData.Branch> listToManage = listToAppend;
         if (listToManage == null) listToManage = cardSelector.currentListToRead;
 

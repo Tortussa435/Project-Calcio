@@ -4,14 +4,19 @@ using System.Collections.Generic;
 using static S_FootballEnums;
 using UnityEngine;
 using NaughtyAttributes;
+using Unity.VisualScripting;
 
 [System.Serializable]
 public class S_CardsScoreFormula
 {
 
-    
 
+
+    private bool showBaseFormula() { return GetType().ToString() == "S_CardsScoreFormula"; }
+    [ShowIf("showBaseFormula")]
+    [AllowNesting]
     public Rule desiredValue;
+
     public ScoreDirection direction;
 
     [ShowIf("direction",ScoreDirection.Equal)]
@@ -101,7 +106,7 @@ public class S_CardsScoreFormula
                 break;
 
             case Rule.Injuries:
-                valueToCheck = (float)S_PlayerMatchSimulator.injuries;
+                valueToCheck = (float)S_PlayerMatchSimulator.injuries.home+(float)S_PlayerMatchSimulator.injuries.away;
                 break;
 
             case Rule.GameMinute:

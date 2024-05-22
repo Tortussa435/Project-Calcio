@@ -15,6 +15,7 @@ public static class S_PlayerMatchSimulator
     
     const float MAXGOALCHANCE = 0.5f;
     const float GOALCHANCEDECREASEPERGOAL = 0.75f;
+    const float GOALREVOKEDCHANCE = 5;
 
     public static (float home, float away) matchAggressivity = ( 0, 0 );
     
@@ -26,10 +27,12 @@ public static class S_PlayerMatchSimulator
 
     public static (int home, int away) substitutions = (0, 0);
 
+    public static (int home, int away) luck = (0, 0);
+
     public static float homeGoalCheck = 0.0f;
     public static float awayGoalCheck = 0.0f;
 
-    public static int injuries = 0;
+    public static (int home, int away) injuries = (0,0);
 
     public static UnityEvent OnMatchEnd;
     public static UnityEvent OnMatchStart;
@@ -89,7 +92,7 @@ public static class S_PlayerMatchSimulator
         match = S_Calendar.FindMatchByTeam(S_GlobalManager.selectedTeam,S_GlobalManager.currentMatchDay);
         matchScore.home = 0;
         matchScore.away = 0;
-        injuries = 0;
+        injuries = (0,0);
 
         UpdateMatchTextData();
 
@@ -109,6 +112,7 @@ public static class S_PlayerMatchSimulator
         ApplyPlayersTraits();
         ApplyTeamTraits();
         UpdateTacticsEffectiveness();
+        CalcTeamsLuck();
 
         OnMatchStart.Invoke();
 
@@ -128,7 +132,7 @@ public static class S_PlayerMatchSimulator
         matchMinute = 0;
         matchScore.home = 0;
         matchScore.away = 0;
-        injuries = 0;
+        injuries = (0,0);
         
         S_GlobalManager.currentMatchDay++;
         S_GlobalManager.nextOpponent = S_Calendar.FindOpponent();
@@ -195,6 +199,25 @@ public static class S_PlayerMatchSimulator
         if (homeTeam) matchScore.home++;
         
         if (!homeTeam) matchScore.away++;
+
+        //Gol revoked chance
+        if (Random.Range(0, 100) < CalcGoalRevokedChance(homeTeam))
+        {
+            SO_CardData revokeGoal = ScriptableObject.Instantiate(Resources.Load<SO_CardData>("ScriptableObjects/MatchCards/Match/SO_InvalidGoal"));
+            S_GlobalManager.deckManagerRef.AddCardToDeck(revokeGoal, 0);
+
+            if (homeTeam)
+            {
+                revokeGoal.leftEffects.AddListener(() => matchScore.home = Mathf.Max(0,matchScore.home - 1));
+                revokeGoal.rightEffects.AddListener(() => matchScore.home = Mathf.Max(0, matchScore.home - 1));
+            }
+        
+            else
+            {
+                revokeGoal.leftEffects.AddListener(() => matchScore.away = Mathf.Max(0, matchScore.away - 1));
+                revokeGoal.rightEffects.AddListener(() => matchScore.away = Mathf.Max(0, matchScore.away - 1));
+            } 
+        }
 
         return golCard;
     }
@@ -321,6 +344,18 @@ public static class S_PlayerMatchSimulator
         return null;
     }
 
+    private static float CalcGoalRevokedChance(bool homeTeam)
+    {
+        CalcTeamsLuck();
+        float revokeChance = GOALREVOKEDCHANCE;
+
+        if (homeTeam) revokeChance += luck.home*2;
+        else if (!homeTeam) revokeChance += luck.away*2;
+
+        Debug.Log("Rischio annullamento gol: " + revokeChance+"%");
+        return revokeChance;
+    }
+
     #endregion
 
     #region UTILITIES
@@ -373,6 +408,40 @@ public static class S_PlayerMatchSimulator
         
     }
 
+    public static void CalcTeamsLuck()
+    {
+        int playerLuck=0;
+        int opponentLuck = 0;
+
+        foreach(SO_PlayerData player in S_GlobalManager.squad.playingEleven)
+        {
+            if (player.playerTraits[0].traitName == SO_PlayerTrait.PlayerTraitNames.Unlucky)
+            {
+                playerLuck -= 1;
+            }
+            if (player.playerTraits[0].traitName == SO_PlayerTrait.PlayerTraitNames.Lucky)
+            {
+                playerLuck += 1;
+            }
+        }
+
+        SO_Team t = GetOpponentTeam();
+        foreach(SO_TeamTrait tt in t.teamTraits)
+        {
+            //REDO lucky unlucky teams not implemented
+        }
+
+        if (IsPlayerHomeTeam())
+        {
+            luck.home = playerLuck - opponentLuck;
+            luck.away = opponentLuck - playerLuck;
+        }
+        else
+        {
+            luck.home = opponentLuck - playerLuck;
+            luck.away = playerLuck - opponentLuck;
+        }
+    }
 
     #endregion
 
@@ -423,10 +492,17 @@ public static class S_PlayerMatchSimulator
 
         S_GlobalManager.selectedTeam.SkillLevel = S_GlobalManager.squad.FindGameSkillLevel();
 
-        opponentMatchSkillLevel = (int)Mathf.Ceil((float)(opponentMatchSkillLevel * (11 - opponentRedCards.Count)) / 11);
+        UpdateOpponentMatchSkillLevel();
        
     }
 
+    public static void UpdateOpponentMatchSkillLevel()
+    {
+        opponentMatchSkillLevel = (int)Mathf.Ceil((float)(opponentMatchSkillLevel * (11 - opponentRedCards.Count)) / 11);
+        float injuriesSkillDecrease = IsPlayerHomeTeam() ? injuries.away : injuries.home;
+        injuriesSkillDecrease /= 2;
+        opponentMatchSkillLevel -= Mathf.FloorToInt(injuriesSkillDecrease);
+    }
     #endregion
 
     #region MATCH CARD SELECTION

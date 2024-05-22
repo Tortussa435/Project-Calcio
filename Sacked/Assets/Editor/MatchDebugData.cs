@@ -55,6 +55,10 @@ public class MatchDebugData : EditorWindow
 
             GUILayout.Label("\n Infortuni: "+injuries);
 
+            GUILayout.Label("\n Sostituzioni: ");
+            GUILayout.Label("\n Casa: " + substitutions.home);
+            GUILayout.Label("\n Trasferta: " + substitutions.away);
+
             GUILayout.Label("\n Opponent Fake Players: ");
             foreach(string n in opponentTeamNames)
             {

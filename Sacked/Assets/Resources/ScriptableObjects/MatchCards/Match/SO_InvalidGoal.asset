@@ -10,16 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 324455af10ec1b44f81a1c65019448d2, type: 3}
-  m_Name: SO_OpponentSubstitution
+  m_Name: SO_InvalidGoal
   m_EditorClassIdentifier: 
   ownerCard: {fileID: 0}
-  cardName: OpponentSubstitution
-  cardColor: {r: 0.52395153, g: 0.8018868, b: 0.5182004, a: 1}
+  cardName: InvalidGoal
+  cardColor: {r: 0.26415092, g: 0.26415092, b: 0.26415092, a: 1}
   cardDescriptions:
-  - '{Opponent} fa un cambio! esce {OppPlayer} e al suo posto entra in campo {Sub}'
+  - '{Ref} va a controllare i replay! Il gol viene annullato per alluce in fuorigioco
+    indiretto di {Player}'
   leftChoice: 
   rightChoice: 
-  canAppearMoreThanOnce: 1
+  canAppearMoreThanOnce: 0
   decreaseCountDown: 0
   desiredCardPrefabDirectory: 
   leftValues:
@@ -40,19 +41,7 @@ MonoBehaviour:
       m_Calls: []
   onGeneratedEffects:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11400000}
-        m_TargetAssemblyTypeName: SO_MatchCardData, Assembly-CSharp
-        m_MethodName: OpponentSubstitution
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   alreadyPicked: 0
   cardIcon: {fileID: 0}
   leftBranchCard:
@@ -63,9 +52,20 @@ MonoBehaviour:
     branchData: {fileID: 0}
     addPosition: 0
     triggerChance: 0
-  scoreCard: []
-  cardScore: 1
-  cardScoreNotNormalized: 1
+  scoreCard:
+  - desiredValue: 5
+    direction: 0
+    compareString: 
+    compareFloat: 0
+    customCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
+    scoreMultiplier: 0
+  cardScore: 0
+  cardScoreNotNormalized: 0
   matchScoreCard:
   - desiredValue: 5
     direction: 0
@@ -74,31 +74,21 @@ MonoBehaviour:
     customCurve:
       serializedVersion: 2
       m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    scoreMultiplier: 1
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
+    scoreMultiplier: 0
     matchFormula: 4
   chanceOfAppearance: 0
   matchCardDropChance:
-  - rule: 7
-    direction: 6
-    weight: 1
-    compareFloat: 60
-    customCurve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-  - rule: 9
+  - rule: 4
     direction: 0
-    weight: -0.329
+    weight: 0
     compareFloat: 0
     customCurve:
       serializedVersion: 2
       m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
   formulaDescriptionInfo: 

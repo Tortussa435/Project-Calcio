@@ -5,14 +5,17 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using Unity.VisualScripting;
+using System;
 
 public class S_PlayerIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler, IPointerClickHandler
 {
+    [Header("Object References")]
     [HideInInspector] public SO_PlayerData playerData;
     public TextMeshProUGUI playerName;
     public Image playerIcon;
     public Image playerSkill;
     public Image playerEnergy;
+    public Image problemIcon;
 
     [HideInInspector] public GameObject playerCardRef;
     public GameObject playerCardPrefab;
@@ -22,6 +25,11 @@ public class S_PlayerIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHandle
     public S_InputHandler ownerCard;
 
     private float clickLength = 0.0f;
+    
+    [Header("Icons")]
+    public Sprite injuryIcon;
+    public Sprite expelledIcon;
+
     private void Start()
     {
         if (playerData == null) return;
@@ -32,12 +40,33 @@ public class S_PlayerIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHandle
 
         playerSkill.fillAmount = (float)playerData.skillLevel / 5.0f ;
 
-        playerEnergy.fillAmount = (float) playerData.playerEnergy / 100.0f ;
+        if (playerData.expelled > 0 || playerData.injuried>0)
+        {
+            problemIcon.gameObject.SetActive(true);
+            playerEnergy.transform.parent.gameObject.SetActive(false);
+            if (playerData.injuried > 0)
+            {
+                problemIcon.sprite = injuryIcon;
+            }
+            if (playerData.expelled > 0)
+            {
+                problemIcon.sprite = expelledIcon;
+            }
+        }
+        else
+        {
+            problemIcon.gameObject.SetActive(false);
+            playerEnergy.transform.parent.gameObject.SetActive(true);
+            playerEnergy.fillAmount = (float) playerData.playerEnergy / 100.0f ;
+        }
 
         ownerCard = transform.parent.parent.parent.GetComponent<S_InputHandler>(); //REDO trisnonno momento
     }
 
-    public void GeneratePlayerFace() { }
+    public void GeneratePlayerFace()
+    {
+        //throw new NotImplementedException();
+    }
 
     public void OnPointerDown(PointerEventData eventData)
     {

@@ -346,6 +346,7 @@ public class S_Squad : MonoBehaviour
     }
     public void AddPlayersToEleven(List<SO_PlayerData> players, float energyThreshold = 0)
     {
+
         int def = 0, mid = 0, atk = 0;
         List<SO_PlayerData> localBench = new List<SO_PlayerData>(players);
 
@@ -388,6 +389,12 @@ public class S_Squad : MonoBehaviour
                 bench.AddRange(localBench);
                 break;
             }
+        }
+
+        //reruns the function with a lower energy threshold to avoid having a team with less than 11 players when asking to do turnover with tired players
+        if (playingEleven.Count < 11 && energyThreshold > 0)
+        {
+            AddPlayersToEleven(localBench, energyThreshold - 10);
         }
     }
     public void SetLineUp(PossibleTeam desiredLineup)

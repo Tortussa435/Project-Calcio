@@ -54,7 +54,7 @@ public class S_MatchCardsScoreFormula : S_CardsScoreFormula
                 break;
 
             case MatchRule.Injuries:
-                valueToCheck = S_PlayerMatchSimulator.injuries;
+                valueToCheck = S_PlayerMatchSimulator.injuries.home + S_PlayerMatchSimulator.injuries.away;
                 break;
 
             case MatchRule.PlayerSubstitutions:

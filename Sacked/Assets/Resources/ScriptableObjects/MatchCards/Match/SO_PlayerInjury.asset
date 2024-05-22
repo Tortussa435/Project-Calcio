@@ -58,9 +58,11 @@ MonoBehaviour:
   leftBranchCard:
     branchData: {fileID: 0}
     addPosition: 0
+    triggerChance: 100
   rightBranchCard:
     branchData: {fileID: 0}
     addPosition: 0
+    triggerChance: 100
   scoreCard: []
   cardScore: 1
   cardScoreNotNormalized: 1
@@ -69,24 +71,54 @@ MonoBehaviour:
     direction: 0
     compareString: 
     compareFloat: 0
+    customCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
     scoreMultiplier: 1
     matchFormula: 0
-  chanceOfAppearance: 3.0833335
+  chanceOfAppearance: 98.583336
   matchCardDropChance:
   - rule: 0
     direction: 0
     weight: 0.33333334
     compareFloat: 0
+    customCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
   - rule: 6
     direction: 0
     weight: -0.25
     compareFloat: 0
+    customCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
   - rule: 4
     direction: 0
     weight: 0.1
     compareFloat: 0
+    customCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
   - rule: 6
     direction: 6
     weight: -0.1
     compareFloat: 0
+    customCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
   formulaDescriptionInfo: 

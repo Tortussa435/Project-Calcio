@@ -20,7 +20,9 @@ public class SO_TeamTrait : ScriptableObject
         Depressed,
         Short_Bench,
         BallPossession,
-        Counterattack
+        Counterattack,
+        Lucky,
+        Unlucky
     }
 
     [HideInInspector]

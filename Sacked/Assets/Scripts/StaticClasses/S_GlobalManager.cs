@@ -104,18 +104,11 @@ public static class S_GlobalManager
         try 
         {
 
-            Dictionary<string, string> varsDictionary = new Dictionary<string, string>
-            {
-                { "{Team}", selectedTeam.teamName },
-                { "{Opponent}", nextOpponent.teamName },
-                { "{Ref}", "L'arbitro " + S_PlayerMatchSimulator.refereeName },
-                { "{Player}", squad.playingEleven[UnityEngine.Random.Range(0,squad.playingEleven.Count)].playerName },
-                { "{OppPlayer}", S_PlayerMatchSimulator.RandomlyGetNewOrExistingOpponentPlayer() }
-            };
+            
 
-            foreach (string key in varsDictionary.Keys)
+            foreach (string key in S_FootballEnums.varsDictionary.Keys)
             {
-                if (varsDictionary.TryGetValue(key, out string outstring))
+                if (S_FootballEnums.varsDictionary.TryGetValue(key, out string outstring))
                 {
                     inString = inString.Replace(key, outstring);
                 }

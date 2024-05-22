@@ -10,18 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 324455af10ec1b44f81a1c65019448d2, type: 3}
-  m_Name: SO_Match_ShootOut
+  m_Name: SO_PlayerSubstitution
   m_EditorClassIdentifier: 
   ownerCard: {fileID: 0}
-  cardName: fuori
+  cardName: PlayerSubstitution
   cardColor: {r: 1, g: 1, b: 1, a: 1}
-  cardDescriptions:
-  - '{Atk} tira fuori dallo stadio!'
-  - '{OppPlayer} tira fuori dallo stadio!'
+  cardDescriptions: []
   leftChoice: 
   rightChoice: 
   canAppearMoreThanOnce: 1
-  decreaseCountDown: 1
+  decreaseCountDown: 0
   desiredCardPrefabDirectory: 
   leftValues:
     addedMoney: 0
@@ -53,26 +51,24 @@ MonoBehaviour:
     addPosition: 0
     triggerChance: 0
   scoreCard: []
-  cardScore: 0.5
-  cardScoreNotNormalized: 1
-  matchScoreCard:
-  - desiredValue: 6
-    direction: 0
-    compareString: 
-    compareFloat: 0
+  cardScore: 0
+  cardScoreNotNormalized: 0
+  matchScoreCard: []
+  chanceOfAppearance: 0
+  matchCardDropChance:
+  - rule: 7
+    direction: 6
+    weight: 1
+    compareFloat: 60
     customCurve:
       serializedVersion: 2
       m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    scoreMultiplier: 1
-    matchFormula: 4
-  chanceOfAppearance: 1
-  matchCardDropChance:
-  - rule: 4
+  - rule: 9
     direction: 0
-    weight: 1
+    weight: -0.329
     compareFloat: 0
     customCurve:
       serializedVersion: 2

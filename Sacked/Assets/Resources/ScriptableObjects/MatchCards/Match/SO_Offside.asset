@@ -10,14 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 324455af10ec1b44f81a1c65019448d2, type: 3}
-  m_Name: SO_Match_ShootOut
+  m_Name: SO_Offside
   m_EditorClassIdentifier: 
   ownerCard: {fileID: 0}
-  cardName: fuori
+  cardName: Offside
   cardColor: {r: 1, g: 1, b: 1, a: 1}
   cardDescriptions:
-  - '{Atk} tira fuori dallo stadio!'
-  - '{OppPlayer} tira fuori dallo stadio!'
+  - "Grande occasione per {PlayerTeam}, {Atk} era da solo davanti al portiere, ma
+    si \xE8 alzata la bandierina"
+  - Occasione d'oro per {OppTeam}, {OppPlayer} era stato lanciato in uno contro uno
+    da {OppPlayer} ma il guardalinee ha alzato alacremente la bandierina
   leftChoice: 
   rightChoice: 
   canAppearMoreThanOnce: 1
@@ -52,32 +54,43 @@ MonoBehaviour:
     branchData: {fileID: 0}
     addPosition: 0
     triggerChance: 0
-  scoreCard: []
-  cardScore: 0.5
-  cardScoreNotNormalized: 1
-  matchScoreCard:
-  - desiredValue: 6
+  scoreCard:
+  - desiredValue: 5
     direction: 0
     compareString: 
     compareFloat: 0
     customCurve:
       serializedVersion: 2
       m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
     scoreMultiplier: 1
-    matchFormula: 4
-  chanceOfAppearance: 1
-  matchCardDropChance:
-  - rule: 4
+  cardScore: 1
+  cardScoreNotNormalized: 2
+  matchScoreCard:
+  - desiredValue: 0
     direction: 0
-    weight: 1
+    compareString: 
     compareFloat: 0
     customCurve:
       serializedVersion: 2
       m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
+    scoreMultiplier: 1
+    matchFormula: 4
+  chanceOfAppearance: 0.25
+  matchCardDropChance:
+  - rule: 4
+    direction: 0
+    weight: 0.25
+    compareFloat: 0
+    customCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
   formulaDescriptionInfo: 

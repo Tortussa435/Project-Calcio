@@ -428,7 +428,14 @@ public static class S_PlayerMatchSimulator
         SO_Team t = GetOpponentTeam();
         foreach(SO_TeamTrait tt in t.teamTraits)
         {
-            //REDO lucky unlucky teams not implemented
+            if (tt.traitName == SO_TeamTrait.TraitNames.Lucky)
+            {
+                opponentLuck++;
+            }
+            if (tt.traitName == SO_TeamTrait.TraitNames.Unlucky)
+            {
+                opponentLuck--;
+            }
         }
 
         if (IsPlayerHomeTeam())

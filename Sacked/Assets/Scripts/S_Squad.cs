@@ -175,7 +175,7 @@ public class S_Squad : MonoBehaviour
         int totalskill = 0;
         foreach(SO_PlayerData player in playingEleven)
         {
-            totalskill += player.skillLevel;
+            totalskill += player.skillLevel * Mathf.CeilToInt(player.playerEnergy/100);
         }
         totalskill /= 11;
         return totalskill;
@@ -323,6 +323,22 @@ public class S_Squad : MonoBehaviour
         {
             Destroy(teamCardRef);
         }
+    }
+
+    public string GetPlayingPlayerByRole(SO_PlayerData.PlayerRole role)
+    {
+        List<string> eligibleNames = new List<string>();
+        foreach(SO_PlayerData p in playingEleven)
+        {
+            if (p.playerRole == role)
+            {
+                eligibleNames.Add(p.playerName);
+            }
+        }
+
+        if (eligibleNames.Count < 1) return "None";
+
+        return eligibleNames[Random.Range(0, eligibleNames.Count)];
     }
 
     #region LINEUPS

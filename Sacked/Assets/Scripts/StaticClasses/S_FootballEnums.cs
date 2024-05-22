@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-
+using System.Collections.Generic;
 public static class S_FootballEnums
 {
     [System.Serializable]
@@ -85,5 +85,18 @@ public static class S_FootballEnums
         GameMinute,
         PlayerSubstitutions,
         OpponentSubstitutions
+    };
+
+    public static Dictionary<string, string> varsDictionary = new Dictionary<string, string>
+    {
+        { "{Team}", S_GlobalManager.selectedTeam.teamName },
+        { "{Opponent}", S_GlobalManager.nextOpponent.teamName },
+        { "{Ref}", "L'arbitro " + S_PlayerMatchSimulator.refereeName },
+        { "{Player}", S_GlobalManager.squad.playingEleven[UnityEngine.Random.Range(0,S_GlobalManager.squad.playingEleven.Count)].playerName },
+        { "{OppPlayer}", S_PlayerMatchSimulator.RandomlyGetNewOrExistingOpponentPlayer() },
+        {"{Atk}", S_GlobalManager.squad.GetPlayingPlayerByRole(SO_PlayerData.PlayerRole.Atk) },
+        {"{Mid}", S_GlobalManager.squad.GetPlayingPlayerByRole(SO_PlayerData.PlayerRole.Mid) },
+        {"{Def}",S_GlobalManager.squad.GetPlayingPlayerByRole(SO_PlayerData.PlayerRole.Def) },
+        {"{Gk}",S_GlobalManager.squad.GetPlayingPlayerByRole(SO_PlayerData.PlayerRole.Gk) }
     };
 }

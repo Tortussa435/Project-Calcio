@@ -354,11 +354,14 @@ public class SO_MatchCardData : SO_CardData
         }
     }
     
-    public void CancelGoal()
+    public void ProposePlayerSubstitution()
     {
 
     }
+    public void ApplyPlayerSubstitution()
+    {
 
+    }
     #endregion
     #endregion
 }

@@ -16,7 +16,9 @@ MonoBehaviour:
   cardName: Bike
   cardColor: {r: 1, g: 1, b: 1, a: 1}
   cardDescriptions:
-  - Un tuo giocatore ti chiede di prestargli la bici
+  - '{AnyPlayer} ti chiede di prestargli la bici'
+  - '{AnyPlayer} ti chiede in prestito la moto'
+  - '{AnyPlayer} ti chiede in prestito il trattore'
   leftChoice: Presta
   rightChoice: Non Prestare
   canAppearMoreThanOnce: 1
@@ -46,7 +48,7 @@ MonoBehaviour:
   leftBranchCard:
     branchData: {fileID: 11400000, guid: 7e87dd182c8e4e94b8b73ae9cfd2ccfa, type: 2}
     addPosition: 2
-    triggerChance: 60
+    triggerChance: 30
   rightBranchCard:
     branchData: {fileID: 0}
     addPosition: 0
@@ -63,5 +65,5 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     scoreMultiplier: 1
-  cardScore: 0
-  cardScoreNotNormalized: 0
+  cardScore: 1
+  cardScoreNotNormalized: 1

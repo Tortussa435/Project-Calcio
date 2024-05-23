@@ -70,7 +70,8 @@ public static class S_FootballEnums
         Injuries,
         GameMinute,
         PlayerSubstitutions,
-        OpponentSubstitutions
+        OpponentSubstitutions,
+        Week
     }
 
     [System.Serializable]

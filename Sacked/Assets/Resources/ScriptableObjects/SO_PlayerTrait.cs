@@ -55,7 +55,12 @@ public class SO_PlayerTrait : ScriptableObject
         }
         //if the value gets clamped then it should not be decreased on match end (it would not be very epic!)
         if (playerRef.skillLevel > 5) playerRef.skillLevel = 5;
-        else S_PlayerMatchSimulator.OnMatchEnd.AddListener(() => playerRef.skillLevel -= 1);
+        else S_PlayerMatchSimulator.OnMatchEnd.AddListener(T_LovesBigMatchTrigger);
+    }
+    private void T_LovesBigMatchTrigger()
+    {
+        playerRef.skillLevel -= 1;
+        S_PlayerMatchSimulator.OnMatchEnd.RemoveListener(T_LovesBigMatchTrigger);
     }
     
     

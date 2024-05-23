@@ -18,6 +18,7 @@ MonoBehaviour:
   cardDescriptions:
   - I tuoi giocatori vengono paparazzati ad un casino!
   - Un tuo giocatore viene paparazzato mentre giocava a una bisca clandestina
+  - "{AnyPlayer} \xE8 stato scoperto a scommettere 5000 Euro sui cani virtuali"
   leftChoice: Non Punire
   rightChoice: Punisci
   canAppearMoreThanOnce: 1
@@ -47,14 +48,22 @@ MonoBehaviour:
   leftBranchCard:
     branchData: {fileID: 0}
     addPosition: 0
+    triggerChance: 0
   rightBranchCard:
     branchData: {fileID: 0}
     addPosition: 0
+    triggerChance: 0
   scoreCard:
   - desiredValue: 1
     direction: 1
     compareString: 
     compareFloat: 0
+    customCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
     scoreMultiplier: 1
-  cardScore: 0.7
-  cardScoreNotNormalized: 0.7
+  cardScore: 0.5
+  cardScoreNotNormalized: 0.5

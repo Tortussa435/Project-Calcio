@@ -23,6 +23,8 @@ public class EditorScoreDebugViewer : EditorWindow
 
     private static int awaySubs = 0;
 
+    private static int week = 0;
+
     public static CardsFormulaHandle formulasmanager;
 
     [MenuItem("ProjectCalcio/MatchCardScoreCalculator")]
@@ -90,6 +92,11 @@ public class EditorScoreDebugViewer : EditorWindow
         awaySubs = (int)GUILayout.HorizontalSlider(awaySubs, 0, 4, GUILayout.Width(300));
         GUILayout.Space(10);
         GUILayout.Label(awaySubs.ToString());
+
+        GUILayout.Label("Week", EditorStyles.boldLabel);
+        week = (int)GUILayout.HorizontalSlider(week, 0, 38, GUILayout.Width(300));
+        GUILayout.Space(10);
+        GUILayout.Label(week.ToString());
 
         try
         {

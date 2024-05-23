@@ -34,8 +34,8 @@ public static class S_PlayerMatchSimulator
 
     public static (int home, int away) injuries = (0,0);
 
-    public static UnityEvent OnMatchEnd;
-    public static UnityEvent OnMatchStart;
+    public static UnityEvent OnMatchEnd = new UnityEvent();
+    public static UnityEvent OnMatchStart = new UnityEvent();
 
     public static bool isDerby;
 
@@ -82,9 +82,6 @@ public static class S_PlayerMatchSimulator
 
 
         refereeName = S_PlayersGenerator.CreateRandomName(false); //the ref has only a surname
-
-        OnMatchStart = new UnityEvent();
-        OnMatchEnd = new UnityEvent();
         
         S_GlobalManager.deckManagerRef.MatchScoreText.gameObject.SetActive(true);
         S_GlobalManager.deckManagerRef.PhaseText.gameObject.SetActive(false);

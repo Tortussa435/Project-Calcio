@@ -26,8 +26,10 @@ public class S_DeckManager : MonoBehaviour
     public GameObject deck;
     public SO_League selectedLeague;
 
+    [Header("Texts")]
     public TextMeshProUGUI PhaseText;
     public TextMeshProUGUI MatchScoreText;
+    public TextMeshProUGUI CurrentWeekText;
     
     public S_CardSelector cardSelector;
     public int nextPhaseCountdown;
@@ -278,7 +280,7 @@ public class S_DeckManager : MonoBehaviour
         switch (phase)
         {
             case CardsPhase.Week:
-                PhaseText.text = "Week"; //TODO write week number
+                PhaseText.text = "Week " + (S_GlobalManager.currentMatchDay+1).ToString(); //TODO write week number
                 break;
             case CardsPhase.MatchFirstHalf:
                 PhaseText.text = "";//TODO cool graphics for season match

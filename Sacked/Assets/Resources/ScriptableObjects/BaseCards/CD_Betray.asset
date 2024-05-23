@@ -16,11 +16,10 @@ MonoBehaviour:
   cardName: Betray
   cardColor: {r: 1, g: 1, b: 1, a: 1}
   cardDescriptions:
-  - "Uno dei tuoi migliori giocatori \xE8 andato a letto con la moglie di un altro
-    giocatore!"
+  - "{AnyPlayer} \xE8 andato a letto con la moglie di un altro giocatore!"
   leftChoice: Punisci
   rightChoice: Ignora
-  canAppearMoreThanOnce: 1
+  canAppearMoreThanOnce: 0
   decreaseCountDown: 1
   desiredCardPrefabDirectory: 
   leftValues:
@@ -47,14 +46,22 @@ MonoBehaviour:
   leftBranchCard:
     branchData: {fileID: 0}
     addPosition: 0
+    triggerChance: 0
   rightBranchCard:
     branchData: {fileID: 0}
     addPosition: 0
+    triggerChance: 0
   scoreCard:
   - desiredValue: 5
     direction: 0
     compareString: 
     compareFloat: 0
+    customCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
     scoreMultiplier: 1
-  cardScore: 0
-  cardScoreNotNormalized: 0
+  cardScore: 1
+  cardScoreNotNormalized: 1

@@ -63,8 +63,19 @@ MonoBehaviour:
     branchData: {fileID: 0}
     addPosition: 0
     triggerChance: 0
-  scoreCard: []
-  cardScore: 1
+  scoreCard:
+  - desiredValue: 5
+    direction: 0
+    compareString: 
+    compareFloat: 0
+    customCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
+    scoreMultiplier: 1
+  cardScore: 0.5
   cardScoreNotNormalized: 1
   matchScoreCard:
   - desiredValue: 5
@@ -79,7 +90,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     scoreMultiplier: 1
     matchFormula: 4
-  chanceOfAppearance: 0
+  chanceOfAppearance: 1
   matchCardDropChance:
   - rule: 7
     direction: 6

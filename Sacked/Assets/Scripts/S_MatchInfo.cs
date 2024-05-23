@@ -11,6 +11,10 @@ public class S_MatchInfo : MonoBehaviour
     public TextMeshProUGUI textRef;
     private string matchInfo;
 
+    private void Start()
+    {
+        OnMatchEnd.AddListener(()=>currentMinute=0);
+    }
     public void UpdateMatchInfo(int matchMinute)
     {
         matchInfo = "'\n" + match.homeTeam.teamName + " " + matchScore.home + " - " + matchScore.away + " " + match.awayTeam.teamName;

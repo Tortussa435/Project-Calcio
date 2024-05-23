@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,6 +16,8 @@ public class S_Squad : MonoBehaviour
         Turnover,
         Fit
     }
+
+    public GameObject showTeamButtonRef;
 
     public PossibleTeam teamLineup = PossibleTeam.BestTeam;
 
@@ -126,7 +129,8 @@ public class S_Squad : MonoBehaviour
         }
 
         SetBestPlayingEleven();
-        
+
+        showTeamButtonRef.SetActive(true);
     }
 
     public void ShowTeam()
@@ -344,6 +348,11 @@ public class S_Squad : MonoBehaviour
         return eligibleNames[Random.Range(0, eligibleNames.Count)];
     }
 
+    public string GetAnyRandomPlayer()
+    {
+        List<SO_PlayerData> players = Goalkeepers.Union(Defense).ToList().Union(Midfield).ToList().Union(Attack).ToList();
+        return players[Random.Range(0, players.Count)].playerName;
+    }
     #region LINEUPS
     public PossibleTeam FindNextLineup() => (PossibleTeam) ((int)(teamLineup + 1) % System.Enum.GetValues(typeof(PossibleTeam)).Length);
     public void AddGoalKeeper()

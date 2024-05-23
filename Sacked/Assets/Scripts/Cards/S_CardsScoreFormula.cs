@@ -120,6 +120,9 @@ public class S_CardsScoreFormula
             case Rule.OpponentSubstitutions:
                 valueToCheck = !S_PlayerMatchSimulator.IsPlayerHomeTeam() ? S_PlayerMatchSimulator.substitutions.home : S_PlayerMatchSimulator.substitutions.away;
                 break;
+            case Rule.Week:
+                valueToCheck = S_GlobalManager.currentMatchDay;
+                break;
         }
 
         valueToCheck = S_FootballEnums.GetScoreDirection(direction, valueToCheck, compareFloat, customCurve);

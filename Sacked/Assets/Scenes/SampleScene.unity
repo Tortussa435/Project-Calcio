@@ -333,6 +333,7 @@ MonoBehaviour:
   selectedLeague: {fileID: 11400000, guid: 0b29addf58e229b4a9213cb3921803d9, type: 2}
   PhaseText: {fileID: 392302069}
   MatchScoreText: {fileID: 1367382175}
+  CurrentWeekText: {fileID: 0}
   cardSelector: {fileID: 319474451}
   nextPhaseCountdown: 0
   weekDuration:
@@ -430,8 +431,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 34.5
-  m_fontSizeBase: 34.5
+  m_fontSize: 50
+  m_fontSizeBase: 50
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -493,7 +494,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 478435999}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -528,13 +529,14 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1581222893}
   - {fileID: 392302071}
   m_Father: {fileID: 319474449}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -300}
+  m_AnchoredPosition: {x: 0.0024414062, y: -349}
   m_SizeDelta: {x: 0, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &516200659
@@ -2221,26 +2223,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   formulas:
-  - rule: 7
+  - rule: 8
     direction: 6
     weight: 1
-    compareFloat: 60
+    compareFloat: 1
     customCurve:
       serializedVersion: 2
       m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-  - rule: 9
-    direction: 0
-    weight: -0.329
-    compareFloat: 0
-    customCurve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
 --- !u!4 &1433028864
 Transform:
   m_ObjectHideFlags: 0
@@ -2415,7 +2407,6 @@ RectTransform:
   m_Children:
   - {fileID: 1558666408}
   - {fileID: 272785720}
-  - {fileID: 1581222893}
   m_Father: {fileID: 319474449}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2525,18 +2516,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1581222892}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 4.9333334, y: 4.9333334, z: 4.9333334}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1537409416}
-  m_RootOrder: 2
+  m_Father: {fileID: 478435999}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -60.416992}
-  m_SizeDelta: {x: 0, y: 32.0324}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -0.0048980713, y: 1.7342377}
+  m_SizeDelta: {x: 218, y: 31.0531}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1581222894
 MonoBehaviour:
@@ -2626,6 +2617,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 028819224f8ab174491ab00c2bae870d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  showTeamButtonRef: {fileID: 1715606138}
   teamLineup: 0
   Goalkeepers: []
   Defense: []
@@ -2680,7 +2672,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1715606139
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2699,7 +2691,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 313.11, y: -869}
+  m_AnchoredPosition: {x: -313, y: -869}
   m_SizeDelta: {x: 307.8713, y: 124.6376}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1715606140
@@ -2833,7 +2825,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -337, y: -869}
+  m_AnchoredPosition: {x: 313, y: -869}
   m_SizeDelta: {x: 307.8713, y: 124.6376}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1888665333

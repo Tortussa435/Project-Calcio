@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08de4e958d942244081a7a11557d41ad, type: 3}
+  m_Name: README_Keywords
+  m_EditorClassIdentifier: 
+  icon: {fileID: 2800000, guid: ee148e281f3c41c5b4ff5f8a5afe5a6c, type: 3}
+  title: Keywords
+  prevReadme: {fileID: 0}
+  nextReadme: {fileID: 0}
+  sections:
+  - name: Header -Base Keyw...
+    heading: Base Keywords
+    text: '{Player} - Giocatore TItolare
+
+      {Team} - Squadra del giocatore
+
+      {Opponent}
+      - Prossimo avversario
+
+      {Ref} - Arbitro
+
+      {OppPlayer} - Giocatore
+      avversario
+
+      {Atk} - attaccante titolare
+
+      {Mid} - centrocampista
+      titolare
+
+      {Def} - difensore titolare
+
+      {Gk} - portiere titolare
+
+      {AnyPlayer}
+      - Giocatore titolare o panchinaro'
+    linkText: 
+    url: 
+  isRoot: 0

@@ -33,7 +33,7 @@ public class S_TeamCard : S_Card
         {
 
 
-            GameObject p = Resources.Load<GameObject>("Prefabs/P_Player");
+            GameObject p = Resources.Load<GameObject>(S_ResDirs.playerPrefab);
             p.GetComponent<S_PlayerIcon>().playerData = player;
             p = Instantiate(p, new Vector2(0, 0), Quaternion.identity, this.transform);
             p.GetComponent<RectTransform>().localPosition = new Vector2(0, 0);
@@ -77,7 +77,7 @@ public class S_TeamCard : S_Card
         
         foreach(SO_PlayerData player in S_GlobalManager.squad.bench)
         {
-            GameObject p = Resources.Load<GameObject>("Prefabs/P_Player");
+            GameObject p = Resources.Load<GameObject>(S_ResDirs.playerPrefab);
             p.GetComponent<S_PlayerIcon>().playerData = player;
             p = Instantiate(p, new Vector2(0, 0), Quaternion.identity, this.transform);
             p.GetComponent<RectTransform>().localPosition = new Vector2(0, 0);

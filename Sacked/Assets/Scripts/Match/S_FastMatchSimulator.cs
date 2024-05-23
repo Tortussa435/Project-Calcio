@@ -14,7 +14,7 @@ public static class S_FastMatchSimulator
     public static List<(S_Calendar.Match match,Score score)> weekResults = new List<(S_Calendar.Match,Score)>();
     static S_FastMatchSimulator()
     {
-        fastGoalChanceCurve = Resources.Load<SO_Curve>("ScriptableObjects/Curves/GoalChanceCurveSimplified");
+        fastGoalChanceCurve = Resources.Load<SO_Curve>(S_ResDirs.fastGoalChanceCurve);
     }
 
     public struct Score

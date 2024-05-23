@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using System.Linq;
 using Unity.Collections.LowLevel.Unsafe;
+using UnityEngine.Events;
 
 public class S_CardSelector : MonoBehaviour
 {
@@ -20,7 +21,17 @@ public class S_CardSelector : MonoBehaviour
     public List<SO_CardData.Branch> appendedMatchCards;
     public List<SO_CardData.Branch> appendedMarketCards;
     public List<SO_CardData.Branch> currentListToRead;
-    
+
+
+    private void Start()
+    {
+        //REDO disattivare already picked in metodo piu gradevole
+        baseCardsPool.DisableAlreadyPicked();
+        matchCardsPool.DisableAlreadyPicked();
+        marketCardsPool.DisableAlreadyPicked();
+        firstHalfBreakCardsPool.DisableAlreadyPicked();
+    }
+
     //REDO avoid errors if cards do not have any formula in it
     public List<SO_CardData> ChooseCardByScore(CardsPool pool=null, float minRequiredScore=0.75f)
     {

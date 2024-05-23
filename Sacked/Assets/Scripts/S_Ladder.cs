@@ -49,7 +49,7 @@ public class S_Ladder : MonoBehaviour
             QuickSortLadder(leagueLadder, 0, leagueLadder.Count - 1);
             for (int i = 0; i < leagueLadder.Count; i++)
             {
-                GameObject teambox = Resources.Load<GameObject>("Prefabs/Teambox");
+                GameObject teambox = Resources.Load<GameObject>(S_ResDirs.teambox);
                 teambox = Instantiate(teambox, Vector3.zero, Quaternion.identity, gameObject.transform);
                 teambox.transform.GetChild(0).GetComponent<TextMeshProUGUI>().SetText(leagueLadder[i].team.teamName);
                 teambox.transform.GetChild(1).GetComponent<TextMeshProUGUI>().SetText(leagueLadder[i].points.ToString());

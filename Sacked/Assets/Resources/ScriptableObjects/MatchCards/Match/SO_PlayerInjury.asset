@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SO_PlayerInjury
   m_EditorClassIdentifier: 
   ownerCard: {fileID: 0}
-  cardName: "{Injuried} si \xE8 rotto il crociato:("
+  cardName: Infortunio
   cardColor: {r: 0.9339623, g: 0.7533375, b: 0.8845405, a: 1}
   cardDescriptions:
   - "{Injuried} si \xE8 rotto il crociato:( torner\xE0 a giocare tra {InjLen} partite"
@@ -65,7 +65,7 @@ MonoBehaviour:
     triggerChance: 100
   scoreCard: []
   cardScore: 1
-  cardScoreNotNormalized: 1
+  cardScoreNotNormalized: 3
   matchScoreCard:
   - desiredValue: 5
     direction: 0
@@ -79,7 +79,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     scoreMultiplier: 1
     matchFormula: 0
-  chanceOfAppearance: 98.583336
+  chanceOfAppearance: 1.1
   matchCardDropChance:
   - rule: 0
     direction: 0

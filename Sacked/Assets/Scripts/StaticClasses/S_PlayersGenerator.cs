@@ -10,7 +10,7 @@ static public class S_PlayersGenerator
     static S_PlayersGenerator()
     {
         possibleNames = new List<SO_NamesDatabase>();
-        possibleNames = Resources.LoadAll<SO_NamesDatabase>("ScriptableObjects/NamesDatabase").ToList();
+        possibleNames = Resources.LoadAll<SO_NamesDatabase>(S_ResDirs.namesDatabase).ToList();
     }
     static public SO_PlayerData GeneratePlayer(SO_PlayerData.PlayerRole role, int minSkill, int maxSkill)
     {

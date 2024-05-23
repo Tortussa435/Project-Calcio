@@ -134,7 +134,7 @@ public class SO_CardData : ScriptableObject
 
     public void SetPlayerTeamTactic(string tactic)
     {
-        S_GlobalManager.selectedTeam.teamTactics = Resources.Load<SO_Tactics>("ScriptableObjects/TeamTactics/" + tactic);
+        S_GlobalManager.selectedTeam.teamTactics = Resources.Load<SO_Tactics>(S_ResDirs.teamTacticsDir + tactic);
         Debug.Log(S_GlobalManager.selectedTeam.teamTactics);
         S_PlayerMatchSimulator.UpdateTacticsEffectiveness();
     }

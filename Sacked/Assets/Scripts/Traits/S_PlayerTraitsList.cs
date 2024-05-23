@@ -8,6 +8,6 @@ public static class S_PlayerTraitsList
     public static List<SO_PlayerTrait> playerTraitsDatabase;
     static S_PlayerTraitsList()
     {
-        playerTraitsDatabase = Resources.LoadAll<SO_PlayerTrait>("ScriptableObjects/PlayerTraits").ToList();
+        playerTraitsDatabase = Resources.LoadAll<SO_PlayerTrait>(S_ResDirs.playerTraitsDatabase).ToList();
     }
 }

@@ -158,7 +158,7 @@ public class S_Squad : MonoBehaviour
     {
         for (int i = 0; i < playersList.Count; i++)
         {
-            GameObject teambox = Resources.Load<GameObject>("Prefabs/PlayerBox");
+            GameObject teambox = Resources.Load<GameObject>(S_ResDirs.playerbox);
             teambox = Instantiate(teambox, Vector3.zero, Quaternion.identity, gameObject.transform);
             teambox.GetComponent<Image>().color = i % 2 == 0 ? Color.gray : Color.white; //REDO give color based on role
             teambox.transform.GetChild(0).GetComponent<TextMeshProUGUI>().SetText(playersList[i].playerName);
@@ -290,7 +290,7 @@ public class S_Squad : MonoBehaviour
     {
         if (teamCardRef == null || forceSpawn)
         {
-            SO_CardData data = ScriptableObject.Instantiate(Resources.Load<SO_CardData>("ScriptableObjects/TeamCard/TeamCard"));
+            SO_CardData data = ScriptableObject.Instantiate(Resources.Load<SO_CardData>(S_ResDirs.teamCard));
             data.leftChoice = S_GlobalManager.squad.FindNextLineup().ToString();
             teamCardRef = S_GlobalManager.deckManagerRef.GenerateCard(data, teamCardPrefab, false);
             S_GlobalManager.deckManagerRef.SetCardOnTop(teamCardRef);
@@ -312,7 +312,7 @@ public class S_Squad : MonoBehaviour
     {
         if (teamCardRef == null || forceSpawn)
         {
-            SO_CardData data = ScriptableObject.Instantiate(Resources.Load<SO_CardData>("ScriptableObjects/TeamCard/TeamCard"));
+            SO_CardData data = ScriptableObject.Instantiate(Resources.Load<SO_CardData>(S_ResDirs.teamCard));
             data.onGeneratedEffects.AddListener(data.FindNextLineupDescription);
             teamCardRef = S_GlobalManager.deckManagerRef.GenerateCard(data, teamCardPrefab, false);
             S_GlobalManager.deckManagerRef.SetCardOnTop(teamCardRef);

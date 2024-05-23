@@ -125,7 +125,7 @@ public class SO_TeamObjective : SO_CardData
         to.objectiveGenerosity += 1;
         if (to.objectiveGenerosity >= 2)
         {
-            S_GlobalManager.deckManagerRef.AddCardToDeck(Resources.Load<SO_CardData>("ScriptableObjects/Sacking/Sacking_TooLowObjective"));
+            S_GlobalManager.deckManagerRef.AddCardToDeck(Resources.Load<SO_CardData>(S_ResDirs.objectiveTooLow));
         }
         else
         {

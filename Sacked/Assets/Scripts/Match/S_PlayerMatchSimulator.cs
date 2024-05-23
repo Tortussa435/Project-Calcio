@@ -54,7 +54,7 @@ public static class S_PlayerMatchSimulator
 
     static S_PlayerMatchSimulator()
     {
-        goalChancePerMinute = Resources.Load<SO_Curve>("ScriptableObjects/Curves/PlayerMatch/MatchGoalChanceMultiplier");
+        goalChancePerMinute = Resources.Load<SO_Curve>(S_ResDirs.goalChancePerMinute);
         
     }
     #region MATCH SIMULATION
@@ -140,7 +140,7 @@ public static class S_PlayerMatchSimulator
         UpdateMatchTextData();
 
         //REDO non molto elegante metodo
-        S_GlobalManager.selectedTeam.teamTactics = ScriptableObject.Instantiate<SO_Tactics>(Resources.Load<SO_Tactics>("ScriptableObjects/TeamTactics/Generic"));
+        S_GlobalManager.selectedTeam.teamTactics = ScriptableObject.Instantiate<SO_Tactics>(Resources.Load<SO_Tactics>(S_ResDirs.genericTactic));
 
         S_GlobalManager.squad.RemoveExpulsions();
         S_GlobalManager.squad.ReduceInjuries();
@@ -173,7 +173,7 @@ public static class S_PlayerMatchSimulator
     #endregion
 
     #region GOAL
-    private static SO_CardData GenerateGolCard(bool homeTeam=true)
+    public static SO_CardData GenerateGolCard(bool homeTeam=true, bool canBeRevoked=true)
     {
 
         SO_GoalCardData golCard = ScriptableObject.CreateInstance<SO_GoalCardData>();
@@ -201,10 +201,17 @@ public static class S_PlayerMatchSimulator
         if (!homeTeam) matchScore.away++;
 
         //Gol revoked chance
-        if (Random.Range(0, 100) < CalcGoalRevokedChance(homeTeam))
+        if (Random.Range(0, 100) < CalcGoalRevokedChance(homeTeam) && canBeRevoked)
         {
-            SO_CardData revokeGoal = ScriptableObject.Instantiate(Resources.Load<SO_CardData>("ScriptableObjects/MatchCards/Match/SO_InvalidGoal"));
-            S_GlobalManager.deckManagerRef.AddCardToDeck(revokeGoal, 0);
+            SO_CardData revokeGoal = ScriptableObject.Instantiate(Resources.Load<SO_CardData>(S_ResDirs.invalidGoal));
+            //S_GlobalManager.deckManagerRef.AddCardToDeck(revokeGoal, 0);
+            SO_CardData.Branch revokeGoalBranch;
+            revokeGoalBranch.addPosition = 0;
+            revokeGoalBranch.branchData = revokeGoal;
+            revokeGoalBranch.triggerChance = 100;
+
+            golCard.leftBranchCard = revokeGoalBranch;
+            golCard.rightBranchCard = revokeGoalBranch;
 
             if (homeTeam)
             {

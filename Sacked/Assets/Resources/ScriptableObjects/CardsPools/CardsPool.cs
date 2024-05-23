@@ -23,8 +23,10 @@ public class CardsPool : ScriptableObject
         }
     }
 
+
+
     [ContextMenu("Disable Already Picked")]
-    private void DisableAlreadyPicked()
+    public void DisableAlreadyPicked()
     {
         foreach(SO_CardData card in cardsPool)
         {

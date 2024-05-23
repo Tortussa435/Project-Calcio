@@ -150,7 +150,7 @@ public class SO_MatchCardData : SO_CardData
         substitutionCard.addPosition = 0;
         substitutionCard.triggerChance = 100;
         SO_CardData substitution;
-        substitution = ScriptableObject.Instantiate(Resources.Load<SO_CardData>("ScriptableObjects/MatchCards/Match/SO_OpponentSubstitution"));
+        substitution = ScriptableObject.Instantiate(Resources.Load<SO_CardData>(S_ResDirs.opponentSub));
         substitution.decreaseCountDown = false;
         substitutionCard.branchData=substitution;
 
@@ -179,9 +179,15 @@ public class SO_MatchCardData : SO_CardData
 
         int seed = Random.Range(0, playerChance + opponentChance + 1);
 
-        if (seed > playerChance) PlayerYellowCard();
-        else OpponentYellowCard();
-    
+        if (seed > playerChance)
+        {
+            PlayerYellowCard();
+        }
+
+        else
+        {
+            OpponentYellowCard();
+        }
     }
     public void RandomRedCard()
     {
@@ -212,8 +218,11 @@ public class SO_MatchCardData : SO_CardData
 
         else player = S_GlobalManager.squad.playingEleven[Random.Range(0, S_GlobalManager.squad.playingEleven.Count)];
 
+        bool expelled = false;
+
         if (S_PlayerMatchSimulator.YellowCards.Contains(player)) //if player already has a yellow card, it gets expelled
         {
+            expelled = true;
             SO_CardData redcard = ScriptableObject.CreateInstance<SO_CardData>();
             //REDO expel description with variable string
             redcard.cardDescriptions.Add( player.playerName+" ("+S_GlobalManager.selectedTeam.shortName+")" + " è stato espulso per somma di gialli!" );
@@ -233,6 +242,14 @@ public class SO_MatchCardData : SO_CardData
         string description = cardDescriptions[Random.Range(0, cardDescriptions.Count)];
         description = description.Replace("{Expelled}", player.playerName + " ("+S_GlobalManager.selectedTeam.shortName+")");
         ownerCard.GetComponent<S_Card>().cardDescription.text = description;
+
+        int penaltyChance = expelled ? 25 : 5;
+        
+        //penalty
+        if (Random.Range(0, 100) < penaltyChance)
+        {
+            GivePenaltyFromCard(true);
+        }
 
         //ownerCard.GetComponent<S_Card>().GenerateCardData(this);
 
@@ -262,6 +279,12 @@ public class SO_MatchCardData : SO_CardData
         ownerCard.GetComponent<S_Card>().cardDescription.text = description;
         
         player.expelled = 2;
+
+        //penalty
+        if (Random.Range(0, 100) < 25)
+        {
+            GivePenaltyFromCard(true);
+        }
 
     }
 
@@ -300,6 +323,13 @@ public class SO_MatchCardData : SO_CardData
         string description = S_GlobalManager.ReplaceVariablesInString(cardDescriptions[Random.Range(0, cardDescriptions.Count)]);
         description = description.Replace("{Expelled}", player.playerName + " (" + S_PlayerMatchSimulator.GetOpponentTeam().shortName + ")");
         ownerCard.GetComponent<S_Card>().cardDescription.text = description;
+
+        float penaltyChance = expelled ? 15 : 5;
+        if (Random.Range(0, 100) < penaltyChance)
+        {
+            GivePenaltyFromCard(false);
+        }
+
     }
 
     public void OpponentRedCard()
@@ -317,8 +347,34 @@ public class SO_MatchCardData : SO_CardData
         string description = S_GlobalManager.ReplaceVariablesInString(cardDescriptions[Random.Range(0, cardDescriptions.Count)]);
         description = description.Replace("{Expelled}", player.playerName + " (" + S_PlayerMatchSimulator.GetOpponentTeam().shortName + ")");
         ownerCard.GetComponent<S_Card>().cardDescription.text = description;
+
+        if (Random.Range(0, 100) < 25)
+        {
+            GivePenaltyFromCard(false);
+        }
     }
-    
+
+    private void GivePenaltyFromCard(bool player)
+    {
+        SO_CardData penalty = ScriptableObject.Instantiate(Resources.Load<SO_CardData>(S_ResDirs.penaltyCard));
+
+        penalty.onGeneratedEffects.RemoveAllListeners();
+        if (player)
+            penalty.onGeneratedEffects.AddListener(GeneratePlayerPenalty);
+        else
+            penalty.onGeneratedEffects.AddListener(GenerateOpponentPenalty);
+        
+        SO_CardData.Branch branch;
+        branch.addPosition = 0;
+        branch.branchData = penalty;
+        branch.triggerChance = 100;
+
+        leftBranchCard = branch;
+        rightBranchCard = branch;
+    }
+    #endregion
+
+    #region SUBS
     public void OpponentSubstitution()
     {
         for(int i = 0; i < cardDescriptions.Count; i++)
@@ -354,6 +410,7 @@ public class SO_MatchCardData : SO_CardData
         }
     }
     
+
     public void ProposePlayerSubstitution()
     {
 
@@ -363,6 +420,61 @@ public class SO_MatchCardData : SO_CardData
 
     }
     #endregion
+
+    #region PENALTIES
+    public void GenerateRandomPenalty()
+    {
+        if(Random.Range(0, 100) < 50)
+        {
+            GeneratePlayerPenalty();
+        }
+        GenerateOpponentPenalty();
+    }
+    public void GeneratePlayerPenalty()
+    {
+        //REDO approfondire calcolo rigori
+        if (Random.Range(0, 100) < 50)
+        {
+            Branch branch;
+            branch.addPosition = 0;
+            branch.triggerChance = 100;
+            branch.branchData = S_PlayerMatchSimulator.GenerateGolCard(true,false);
+
+            (branch.branchData as SO_GoalCardData).goalDescription = " Gol! freddissimo dal dischetto!";
+
+            leftBranchCard = branch;
+            rightBranchCard = branch;
+        }
+
+        foreach (string s in cardDescriptions)
+        {
+            s.Replace("{PenTeam}", S_GlobalManager.selectedTeam.teamName);
+        }
+
+    }
+    public void GenerateOpponentPenalty()
+    {
+        //REDO approfondire calcolo rigori
+        if (Random.Range(0, 100) < 50)
+        {
+            Branch branch;
+            branch.addPosition = 0;
+            branch.triggerChance = 100;
+            branch.branchData = S_PlayerMatchSimulator.GenerateGolCard(true, false);
+
+            (branch.branchData as SO_GoalCardData).goalDescription = " Gol! freddissimo dal dischetto!";
+
+            leftBranchCard = branch;
+            rightBranchCard = branch;
+        }
+
+        foreach (string s in cardDescriptions)
+        {
+            s.Replace("{PenTeam}", S_PlayerMatchSimulator.GetOpponentTeam().teamName);
+        }
+    }
+    #endregion
+
     #endregion
 }
 

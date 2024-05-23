@@ -21,8 +21,8 @@ public class SO_MatchOpponent : SO_CardData
 
     private void OnEnable()
     {
-        previewPool = Resources.Load<CardsPool>("ScriptableObjects/CardsPools/MatchPreviewCardsPool");
-        firsthalfbreakPool = Resources.Load<CardsPool>("ScriptableObjects/CardsPools/MatchSpeechPool");
+        previewPool = Resources.Load<CardsPool>(S_ResDirs.matchPreviewPool);
+        firsthalfbreakPool = Resources.Load<CardsPool>(S_ResDirs.firstHalfBreakPool);
         
         //S_GlobalManager.nextOpponent.GenerateRandomTraits();
         

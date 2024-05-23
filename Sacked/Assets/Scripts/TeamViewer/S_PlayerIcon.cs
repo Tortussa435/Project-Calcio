@@ -99,7 +99,7 @@ public class S_PlayerIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHandle
     {
         if (playerCardRef == null || forceSpawn)
         {
-            SO_CardData data = ScriptableObject.Instantiate(Resources.Load<SO_CardData>("ScriptableObjects/TeamCard/PlayerCard"));
+            SO_CardData data = ScriptableObject.Instantiate(Resources.Load<SO_CardData>(S_ResDirs.playerCardDir));
 
             playerCardRef = S_GlobalManager.deckManagerRef.GenerateCard(data, playerCardPrefab, false);
 

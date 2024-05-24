@@ -103,19 +103,7 @@ public static class S_GlobalManager
     {
         try
         {
-            Dictionary<string, string> varsDictionary = new Dictionary<string, string>{
-                { "{Team}", selectedTeam.teamName },
-                { "{Opponent}", nextOpponent.teamName },
-                { "{Ref}", "L'arbitro " + S_PlayerMatchSimulator.refereeName },
-                { "{Player}", squad.playingEleven[UnityEngine.Random.Range(0,squad.playingEleven.Count)].playerName },
-                { "{OppPlayer}", S_PlayerMatchSimulator.RandomlyGetNewOrExistingOpponentPlayer() },
-                { "{Atk}", squad !=null ? squad.GetPlayingPlayerByRole(SO_PlayerData.PlayerRole.Atk) : "None" },
-                { "{Mid}", squad !=null ? squad.GetPlayingPlayerByRole(SO_PlayerData.PlayerRole.Mid) : "None" },
-                { "{Def}", squad !=null ? squad.GetPlayingPlayerByRole(SO_PlayerData.PlayerRole.Def) : "None" },
-                { "{Gk}", squad !=null ? squad.GetPlayingPlayerByRole(SO_PlayerData.PlayerRole.Gk) : "None" },
-                { "{AnyPlayer}", squad!=null ? squad.GetAnyRandomPlayer() : "None" }
-            };
-        
+            Dictionary<string, string> varsDictionary = S_VarsDictionary.GenerateVarsDictionary();
             
             foreach (string key in varsDictionary.Keys)
             {

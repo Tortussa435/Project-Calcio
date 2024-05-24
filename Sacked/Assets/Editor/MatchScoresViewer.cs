@@ -31,10 +31,12 @@ public class MatchScoresViewer : EditorWindow
             
             foreach(SO_MatchCardData mcd in S_GlobalManager.deckManagerRef.cardSelector.matchCardsPool.cardsPool)
             {
+                int cao = (int)((mcd.chanceOfAppearance/totalScore) * 100);
+
                 GUILayout.BeginHorizontal();
                 GUILayout.Label(mcd.cardName);
                 GUILayout.Label(mcd.chanceOfAppearance.ToString());
-                GUILayout.Label((mcd.chanceOfAppearance/totalScore).ToString());
+                GUILayout.Label(cao+"%");
                 GUILayout.EndHorizontal();
             }
         }

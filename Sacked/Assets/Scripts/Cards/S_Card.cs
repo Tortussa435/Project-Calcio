@@ -28,7 +28,7 @@ public class S_Card : MonoBehaviour
         else
         {
             Debug.LogWarning("This card has no default descriptions");
-            cardText = "placeholder";
+            cardText = "Ti sei scordato di mettere la descrizione a questa carta brutto coglione";
         }
 
         cardDescription.text = S_GlobalManager.ReplaceVariablesInString(cardText);
@@ -41,6 +41,7 @@ public class S_Card : MonoBehaviour
         cardData.onGeneratedEffects.Invoke();
         
         cardData.SetCardAlreadyPicked();
+        cardData.totalAppearances++;
 
     }
     // Start is called before the first frame update

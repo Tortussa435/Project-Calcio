@@ -9,7 +9,7 @@ public class SO_TeamCardData : SO_CardData
     {
         //respawn card after other 2 offers
         
-        S_GlobalManager.deckManagerRef.AddCardToDeck(leftBranchCard.branchData,leftBranchCard.addPosition);
+        S_GlobalManager.deckManagerRef.AddCardToDeck(leftBranchCard.branchData,leftBranchCard.addPosition,null,rightBranchCard.extraData);
 
         if (!S_GlobalManager.DefeatCheck()) S_GlobalManager.deckManagerRef.GenerateCard(null, null, decreaseCountDown);
 

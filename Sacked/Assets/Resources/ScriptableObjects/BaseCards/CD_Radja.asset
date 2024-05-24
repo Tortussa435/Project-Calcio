@@ -16,22 +16,23 @@ MonoBehaviour:
   cardName: Radja
   cardColor: {r: 1, g: 1, b: 1, a: 1}
   cardDescriptions:
-  - Durante una festa un tuo giocatore ubriaco ha avviato una direttta durante la
-    quale ha bestemmiato molteplici volte
+  - Durante una festa {HotHead} da ubriaco ha avviato una direttta durante la quale
+    ha bestemmiato molteplici volte
   leftChoice: Punisci
   rightChoice: Ignora
-  canAppearMoreThanOnce: 1
+  canAppearMoreThanOnce: 0
+  totalAppearances: 1
   decreaseCountDown: 1
   desiredCardPrefabDirectory: 
   leftValues:
     addedMoney: 0
-    addedTeam: -5
-    addedPresident: 10
+    addedTeam: -15
+    addedPresident: 30
     addedSupporters: 0
   rightValues:
     addedMoney: 0
     addedTeam: 0
-    addedPresident: -20
+    addedPresident: -60
     addedSupporters: 0
   leftEffects:
     m_PersistentCalls:
@@ -42,19 +43,40 @@ MonoBehaviour:
   onGeneratedEffects:
     m_PersistentCalls:
       m_Calls: []
-  alreadyPicked: 0
+  alreadyPicked: 1
   cardIcon: {fileID: 0}
   leftBranchCard:
     branchData: {fileID: 0}
     addPosition: 0
+    triggerChance: 0
+    removeOnPhaseChange: 0
   rightBranchCard:
     branchData: {fileID: 0}
     addPosition: 0
+    triggerChance: 0
+    removeOnPhaseChange: 0
   scoreCard:
-  - desiredValue: 5
-    direction: 0
-    compareString: 
+  - desiredValue: 12
+    direction: 5
+    compareString: Hot_Head
     compareFloat: 0
+    customCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
     scoreMultiplier: 1
+  - desiredValue: 18
+    direction: 4
+    compareString: Hot_Head
+    compareFloat: 1
+    customCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    scoreMultiplier: -1
   cardScore: 0
   cardScoreNotNormalized: 0

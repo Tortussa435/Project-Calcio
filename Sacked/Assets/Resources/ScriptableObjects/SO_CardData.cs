@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.Events;
 using System.Linq;
+using NaughtyAttributes;
 
 [CreateAssetMenu(fileName = "New Card Data", menuName = "Cards/Card")]
 public class SO_CardData : ScriptableObject
@@ -17,6 +18,9 @@ public class SO_CardData : ScriptableObject
     public string leftChoice;
     public string rightChoice;
     public bool canAppearMoreThanOnce=false;
+    [ShowIf("canAppearMoreThanOnce")]
+    [ReadOnly]
+    public int totalAppearances = 0;
     public bool decreaseCountDown = true;
 
 
@@ -37,6 +41,7 @@ public class SO_CardData : ScriptableObject
     public UnityEvent rightEffects=new UnityEvent();
     public UnityEvent onGeneratedEffects=new UnityEvent();
 
+    [ReadOnly]
     public bool alreadyPicked=false;
 
     public Sprite cardIcon;
@@ -47,6 +52,8 @@ public class SO_CardData : ScriptableObject
         public SO_CardData branchData;
         public int addPosition;
         public float triggerChance;
+        public List<object> extraData;
+        public bool removeOnPhaseChange;
         
     }
 
@@ -55,11 +62,16 @@ public class SO_CardData : ScriptableObject
 
     [Header("Scoring")]
     public List<S_CardsScoreFormula> scoreCard;
-    
 
+    [ReadOnly]
     public float cardScore;
-
+    [ReadOnly]
     public float cardScoreNotNormalized;
+
+    /// <summary>
+    /// data passed from another card, useful for specific events/actions
+    /// </summary>
+    public List<object> passedExtraData = new List<object>();
 
     virtual public void leftEffect()
     {
@@ -67,7 +79,7 @@ public class SO_CardData : ScriptableObject
         if (leftBranchCard.branchData != null)
         {
             if(Random.Range(0,100) < leftBranchCard.triggerChance)
-                S_GlobalManager.deckManagerRef.AddCardToDeck(leftBranchCard.branchData, leftBranchCard.addPosition);
+                S_GlobalManager.deckManagerRef.AddCardToDeck(leftBranchCard.branchData, leftBranchCard.addPosition,null,leftBranchCard.extraData);
         }
         S_GlobalManager.SetMoney(leftValues.addedMoney);
         S_GlobalManager.SetPresident(leftValues.addedPresident);
@@ -83,7 +95,7 @@ public class SO_CardData : ScriptableObject
         if (rightBranchCard.branchData != null)
         {
             if (Random.Range(0, 100) < rightBranchCard.triggerChance)
-                S_GlobalManager.deckManagerRef.AddCardToDeck(rightBranchCard.branchData, rightBranchCard.addPosition);
+                S_GlobalManager.deckManagerRef.AddCardToDeck(rightBranchCard.branchData, rightBranchCard.addPosition,null,rightBranchCard.extraData);
         }
 
         S_GlobalManager.SetMoney(rightValues.addedMoney);
@@ -103,7 +115,7 @@ public class SO_CardData : ScriptableObject
         cardScore = 0;
         if(canAppearMoreThanOnce || !alreadyPicked)
         {
-            foreach(S_CardsScoreFormula score in scoreCard) cardScore += score.CalculateScore();
+            foreach(S_CardsScoreFormula score in scoreCard) cardScore += score.CalculateScore(this);
         }
         cardScoreNotNormalized = cardScore;
     }
@@ -117,7 +129,7 @@ public class SO_CardData : ScriptableObject
         cardScore /= max;
     }
 
-    public void SetCardAlreadyPicked(bool picked=true) => alreadyPicked = picked && !canAppearMoreThanOnce;
+    public void SetCardAlreadyPicked(bool picked=true) => alreadyPicked = (picked && !canAppearMoreThanOnce);
 
     [ContextMenu("Disable Already Picked")]
     private void OnDestroy()

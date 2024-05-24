@@ -20,18 +20,19 @@ MonoBehaviour:
   leftChoice: Non andare
   rightChoice: Vai
   canAppearMoreThanOnce: 1
+  totalAppearances: 0
   decreaseCountDown: 1
   desiredCardPrefabDirectory: 
   leftValues:
     addedMoney: 0
     addedTeam: 0
-    addedPresident: -15
-    addedSupporters: -5
+    addedPresident: -30
+    addedSupporters: -10
   rightValues:
-    addedMoney: -10
+    addedMoney: -30
     addedTeam: 0
-    addedPresident: 10
-    addedSupporters: 10
+    addedPresident: 30
+    addedSupporters: 30
   leftEffects:
     m_PersistentCalls:
       m_Calls: []
@@ -46,14 +47,35 @@ MonoBehaviour:
   leftBranchCard:
     branchData: {fileID: 0}
     addPosition: 0
+    triggerChance: 0
+    removeOnPhaseChange: 0
   rightBranchCard:
     branchData: {fileID: 0}
     addPosition: 0
+    triggerChance: 0
+    removeOnPhaseChange: 0
   scoreCard:
   - desiredValue: 2
     direction: 0
     compareString: 
     compareFloat: 0
+    customCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
     scoreMultiplier: 1
+  - desiredValue: 19
+    direction: 0
+    compareString: 
+    compareFloat: 0
+    customCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    scoreMultiplier: -0.1
   cardScore: 0.5
   cardScoreNotNormalized: 0.5

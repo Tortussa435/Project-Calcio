@@ -59,10 +59,12 @@ MonoBehaviour:
     branchData: {fileID: 11400000, guid: e3c9bc1633967214fb784f7b1dfbe3ad, type: 2}
     addPosition: 0
     triggerChance: 100
+    removeOnPhaseChange: 0
   rightBranchCard:
     branchData: {fileID: 11400000, guid: e3c9bc1633967214fb784f7b1dfbe3ad, type: 2}
     addPosition: 0
     triggerChance: 100
+    removeOnPhaseChange: 0
   scoreCard:
   - desiredValue: 5
     direction: 0
@@ -77,29 +79,45 @@ MonoBehaviour:
     scoreMultiplier: 1
   cardScore: 0.33333334
   cardScoreNotNormalized: 1
-  matchScoreCard:
-  - desiredValue: 0
-    direction: 0
-    compareString: 
-    compareFloat: 0
-    customCurve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 0
-      m_PostInfinity: 0
-      m_RotationOrder: 0
-    scoreMultiplier: 0
-    matchFormula: 0
+  matchScoreCard: []
   chanceOfAppearance: 3.1
+  totalScoreMultiplier: 1
   matchCardDropChance:
   - rule: 0
-    direction: 0
-    weight: 1
+    direction: 7
+    weight: 0.5
     compareFloat: 0
     customCurve:
       serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 0
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 3
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 6
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
       m_PostInfinity: 0
       m_RotationOrder: 0
   - rule: 4

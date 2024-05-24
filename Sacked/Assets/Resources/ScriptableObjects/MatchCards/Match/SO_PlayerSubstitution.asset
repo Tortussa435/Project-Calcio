@@ -15,7 +15,8 @@ MonoBehaviour:
   ownerCard: {fileID: 0}
   cardName: PlayerSubstitution
   cardColor: {r: 1, g: 1, b: 1, a: 1}
-  cardDescriptions: []
+  cardDescriptions:
+  - Momento sostituzione per il giocatore, se solo l'avessimo implementata....
   leftChoice: 
   rightChoice: 
   canAppearMoreThanOnce: 1
@@ -46,10 +47,12 @@ MonoBehaviour:
     branchData: {fileID: 0}
     addPosition: 0
     triggerChance: 0
+    removeOnPhaseChange: 0
   rightBranchCard:
     branchData: {fileID: 0}
     addPosition: 0
     triggerChance: 0
+    removeOnPhaseChange: 0
   scoreCard:
   - desiredValue: 5
     direction: 0
@@ -62,10 +65,11 @@ MonoBehaviour:
       m_PostInfinity: 0
       m_RotationOrder: 0
     scoreMultiplier: 1
-  cardScore: 0
-  cardScoreNotNormalized: 0
+  cardScore: 1
+  cardScoreNotNormalized: 1
   matchScoreCard: []
-  chanceOfAppearance: 1
+  chanceOfAppearance: 0
+  totalScoreMultiplier: 1
   matchCardDropChance:
   - rule: 7
     direction: 6
@@ -77,7 +81,7 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  - rule: 9
+  - rule: 8
     direction: 0
     weight: -0.329
     compareFloat: 0

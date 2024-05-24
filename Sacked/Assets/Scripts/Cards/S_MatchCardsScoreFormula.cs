@@ -16,7 +16,7 @@ public class S_MatchCardsScoreFormula : S_CardsScoreFormula
     }
 
     //REDO al momento calculate score ignora i parametri imposti
-    public override float CalculateScore()
+    public override float CalculateScore(SO_CardData cardRef)
     {
         float valueToCheck = 0.0f;
 
@@ -65,6 +65,9 @@ public class S_MatchCardsScoreFormula : S_CardsScoreFormula
                 valueToCheck = !S_PlayerMatchSimulator.IsPlayerHomeTeam() ? S_PlayerMatchSimulator.substitutions.home : S_PlayerMatchSimulator.substitutions.away;
                 break;
 
+            case MatchRule.CardAppearances:
+                valueToCheck = cardRef.totalAppearances;
+                break;
         }
 
         

@@ -9,6 +9,7 @@ using UnityEngine.UIElements;
 using System.Linq;
 using static S_GlobalManager;
 using System.Globalization;
+using static SO_CardData;
 
 public class S_DeckManager : MonoBehaviour
 {
@@ -39,6 +40,8 @@ public class S_DeckManager : MonoBehaviour
     public IntRange matchDuration;
     public IntRange marketDuration;
 
+    [Header("Unity Events")]
+    public UnityEvent onPhaseChange = new UnityEvent();
 
     // Start is called before the first frame update
     void Start()
@@ -100,16 +103,26 @@ public class S_DeckManager : MonoBehaviour
 
 
 
-    public void AddCardToDeck(SO_CardData data, int position = 0, List<SO_CardData.Branch> listToAppend=null)
+    public void AddCardToDeck(SO_CardData data, int position = 0, List<SO_CardData.Branch> listToAppend = null, List<object> extradata = null, bool removeOnPhaseChange=false)
     {
         SO_CardData.Branch branch;
         branch.branchData = data;
         branch.addPosition = position;
         branch.triggerChance = 100;
+        branch.branchData.passedExtraData = extradata != null ? new List<object>(extradata) : null;
+        branch.extraData = null;
+        branch.removeOnPhaseChange = removeOnPhaseChange;
+        
+        //REDO pericoloso
+        if (removeOnPhaseChange)
+        {
+            onPhaseChange.AddListener(() => cardSelector.currentListToRead.Remove(branch));
+        }
 
         List<SO_CardData.Branch> listToManage = listToAppend;
         if (listToManage == null) listToManage = cardSelector.currentListToRead;
 
+        
         if (position == 0)
         {
             for(int i = 0; i < listToManage.Count; i++)
@@ -124,6 +137,7 @@ public class S_DeckManager : MonoBehaviour
 
         //checks if there's a free spot for the card in that specific position until it finds a spot
         // >using do while unironically
+
         bool occupied;
         do
         {
@@ -137,7 +151,6 @@ public class S_DeckManager : MonoBehaviour
                 }
             }
         } while (occupied);
-
 
         listToManage.Add(branch);
     }
@@ -296,8 +309,9 @@ public class S_DeckManager : MonoBehaviour
 
     public SO_CardData DecreaseCardsCounter(List<SO_CardData.Branch> branch)
     {
-        for (int i = 0; i < branch.Count; i++)
+        for (int i = branch.Count-1; i >= 0; i--)
         {
+            //Debug.Log("III: "+i);
             SO_CardData.Branch a = branch[i];
             a.addPosition = Mathf.Clamp(a.addPosition-1,0,100);
             if (a.addPosition == 0)
@@ -342,6 +356,8 @@ public class S_DeckManager : MonoBehaviour
                 S_PlayerMatchSimulator.UpdateMatchTextData();
                 break;
         }
+
+        onPhaseChange.Invoke();
 
     }
 

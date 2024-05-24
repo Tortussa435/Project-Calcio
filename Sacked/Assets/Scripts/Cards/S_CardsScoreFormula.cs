@@ -35,7 +35,7 @@ public class S_CardsScoreFormula
 
     public float scoreMultiplier=1.0f;
 
-    public virtual float CalculateScore()
+    public virtual float CalculateScore(SO_CardData cardRef)
     {
         float valueToCheck = 0.0f;
         
@@ -123,6 +123,10 @@ public class S_CardsScoreFormula
             case Rule.Week:
                 valueToCheck = S_GlobalManager.currentMatchDay;
                 break;
+            case Rule.CardAppearances:
+                valueToCheck = cardRef.totalAppearances;
+                break;
+
         }
 
         valueToCheck = S_FootballEnums.GetScoreDirection(direction, valueToCheck, compareFloat, customCurve);

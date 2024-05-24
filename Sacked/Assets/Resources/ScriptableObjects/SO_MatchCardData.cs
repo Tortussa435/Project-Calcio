@@ -10,8 +10,11 @@ public class SO_MatchCardData : SO_CardData
 {
     [Header("Scoring")]
     public List<S_MatchCardsScoreFormula> matchScoreCard;
+    [ReadOnly]
     public float chanceOfAppearance = 0.0f;
 
+    [Header("Drop Chance Score")]
+    public float totalScoreMultiplier = 1f;
     public List<CardDropChance> matchCardDropChance = new List<CardDropChance>();
 
     [SerializeField] private string formulaDescriptionInfo;
@@ -26,7 +29,7 @@ public class SO_MatchCardData : SO_CardData
         {
             for (int i=0;i<matchScoreCard.Count;i++)
             {
-                cardScore += matchScoreCard[i].CalculateScore();
+                cardScore += matchScoreCard[i].CalculateScore(this);
             }
         }
         cardScoreNotNormalized = cardScore;
@@ -38,7 +41,7 @@ public class SO_MatchCardData : SO_CardData
             chanceOfAppearance += drop.FindChance();
         }
 
-        chanceOfAppearance = Mathf.Max(0, chanceOfAppearance);
+        chanceOfAppearance = Mathf.Max(0, chanceOfAppearance*totalScoreMultiplier);
     }
 
     #region MATCH EVENTS
@@ -52,7 +55,7 @@ public class SO_MatchCardData : SO_CardData
 
         opponentChance += S_PlayerMatchSimulator.IsPlayerHomeTeam() ? (int)S_PlayerMatchSimulator.injuryChance.away : (int)S_PlayerMatchSimulator.injuryChance.home;
 
-        int seed = Random.Range(0, playerChance + opponentChance + 1);
+        int seed = Random.Range(0, playerChance + opponentChance + 1); //opponent has slightly higher chance of injury by default
 
 
         if (seed > playerChance)
@@ -149,10 +152,12 @@ public class SO_MatchCardData : SO_CardData
         Branch substitutionCard;
         substitutionCard.addPosition = 0;
         substitutionCard.triggerChance = 100;
+        substitutionCard.extraData = null;
         SO_CardData substitution;
         substitution = ScriptableObject.Instantiate(Resources.Load<SO_CardData>(S_ResDirs.opponentSub));
         substitution.decreaseCountDown = false;
         substitutionCard.branchData=substitution;
+        substitutionCard.removeOnPhaseChange = true;
 
         //tells the substitution card what player is going to be replaced
         for(int i=0;i<substitutionCard.branchData.cardDescriptions.Count;i++)
@@ -359,6 +364,7 @@ public class SO_MatchCardData : SO_CardData
         SO_CardData penalty = ScriptableObject.Instantiate(Resources.Load<SO_CardData>(S_ResDirs.penaltyCard));
 
         penalty.onGeneratedEffects.RemoveAllListeners();
+
         if (player)
             penalty.onGeneratedEffects.AddListener(GeneratePlayerPenalty);
         else
@@ -368,6 +374,8 @@ public class SO_MatchCardData : SO_CardData
         branch.addPosition = 0;
         branch.branchData = penalty;
         branch.triggerChance = 100;
+        branch.extraData = null;
+        branch.removeOnPhaseChange = true;
 
         leftBranchCard = branch;
         rightBranchCard = branch;
@@ -428,21 +436,26 @@ public class SO_MatchCardData : SO_CardData
         {
             GeneratePlayerPenalty();
         }
-        GenerateOpponentPenalty();
+
+        else GenerateOpponentPenalty();
     }
     public void GeneratePlayerPenalty()
     {
+        Debug.Log("RIGORE RIGORE RIGORE");
         //REDO approfondire calcolo rigori
-        if (Random.Range(0, 100) < 50)
+        if (Random.Range(0, 100) < S_Chances.PENALTYGOALCHANCE)
         {
             Branch branch;
             branch.addPosition = 0;
             branch.triggerChance = 100;
             branch.branchData = S_PlayerMatchSimulator.GenerateGolCard(true,false);
+            branch.extraData = null;
+            branch.removeOnPhaseChange = true;
 
             (branch.branchData as SO_GoalCardData).goalDescription = " Gol! freddissimo dal dischetto!";
 
             leftBranchCard = branch;
+
             rightBranchCard = branch;
         }
 
@@ -454,17 +467,21 @@ public class SO_MatchCardData : SO_CardData
     }
     public void GenerateOpponentPenalty()
     {
+        Debug.Log("RIGORE RIGORE RIGORE 2");
         //REDO approfondire calcolo rigori
-        if (Random.Range(0, 100) < 50)
+        if (Random.Range(0, 100) < S_Chances.PENALTYGOALCHANCE)
         {
             Branch branch;
             branch.addPosition = 0;
             branch.triggerChance = 100;
             branch.branchData = S_PlayerMatchSimulator.GenerateGolCard(true, false);
+            branch.extraData = null;
+            branch.removeOnPhaseChange = true;
 
             (branch.branchData as SO_GoalCardData).goalDescription = " Gol! freddissimo dal dischetto!";
 
             leftBranchCard = branch;
+
             rightBranchCard = branch;
         }
 

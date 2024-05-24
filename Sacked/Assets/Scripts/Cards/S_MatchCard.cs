@@ -40,7 +40,7 @@ public class S_MatchCard : S_Card
             case S_FootballEnums.Positivity.Negative:
                 return Color.red;
             case S_FootballEnums.Positivity.Neutral:
-                return Color.black;
+                return Color.grey;
             case S_FootballEnums.Positivity.Positive:
                 return Color.green;
         }

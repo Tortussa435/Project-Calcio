@@ -17,7 +17,7 @@ MonoBehaviour:
   SkillLevel: 3
   teamColor1: {r: 0.3301887, g: 0.12681119, b: 0.05762727, a: 1}
   teamColor2: {r: 0.32941177, g: 0.1254902, b: 0.05882353, a: 1}
-  teamLogo: {fileID: 0}
+  teamLogo: {fileID: 21300000, guid: 467d30153075bab4899e88c5155a3abc, type: 3}
   teamTraits: []
   derbies:
   - {fileID: 11400000, guid: bd35133a1db36614a965219229dfb19b, type: 2}

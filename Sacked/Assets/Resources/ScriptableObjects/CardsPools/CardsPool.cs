@@ -31,6 +31,7 @@ public class CardsPool : ScriptableObject
         foreach(SO_CardData card in cardsPool)
         {
             card.alreadyPicked = false;
+            card.totalAppearances = 0;
         }
     }
 }

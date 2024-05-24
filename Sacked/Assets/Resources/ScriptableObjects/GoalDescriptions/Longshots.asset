@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   goalReason: 3
   goalDescriptions:
-  - '{Scorer} tira da fuori con violenza estrema'
+  - '{Scorer} tira da fuori con violenza estrema distruggendo la rete'

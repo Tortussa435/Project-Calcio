@@ -7,8 +7,11 @@ using static S_FootballEnums;
 
 public class EditorScoreDebugViewer : EditorWindow
 {
+
     static float aggressivitySlider = 0;
-   
+
+    private static int cardAppearances = 0;
+
     private static int yellowCards = 0;
     private static int redCards = 0;
 
@@ -98,6 +101,11 @@ public class EditorScoreDebugViewer : EditorWindow
         GUILayout.Space(10);
         GUILayout.Label(week.ToString());
 
+        GUILayout.Label("Card Appearances", EditorStyles.boldLabel);
+        cardAppearances = (int)GUILayout.HorizontalSlider(cardAppearances, 0, 100, GUILayout.Width(300));
+        GUILayout.Space(10);
+        GUILayout.Label(cardAppearances.ToString());
+
         try
         {
             GUILayout.Label("Card Score = " + CalcFormula());
@@ -123,7 +131,7 @@ public class EditorScoreDebugViewer : EditorWindow
             cardScore+=CalcSingleChance(chance);
         }
 
-        return cardScore;
+        return cardScore*formulasmanager.totalScoreMultiplier;
     }
 
     private float CalcSingleChance(CardDropChance chance)
@@ -169,6 +177,10 @@ public class EditorScoreDebugViewer : EditorWindow
                 score = awaySubs;
                 break;
 
+            case MatchRule.CardAppearances:
+                score = cardAppearances;
+                break;
+
         }
 
         switch (chance.direction)
@@ -198,6 +210,10 @@ public class EditorScoreDebugViewer : EditorWindow
 
             case ScoreDirection.LowerThan:
                 score = score < chance.compareFloat ? 1 : 0;
+                break;
+
+            case ScoreDirection.CustomCurve:
+                score = chance.customCurve.Evaluate(score);
                 break;
         }
 

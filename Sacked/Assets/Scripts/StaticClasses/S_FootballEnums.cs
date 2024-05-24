@@ -71,7 +71,8 @@ public static class S_FootballEnums
         GameMinute,
         PlayerSubstitutions,
         OpponentSubstitutions,
-        Week
+        Week,
+        CardAppearances
     }
 
     [System.Serializable]
@@ -85,7 +86,8 @@ public static class S_FootballEnums
         Injuries,
         GameMinute,
         PlayerSubstitutions,
-        OpponentSubstitutions
+        OpponentSubstitutions,
+        CardAppearances
     };
 
 

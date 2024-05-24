@@ -20,16 +20,17 @@ MonoBehaviour:
   leftChoice: Punisci
   rightChoice: Ignora
   canAppearMoreThanOnce: 0
+  totalAppearances: 0
   decreaseCountDown: 1
   desiredCardPrefabDirectory: 
   leftValues:
     addedMoney: 0
-    addedTeam: 5
+    addedTeam: 15
     addedPresident: 0
-    addedSupporters: -10
+    addedSupporters: -30
   rightValues:
     addedMoney: 0
-    addedTeam: -10
+    addedTeam: -30
     addedPresident: 0
     addedSupporters: 0
   leftEffects:
@@ -47,10 +48,12 @@ MonoBehaviour:
     branchData: {fileID: 0}
     addPosition: 0
     triggerChance: 0
+    removeOnPhaseChange: 0
   rightBranchCard:
     branchData: {fileID: 0}
     addPosition: 0
     triggerChance: 0
+    removeOnPhaseChange: 0
   scoreCard:
   - desiredValue: 5
     direction: 0

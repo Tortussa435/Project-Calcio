@@ -26,7 +26,7 @@ public class S_MatchInfo : MonoBehaviour
         targetMinute = minuteToReach;
         while (currentMinute < targetMinute)
         {
-            Debug.Log("Ziopera");
+            //Debug.Log("Ziopera");
             currentMinute++;
             textRef.text = currentMinute.ToString() + matchInfo;
             yield return new WaitForSeconds(0.1f);

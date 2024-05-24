@@ -50,10 +50,11 @@ public class SO_MatchOpponent : SO_CardData
         previewcard.leftEffects.AddListener(() => GenerateMatchPreviewCard());
         previewcard.rightEffects.AddListener(() => GenerateMatchPreviewCard());
         S_GlobalManager.deckManagerRef.GenerateCard(null,null,false);
-
     }
+
     public SO_CardData GenerateMatchPreviewCard()
-    {      
+    {
+        Debug.Log("Sto generando!");
         List<SO_CardData> possibleScores = S_GlobalManager.deckManagerRef.cardSelector.ChooseCardByScore(previewPool,0.25f);
         
         SO_CardData previewCard = possibleScores[Random.Range(0, possibleScores.Count)];

@@ -49,8 +49,9 @@ public class S_CardSelector : MonoBehaviour
         //normalize scores and find if in range, in case add to list
         foreach(SO_CardData card in pool.cardsPool)
         {
+            float cardScore = card.GetCardScore();
             card.NormalizeCardScore(bestScore);
-            if (card.GetCardScore() >= minRequiredScore)
+            if (cardScore >= minRequiredScore && cardScore > 0)
             {
                 //Debug.Log("Approved: " + card.cardName);
                 approvedCards.Add(card);
@@ -62,6 +63,7 @@ public class S_CardSelector : MonoBehaviour
             Debug.Log("no card");
             return null;
         }
+
         else
         {
             return approvedCards;

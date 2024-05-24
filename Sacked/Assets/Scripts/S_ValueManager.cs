@@ -61,27 +61,32 @@ public class S_ValueManager : MonoBehaviour
     public void UpdateValue()
     {
         string ending="";
+        float target = 0;
         switch (currencyToUpdate)
         {
             case Currencies.Money:
-                targetValue = S_GlobalManager.Money;
+                target = S_GlobalManager.Money;
                 ending = MoneySackingDirectory;
                 break;
             case Currencies.President:
                 ending = PresidentSackingDirectory;
-                targetValue = S_GlobalManager.President;
+                target = S_GlobalManager.President;
                 break;
             case Currencies.Team:
                 ending = TeamSackingDirectory;
-                targetValue = S_GlobalManager.Team;
+                target = S_GlobalManager.Team;
                 break;
             case Currencies.Supporters:
                 ending = SupportersSackingDirectory;
-                targetValue = S_GlobalManager.Supporters;
+                target = S_GlobalManager.Supporters;
                 break;
         }
-        //generate ending if value reaches 0
 
+        if (Mathf.Abs(target - targetValue) < 1) return; //Checks if movement difference is very low
+        
+        targetValue = target;
+
+        //generate ending if value reaches 0
         if (targetValue == 0 && !S_GlobalManager.deckManagerRef.DebugImmortal) //REDO remove this check in published version
         {
             SO_Sacking sackingReason = Resources.Load<SO_Sacking>(ending);

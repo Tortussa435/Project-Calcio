@@ -172,6 +172,8 @@ public static class S_PlayerMatchSimulator
     #region GOAL
     public static SO_CardData GenerateGolCard(bool homeTeam=true, bool canBeRevoked=true)
     {
+        Debug.Log("GOOOALON");
+
 
         SO_GoalCardData golCard = ScriptableObject.CreateInstance<SO_GoalCardData>();
         
@@ -193,9 +195,15 @@ public static class S_PlayerMatchSimulator
         golCard.cardIcon = homeTeam ? match.homeTeam.teamLogo : match.awayTeam.teamLogo;
         golCard.cardColor = homeTeam ? match.homeTeam.teamColor1 : match.awayTeam.teamColor1;
 
-        if (homeTeam) matchScore.home++;
-        
-        if (!homeTeam) matchScore.away++;
+        if (homeTeam)
+        {
+            matchScore.home++;
+        }
+
+        else if(!homeTeam)
+        {
+            matchScore.away++;
+        }
 
         //Gol revoked chance
         if (Random.Range(0, 100) < CalcGoalRevokedChance(homeTeam) && canBeRevoked)
@@ -206,6 +214,8 @@ public static class S_PlayerMatchSimulator
             revokeGoalBranch.addPosition = 0;
             revokeGoalBranch.branchData = revokeGoal;
             revokeGoalBranch.triggerChance = 100;
+            revokeGoalBranch.extraData = null;
+            revokeGoalBranch.removeOnPhaseChange = true;
 
             golCard.leftBranchCard = revokeGoalBranch;
             golCard.rightBranchCard = revokeGoalBranch;
@@ -375,8 +385,8 @@ public static class S_PlayerMatchSimulator
     public static bool IsPlayerHomeTeam() => (S_GlobalManager.selectedTeam.teamName == match.homeTeam.teamName);
     private static float GoalChanceFromTactics(bool homeTeam) => homeTeam ? (float)tacticEffectiveness.home/10.0f : (float)tacticEffectiveness.away/10.0f;
     private static float GoalChanceFromTraits(bool homeTeam) => homeTeam ? (float)traitsScoreChance.home/10.0f : (float)traitsScoreChance.away/10.0f;
-    public static bool PlayerWinning() => (IsPlayerHomeTeam() && matchScore.HomeWinning()) || matchScore.AwayWinning();
-    public static bool OpponentWinning() => (IsPlayerHomeTeam() && matchScore.AwayWinning()) || matchScore.HomeWinning();
+    public static bool PlayerWinning() => IsPlayerHomeTeam() == matchScore.HomeWinning();
+    public static bool OpponentWinning() => IsPlayerHomeTeam() == matchScore.AwayWinning();
     public static string GetGeneratedOpponentPlayer() => opponentTeamNames[Random.Range(0, opponentTeamNames.Count)];
     
     //If match is derby some cards may appear, also aggressivity increases by 1 for both teams
@@ -402,7 +412,7 @@ public static class S_PlayerMatchSimulator
         traitsScoreChance.home = Mathf.Clamp(traitsScoreChance.home, 0, 100);
         traitsScoreChance.away = Mathf.Clamp(traitsScoreChance.away, 0, 100);
     }
-    public static string RandomlyGetNewOrExistingOpponentPlayer(int newPlayerChance=49)
+    public static string RandomlyGetNewOrExistingOpponentPlayer(int newPlayerChance=50)
     {
         int ran = Random.Range(0, 100);
         
@@ -526,7 +536,9 @@ public static class S_PlayerMatchSimulator
         foreach (SO_CardData card in cards)
         {
             totalscore += (card as SO_MatchCardData).chanceOfAppearance;
-            chancedCards.Add((card, totalscore));
+            
+            if((card as SO_MatchCardData).chanceOfAppearance>0)
+                chancedCards.Add((card, totalscore));
         }
 
         float selectedCardRoll = (float)Random.Range(0, totalscore);

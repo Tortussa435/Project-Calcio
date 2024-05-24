@@ -10,7 +10,7 @@ public static class S_ResDirs
     [Header("Cards")]
     public static string opponentSub = "ScriptableObjects/MatchCards/Match/SO_OpponentSubstitution";
     public static string penaltyCard = "ScriptableObjects/MatchCards/Match/SO_Penalty";
-    public static string invalidGoal = "ScriptableObjects/MatchCards/Match/SO_InvalidGoal";
+    public static string invalidGoal = "ScriptableObjects/MatchCards/Match/InvalidGoal/SO_InvalidGoal";
 
     [Header("Pools")]
     public static string matchPreviewPool = "ScriptableObjects/CardsPools/MatchPreviewCardsPool";

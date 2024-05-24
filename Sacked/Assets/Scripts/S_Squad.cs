@@ -185,14 +185,28 @@ public class S_Squad : MonoBehaviour
         return totalskill;
     }
 
-    public List<SO_PlayerData> GetPlayersWithTrait(SO_PlayerTrait.PlayerTraitNames trait)
+    public List<SO_PlayerData> GetPlayersWithTrait(SO_PlayerTrait.PlayerTraitNames trait, bool playingElevenOnly=true)
     {
         List<SO_PlayerData> pWithTrait = new List<SO_PlayerData>();
-        foreach (SO_PlayerData player in playingEleven)
+        if (playingElevenOnly)
         {
-            if (player.playerTraits[0].traitName == trait)
+            foreach (SO_PlayerData player in playingEleven)
             {
-                pWithTrait.Add(player);
+                if (player.playerTraits[0].traitName == trait)
+                {
+                    pWithTrait.Add(player);
+                }
+            }
+        }
+        else
+        {
+            List<SO_PlayerData> players = Goalkeepers.Union(Defense).ToList().Union(Midfield).ToList().Union(Attack).ToList();
+            foreach(SO_PlayerData player in players)
+            {
+                if (player.playerTraits[0].traitName == trait)
+                {
+                    pWithTrait.Add(player);
+                }
             }
         }
         return pWithTrait;
@@ -342,7 +356,7 @@ public class S_Squad : MonoBehaviour
 
         if (eligibleNames.Count < 1)
         {
-            Debug.Log("Niuno fu trovato");
+            //Debug.Log("Niuno fu trovato");
             return "Niuno";
         }
         return eligibleNames[Random.Range(0, eligibleNames.Count)];
@@ -369,6 +383,10 @@ public class S_Squad : MonoBehaviour
                 playingEleven.Add(Goalkeepers[1]);
                 bench.Add(Goalkeepers[0]);
             }
+        }
+        else if(Goalkeepers.Count==0)
+        {
+            Debug.LogWarning("NON CI SONO PORTIERI!!!");
         }
         else playingEleven.Add(Goalkeepers[0]);
     }

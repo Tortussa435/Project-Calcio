@@ -19,11 +19,12 @@ MonoBehaviour:
   - E' arrivata una proposta da uno sponsor losco
   leftChoice: Accetta
   rightChoice: Rifiuta
-  canAppearMoreThanOnce: 1
+  canAppearMoreThanOnce: 0
+  totalAppearances: 0
   decreaseCountDown: 1
   desiredCardPrefabDirectory: 
   leftValues:
-    addedMoney: 30
+    addedMoney: 40
     addedTeam: 0
     addedPresident: 0
     addedSupporters: 10
@@ -31,7 +32,7 @@ MonoBehaviour:
     addedMoney: 0
     addedTeam: 0
     addedPresident: 0
-    addedSupporters: -10
+    addedSupporters: -20
   leftEffects:
     m_PersistentCalls:
       m_Calls: []
@@ -45,17 +46,19 @@ MonoBehaviour:
   cardIcon: {fileID: 0}
   leftBranchCard:
     branchData: {fileID: 11400000, guid: dc367c0d3706acd4da335900dbe75924, type: 2}
-    addPosition: 4
+    addPosition: 6
     triggerChance: 60
+    removeOnPhaseChange: 0
   rightBranchCard:
     branchData: {fileID: 0}
     addPosition: 0
     triggerChance: 0
+    removeOnPhaseChange: 0
   scoreCard:
-  - desiredValue: 5
-    direction: 0
+  - desiredValue: 18
+    direction: 6
     compareString: 
-    compareFloat: 0
+    compareFloat: 10
     customCurve:
       serializedVersion: 2
       m_Curve: []

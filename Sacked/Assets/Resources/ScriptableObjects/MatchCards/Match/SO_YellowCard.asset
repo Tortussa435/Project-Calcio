@@ -60,10 +60,12 @@ MonoBehaviour:
     branchData: {fileID: 0}
     addPosition: 0
     triggerChance: 100
+    removeOnPhaseChange: 0
   rightBranchCard:
     branchData: {fileID: 0}
     addPosition: 0
     triggerChance: 100
+    removeOnPhaseChange: 0
   scoreCard:
   - desiredValue: 5
     direction: 0
@@ -78,28 +80,44 @@ MonoBehaviour:
     scoreMultiplier: 1
   cardScore: 0
   cardScoreNotNormalized: 0
-  matchScoreCard:
-  - desiredValue: 5
-    direction: 0
-    compareString: 
-    compareFloat: 0
-    customCurve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    scoreMultiplier: 1
-    matchFormula: 0
+  matchScoreCard: []
   chanceOfAppearance: 0.1
+  totalScoreMultiplier: 1
   matchCardDropChance:
   - rule: 0
-    direction: 0
-    weight: 0.33333334
+    direction: 7
+    weight: 0.8
     compareFloat: 0
     customCurve:
       serializedVersion: 2
-      m_Curve: []
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 4
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 6
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -115,7 +133,27 @@ MonoBehaviour:
       m_RotationOrder: 4
   - rule: 4
     direction: 0
-    weight: 0.1
+    weight: 0.2
+    compareFloat: 0
+    customCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  - rule: 2
+    direction: 6
+    weight: -0.2
+    compareFloat: 0
+    customCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  - rule: 3
+    direction: 6
+    weight: -0.2
     compareFloat: 0
     customCurve:
       serializedVersion: 2

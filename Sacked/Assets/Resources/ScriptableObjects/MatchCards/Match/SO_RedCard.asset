@@ -21,6 +21,7 @@ MonoBehaviour:
   leftChoice: 
   rightChoice: 
   canAppearMoreThanOnce: 1
+  totalAppearances: 14
   decreaseCountDown: 0
   desiredCardPrefabDirectory: 
   leftValues:
@@ -60,12 +61,12 @@ MonoBehaviour:
     branchData: {fileID: 0}
     addPosition: 0
     triggerChance: 100
-    removeOnPhaseChange: 0
+    removeOnPhaseChange: 1
   rightBranchCard:
     branchData: {fileID: 0}
     addPosition: 0
     triggerChance: 100
-    removeOnPhaseChange: 0
+    removeOnPhaseChange: 1
   scoreCard:
   - desiredValue: 5
     direction: 0
@@ -79,9 +80,9 @@ MonoBehaviour:
       m_RotationOrder: 0
     scoreMultiplier: 1
   cardScore: 1
-  cardScoreNotNormalized: 5
+  cardScoreNotNormalized: 1
   matchScoreCard: []
-  chanceOfAppearance: 10.6
+  chanceOfAppearance: 99.84167
   totalScoreMultiplier: 1
   matchCardDropChance:
   - rule: 0

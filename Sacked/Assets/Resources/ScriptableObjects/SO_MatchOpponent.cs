@@ -47,8 +47,7 @@ public class SO_MatchOpponent : SO_CardData
     public void bothSidesEffect()
     {
         SO_CardData previewcard = GenerateMatchPreviewCard();
-        previewcard.leftEffects.AddListener(() => GenerateMatchPreviewCard());
-        previewcard.rightEffects.AddListener(() => GenerateMatchPreviewCard());
+        previewcard.onGeneratedEffects.AddListener(() => GenerateMatchPreviewCard());
         S_GlobalManager.deckManagerRef.GenerateCard(null,null,false);
     }
 
@@ -64,7 +63,6 @@ public class SO_MatchOpponent : SO_CardData
         previewCard.decreaseCountDown = false;
 
         S_GlobalManager.deckManagerRef.AddCardToDeck(previewCard, 0);
-
 
         return previewCard;
     }

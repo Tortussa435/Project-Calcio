@@ -39,4 +39,7 @@ public static class S_ResDirs
 
     [Header("Team")]
     public static string teamCard = "ScriptableObjects/TeamCard/TeamCard";
+
+    [Header("Errors")]
+    public static string errorCard = "ScriptableObjects/OtherCards/SO_ErrorCard";
 }

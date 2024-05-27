@@ -33,7 +33,7 @@ public class S_CardSelector : MonoBehaviour
     }
 
     //REDO avoid errors if cards do not have any formula in it
-    public List<SO_CardData> ChooseCardByScore(CardsPool pool=null, float minRequiredScore=0.75f)
+    public List<SO_CardData> ChooseCardByScore(CardsPool pool=null, float minRequiredScore=0.5f)
     {
         if (pool == null) pool = currentPool;
 
@@ -51,7 +51,8 @@ public class S_CardSelector : MonoBehaviour
         {
             float cardScore = card.GetCardScore();
             card.NormalizeCardScore(bestScore);
-            if (cardScore >= minRequiredScore && cardScore > 0)
+
+            if (cardScore >= minRequiredScore && cardScore > 0 && card.cardName != S_GlobalManager.deckManagerRef.lastCard.cardData.cardName /*//REDO cringe check*/)
             {
                 //Debug.Log("Approved: " + card.cardName);
                 approvedCards.Add(card);
@@ -60,14 +61,11 @@ public class S_CardSelector : MonoBehaviour
 
         if (approvedCards.Count <= 0)
         {
-            Debug.Log("no card");
-            return null;
+            SO_CardData errorCard=Resources.Load<SO_CardData>(S_ResDirs.errorCard);
+            Debug.LogWarning("Card selector has found 0 valid cards");
+            approvedCards.Add(errorCard);
         }
-
-        else
-        {
-            return approvedCards;
-        }
+        return approvedCards;
     }
 
     public void SetCurrentPool(S_GlobalManager.CardsPhase phase)
@@ -93,5 +91,22 @@ public class S_CardSelector : MonoBehaviour
             case S_GlobalManager.CardsPhase.MatchSecondHalf:
                 break;
         }
+    }
+
+    /// <summary>
+    ///Tells if an appended card is going to spawn (aka countdown==0), used mostly to avoid changing phase when an appended card should spawn
+    /// </summary>
+    /// <returns></returns>
+    public bool SpawningAppendedCard()
+    {
+        foreach(SO_CardData.Branch card in currentListToRead)
+        {
+            if (card.addPosition == 0)
+            {
+                Debug.Log("No aspe un secondo");
+                return true;
+            }
+        }
+        return false;
     }
 }

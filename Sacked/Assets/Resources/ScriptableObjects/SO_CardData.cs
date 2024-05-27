@@ -184,6 +184,17 @@ public class SO_CardData : ScriptableObject
     {
         cardDescriptions.Clear();
         cardDescriptions.Add(GetCalendarResults());
+        decreaseCountDown = false;
+
+        //REDO che schifo
+        leftEffects.AddListener(() => S_GlobalManager.deckManagerRef.MatchScoreText.gameObject.SetActive(false));
+        rightEffects.AddListener(() => S_GlobalManager.deckManagerRef.MatchScoreText.gameObject.SetActive(false));
+        leftEffects.AddListener(() => S_GlobalManager.deckManagerRef.PhaseText.gameObject.SetActive(true));
+        rightEffects.AddListener(() => S_GlobalManager.deckManagerRef.PhaseText.gameObject.SetActive(true));
+
+        S_PlayerMatchSimulator.matchMinute = 90+Random.Range(0,6);
+        S_PlayerMatchSimulator.UpdateMatchTextData();
+    
     }
 
     private string GetCalendarResults()

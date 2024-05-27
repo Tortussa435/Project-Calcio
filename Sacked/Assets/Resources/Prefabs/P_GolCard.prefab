@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 195658546024236374}
+  - component: {fileID: 2423491403164826082}
   - component: {fileID: 195658546024236330}
   - component: {fileID: 195658546024236331}
   - component: {fileID: 195658546024236329}
-  - component: {fileID: 2423491403164826082}
   m_Layer: 5
   m_Name: P_GolCard
   m_TagString: Untagged
@@ -43,6 +43,25 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 918, y: 1285.2}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2423491403164826082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 195658546024236375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50c94786688172049bd8564f383313e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardData: {fileID: 0}
+  cardDescription: {fileID: 0}
+  leftChoice: {fileID: 0}
+  rightChoice: {fileID: 0}
+  cardIcon: {fileID: 5411447943234519479}
+  cardBackground: {fileID: 0}
+  goalDescription: {fileID: 8301635246035903905}
 --- !u!222 &195658546024236330
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -63,6 +82,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59d2a4d34b6a7484eaadc3b453ace238, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isCardDragged: 0
+  totalMovement: 0
+  overrideMovement: 0
+  OnCardSwiped:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &195658546024236329
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -93,25 +118,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2423491403164826082
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 195658546024236375}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50c94786688172049bd8564f383313e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cardData: {fileID: 0}
-  cardDescription: {fileID: 0}
-  leftChoice: {fileID: 0}
-  rightChoice: {fileID: 0}
-  cardIcon: {fileID: 5411447943234519479}
-  cardBackground: {fileID: 0}
-  goalDescription: {fileID: 8301635246035903905}
 --- !u!1 &1619151863722845940
 GameObject:
   m_ObjectHideFlags: 0

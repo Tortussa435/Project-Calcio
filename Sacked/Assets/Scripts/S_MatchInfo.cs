@@ -13,13 +13,13 @@ public class S_MatchInfo : MonoBehaviour
 
     private void Start()
     {
-        OnMatchEnd.AddListener(()=>currentMinute=0);
+        OnMatchEnd.AddListener(() => currentMinute = 0);
     }
     public void UpdateMatchInfo(int matchMinute)
     {
         matchInfo = "'\n" + match.homeTeam.teamName + " " + matchScore.home + " - " + matchScore.away + " " + match.awayTeam.teamName;
         StartCoroutine(LerpGameMinute(matchMinute));
-        
+
     }
     private IEnumerator LerpGameMinute(int minuteToReach)
     {
@@ -28,10 +28,22 @@ public class S_MatchInfo : MonoBehaviour
         {
             //Debug.Log("Ziopera");
             currentMinute++;
-            textRef.text = currentMinute.ToString() + matchInfo;
-            yield return new WaitForSeconds(0.1f);
+
+            if (currentMinute > 90)
+                textRef.text = "90 +" + (currentMinute - 90).ToString() + matchInfo;
+
+            else textRef.text = currentMinute.ToString() + matchInfo;
+
+            yield return new WaitForSeconds(FindLerpSpeed(currentMinute, targetMinute));
         }
-        textRef.text = currentMinute.ToString() + matchInfo;
+
+        if (currentMinute > 90)
+            textRef.text = "90+" + (currentMinute - 90).ToString() + matchInfo;
+
+        else textRef.text = currentMinute.ToString() + matchInfo;
+
         yield break;
     }
+
+    private float FindLerpSpeed(int currentMinute, int targetMinute) => Mathf.Max((currentMinute / (float)targetMinute) * 0.15f, 0.001f);
 }

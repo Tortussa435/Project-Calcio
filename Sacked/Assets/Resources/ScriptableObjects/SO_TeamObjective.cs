@@ -109,14 +109,10 @@ public class SO_TeamObjective : SO_CardData
         //REDO metodo per evitare che riappaia una carta scegli squadra molto grezzo
         S_GlobalManager.deckManagerRef.cardSelector.appendedWeekCards.Clear();
 
-        S_GlobalManager.deckManagerRef.ChangeCurrentPhase(2,3, S_GlobalManager.CardsPhase.Week);
-        
-
         S_GlobalManager.squad.GenerateTeam();
 
-        
-        //base.leftEffect();
-        if (!S_GlobalManager.DefeatCheck()) S_GlobalManager.deckManagerRef.GenerateCard(null, null, decreaseCountDown);
+        S_GlobalManager.deckManagerRef.ChangeCurrentPhase(2,3, S_GlobalManager.CardsPhase.Week);
+
 
     }
     public override void rightEffect()

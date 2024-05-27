@@ -160,7 +160,7 @@ RectTransform:
   - {fileID: 1811657591616001614}
   - {fileID: 7285569647878270919}
   m_Father: {fileID: 6703929602991736199}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -324,7 +324,7 @@ RectTransform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 6703929602991736199}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -522,7 +522,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6703929602991736199}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -661,9 +661,9 @@ RectTransform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4153831242792924878}
-  - {fileID: 7844403929418593558}
   - {fileID: 4628933670066127397}
   - {fileID: 677170891660641627}
+  - {fileID: 7844403929418593558}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -692,6 +692,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59d2a4d34b6a7484eaadc3b453ace238, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isCardDragged: 0
+  totalMovement: 0
+  overrideMovement: 0
+  OnCardSwiped:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &5912613191049360278
 MonoBehaviour:
   m_ObjectHideFlags: 0

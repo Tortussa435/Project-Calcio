@@ -37,9 +37,14 @@ public static class S_PlayerMatchSimulator
     public static UnityEvent OnMatchEnd = new UnityEvent();
     public static UnityEvent OnMatchStart = new UnityEvent();
 
+    public static UnityEvent<bool> OnRedCard = new UnityEvent<bool>();
+    public static UnityEvent<bool> OnSubstitution = new UnityEvent<bool>();
+
     public static bool isDerby;
 
     static int opponentMatchSkillLevel; //the skill level of the opponent may change depending on red cards, therefore it is stored here
+
+    public static S_MatchIconsHandler iconsHandler;
 
     [Header("Yellow/Red Cards")]
     public static List<SO_PlayerData> YellowCards = new List<SO_PlayerData>();
@@ -62,8 +67,13 @@ public static class S_PlayerMatchSimulator
     {
 
         UpdateMatchTextData();
+        SO_CardData rollData = null;
+        
+        if (!S_GlobalManager.deckManagerRef.cardSelector.SpawningAppendedCard())
+        {
+            rollData = ScoreGoalRoll();
+        }
 
-        SO_CardData rollData = ScoreGoalRoll();
         if (rollData == null)
         {
             List<SO_CardData> matchCards = S_GlobalManager.deckManagerRef.cardSelector.ChooseCardByScore();
@@ -101,7 +111,7 @@ public static class S_PlayerMatchSimulator
         S_GlobalManager.nextOpponent.GenerateRandomTraits();
 
         //REDO when giving the player the choice of the starting eleven this must be removed
-        S_GlobalManager.squad.SetBestPlayingEleven();
+        //S_GlobalManager.squad.SetBestPlayingEleven();
 
 
         DerbyCheck(); //checks if match is derby, increases aggressivity by 1
@@ -206,6 +216,7 @@ public static class S_PlayerMatchSimulator
         }
 
         //Gol revoked chance
+        //if (Random.Range(0, 100) < 100)
         if (Random.Range(0, 100) < CalcGoalRevokedChance(homeTeam) && canBeRevoked)
         {
             SO_CardData revokeGoal = ScriptableObject.Instantiate(Resources.Load<SO_CardData>(S_ResDirs.invalidGoal));
@@ -220,6 +231,7 @@ public static class S_PlayerMatchSimulator
             golCard.leftBranchCard = revokeGoalBranch;
             golCard.rightBranchCard = revokeGoalBranch;
 
+            UpdateMatchTextData();
             if (homeTeam)
             {
                 revokeGoal.leftEffects.AddListener(() => matchScore.home = Mathf.Max(0,matchScore.home - 1));
@@ -508,6 +520,8 @@ public static class S_PlayerMatchSimulator
     {
         YellowCards.Remove(player);
         RedCards.Add(player);
+
+        OnRedCard.Invoke(IsPlayerHomeTeam());
 
         S_GlobalManager.squad.playingEleven.Remove(player);
 

@@ -431,10 +431,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2976045572785580039}
+  - component: {fileID: 6330348967017344405}
   - component: {fileID: 2976045572785580155}
   - component: {fileID: 2976045572785580154}
   - component: {fileID: 2976045572785580152}
-  - component: {fileID: 6330348967017344405}
   - component: {fileID: 6836617945871848937}
   m_Layer: 5
   m_Name: P_MatchCard
@@ -471,6 +471,30 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 918, y: 1285.2}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &6330348967017344405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2976045572785580038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a5733f8f3bad424a80472a9520d2292, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardData: {fileID: 0}
+  cardDescription: {fileID: 0}
+  leftChoice: {fileID: 0}
+  rightChoice: {fileID: 0}
+  cardIcon: {fileID: 6981499699921054950}
+  cardBackground: {fileID: 0}
+  starsRating: {fileID: 7541165046281389712}
+  ranking: {fileID: 6126624171283123718}
+  traits:
+  - {fileID: 4245087366141037842}
+  - {fileID: 898052722652051853}
+  - {fileID: 6149558305406695228}
 --- !u!222 &2976045572785580155
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -527,30 +551,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6330348967017344405
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2976045572785580038}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a5733f8f3bad424a80472a9520d2292, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cardData: {fileID: 0}
-  cardDescription: {fileID: 0}
-  leftChoice: {fileID: 0}
-  rightChoice: {fileID: 0}
-  cardIcon: {fileID: 6981499699921054950}
-  cardBackground: {fileID: 0}
-  starsRating: {fileID: 7541165046281389712}
-  ranking: {fileID: 6126624171283123718}
-  traits:
-  - {fileID: 4245087366141037842}
-  - {fileID: 898052722652051853}
-  - {fileID: 6149558305406695228}
 --- !u!114 &6836617945871848937
 MonoBehaviour:
   m_ObjectHideFlags: 0

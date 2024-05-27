@@ -33,9 +33,10 @@ public class S_DeckManager : MonoBehaviour
     public TextMeshProUGUI CurrentWeekText;
     
     public S_CardSelector cardSelector;
+    
+    [Header("Phases Durations")]
     public int nextPhaseCountdown;
 
-    [Header("Phases Durations")]
     public IntRange weekDuration;
     public IntRange matchDuration;
     public IntRange marketDuration;
@@ -46,6 +47,8 @@ public class S_DeckManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Random.InitState(System.DateTime.Now.Millisecond);
+
         deckManagerRef = this;
 
         selectedLeague = ScriptableObject.Instantiate(selectedLeague);
@@ -161,7 +164,7 @@ public class S_DeckManager : MonoBehaviour
 
         if (decreaseCountdown) nextPhaseCountdown--;
         
-        if (nextPhaseCountdown < 0)
+        if (nextPhaseCountdown < 0 && !cardSelector.SpawningAppendedCard())
         {
             GameObject card=null;
 
@@ -174,7 +177,6 @@ public class S_DeckManager : MonoBehaviour
                 case CardsPhase.Week:
                     
                     S_PlayerMatchSimulator.StartMatch();
-
                     ChangeCurrentPhase(matchDuration.min, matchDuration.max, CardsPhase.MatchFirstHalf);
 
                     break;
@@ -197,22 +199,21 @@ public class S_DeckManager : MonoBehaviour
                     endMatchCard.GenerateEndMatchData();
 
                     //ends the match
-                    S_PlayerMatchSimulator.EndMatch();
-
-                    MatchScoreText.gameObject.SetActive(false);
-                    PhaseText.gameObject.SetActive(true);
+                    endMatchCard.leftEffects.AddListener(S_PlayerMatchSimulator.EndMatch);
+                    endMatchCard.rightEffects.AddListener(S_PlayerMatchSimulator.EndMatch);
                     
-                    ChangeCurrentPhase(matchDuration.min, matchDuration.max, CardsPhase.Week);
+                    //S_PlayerMatchSimulator.EndMatch();
+
+
                     
-                    //REDO destroys the first week card and replaces it with the endgame card
-                    Destroy(deck.transform.GetChild(0).gameObject);
-
-
+                    ChangeCurrentPhase(matchDuration.min, matchDuration.max, CardsPhase.Week, false);
 
                     card = GenerateCard(endMatchCard, null, false);
 
                     break;
             }
+            
+            //Debug.Log("Spawned Card: " + card.GetComponent<S_Card>().cardData.cardName);
             return card;
         }
 
@@ -243,6 +244,8 @@ public class S_DeckManager : MonoBehaviour
 
         lastCard.GenerateCardData(cardData);
 
+        //Debug.Log("Spawned Card: " + lastCard.GetComponent<S_Card>().cardData.cardName);
+
         return lastCard.gameObject;
     }
 
@@ -260,6 +263,11 @@ public class S_DeckManager : MonoBehaviour
         {
             SO_CardData[] result;
             result = cardSelector.ChooseCardByScore().ToArray();
+            if (result.Length < 1)
+            {
+                Debug.LogWarning("ChooseCardByScore ha ritornato una lista vuota");
+                return null;
+            }
             return result[Random.Range(0,result.Length)];
         }
     }
@@ -325,7 +333,7 @@ public class S_DeckManager : MonoBehaviour
         return null;
     }
 
-    public void ChangeCurrentPhase(int minCardsAmount, int maxCardsAmount, CardsPhase newPhase)
+    public void ChangeCurrentPhase(int minCardsAmount, int maxCardsAmount, CardsPhase newPhase, bool generateCard=true)
     {
         if (sacked && !DebugImmortal) return;
         nextPhaseCountdown = Random.Range(minCardsAmount, maxCardsAmount+1); //max exclusive
@@ -338,12 +346,11 @@ public class S_DeckManager : MonoBehaviour
         switch (newPhase)
         {
             case CardsPhase.Week:
-                GenerateCard();
+                if(generateCard) GenerateCard();
                 break;
 
             case CardsPhase.MatchFirstHalf:
-                Destroy(deck.transform.GetChild(0).gameObject);
-                GenerateCard(ScriptableObject.CreateInstance<SO_MatchOpponent>(), matchCardPrefab);
+                if(generateCard) GenerateCard(ScriptableObject.CreateInstance<SO_MatchOpponent>(), matchCardPrefab);
                 break;
             
             case CardsPhase.MatchSecondHalf:
@@ -362,5 +369,6 @@ public class S_DeckManager : MonoBehaviour
     }
 
     public void SetCardOnTop(GameObject card) => card.transform.SetAsLastSibling();
-    
+
+    public void SetCardOnBottom(GameObject card) => card.transform.SetAsFirstSibling();
 }

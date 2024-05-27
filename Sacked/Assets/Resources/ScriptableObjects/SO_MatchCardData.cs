@@ -316,6 +316,9 @@ public class SO_MatchCardData : SO_CardData
                 S_PlayerMatchSimulator.opponentYellowCards.Remove(p);
                 S_PlayerMatchSimulator.opponentRedCards.Add(p);
 
+                S_PlayerMatchSimulator.OnRedCard.Invoke(S_PlayerMatchSimulator.IsOpponentHomeTeam());
+
+
                 //REDO ricalcolare skill level avversario in seguito ad expulsione
                 
                 S_PlayerMatchSimulator.opponentTeamNames.Remove(p.playerName);
@@ -348,6 +351,7 @@ public class SO_MatchCardData : SO_CardData
         S_PlayerMatchSimulator.opponentRedCards.Add(player);
         S_PlayerMatchSimulator.opponentTeamNames.Remove(player.playerName);
 
+        S_PlayerMatchSimulator.OnRedCard.Invoke(S_PlayerMatchSimulator.IsOpponentHomeTeam());
 
         string description = S_GlobalManager.ReplaceVariablesInString(cardDescriptions[Random.Range(0, cardDescriptions.Count)]);
         description = description.Replace("{Expelled}", player.playerName + " (" + S_PlayerMatchSimulator.GetOpponentTeam().shortName + ")");
@@ -416,6 +420,7 @@ public class SO_MatchCardData : SO_CardData
             }
             S_PlayerMatchSimulator.substitutions.away++;
         }
+        S_PlayerMatchSimulator.OnSubstitution.Invoke(S_PlayerMatchSimulator.IsOpponentHomeTeam());
     }
     
 

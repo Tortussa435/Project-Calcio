@@ -50,8 +50,7 @@ public class S_CardSelector : MonoBehaviour
         foreach(SO_CardData card in pool.cardsPool)
         {
             float cardScore = card.GetCardScore();
-            card.NormalizeCardScore(bestScore);
-
+            cardScore=card.NormalizeCardScore(bestScore);
             if (cardScore >= minRequiredScore && cardScore > 0 && card.cardName != S_GlobalManager.deckManagerRef.lastCard.cardData.cardName /*//REDO cringe check*/)
             {
                 //Debug.Log("Approved: " + card.cardName);
@@ -65,6 +64,9 @@ public class S_CardSelector : MonoBehaviour
             Debug.LogWarning("Card selector has found 0 valid cards");
             approvedCards.Add(errorCard);
         }
+
+
+
         return approvedCards;
     }
 

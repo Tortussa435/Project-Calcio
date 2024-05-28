@@ -17,9 +17,12 @@ public class S_MatchInfo : MonoBehaviour
     }
     public void UpdateMatchInfo(int matchMinute)
     {
-        matchInfo = "'\n" + match.homeTeam.teamName + " " + matchScore.home + " - " + matchScore.away + " " + match.awayTeam.teamName;
-        StartCoroutine(LerpGameMinute(matchMinute));
-
+        if (gameObject.activeSelf)
+        {
+            matchInfo = "'\n" + match.homeTeam.teamName + " " + matchScore.home + " - " + matchScore.away + " " + match.awayTeam.teamName;
+            StartCoroutine(LerpGameMinute(matchMinute));
+        }
+        else Debug.LogWarning("Provato ad avviare coroutine in oggetto disattivo");
     }
     private IEnumerator LerpGameMinute(int minuteToReach)
     {

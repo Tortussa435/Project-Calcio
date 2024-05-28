@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ownerCard: {fileID: 0}
   cardName: ErrorCard
-  cardColor: {r: 0.6981132, g: 0.20087217, b: 0.20087217, a: 1}
+  cardColor: {r: 0.8113208, g: 0.43302724, b: 0.08929622, a: 1}
   cardDescriptions:
   - "Nessuna carta \xE8 stata trovata dall'algoritmo, il programmatore \xE8 un coglione"
   leftChoice: 

@@ -143,30 +143,23 @@ public class SO_MatchCardData : SO_CardData
         int injuryLength = Random.Range(1, 12);
 
         string description = S_GlobalManager.ReplaceVariablesInString(cardDescriptions[Random.Range(0, cardDescriptions.Count)]);
-        description = description.Replace("{Injuried}", player.playerName + " (" + S_GlobalManager.selectedTeam.shortName + ")");
+        description = description.Replace("{Injuried}", player.playerName + " (" + S_PlayerMatchSimulator.GetOpponentTeam().shortName + ")");
         description = description.Replace("{InjLen}", injuryLength.ToString());
 
         ownerCard.GetComponent<S_Card>().cardDescription.text = description;
 
-        //Generates Opponent substitution card
-        Branch substitutionCard;
-        substitutionCard.addPosition = 0;
-        substitutionCard.triggerChance = 100;
-        substitutionCard.extraData = null;
+        
         SO_CardData substitution;
         substitution = ScriptableObject.Instantiate(Resources.Load<SO_CardData>(S_ResDirs.opponentSub));
         substitution.decreaseCountDown = false;
-        substitutionCard.branchData=substitution;
-        substitutionCard.removeOnPhaseChange = true;
-
-        //tells the substitution card what player is going to be replaced
-        for(int i=0;i<substitutionCard.branchData.cardDescriptions.Count;i++)
-        {
-            substitutionCard.branchData.cardDescriptions[i] = substitutionCard.branchData.cardDescriptions[i].Replace("{OppPlayer}", player.playerName);
-        }
         
-        leftBranchCard = substitutionCard;
-        rightBranchCard = substitutionCard;
+        //tells the substitution card what player is going to be replaced
+        for(int i=0;i<substitution.cardDescriptions.Count;i++)
+        {
+            substitution.cardDescriptions[i] = substitution.cardDescriptions[i].Replace("{OppPlayer}", player.playerName);
+        }
+
+        S_GlobalManager.deckManagerRef.AddCardToDeck(substitution);
 
         S_PlayerMatchSimulator.UpdateOpponentMatchSkillLevel();
     }

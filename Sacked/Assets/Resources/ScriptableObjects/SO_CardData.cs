@@ -124,9 +124,10 @@ public class SO_CardData : ScriptableObject
         return cardScore;
     }
 
-    public void NormalizeCardScore(float max)
+    public float NormalizeCardScore(float max)
     {
         cardScore /= max;
+        return cardScore;
     }
 
     public void SetCardAlreadyPicked(bool picked=true) => alreadyPicked = (picked && !canAppearMoreThanOnce);

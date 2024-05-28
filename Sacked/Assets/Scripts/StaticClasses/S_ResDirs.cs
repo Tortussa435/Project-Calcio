@@ -11,6 +11,7 @@ public static class S_ResDirs
     public static string opponentSub = "ScriptableObjects/MatchCards/Match/SO_OpponentSubstitution";
     public static string penaltyCard = "ScriptableObjects/MatchCards/Match/SO_Penalty";
     public static string invalidGoal = "ScriptableObjects/MatchCards/Match/InvalidGoal/SO_InvalidGoal";
+    public static string golCardDir = "Prefabs/P_GolCard";
 
     [Header("Pools")]
     public static string matchPreviewPool = "ScriptableObjects/CardsPools/MatchPreviewCardsPool";

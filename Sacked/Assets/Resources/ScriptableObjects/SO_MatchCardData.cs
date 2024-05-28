@@ -143,30 +143,23 @@ public class SO_MatchCardData : SO_CardData
         int injuryLength = Random.Range(1, 12);
 
         string description = S_GlobalManager.ReplaceVariablesInString(cardDescriptions[Random.Range(0, cardDescriptions.Count)]);
-        description = description.Replace("{Injuried}", player.playerName + " (" + S_GlobalManager.selectedTeam.shortName + ")");
+        description = description.Replace("{Injuried}", player.playerName + " (" + S_PlayerMatchSimulator.GetOpponentTeam().shortName + ")");
         description = description.Replace("{InjLen}", injuryLength.ToString());
 
         ownerCard.GetComponent<S_Card>().cardDescription.text = description;
 
-        //Generates Opponent substitution card
-        Branch substitutionCard;
-        substitutionCard.addPosition = 0;
-        substitutionCard.triggerChance = 100;
-        substitutionCard.extraData = null;
+        
         SO_CardData substitution;
         substitution = ScriptableObject.Instantiate(Resources.Load<SO_CardData>(S_ResDirs.opponentSub));
         substitution.decreaseCountDown = false;
-        substitutionCard.branchData=substitution;
-        substitutionCard.removeOnPhaseChange = true;
-
-        //tells the substitution card what player is going to be replaced
-        for(int i=0;i<substitutionCard.branchData.cardDescriptions.Count;i++)
-        {
-            substitutionCard.branchData.cardDescriptions[i] = substitutionCard.branchData.cardDescriptions[i].Replace("{OppPlayer}", player.playerName);
-        }
         
-        leftBranchCard = substitutionCard;
-        rightBranchCard = substitutionCard;
+        //tells the substitution card what player is going to be replaced
+        for(int i=0;i<substitution.cardDescriptions.Count;i++)
+        {
+            substitution.cardDescriptions[i] = substitution.cardDescriptions[i].Replace("{OppPlayer}", player.playerName);
+        }
+
+        S_GlobalManager.deckManagerRef.AddCardToDeck(substitution);
 
         S_PlayerMatchSimulator.UpdateOpponentMatchSkillLevel();
     }
@@ -373,16 +366,8 @@ public class SO_MatchCardData : SO_CardData
             penalty.onGeneratedEffects.AddListener(GeneratePlayerPenalty);
         else
             penalty.onGeneratedEffects.AddListener(GenerateOpponentPenalty);
-        
-        SO_CardData.Branch branch;
-        branch.addPosition = 0;
-        branch.branchData = penalty;
-        branch.triggerChance = 100;
-        branch.extraData = null;
-        branch.removeOnPhaseChange = true;
 
-        leftBranchCard = branch;
-        rightBranchCard = branch;
+        S_GlobalManager.deckManagerRef.AddCardToDeck(penalty);
     }
     #endregion
 
@@ -441,7 +426,6 @@ public class SO_MatchCardData : SO_CardData
         {
             GeneratePlayerPenalty();
         }
-
         else GenerateOpponentPenalty();
     }
     public void GeneratePlayerPenalty()
@@ -450,25 +434,25 @@ public class SO_MatchCardData : SO_CardData
         //REDO approfondire calcolo rigori
         if (Random.Range(0, 100) < S_Chances.PENALTYGOALCHANCE)
         {
-            Branch branch;
-            branch.addPosition = 0;
-            branch.triggerChance = 100;
-            branch.branchData = S_PlayerMatchSimulator.GenerateGolCard(true,false);
-            branch.extraData = null;
-            branch.removeOnPhaseChange = true;
+            bool homeTeam = S_PlayerMatchSimulator.IsPlayerHomeTeam();
+            SO_CardData card = S_PlayerMatchSimulator.GenerateGolCard(homeTeam,false);
+            S_GlobalManager.deckManagerRef.AddCardToDeck(card,0,null,null,true);
+            (card as SO_GoalCardData).goalDescription = " Gol! freddissimo dal dischetto!";
+            
+            Branch empty;
+            empty.addPosition = 0;
+            empty.branchData = null;
+            empty.extraData = null;
+            empty.removeOnPhaseChange = false;
+            empty.triggerChance = 0;
 
-            (branch.branchData as SO_GoalCardData).goalDescription = " Gol! freddissimo dal dischetto!";
-
-            leftBranchCard = branch;
-
-            rightBranchCard = branch;
+            leftBranchCard = empty;
+            rightBranchCard = empty;
         }
 
-        foreach (string s in cardDescriptions)
-        {
-            s.Replace("{PenTeam}", S_GlobalManager.selectedTeam.teamName);
-        }
-
+        string description = ownerCard.GetComponent<S_Card>().cardDescription.text;
+        description = description.Replace("{PenTeam}", S_GlobalManager.selectedTeam.teamName);
+        ownerCard.GetComponent<S_Card>().cardDescription.text = description;
     }
     public void GenerateOpponentPenalty()
     {
@@ -476,24 +460,28 @@ public class SO_MatchCardData : SO_CardData
         //REDO approfondire calcolo rigori
         if (Random.Range(0, 100) < S_Chances.PENALTYGOALCHANCE)
         {
-            Branch branch;
-            branch.addPosition = 0;
-            branch.triggerChance = 100;
-            branch.branchData = S_PlayerMatchSimulator.GenerateGolCard(true, false);
-            branch.extraData = null;
-            branch.removeOnPhaseChange = true;
+            bool homeGoal = S_PlayerMatchSimulator.IsOpponentHomeTeam();
+            SO_CardData card = S_PlayerMatchSimulator.GenerateGolCard(homeGoal, false);
+            S_GlobalManager.deckManagerRef.AddCardToDeck(card, 0, null, null, true);
 
-            (branch.branchData as SO_GoalCardData).goalDescription = " Gol! freddissimo dal dischetto!";
+            Branch empty;
+            empty.addPosition = 0;
+            empty.branchData = null;
+            empty.extraData = null;
+            empty.removeOnPhaseChange = false;
+            empty.triggerChance = 0;
 
-            leftBranchCard = branch;
+            leftBranchCard = empty;
+            rightBranchCard = empty;
 
-            rightBranchCard = branch;
+            (card as SO_GoalCardData).goalDescription = " Gol! freddissimo dal dischetto!";
+
         }
 
-        foreach (string s in cardDescriptions)
-        {
-            s.Replace("{PenTeam}", S_PlayerMatchSimulator.GetOpponentTeam().teamName);
-        }
+        string description = ownerCard.GetComponent<S_Card>().cardDescription.text;
+        description = description.Replace("{PenTeam}", S_PlayerMatchSimulator.GetOpponentTeam().teamName);
+        ownerCard.GetComponent<S_Card>().cardDescription.text = description;
+
     }
     #endregion
 

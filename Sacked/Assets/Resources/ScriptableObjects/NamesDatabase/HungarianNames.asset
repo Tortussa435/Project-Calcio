@@ -15,7 +15,17 @@ MonoBehaviour:
   namesNations:
     nationalitiesGroup: 19000000
     names:
-    - Jannit
+    - Ferenc
+    - Dominik
+    - Peter
+    - Willi
+    - Denes
+    - Daniel
     surnames:
     - Puskas
+    - Szoboszlai
+    - Gulacsi
+    - Orban
+    - Dibusz
+    - Gazdag
     nicknames: []

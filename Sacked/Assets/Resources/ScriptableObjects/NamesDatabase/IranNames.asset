@@ -16,7 +16,15 @@ MonoBehaviour:
     nationalitiesGroup: 13000000
     names:
     - Sardar
+    - Ali
+    - Alireza
+    - Milad
+    - Ehsan
+    - Majid
     surnames:
     - Azmoun
-    - Taremi
+    - Golizadeh
+    - Jahanbakhsh
+    - Mohammadi
+    - Hosseini
     nicknames: []

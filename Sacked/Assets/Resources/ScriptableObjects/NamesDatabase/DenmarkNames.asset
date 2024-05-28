@@ -15,7 +15,21 @@ MonoBehaviour:
   namesNations:
     nationalitiesGroup: 14000000
     names:
+    - Peter
+    - Michael
+    - Rasmus
+    - Anders
     - Christian
+    - Frederik
+    - Simon
+    - Robert
     surnames:
     - Schmeichel
+    - Laudrup
+    - Hojlund
+    - Dreyer
+    - Eriksen
+    - Ronnow
+    - Kjaer
+    - Skov
     nicknames: []

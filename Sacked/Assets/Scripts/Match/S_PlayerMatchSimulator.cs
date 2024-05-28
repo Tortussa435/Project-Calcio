@@ -200,7 +200,7 @@ public static class S_PlayerMatchSimulator
             golCard.goalDescription = S_GoalDescriptionGenerator.GenerateOpponentGoalDescription();
         }
 
-        golCard.desiredCardPrefabDirectory = "Prefabs/P_GolCard";
+        golCard.desiredCardPrefabDirectory = S_ResDirs.golCardDir;
         //golCard.decreaseCountDown = false;
         golCard.cardIcon = homeTeam ? match.homeTeam.teamLogo : match.awayTeam.teamLogo;
         golCard.cardColor = homeTeam ? match.homeTeam.teamColor1 : match.awayTeam.teamColor1;

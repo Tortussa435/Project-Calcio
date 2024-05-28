@@ -366,16 +366,8 @@ public class SO_MatchCardData : SO_CardData
             penalty.onGeneratedEffects.AddListener(GeneratePlayerPenalty);
         else
             penalty.onGeneratedEffects.AddListener(GenerateOpponentPenalty);
-        
-        SO_CardData.Branch branch;
-        branch.addPosition = 0;
-        branch.branchData = penalty;
-        branch.triggerChance = 100;
-        branch.extraData = null;
-        branch.removeOnPhaseChange = true;
 
-        leftBranchCard = branch;
-        rightBranchCard = branch;
+        S_GlobalManager.deckManagerRef.AddCardToDeck(penalty);
     }
     #endregion
 
@@ -443,18 +435,19 @@ public class SO_MatchCardData : SO_CardData
         //REDO approfondire calcolo rigori
         if (Random.Range(0, 100) < S_Chances.PENALTYGOALCHANCE)
         {
-            Branch branch;
-            branch.addPosition = 0;
-            branch.triggerChance = 100;
-            branch.branchData = S_PlayerMatchSimulator.GenerateGolCard(true,false);
-            branch.extraData = null;
-            branch.removeOnPhaseChange = true;
+            SO_CardData card = S_PlayerMatchSimulator.GenerateGolCard(true,false);
+            S_GlobalManager.deckManagerRef.AddCardToDeck(card,0,null,null,true);
+            (card as SO_GoalCardData).goalDescription = " Gol! freddissimo dal dischetto!";
+            
+            Branch empty;
+            empty.addPosition = 0;
+            empty.branchData = null;
+            empty.extraData = null;
+            empty.removeOnPhaseChange = false;
+            empty.triggerChance = 0;
 
-            (branch.branchData as SO_GoalCardData).goalDescription = " Gol! freddissimo dal dischetto!";
-
-            leftBranchCard = branch;
-
-            rightBranchCard = branch;
+            leftBranchCard = empty;
+            rightBranchCard = empty;
         }
 
         foreach (string s in cardDescriptions)

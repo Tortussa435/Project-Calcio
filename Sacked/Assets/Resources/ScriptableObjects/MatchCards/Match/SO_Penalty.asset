@@ -20,6 +20,7 @@ MonoBehaviour:
   leftChoice: 
   rightChoice: 
   canAppearMoreThanOnce: 1
+  totalAppearances: 4
   decreaseCountDown: 0
   desiredCardPrefabDirectory: 
   leftValues:
@@ -56,14 +57,14 @@ MonoBehaviour:
   alreadyPicked: 0
   cardIcon: {fileID: 0}
   leftBranchCard:
-    branchData: {fileID: 11400000, guid: e3c9bc1633967214fb784f7b1dfbe3ad, type: 2}
+    branchData: {fileID: 0}
     addPosition: 0
-    triggerChance: 100
+    triggerChance: 0
     removeOnPhaseChange: 0
   rightBranchCard:
-    branchData: {fileID: 11400000, guid: e3c9bc1633967214fb784f7b1dfbe3ad, type: 2}
+    branchData: {fileID: 0}
     addPosition: 0
-    triggerChance: 100
+    triggerChance: 0
     removeOnPhaseChange: 0
   scoreCard:
   - desiredValue: 5
@@ -77,10 +78,10 @@ MonoBehaviour:
       m_PostInfinity: 0
       m_RotationOrder: 0
     scoreMultiplier: 1
-  cardScore: 0.33333334
+  cardScore: 1
   cardScoreNotNormalized: 1
   matchScoreCard: []
-  chanceOfAppearance: 3.1
+  chanceOfAppearance: 500.22964
   totalScoreMultiplier: 1
   matchCardDropChance:
   - rule: 0
@@ -123,6 +124,16 @@ MonoBehaviour:
   - rule: 4
     direction: 0
     weight: 0.1
+    compareFloat: 0
+    customCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
+  - rule: 4
+    direction: 0
+    weight: 500
     compareFloat: 0
     customCurve:
       serializedVersion: 2

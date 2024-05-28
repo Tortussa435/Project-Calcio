@@ -5,5 +5,5 @@ using UnityEngine;
 
 public static class S_Chances
 {
-    public static readonly float PENALTYGOALCHANCE=0.7f;
+    public static readonly float PENALTYGOALCHANCE=70.0f;
 }

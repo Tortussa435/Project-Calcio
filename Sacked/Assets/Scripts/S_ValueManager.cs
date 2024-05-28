@@ -21,6 +21,7 @@ public class S_ValueManager : MonoBehaviour
     public Color increaseColor;
     public Color decreaseColor;
     public Color stillColor;
+    public Image dot;
 
     [System.Serializable]
     public enum Currencies
@@ -153,4 +154,8 @@ public class S_ValueManager : MonoBehaviour
         ValueIcon.color = stillColor;
         */
     }
+
+    public void HighlightValue(float alpha) => dot.color = SetAlpha(dot.color, alpha);
+    private Color SetAlpha(Color c, float a) => new Color(c.r, c.g, c.b, a);
+    
 }

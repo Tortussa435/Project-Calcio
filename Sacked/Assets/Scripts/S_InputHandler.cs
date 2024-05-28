@@ -116,6 +116,7 @@ public class S_InputHandler : MonoBehaviour, IPointerDownHandler, IBeginDragHand
             );
             if(cardRef.leftChoice!=null) cardRef.leftChoice.alpha = GetNormalizedCardXPosition() * 6;
             if(cardRef.rightChoice!=null) cardRef.rightChoice.alpha = GetNormalizedCardXPosition() * -6;
+
         }
 
         

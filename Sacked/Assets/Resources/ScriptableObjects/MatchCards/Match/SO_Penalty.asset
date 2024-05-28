@@ -16,11 +16,11 @@ MonoBehaviour:
   cardName: Penalty
   cardColor: {r: 0.5471698, g: 0.5471698, b: 0.5471698, a: 1}
   cardDescriptions:
-  - E' il momento rigore! Si!
+  - '{Ref} fischia! calcio di rigore per {PenTeam}'
   leftChoice: 
   rightChoice: 
   canAppearMoreThanOnce: 1
-  totalAppearances: 4
+  totalAppearances: 7
   decreaseCountDown: 0
   desiredCardPrefabDirectory: 
   leftValues:
@@ -81,7 +81,7 @@ MonoBehaviour:
   cardScore: 1
   cardScoreNotNormalized: 1
   matchScoreCard: []
-  chanceOfAppearance: 500.22964
+  chanceOfAppearance: 500.47037
   totalScoreMultiplier: 1
   matchCardDropChance:
   - rule: 0
@@ -124,16 +124,6 @@ MonoBehaviour:
   - rule: 4
     direction: 0
     weight: 0.1
-    compareFloat: 0
-    customCurve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 0
-      m_PostInfinity: 0
-      m_RotationOrder: 0
-  - rule: 4
-    direction: 0
-    weight: 500
     compareFloat: 0
     customCurve:
       serializedVersion: 2

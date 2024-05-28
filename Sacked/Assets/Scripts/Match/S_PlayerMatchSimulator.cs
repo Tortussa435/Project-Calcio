@@ -57,6 +57,8 @@ public static class S_PlayerMatchSimulator
 
     public static List<string> opponentTeamNames = new List<string>();
 
+    
+    private static bool lastCardGoal = false;
     static S_PlayerMatchSimulator()
     {
         goalChancePerMinute = Resources.Load<SO_Curve>(S_ResDirs.goalChancePerMinute);
@@ -68,14 +70,16 @@ public static class S_PlayerMatchSimulator
 
         UpdateMatchTextData();
         SO_CardData rollData = null;
-        
-        if (!S_GlobalManager.deckManagerRef.cardSelector.SpawningAppendedCard())
+
+        if (!S_GlobalManager.deckManagerRef.cardSelector.SpawningAppendedCard() && !lastCardGoal)
         {
             rollData = ScoreGoalRoll();
         }
+        
 
         if (rollData == null)
         {
+            lastCardGoal = false;
             List<SO_CardData> matchCards = S_GlobalManager.deckManagerRef.cardSelector.ChooseCardByScore();
             //rollData = matchCards[Random.Range(0, matchCards.Count)];
             rollData = FindChanceWeightedMatchCard(matchCards);
@@ -182,10 +186,13 @@ public static class S_PlayerMatchSimulator
     #region GOAL
     public static SO_CardData GenerateGolCard(bool homeTeam=true, bool canBeRevoked=true)
     {
+        lastCardGoal = true;
+
         Debug.Log("GOOOALON");
 
 
         SO_GoalCardData golCard = ScriptableObject.CreateInstance<SO_GoalCardData>();
+        
         
         golCard.cardDescriptions.Add("GOOOOL");
 

@@ -68,6 +68,9 @@ public class S_MatchCardsScoreFormula : S_CardsScoreFormula
             case MatchRule.CardAppearances:
                 valueToCheck = cardRef.totalAppearances;
                 break;
+            case MatchRule.CardsToNextPhase:
+                valueToCheck = S_GlobalManager.deckManagerRef.nextPhaseCountdown;
+                break;
         }
 
         

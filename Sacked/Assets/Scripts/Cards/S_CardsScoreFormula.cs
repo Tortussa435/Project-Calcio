@@ -126,6 +126,9 @@ public class S_CardsScoreFormula
             case Rule.CardAppearances:
                 valueToCheck = cardRef.totalAppearances;
                 break;
+            case Rule.CardsToNextPhase:
+                valueToCheck = S_GlobalManager.deckManagerRef.nextPhaseCountdown;
+                break;
 
         }
 

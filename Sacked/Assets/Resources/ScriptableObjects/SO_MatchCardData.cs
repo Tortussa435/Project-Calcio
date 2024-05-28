@@ -555,6 +555,9 @@ public class CardDropChance
             case MatchRule.OpponentSubstitutions:
                 score = !S_PlayerMatchSimulator.IsPlayerHomeTeam() ? S_PlayerMatchSimulator.substitutions.home : S_PlayerMatchSimulator.substitutions.away;
                 break;
+            case MatchRule.CardsToNextPhase:
+                score = S_GlobalManager.deckManagerRef.nextPhaseCountdown;
+                break;
         }
 
         score = S_FootballEnums.GetScoreDirection(direction, score, compareFloat,customCurve);

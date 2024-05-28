@@ -5,13 +5,20 @@ using UnityEngine;
 
 public class S_TeamCard : S_Card
 {
+    public GameObject inputLocker;
+
     public GameObject gkLine;
     public GameObject defLine;
     public GameObject midLine;
     public GameObject atkLine;
     public GameObject bench;
 
-
+    private void Start()
+    {
+        if (S_GlobalManager.currentPhase == S_GlobalManager.CardsPhase.MatchFirstHalf || S_GlobalManager.currentPhase == S_GlobalManager.CardsPhase.MatchSecondHalf) inputLocker.SetActive(true);
+        S_PlayerMatchSimulator.OnMatchStart.AddListener(() => inputLocker.SetActive(true));
+        S_PlayerMatchSimulator.OnMatchEnd.AddListener(() => inputLocker.SetActive(false));
+    }
 
     public override void GenerateCardData(SO_CardData data)
     {

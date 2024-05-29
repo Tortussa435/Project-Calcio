@@ -9,13 +9,26 @@ using System;
 
 public class S_PlayerIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler, IPointerClickHandler
 {
+    [Header("Face Parts")]
+    public Image Skin;
+    public Image EyeL;
+    public Image EyeR;
+    public Image EyebrowL;
+    public Image EyebrowR;
+    public Image Mouth;
+    public Image Hair;
+    public Image Nose;
+
+
+
+
     [Header("Object References")]
-    [HideInInspector] public SO_PlayerData playerData;
     public TextMeshProUGUI playerName;
     public Image playerIcon;
     public Image playerSkill;
     public Image playerEnergy;
     public Image problemIcon;
+    [HideInInspector] public SO_PlayerData playerData;
 
     [HideInInspector] public GameObject playerCardRef;
     public GameObject playerCardPrefab;
@@ -71,7 +84,24 @@ public class S_PlayerIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHandle
 
     public void GeneratePlayerFace()
     {
-        //throw new NotImplementedException();
+        SO_Face face = playerData.playerFace;
+        
+        Skin.sprite = face.skin;
+
+        EyeL.sprite = face.eyes;
+        EyeR.sprite = face.eyes;
+
+        EyebrowL.sprite = face.eyebrows;
+        EyebrowL.color = face.eyebrowsColor;
+        EyebrowR.sprite = face.eyebrows;
+        EyebrowR.color = face.eyebrowsColor;
+
+        Hair.sprite = face.hair;
+        Hair.color = face.hairColor;
+
+        Nose.sprite = face.nose;
+
+        Mouth.sprite = face.mouth;
     }
 
     public void OnPointerDown(PointerEventData eventData)

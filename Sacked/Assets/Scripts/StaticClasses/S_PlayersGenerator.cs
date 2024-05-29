@@ -11,7 +11,7 @@ static public class S_PlayersGenerator
     {
         possibleNames = Resources.LoadAll<SO_NamesDatabase>(S_ResDirs.namesDatabase).ToList();
     }
-    static public SO_PlayerData GeneratePlayer(SO_PlayerData.PlayerRole role, int minSkill, int maxSkill)
+    static public SO_PlayerData GeneratePlayer(SO_PlayerData.PlayerRole role, int minSkill, int maxSkill, bool forPlayer=true)
     {
         SO_PlayerData playerData = ScriptableObject.CreateInstance<SO_PlayerData>();
         
@@ -31,10 +31,12 @@ static public class S_PlayersGenerator
         randomTrait.playerRef = playerData;
         playerData.playerTraits.Add(randomTrait);
 
-        playerData.playerFace = ScriptableObject.CreateInstance<SO_Face>();
-        
-        playerData.playerFace.MakeFace(playerData.playerNationality);
-        
+        if (forPlayer)
+        {
+            playerData.playerFace = ScriptableObject.CreateInstance<SO_Face>();
+            playerData.playerFace.MakeFace(playerData.playerNationality);
+        }
+
         return playerData;
     }
 

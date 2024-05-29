@@ -438,16 +438,11 @@ public class SO_MatchCardData : SO_CardData
             SO_CardData card = S_PlayerMatchSimulator.GenerateGolCard(homeTeam,false);
             S_GlobalManager.deckManagerRef.AddCardToDeck(card,0,null,null,true);
             (card as SO_GoalCardData).goalDescription = " Gol! freddissimo dal dischetto!";
-            
-            Branch empty;
-            empty.addPosition = 0;
-            empty.branchData = null;
-            empty.extraData = null;
-            empty.removeOnPhaseChange = false;
-            empty.triggerChance = 0;
-
-            leftBranchCard = empty;
-            rightBranchCard = empty;
+        }
+        else
+        {
+            SO_CardData card = ScriptableObject.Instantiate(Resources.Load<SO_CardData>(S_ResDirs.missedPenalty));
+            S_GlobalManager.deckManagerRef.AddCardToDeck(card, 0, null, null, true);
         }
 
         string description = ownerCard.GetComponent<S_Card>().cardDescription.text;
@@ -464,18 +459,13 @@ public class SO_MatchCardData : SO_CardData
             SO_CardData card = S_PlayerMatchSimulator.GenerateGolCard(homeGoal, false);
             S_GlobalManager.deckManagerRef.AddCardToDeck(card, 0, null, null, true);
 
-            Branch empty;
-            empty.addPosition = 0;
-            empty.branchData = null;
-            empty.extraData = null;
-            empty.removeOnPhaseChange = false;
-            empty.triggerChance = 0;
-
-            leftBranchCard = empty;
-            rightBranchCard = empty;
-
             (card as SO_GoalCardData).goalDescription = " Gol! freddissimo dal dischetto!";
 
+        }
+        else
+        {
+            SO_CardData card = ScriptableObject.Instantiate(Resources.Load<SO_CardData>(S_ResDirs.missedPenalty));
+            S_GlobalManager.deckManagerRef.AddCardToDeck(card, 0, null, null, true);
         }
 
         string description = ownerCard.GetComponent<S_Card>().cardDescription.text;

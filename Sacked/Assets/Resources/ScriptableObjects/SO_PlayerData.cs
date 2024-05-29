@@ -48,6 +48,8 @@ public class SO_PlayerData : ScriptableObject
     public int skillLevel;
     public List<SO_PlayerTrait> playerTraits=new List<SO_PlayerTrait>();
 
+    public SO_Face playerFace;
+
     public float playerEnergy = 100f;
 
     public int expelled;

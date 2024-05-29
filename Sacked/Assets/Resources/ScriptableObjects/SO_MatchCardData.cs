@@ -128,7 +128,10 @@ public class SO_MatchCardData : SO_CardData
 
         ownerCard.GetComponent<S_Card>().cardDescription.text = description;
 
-        //ownerCard.GetComponent<S_Card>().GenerateCardData(this);
+        //Generates substitution card
+
+        SO_CardData sub = Instantiate<SO_CardData>(Resources.Load<SO_CardData>(S_ResDirs.forcedSubstitution));
+        S_GlobalManager.deckManagerRef.AddCardToDeck(sub, 0, null, new List<object> { player }, false);
 
     }
     public void OpponentInjury()
@@ -408,15 +411,27 @@ public class SO_MatchCardData : SO_CardData
         S_PlayerMatchSimulator.OnSubstitution.Invoke(S_PlayerMatchSimulator.IsOpponentHomeTeam());
     }
     
-
-    public void ProposePlayerSubstitution()
+    public void FindPlayerSubstitution()
     {
+        S_Card cardRef = ownerCard.GetComponent<S_Card>();
+        SO_PlayerData p = passedExtraData[0] as SO_PlayerData;
+        SO_PlayerData subA = S_SubstitutionsManager.FindOptimalSubstitute(p);
+        SO_PlayerData subB = S_SubstitutionsManager.FindOptimalSubstitute(p, new List<SO_PlayerData> { subA });
 
-    }
-    public void ApplyPlayerSubstitution()
-    {
+        cardRef.leftChoice.text =  subA != null ? subA.playerName : "No Player Found!";
+        cardRef.rightChoice.text = subB != null ? subB.playerName : "No Player Found!";
 
+        string s = cardRef.cardDescription.text;
+        s = s.Replace("{InjPlayer}", p.playerName);
+        ownerCard.GetComponent<S_Card>().cardDescription.text = s;
+
+        leftEffects.AddListener(() => S_SubstitutionsManager.Substitute(p,  subA));
+        rightEffects.AddListener(() => S_SubstitutionsManager.Substitute(p, subB));
+        
+        
     }
+    
+
     #endregion
 
     #region PENALTIES

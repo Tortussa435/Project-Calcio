@@ -39,6 +39,7 @@ public class S_Squad : MonoBehaviour
     void Awake()
     {
         S_GlobalManager.squad = this;
+        
     }
 
     // Update is called once per frame
@@ -131,6 +132,8 @@ public class S_Squad : MonoBehaviour
         SetBestPlayingEleven();
 
         showTeamButtonRef.SetActive(true);
+
+        S_SubstitutionsManager.SetElevenAndBenchList(playingEleven, bench);
     }
 
     public void ShowTeam()

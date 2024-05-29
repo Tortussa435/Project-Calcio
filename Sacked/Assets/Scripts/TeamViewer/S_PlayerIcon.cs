@@ -30,6 +30,8 @@ public class S_PlayerIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHandle
     public Sprite injuryIcon;
     public Sprite expelledIcon;
 
+    private bool disableDrag = false;
+
     private void Start()
     {
         if (playerData == null) return;
@@ -61,6 +63,10 @@ public class S_PlayerIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHandle
         }
 
         ownerCard = transform.parent.parent.parent.GetComponent<S_InputHandler>(); //REDO trisnonno momento
+
+        disableDrag = S_GlobalManager.IsMatchPlaying();
+        S_PlayerMatchSimulator.OnMatchStart.AddListener(() => disableDrag = true);
+        S_PlayerMatchSimulator.OnMatchEnd.AddListener(() => disableDrag = false);
     }
 
     public void GeneratePlayerFace()
@@ -116,16 +122,19 @@ public class S_PlayerIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHandle
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        ownerCard.OnBeginDrag(eventData);
+        if(!disableDrag)
+            ownerCard.OnBeginDrag(eventData);
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        ownerCard.OnEndDrag(eventData);
+        if(!disableDrag)
+            ownerCard.OnEndDrag(eventData);
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        ownerCard.OnDrag(eventData);
+        if(!disableDrag)
+            ownerCard.OnDrag(eventData);
     }
 }

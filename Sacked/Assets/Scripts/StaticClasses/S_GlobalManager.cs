@@ -132,5 +132,6 @@ public static class S_GlobalManager
     }
 
     public static SO_CardData GetCardOnTop() => deckManagerRef.deck.transform.GetChild(0).GetComponent<S_Card>().cardData;
-    
+
+    public static bool IsMatchPlaying() => currentPhase == CardsPhase.MatchFirstHalf || currentPhase == CardsPhase.MatchSecondHalf;
 }

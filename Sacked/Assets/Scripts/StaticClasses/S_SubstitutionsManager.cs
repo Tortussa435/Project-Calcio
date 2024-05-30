@@ -23,7 +23,9 @@ public static class S_SubstitutionsManager
             if(impossibleSubs!=null)
                 if (impossibleSubs.Contains(p)) continue;
 
-            Debug.Log("Giocatore: " + p.playerName);
+            if (p.injuried > 0) continue;
+            if (p.expelled > 0) continue;
+
             if (p.playerRole == role)
             {
                 if (bestPlayer == null) bestPlayer = p;
@@ -41,15 +43,23 @@ public static class S_SubstitutionsManager
 
     public static bool Substitute(SO_PlayerData pOut, SO_PlayerData pIn)
     {
+
         if (!elevenRef.Remove(pOut))
         {
             Debug.LogWarning("Uscita dal campo fallita!");
         }
+        if (!benchRef.Remove(pIn))
+        {
+            Debug.Log("Rimozione da panchina fallita!");
+        }
+
         benchRef.Add(pOut);
         elevenRef.Add(pIn);
 
         S_PlayerMatchSimulator.OnSubstitution.Invoke(S_PlayerMatchSimulator.IsPlayerHomeTeam());
-        
+
+        S_GlobalManager.squad.FindGameSkillLevel();
+
         return true;
     }
 }

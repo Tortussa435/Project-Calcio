@@ -48,6 +48,11 @@ public class S_Squad : MonoBehaviour
         
     }
 
+    private void Start()
+    {
+          
+    }
+
     public void GenerateTeam()
     {
         int skillLevel = S_GlobalManager.selectedTeam.SkillLevel;

@@ -290,6 +290,15 @@ public class S_Squad : MonoBehaviour
         foreach (SO_PlayerData player in Attack) if (player.injuried > 0) player.injuried--;
     }
 
+    public void ResetSubs()
+    {
+        //REDO pretty awful code ngl
+        foreach (SO_PlayerData player in Goalkeepers) player.subbedOut=false;
+        foreach (SO_PlayerData player in Defense) player.subbedOut = false;
+        foreach (SO_PlayerData player in Midfield) player.subbedOut = false;
+        foreach (SO_PlayerData player in Attack) player.subbedOut = false;
+    }
+
     public void RefillBenchEnergy(float min=10.0f, float max=20.0f)
     {
         foreach(SO_PlayerData player in bench)

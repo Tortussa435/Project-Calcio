@@ -54,11 +54,12 @@ public class SO_PlayerData : ScriptableObject
 
     public int expelled;
     public int injuried=0;
-
+    public bool subbedOut = false;
     public void AddEnergy(float min, float max)
     {
         playerEnergy += Random.Range(min, max);
         playerEnergy = Mathf.Clamp(playerEnergy, 0, 100);
     }
 
+    public bool CanPlay() => !(expelled > 0 || injuried > 0 || subbedOut);
 }

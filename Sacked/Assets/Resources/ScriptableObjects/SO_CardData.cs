@@ -180,6 +180,31 @@ public class SO_CardData : ScriptableObject
 
     }
 
+    public void BorrowBike()
+    {
+        //REDO very ugly
+        SO_PlayerData p = S_GlobalManager.squad.playingEleven[Random.Range(0, S_GlobalManager.squad.playingEleven.Count)];
+
+        ReplaceCardDescription("{Renter}", p.playerName);
+
+        leftBranchCard.extraData=new List<object> { p };
+    }
+
+    public void BreakPlayerLeg()
+    {
+        int injLen = Random.Range(2, 4);
+        (passedExtraData[0] as SO_PlayerData).injuried = injLen;
+        ReplaceCardDescription("{Renter}", (passedExtraData[0] as SO_PlayerData).playerName);
+        ReplaceCardDescription("{InjDur}", injLen.ToString());
+    }
+
+    private void ReplaceCardDescription(string placeholder, string output)
+    {
+        S_Card card = ownerCard.GetComponent<S_Card>();
+        string s = card.cardDescription.text;
+        s = s.Replace(placeholder, output);
+        card.cardDescription.text = s;
+    }
     #region END MATCH
     public void GenerateEndMatchData()
     {

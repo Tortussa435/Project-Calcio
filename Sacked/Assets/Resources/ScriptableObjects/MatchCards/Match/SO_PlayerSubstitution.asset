@@ -16,10 +16,11 @@ MonoBehaviour:
   cardName: PlayerSubstitution
   cardColor: {r: 1, g: 1, b: 1, a: 1}
   cardDescriptions:
-  - Momento sostituzione per il giocatore, se solo l'avessimo implementata....
-  leftChoice: 
-  rightChoice: 
+  - Facciamo uscire {SubOut} ?
+  leftChoice: Non Cambiare
+  rightChoice: Non Cambiare
   canAppearMoreThanOnce: 1
+  totalAppearances: 2
   decreaseCountDown: 0
   desiredCardPrefabDirectory: 
   leftValues:
@@ -40,7 +41,19 @@ MonoBehaviour:
       m_Calls: []
   onGeneratedEffects:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 11400000}
+        m_TargetAssemblyTypeName: SO_MatchCardData, Assembly-CSharp
+        m_MethodName: ProposePlayerSubstitution
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   alreadyPicked: 0
   cardIcon: {fileID: 0}
   leftBranchCard:
@@ -68,7 +81,7 @@ MonoBehaviour:
   cardScore: 1
   cardScoreNotNormalized: 1
   matchScoreCard: []
-  chanceOfAppearance: 0
+  chanceOfAppearance: 1000
   totalScoreMultiplier: 1
   matchCardDropChance:
   - rule: 7
@@ -84,6 +97,16 @@ MonoBehaviour:
   - rule: 8
     direction: 0
     weight: -0.329
+    compareFloat: 0
+    customCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  - rule: 4
+    direction: 0
+    weight: 1000
     compareFloat: 0
     customCurve:
       serializedVersion: 2

@@ -155,6 +155,7 @@ public static class S_PlayerMatchSimulator
 
         S_GlobalManager.squad.RemoveExpulsions();
         S_GlobalManager.squad.ReduceInjuries();
+        S_GlobalManager.squad.ResetSubs();
         
         S_GlobalManager.squad.DecreaseElevenEnergy();
         S_GlobalManager.squad.RefillBenchEnergy();

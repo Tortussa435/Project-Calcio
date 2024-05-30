@@ -18,7 +18,7 @@ MonoBehaviour:
   cardDescriptions:
   - "{InjPlayer} \xE8 rotto, mo chi entra?"
   leftChoice: 
-  rightChoice: 
+  rightChoice: Non sostituire
   canAppearMoreThanOnce: 0
   totalAppearances: 0
   decreaseCountDown: 1
@@ -44,7 +44,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 11400000}
         m_TargetAssemblyTypeName: SO_MatchCardData, Assembly-CSharp
-        m_MethodName: FindPlayerSubstitution
+        m_MethodName: ProposePlayerSubstitution
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

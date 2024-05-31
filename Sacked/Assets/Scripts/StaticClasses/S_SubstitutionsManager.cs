@@ -56,10 +56,13 @@ public static class S_SubstitutionsManager
 
         else if (S_PlayerMatchSimulator.PlayerWinning() && S_PlayerMatchSimulator.GetGoalDifference() > 1)
         {
-            Debug.LogWarning("Faccio uscire un giocatore stanco");
             subs.pOut = ProposeTiredPlayerOut();
-            subs.pIn = FindOptimalSubstitute(subs.pOut);
-            return subs;
+            if (subs.pOut != null)
+            {
+                Debug.LogWarning("Faccio uscire un giocatore stanco");
+                subs.pIn = FindOptimalSubstitute(subs.pOut);
+                return subs;
+            }
         }
 
         Debug.LogWarning("Sostituzione a caso seeeee");

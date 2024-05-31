@@ -6,12 +6,19 @@ using UnityEngine.UI;
 
 public class S_PlayerInfoCard : S_Card
 {
-    [HideInInspector] public SO_PlayerData playerInfo;
+    [Header("Images Handle")]
+    public Sprite injuryIcon;
+    public Sprite redCardIcon;
+
+    [Header("Refs")]
     public TextMeshProUGUI roleRef;
     public TextMeshProUGUI traitRef;
     public TextMeshProUGUI playerName;
     public TextMeshProUGUI nationality;
     public Image playerSkillRef;
+    public Image UnavIcon;
+    public TextMeshProUGUI UnavText;
+    [HideInInspector] public SO_PlayerData playerInfo;
 
     [Header("Face")]
     public Image skin;
@@ -46,8 +53,30 @@ public class S_PlayerInfoCard : S_Card
         playerSkillRef.fillAmount = (float)playerInfo.skillLevel / 5.0f;
         nationality.text = playerInfo.playerNationality.ToString();
         GenerateFace();
+        SetUnavInfo();
     }
 
+    private void SetUnavInfo()
+    {
+        if (!playerInfo.CanPlay())
+        {
+            if (playerInfo.expelled > 0)
+            {
+                UnavIcon.sprite = redCardIcon;
+                UnavText.text = playerInfo.expelled.ToString();
+            }
+            else if (playerInfo.injuried > 0)
+            {
+                UnavIcon.sprite = injuryIcon;
+                UnavText.text = playerInfo.injuried.ToString();
+            }
+        }
+        else
+        {
+            UnavIcon.gameObject.SetActive(false);
+            UnavText.gameObject.SetActive(false);
+        }
+    }
     private void GenerateFace()
     {
         SO_Face face = playerInfo.playerFace;

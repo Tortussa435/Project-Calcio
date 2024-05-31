@@ -393,7 +393,7 @@ public static class S_PlayerMatchSimulator
     #endregion
 
     #region UTILITIES
-    private static float GetSkillDifference(int skillA, int skillB)
+    public static float GetSkillDifference(int skillA, int skillB)
     {
         float skillDifference = skillA - skillB;
         skillDifference += 5;
@@ -407,7 +407,10 @@ public static class S_PlayerMatchSimulator
     private static float GoalChanceFromTraits(bool homeTeam) => homeTeam ? (float)traitsScoreChance.home/10.0f : (float)traitsScoreChance.away/10.0f;
     public static bool PlayerWinning() => IsPlayerHomeTeam() == matchScore.HomeWinning();
     public static bool OpponentWinning() => IsPlayerHomeTeam() == matchScore.AwayWinning();
+    public static bool IsMatchDrawing() => matchScore.Drawing();
     public static string GetGeneratedOpponentPlayer() => opponentTeamNames[Random.Range(0, opponentTeamNames.Count)];
+    
+    public static int GetGoalDifference() => Mathf.Abs(matchScore.home - matchScore.away);
     
     //If match is derby some cards may appear, also aggressivity increases by 1 for both teams
     public static void DerbyCheck()

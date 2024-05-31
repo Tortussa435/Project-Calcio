@@ -433,21 +433,9 @@ public class SO_MatchCardData : SO_CardData
     {
         S_Card cardRef = ownerCard.GetComponent<S_Card>();
 
-        //REDO do a system to find the best idea for a substitution between various functions, also different strings for different substitution proposals
-
-        /*
-        p = S_GlobalManager.squad.playingEleven[Random.Range(0, S_GlobalManager.squad.playingEleven.Count)];
-
-        SO_PlayerData sub = S_SubstitutionsManager.FindOptimalSubstitute(p);
-        */
-
         (SO_PlayerData outP, SO_PlayerData inP) sub;
-        
-        if(S_PlayerMatchSimulator.PlayerWinning())
-            sub = S_SubstitutionsManager.FindDefensiveSubstitute();
-        
-        else
-            sub = S_SubstitutionsManager.FindOffensiveSubstitute();
+       
+        sub = S_SubstitutionsManager.ProposeSubstitution();
         
         cardRef.leftChoice.text = sub.inP != null ? sub.inP.playerName : "No Player Found!";
 
@@ -456,6 +444,8 @@ public class SO_MatchCardData : SO_CardData
         cardRef.cardDescription.text = s;
 
         leftEffects.AddListener(() => S_SubstitutionsManager.Substitute(sub.outP, sub.inP));
+        
+         
     }
     
 

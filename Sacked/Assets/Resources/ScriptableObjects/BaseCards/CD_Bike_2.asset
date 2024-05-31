@@ -16,12 +16,12 @@ MonoBehaviour:
   cardName: Bike2
   cardColor: {r: 1, g: 1, b: 1, a: 1}
   cardDescriptions:
-  - "{Renter} \xE8 caduto e si \xE8 rotto il crociato! potr\xE0 tornare a giocare
-    tra {InjDur} partite"
+  - "{Renter} \xE8 caduto da {Vehicle} e si \xE8 rotto il crociato! potr\xE0 tornare
+    a giocare tra {InjDur} partite"
   leftChoice: 
   rightChoice: 
   canAppearMoreThanOnce: 1
-  totalAppearances: 1
+  totalAppearances: 0
   decreaseCountDown: 0
   desiredCardPrefabDirectory: 
   leftValues:

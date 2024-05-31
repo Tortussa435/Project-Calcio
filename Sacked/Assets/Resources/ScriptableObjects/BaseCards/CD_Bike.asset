@@ -16,13 +16,11 @@ MonoBehaviour:
   cardName: Bike
   cardColor: {r: 1, g: 1, b: 1, a: 1}
   cardDescriptions:
-  - '{Renter}  ti chiede di prestargli la bici'
-  - '{Renter} ti chiede in prestito la moto'
-  - '{Renter} ti chiede in prestito il trattore'
+  - '{Renter} ti chiede in prestito {Vehicle}'
   leftChoice: Presta
   rightChoice: Non Prestare
   canAppearMoreThanOnce: 1
-  totalAppearances: 1
+  totalAppearances: 5
   decreaseCountDown: 1
   desiredCardPrefabDirectory: 
   leftValues:
@@ -91,16 +89,5 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     scoreMultiplier: -0.1
-  - desiredValue: 5
-    direction: 0
-    compareString: 
-    compareFloat: 0
-    customCurve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    scoreMultiplier: 1000
-  cardScore: 0.9
-  cardScoreNotNormalized: 0.9
+  cardScore: 1
+  cardScoreNotNormalized: 1000.5

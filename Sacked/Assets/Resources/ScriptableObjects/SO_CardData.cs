@@ -185,9 +185,13 @@ public class SO_CardData : ScriptableObject
         //REDO very ugly
         SO_PlayerData p = S_GlobalManager.squad.playingEleven[Random.Range(0, S_GlobalManager.squad.playingEleven.Count)];
 
-        ReplaceCardDescription("{Renter}", p.playerName);
+        
 
-        leftBranchCard.extraData=new List<object> { p };
+        ReplaceCardDescription("{Renter}", p.playerName);
+        string vehicle = S_FootballEnums.vehicles[Random.Range(0, S_FootballEnums.vehicles.Count)];
+        ReplaceCardDescription("{Vehicle}", vehicle);
+
+        leftBranchCard.extraData=new List<object> { p, vehicle };
     }
 
     public void BreakPlayerLeg()
@@ -195,6 +199,7 @@ public class SO_CardData : ScriptableObject
         int injLen = Random.Range(2, 4);
         (passedExtraData[0] as SO_PlayerData).injuried = injLen;
         ReplaceCardDescription("{Renter}", (passedExtraData[0] as SO_PlayerData).playerName);
+        ReplaceCardDescription("{Vehicle}", passedExtraData[1] as string);
         ReplaceCardDescription("{InjDur}", injLen.ToString());
     }
 

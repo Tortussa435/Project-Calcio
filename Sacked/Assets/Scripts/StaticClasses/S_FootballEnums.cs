@@ -92,5 +92,5 @@ public static class S_FootballEnums
         CardsToNextPhase
     };
 
-
+    public static List<string> vehicles = new List<string> { "Bici", "Elicottero", "Torpedone", "Trattore" };
 }

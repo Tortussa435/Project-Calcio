@@ -20,7 +20,7 @@ MonoBehaviour:
   leftChoice: Non Cambiare
   rightChoice: Non Cambiare
   canAppearMoreThanOnce: 1
-  totalAppearances: 2
+  totalAppearances: 4
   decreaseCountDown: 0
   desiredCardPrefabDirectory: 
   leftValues:
@@ -81,7 +81,7 @@ MonoBehaviour:
   cardScore: 1
   cardScoreNotNormalized: 1
   matchScoreCard: []
-  chanceOfAppearance: 1000
+  chanceOfAppearance: 1001
   totalScoreMultiplier: 1
   matchCardDropChance:
   - rule: 7
@@ -97,16 +97,6 @@ MonoBehaviour:
   - rule: 8
     direction: 0
     weight: -0.329
-    compareFloat: 0
-    customCurve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-  - rule: 4
-    direction: 0
-    weight: 1000
     compareFloat: 0
     customCurve:
       serializedVersion: 2

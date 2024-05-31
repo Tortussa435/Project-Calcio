@@ -15,7 +15,61 @@ public static class S_SubstitutionsManager
         benchRef = bench;
     }
 
-    public static SO_PlayerData ProposeTiredPlayerOut()
+    public static (SO_PlayerData pOut, SO_PlayerData pIn) ProposeSubstitution()
+    {
+        (SO_PlayerData pOut, SO_PlayerData pIn) subs = (null, null);
+
+        //REDO pretty ugly
+        float skillDifference = (float)S_PlayerMatchSimulator.GetSkillDifference(S_GlobalManager.selectedTeam.SkillLevel, S_PlayerMatchSimulator.GetOpponentTeam().SkillLevel);
+
+        //if player is winning against better team or drawing against very better team, propose defensive change
+
+        if ((skillDifference < 0.5f && S_PlayerMatchSimulator.PlayerWinning()) || (skillDifference < 0.3f && S_PlayerMatchSimulator.IsMatchDrawing()))
+        {
+            if (CanMakeDefensiveSubstitution())
+            {
+                Debug.LogWarning("Propongo sostituzione difensiva");
+                subs = FindDefensiveSubstitute();
+                return subs;
+            }
+        }
+
+        else if (BenchHasGoodSub())
+        {
+            Debug.LogWarning("Faccio entrare un giocatore buono");
+            subs.pOut = ProposeGoodPlayerIn();
+            subs.pIn = FindOptimalSubstitute(subs.pOut);
+            return subs;
+        }
+
+
+        //if player is not winning propose offensive change
+        else if (!S_PlayerMatchSimulator.PlayerWinning())
+        {
+            if (CanMakeOffensiveSubstitution())
+            {
+                Debug.LogWarning("Propongo sostituzione offensiva");
+                subs = FindOffensiveSubstitute();
+                return subs;
+            }
+        }
+
+        else if (S_PlayerMatchSimulator.PlayerWinning() && S_PlayerMatchSimulator.GetGoalDifference() > 1)
+        {
+            Debug.LogWarning("Faccio uscire un giocatore stanco");
+            subs.pOut = ProposeTiredPlayerOut();
+            subs.pIn = FindOptimalSubstitute(subs.pOut);
+            return subs;
+        }
+
+        Debug.LogWarning("Sostituzione a caso seeeee");
+        subs=ProposeRandomSubstitution();
+        return subs;
+        
+    }
+
+    #region POSSIBLE SUBSTITUTIONS TYPES
+    private static SO_PlayerData ProposeTiredPlayerOut()
     {
         List<SO_PlayerData> tiredPlayers = new List<SO_PlayerData>();
 
@@ -28,8 +82,7 @@ public static class S_SubstitutionsManager
         }
         return tiredPlayers.Count>0 ? tiredPlayers[Random.Range(0, tiredPlayers.Count)] : null;
     } 
-
-    public static SO_PlayerData ProposeGoodPlayerIn()
+    private static SO_PlayerData ProposeGoodPlayerIn()
     {
         List<SO_PlayerData> goodPlayers = new List<SO_PlayerData>();
 
@@ -54,13 +107,6 @@ public static class S_SubstitutionsManager
         return worstPlayer.player;
 
     }
-
-    public static SO_PlayerData ProposeDefensiveChange()
-    {
-        //REDO Defensive Change
-        return null;
-    }
-
     public static SO_PlayerData FindOptimalSubstitute(SO_PlayerData playerToSub,List<SO_PlayerData> impossibleSubs=null)
     {
         (SO_PlayerData player, float score) bestSub=(null,0);
@@ -89,8 +135,7 @@ public static class S_SubstitutionsManager
         }
         return bestSub.player;
     }
-
-    public static (SO_PlayerData outP, SO_PlayerData inP) FindDefensiveSubstitute()
+    private static (SO_PlayerData outP, SO_PlayerData inP) FindDefensiveSubstitute()
     {
         //decide whether to sub a mid or an atk
 
@@ -132,8 +177,7 @@ public static class S_SubstitutionsManager
 
         return (playerToSub, bestDef.def);
     }
-
-    public static (SO_PlayerData outP, SO_PlayerData inP) FindOffensiveSubstitute()
+    private static (SO_PlayerData outP, SO_PlayerData inP) FindOffensiveSubstitute()
     {
         //decide whether to sub a mid or an atk
 
@@ -175,7 +219,24 @@ public static class S_SubstitutionsManager
 
         return (playerToSub, bestAtk.atk);
     }
+    private static (SO_PlayerData outP, SO_PlayerData inP) ProposeRandomSubstitution()
+    {
+        List<SO_PlayerData> eligibles = new List<SO_PlayerData>();
+        foreach (SO_PlayerData p in benchRef)
+        {
+            if (p.playerRole == SO_PlayerData.PlayerRole.Gk || !p.CanPlay()) continue;
+            eligibles.Add(p);
+        }
 
+        (SO_PlayerData outP, SO_PlayerData inP) sub=(null,null);
+        sub.inP = eligibles[Random.Range(0, eligibles.Count)];
+        
+        foreach(SO_PlayerData p in elevenRef)
+        {
+            if (p.playerRole == sub.inP.playerRole) sub.outP = p;
+        }
+        return sub;
+    }
     public static bool Substitute(SO_PlayerData pOut, SO_PlayerData pIn)
     {
 
@@ -199,4 +260,73 @@ public static class S_SubstitutionsManager
 
         return true;
     }
+    private static bool CanMakeOffensiveSubstitution()
+    {
+        int def = 0;
+        int mid = 0;
+        int atk = 0;
+        foreach (SO_PlayerData p in elevenRef)
+        {
+            switch (p.playerRole)
+            {
+                case SO_PlayerData.PlayerRole.Def:
+                    def++;
+                    break;
+                case SO_PlayerData.PlayerRole.Mid:
+                    mid++;
+                    break;
+                case SO_PlayerData.PlayerRole.Atk:
+                    atk++;
+                    break;
+            }
+            if (atk > 4) return false; //cannot have more than 5 defs 
+        }
+
+        foreach (SO_PlayerData p in benchRef) //checks if there's a def in bench
+        {
+            if (p.playerRole == SO_PlayerData.PlayerRole.Atk)
+                if (p.CanPlay()) return true;
+        }
+        return false;
+    }
+    private static bool CanMakeDefensiveSubstitution()
+    {
+        int def = 0;
+        int mid = 0;
+        int atk = 0;
+        foreach(SO_PlayerData p in elevenRef)
+        {
+            switch (p.playerRole)
+            {
+                case SO_PlayerData.PlayerRole.Def:
+                    def++;
+                    break;
+                case SO_PlayerData.PlayerRole.Mid:
+                    mid++;
+                    break;
+                case SO_PlayerData.PlayerRole.Atk:
+                    atk++;
+                    break;
+            }
+            if (def > 5) return false; //cannot have more than 5 defs 
+        }
+
+        foreach(SO_PlayerData p in benchRef) //checks if there's a def in bench
+        {
+            if (p.playerRole == SO_PlayerData.PlayerRole.Def)
+                if (p.CanPlay()) return true;
+        }
+
+        return false;
+    }
+    private static bool BenchHasGoodSub()
+    {
+        foreach(SO_PlayerData p in benchRef)
+        {
+            if (!p.CanPlay()) continue;
+            if (p.skillLevel >= S_GlobalManager.selectedTeam.SkillLevel) return true;
+        }
+        return false;
+    }
+    #endregion
 }

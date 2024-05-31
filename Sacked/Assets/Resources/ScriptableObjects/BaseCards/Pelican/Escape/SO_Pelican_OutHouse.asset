@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: acddcb2ef5ce4c84b8aa4c3a78bf158c, type: 3}
-  m_Name: CD_PelicanBossFight
+  m_Name: SO_Pelican_OutHouse
   m_EditorClassIdentifier: 
   ownerCard: {fileID: 0}
-  cardName: Pelican
+  cardName: Pelican Chase
   cardColor: {r: 1, g: 1, b: 1, a: 1}
   cardDescriptions:
-  - Ti entra un pellicano in casa cosa fai?
-  leftChoice: Combatti
-  rightChoice: Fuggi
+  - Esci di casa ma il pellicano continua a inseguirti
+  leftChoice: Soccombi
+  rightChoice: Soccombi
   canAppearMoreThanOnce: 0
-  totalAppearances: 1
+  totalAppearances: 0
   decreaseCountDown: 0
   desiredCardPrefabDirectory: 
   leftValues:
@@ -42,29 +42,18 @@ MonoBehaviour:
   onGeneratedEffects:
     m_PersistentCalls:
       m_Calls: []
-  alreadyPicked: 1
+  alreadyPicked: 0
   cardIcon: {fileID: 21300000, guid: 733e268e62007554a95d4b75decc50cf, type: 3}
   leftBranchCard:
-    branchData: {fileID: 11400000, guid: 5eecc50b77368b845aa283fd6ce98ab5, type: 2}
+    branchData: {fileID: 0}
     addPosition: 0
     triggerChance: 100
     removeOnPhaseChange: 0
   rightBranchCard:
-    branchData: {fileID: 11400000, guid: 662c872bf2e8b4e4d885b741262b29db, type: 2}
+    branchData: {fileID: 0}
     addPosition: 0
     triggerChance: 100
     removeOnPhaseChange: 0
-  scoreCard:
-  - desiredValue: 18
-    direction: 5
-    compareString: 
-    compareFloat: 10
-    customCurve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 0
-      m_PostInfinity: 0
-      m_RotationOrder: 0
-    scoreMultiplier: 100
-  cardScore: 1
-  cardScoreNotNormalized: 100
+  scoreCard: []
+  cardScore: 0
+  cardScoreNotNormalized: 0

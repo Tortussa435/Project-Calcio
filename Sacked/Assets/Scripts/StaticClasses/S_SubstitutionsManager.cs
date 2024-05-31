@@ -72,6 +72,43 @@ public static class S_SubstitutionsManager
     }
 
     #region POSSIBLE SUBSTITUTIONS TYPES
+    public static (SO_PlayerData gk, SO_PlayerData outP) SubstituteGoalkeeper(SO_PlayerData banned=null)
+    {
+        //propose new goalkeeper
+        (SO_PlayerData gk, SO_PlayerData outP) sub = (null, null);
+
+        List<SO_PlayerData> alternatives = new List<SO_PlayerData>();
+        foreach(SO_PlayerData p in benchRef)
+        {
+            if (!p.CanPlay() || p==banned) continue;
+            if (p.playerRole == SO_PlayerData.PlayerRole.Gk) 
+            {
+                sub.gk = p;
+                break;
+            } 
+            if (p.playerTraits[0].traitName == SO_PlayerTrait.PlayerTraitNames.Tall) alternatives.Add(p);
+        }
+        if (alternatives.Count > 0) 
+        {
+            sub.gk = alternatives[Random.Range(0, alternatives.Count)];
+        }
+        else sub.gk = benchRef[Random.Range(0,benchRef.Count)];
+
+        //decide player to send out to put goalkeeper (always removes a striker)
+        (SO_PlayerData p, int skill) badAtk = (null,100);
+        foreach(SO_PlayerData p in elevenRef)
+        {
+            if (p.playerRole == SO_PlayerData.PlayerRole.Atk)
+            {
+                if (p.skillLevel < badAtk.skill) badAtk = (p, p.skillLevel);
+            }
+        }
+
+        sub.outP = badAtk.p;
+
+        return sub;
+    }
+
     private static SO_PlayerData ProposeTiredPlayerOut()
     {
         List<SO_PlayerData> tiredPlayers = new List<SO_PlayerData>();

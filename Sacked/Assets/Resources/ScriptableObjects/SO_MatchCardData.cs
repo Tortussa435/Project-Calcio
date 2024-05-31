@@ -266,10 +266,10 @@ public class SO_MatchCardData : SO_CardData
             List<SO_PlayerData> hotheads = S_GlobalManager.squad.GetPlayersWithTrait(SO_PlayerTrait.PlayerTraitNames.Hot_Head);
             if (hotheads.Count > 0) player = hotheads[Random.Range(0, hotheads.Count)];
 
-            else player = S_GlobalManager.squad.playingEleven[Random.Range(0, S_GlobalManager.squad.playingEleven.Count)];
+            else player = S_GlobalManager.squad.DecidePlayerToExpel();
         }
 
-        else player = S_GlobalManager.squad.playingEleven[Random.Range(0, S_GlobalManager.squad.playingEleven.Count)];
+        else player = S_GlobalManager.squad.DecidePlayerToExpel();
 
         S_PlayerMatchSimulator.YellowCards.Remove(player);
 
@@ -448,6 +448,25 @@ public class SO_MatchCardData : SO_CardData
          
     }
     
+    public void FindGoalkeeperSubstitution()
+    {
+        S_Card cardRef = ownerCard.GetComponent<S_Card>();
+
+        SO_PlayerData subA = S_SubstitutionsManager.SubstituteGoalkeeper().gk;
+        (SO_PlayerData a, SO_PlayerData b) secondChoice = S_SubstitutionsManager.SubstituteGoalkeeper(subA);
+        SO_PlayerData p = secondChoice.b;
+
+
+        cardRef.leftChoice.text = subA != null ? subA.playerName : "No Player Found!";
+        cardRef.rightChoice.text = secondChoice.a != null ? secondChoice.a.playerName : "No Player Found!";
+
+        string s = cardRef.cardDescription.text;
+        s = s.Replace("{InjPlayer}", p.playerName);
+        ownerCard.GetComponent<S_Card>().cardDescription.text = s;
+
+        leftEffects.AddListener(() => S_SubstitutionsManager.Substitute(p, subA));
+        rightEffects.AddListener(() => S_SubstitutionsManager.Substitute(p, secondChoice.a));
+    }
 
     #endregion
 

@@ -17,14 +17,12 @@ MonoBehaviour:
   cardsPool:
   - {fileID: 11400000, guid: 584297bc619fefb42af25335764aa484, type: 2}
   - {fileID: 11400000, guid: 098bcb793b669b24797ff165a188711d, type: 2}
-  - {fileID: 11400000, guid: 7e87dd182c8e4e94b8b73ae9cfd2ccfa, type: 2}
-  - {fileID: 11400000, guid: c4b0a703e45229f429f78ff8b4d5fdd3, type: 2}
   - {fileID: 11400000, guid: 35e72c8536ceb2247a04016afec071b3, type: 2}
   - {fileID: 11400000, guid: ccd274bf26690b04387d7ca5b34be451, type: 2}
   - {fileID: 11400000, guid: e12199a098c2ee144abf62215941f1a0, type: 2}
   - {fileID: 11400000, guid: d7ed9ed9622bcb94cb37833c25b4eeb5, type: 2}
-  - {fileID: 11400000, guid: dc367c0d3706acd4da335900dbe75924, type: 2}
   - {fileID: 11400000, guid: 61ef9878b4fb8914eaee0f25f9ddfba0, type: 2}
   - {fileID: 11400000, guid: 2ccb201486a63dc4aa8c3abe6aca84b2, type: 2}
   - {fileID: 11400000, guid: dbdccb2c0212de740b51843a0c5c846e, type: 2}
+  - {fileID: 11400000, guid: c4b0a703e45229f429f78ff8b4d5fdd3, type: 2}
   updateList: 0

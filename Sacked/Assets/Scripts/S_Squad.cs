@@ -384,6 +384,43 @@ public class S_Squad : MonoBehaviour
         List<SO_PlayerData> players = Goalkeepers.Union(Defense).ToList().Union(Midfield).ToList().Union(Attack).ToList();
         return players[Random.Range(0, players.Count)].playerName;
     }
+
+    public SO_PlayerData DecidePlayerToExpel(int gkchance = 5 , int defchance = 35, int midchance = 70, int atkchance = 100)
+    {
+        int seed = Random.Range(0, 100);
+        SO_PlayerData.PlayerRole roleToExpel;
+        switch (seed)
+        {
+            case int n when n < gkchance:
+                roleToExpel = SO_PlayerData.PlayerRole.Gk;
+                break;
+
+            case int n when n < defchance:
+                roleToExpel = SO_PlayerData.PlayerRole.Def;
+                break;
+
+            case int n when n < midchance:
+                roleToExpel = SO_PlayerData.PlayerRole.Mid;
+                break;
+
+            case int n when n < atkchance:
+                roleToExpel = SO_PlayerData.PlayerRole.Atk;
+                break;
+            
+            default:
+                roleToExpel = SO_PlayerData.PlayerRole.Atk;
+                break;
+        }
+
+        List<SO_PlayerData> expellables = new List<SO_PlayerData>();
+        foreach(SO_PlayerData p in playingEleven)
+        {
+            if(p.playerRole==roleToExpel) expellables.Add(p);
+        }
+
+        return expellables[Random.Range(0, expellables.Count)];
+    }
+
     #region LINEUPS
     public PossibleTeam FindNextLineup() => (PossibleTeam) ((int)(teamLineup + 1) % System.Enum.GetValues(typeof(PossibleTeam)).Length);
     public void AddGoalKeeper()

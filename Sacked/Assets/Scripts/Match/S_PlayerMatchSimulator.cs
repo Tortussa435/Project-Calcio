@@ -527,7 +527,7 @@ public static class S_PlayerMatchSimulator
     #endregion
 
     #region CARDS
-    public static void ExpelPlayerFootballer(SO_PlayerData player)
+    public static void ExpelPlayerFootballer(SO_PlayerData player) //epic function name
     {
         YellowCards.Remove(player);
         RedCards.Add(player);
@@ -539,7 +539,18 @@ public static class S_PlayerMatchSimulator
         S_GlobalManager.selectedTeam.SkillLevel = S_GlobalManager.squad.FindGameSkillLevel();
 
         UpdateOpponentMatchSkillLevel();
-       
+
+        //if expelled player is def or gk propose change
+        if (player.playerRole == SO_PlayerData.PlayerRole.Gk)
+        {
+            SO_CardData gksub = ScriptableObject.Instantiate(Resources.Load<SO_CardData>(S_ResDirs.goalkeeperSubstitution));
+            S_GlobalManager.deckManagerRef.AddCardToDeck(gksub);
+        }
+        if (player.playerRole == SO_PlayerData.PlayerRole.Def)
+        {
+            SO_CardData subcard = ScriptableObject.Instantiate(Resources.Load<SO_CardData>(S_ResDirs.playerSubstitution));
+            S_GlobalManager.deckManagerRef.AddCardToDeck(subcard);
+        }
     }
 
     public static void UpdateOpponentMatchSkillLevel()

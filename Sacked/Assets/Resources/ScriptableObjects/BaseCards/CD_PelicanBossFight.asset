@@ -9,17 +9,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 324455af10ec1b44f81a1c65019448d2, type: 3}
-  m_Name: SO_InvasioneDiCampo
+  m_Script: {fileID: 11500000, guid: acddcb2ef5ce4c84b8aa4c3a78bf158c, type: 3}
+  m_Name: CD_PelicanBossFight
   m_EditorClassIdentifier: 
   ownerCard: {fileID: 0}
-  cardName: Invasione
+  cardName: Pelican
   cardColor: {r: 1, g: 1, b: 1, a: 1}
   cardDescriptions:
-  - Un tifoso fa invasione di campo
+  - Ti entra un pellicano in casa cosa fai?
   leftChoice: 
   rightChoice: 
-  canAppearMoreThanOnce: 1
+  canAppearMoreThanOnce: 0
+  totalAppearances: 0
   decreaseCountDown: 1
   desiredCardPrefabDirectory: 
   leftValues:
@@ -47,37 +48,12 @@ MonoBehaviour:
     branchData: {fileID: 0}
     addPosition: 0
     triggerChance: 0
-    removeOnPhaseChance: 0
+    removeOnPhaseChange: 0
   rightBranchCard:
     branchData: {fileID: 0}
     addPosition: 0
     triggerChance: 0
-    removeOnPhaseChance: 0
-  scoreCard:
-  - desiredValue: 5
-    direction: 0
-    compareString: 
-    compareFloat: 0
-    customCurve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 0
-      m_PostInfinity: 0
-      m_RotationOrder: 0
-    scoreMultiplier: 1
-  cardScore: 0.5
-  cardScoreNotNormalized: 1
-  matchScoreCard: []
-  chanceOfAppearance: 1
-  matchCardDropChance:
-  - rule: 4
-    direction: 0
-    weight: 1
-    compareFloat: 0
-    customCurve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-  formulaDescriptionInfo: 
+    removeOnPhaseChange: 0
+  scoreCard: []
+  cardScore: 0
+  cardScoreNotNormalized: 0

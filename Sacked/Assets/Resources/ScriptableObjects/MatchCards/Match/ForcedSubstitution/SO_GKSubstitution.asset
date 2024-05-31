@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 324455af10ec1b44f81a1c65019448d2, type: 3}
-  m_Name: SO_ForcedSubstitution
+  m_Name: SO_GKSubstitution
   m_EditorClassIdentifier: 
   ownerCard: {fileID: 0}
   cardName: ForcedInjury
   cardColor: {r: 1, g: 1, b: 1, a: 1}
   cardDescriptions:
-  - "{InjPlayer} \xE8 rotto, mo chi entra?"
+  - "Il portiere \xE8 stato espulso, uscir\xE0 {InjPlayer} ma chi mettiamo in porta?"
   leftChoice: 
   rightChoice: Non sostituire
   canAppearMoreThanOnce: 0
@@ -44,7 +44,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 11400000}
         m_TargetAssemblyTypeName: SO_MatchCardData, Assembly-CSharp
-        m_MethodName: FindPlayerSubstitution
+        m_MethodName: FindGoalkeeperSubstitution
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

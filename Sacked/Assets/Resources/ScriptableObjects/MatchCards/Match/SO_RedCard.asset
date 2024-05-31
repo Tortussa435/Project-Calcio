@@ -21,7 +21,7 @@ MonoBehaviour:
   leftChoice: 
   rightChoice: 
   canAppearMoreThanOnce: 1
-  totalAppearances: 14
+  totalAppearances: 3
   decreaseCountDown: 0
   desiredCardPrefabDirectory: 
   leftValues:
@@ -82,7 +82,7 @@ MonoBehaviour:
   cardScore: 1
   cardScoreNotNormalized: 1
   matchScoreCard: []
-  chanceOfAppearance: 99.84167
+  chanceOfAppearance: 100.325
   totalScoreMultiplier: 1
   matchCardDropChance:
   - rule: 0

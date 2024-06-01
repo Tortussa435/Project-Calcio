@@ -67,7 +67,7 @@ public static class S_PlayerMatchSimulator
     #region MATCH SIMULATION
     public static SO_CardData SimulateMatchSegment(int minMinutes=9,int maxMinutes=13)
     {
-
+        Debug.LogWarning("Sto passando per la simulazione segmentata del match");
         UpdateMatchTextData();
         SO_CardData rollData = null;
 
@@ -75,7 +75,6 @@ public static class S_PlayerMatchSimulator
         {
             rollData = ScoreGoalRoll();
         }
-        
 
         if (rollData == null)
         {

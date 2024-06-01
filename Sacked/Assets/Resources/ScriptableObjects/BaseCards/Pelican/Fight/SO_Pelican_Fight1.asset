@@ -25,15 +25,15 @@ MonoBehaviour:
   decreaseCountDown: 0
   desiredCardPrefabDirectory: 
   leftValues:
-    addedMoney: 0
+    addedMoney: -10
     addedTeam: 0
     addedPresident: 0
-    addedSupporters: 0
+    addedSupporters: -5
   rightValues:
-    addedMoney: 0
+    addedMoney: -10
     addedTeam: 0
     addedPresident: 0
-    addedSupporters: 0
+    addedSupporters: -5
   leftEffects:
     m_PersistentCalls:
       m_Calls: []

@@ -1,0 +1,98 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acddcb2ef5ce4c84b8aa4c3a78bf158c, type: 3}
+  m_Name: CD_Terrorists
+  m_EditorClassIdentifier: 
+  ownerCard: {fileID: 0}
+  cardName: Terrorists
+  cardColor: {r: 1, g: 1, b: 1, a: 1}
+  cardDescriptions:
+  - "Un tuo osservatore alla ricerca di talenti nel centro-africa \xE8 stato rapito
+    da dei terroristi e chiedono un riscatto"
+  leftChoice: Paga riscatto
+  rightChoice: Non pagare riscatto
+  canAppearMoreThanOnce: 0
+  totalAppearances: 0
+  decreaseCountDown: 1
+  desiredCardPrefabDirectory: 
+  leftValues:
+    addedMoney: -25
+    addedTeam: 0
+    addedPresident: 10
+    addedSupporters: 10
+  rightValues:
+    addedMoney: 0
+    addedTeam: 0
+    addedPresident: -10
+    addedSupporters: -10
+  leftEffects:
+    m_PersistentCalls:
+      m_Calls: []
+  rightEffects:
+    m_PersistentCalls:
+      m_Calls: []
+  onGeneratedEffects:
+    m_PersistentCalls:
+      m_Calls: []
+  alreadyPicked: 0
+  cardIcon: {fileID: 0}
+  leftBranchCard:
+    branchData: {fileID: 0}
+    addPosition: 0
+    triggerChance: 0
+    removeOnPhaseChange: 0
+  rightBranchCard:
+    branchData: {fileID: 11400000, guid: 56503d13b6beebd48ae03ca399abcb89, type: 2}
+    addPosition: 0
+    triggerChance: 30
+    removeOnPhaseChange: 0
+  scoreCard:
+  - desiredValue: 3
+    direction: 7
+    compareString: 
+    compareFloat: 0
+    customCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.8
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
+    scoreMultiplier: 1
+  cardScore: 0
+  cardScoreNotNormalized: 0

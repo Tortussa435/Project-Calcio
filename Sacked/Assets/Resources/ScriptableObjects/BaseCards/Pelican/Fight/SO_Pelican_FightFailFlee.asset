@@ -45,12 +45,12 @@ MonoBehaviour:
   alreadyPicked: 0
   cardIcon: {fileID: 21300000, guid: 733e268e62007554a95d4b75decc50cf, type: 3}
   leftBranchCard:
-    branchData: {fileID: 0}
+    branchData: {fileID: 11400000, guid: 1552001363c14384abf0a90da860395f, type: 2}
     addPosition: 0
     triggerChance: 100
     removeOnPhaseChange: 0
   rightBranchCard:
-    branchData: {fileID: 0}
+    branchData: {fileID: 11400000, guid: 1552001363c14384abf0a90da860395f, type: 2}
     addPosition: 0
     triggerChance: 100
     removeOnPhaseChange: 0

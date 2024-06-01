@@ -20,7 +20,7 @@ MonoBehaviour:
   leftChoice: Combatti
   rightChoice: Fuggi
   canAppearMoreThanOnce: 0
-  totalAppearances: 1
+  totalAppearances: 0
   decreaseCountDown: 0
   desiredCardPrefabDirectory: 
   leftValues:
@@ -42,7 +42,7 @@ MonoBehaviour:
   onGeneratedEffects:
     m_PersistentCalls:
       m_Calls: []
-  alreadyPicked: 1
+  alreadyPicked: 0
   cardIcon: {fileID: 21300000, guid: 733e268e62007554a95d4b75decc50cf, type: 3}
   leftBranchCard:
     branchData: {fileID: 11400000, guid: 5eecc50b77368b845aa283fd6ce98ab5, type: 2}
@@ -65,6 +65,6 @@ MonoBehaviour:
       m_PreInfinity: 0
       m_PostInfinity: 0
       m_RotationOrder: 0
-    scoreMultiplier: 100
-  cardScore: 1
-  cardScoreNotNormalized: 100
+    scoreMultiplier: 10
+  cardScore: 0
+  cardScoreNotNormalized: 0

@@ -10,26 +10,27 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: acddcb2ef5ce4c84b8aa4c3a78bf158c, type: 3}
-  m_Name: SO_Pelican_Sgabuzzino
+  m_Name: SO_Pelican_BadEnding
   m_EditorClassIdentifier: 
   ownerCard: {fileID: 0}
-  cardName: Pelican Sgabuzzino
+  cardName: PelicanBadEnding
   cardColor: {r: 1, g: 1, b: 1, a: 1}
   cardDescriptions:
-  - Il pellicano sfonda la porta dello sgabuzzino a beccate
-  leftChoice: Combatti
-  rightChoice: Soccombi
+  - "La societ\xE0 \xE8 costretta a pagare le spese mediche per l'aggressione del
+    pellicano"
+  leftChoice: 
+  rightChoice: 
   canAppearMoreThanOnce: 0
   totalAppearances: 0
-  decreaseCountDown: 0
+  decreaseCountDown: 1
   desiredCardPrefabDirectory: 
   leftValues:
-    addedMoney: 0
+    addedMoney: -20
     addedTeam: 0
     addedPresident: 0
     addedSupporters: 0
   rightValues:
-    addedMoney: 0
+    addedMoney: -20
     addedTeam: 0
     addedPresident: 0
     addedSupporters: 0
@@ -45,14 +46,14 @@ MonoBehaviour:
   alreadyPicked: 0
   cardIcon: {fileID: 21300000, guid: 733e268e62007554a95d4b75decc50cf, type: 3}
   leftBranchCard:
-    branchData: {fileID: 11400000, guid: 5eecc50b77368b845aa283fd6ce98ab5, type: 2}
+    branchData: {fileID: 0}
     addPosition: 0
-    triggerChance: 100
+    triggerChance: 0
     removeOnPhaseChange: 0
   rightBranchCard:
-    branchData: {fileID: 11400000, guid: 1552001363c14384abf0a90da860395f, type: 2}
+    branchData: {fileID: 0}
     addPosition: 0
-    triggerChance: 100
+    triggerChance: 0
     removeOnPhaseChange: 0
   scoreCard: []
   cardScore: 0

@@ -12,7 +12,7 @@ public static class S_FootballEnums
     }
 
     [System.Serializable]
-    public enum ScoreDirection { Linear, InverseLinear, Round, InverseRound, LowerThan, Equal, HigherThan, CustomCurve}
+    public enum ScoreDirection { Linear, InverseLinear, Round, InverseRound, LowerThan, Equal, HigherThan, CustomCurve, Odd, Even}
 
     public static float GetScoreDirection(ScoreDirection scoreDirection, float valueToCheck, float compareFloat, AnimationCurve customCurve=null)
     {
@@ -46,6 +46,12 @@ public static class S_FootballEnums
 
             case ScoreDirection.CustomCurve:
                 valueToCheck = customCurve.Evaluate(valueToCheck);
+                break;
+            case ScoreDirection.Odd:
+                valueToCheck = valueToCheck % 1;
+                break;
+            case ScoreDirection.Even:
+                valueToCheck = valueToCheck % 2;
                 break;
         }
         return valueToCheck;

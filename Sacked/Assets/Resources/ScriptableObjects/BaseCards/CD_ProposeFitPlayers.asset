@@ -9,19 +9,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 324455af10ec1b44f81a1c65019448d2, type: 3}
-  m_Name: SO_Penalty
+  m_Script: {fileID: 11500000, guid: acddcb2ef5ce4c84b8aa4c3a78bf158c, type: 3}
+  m_Name: CD_ProposeFitPlayers
   m_EditorClassIdentifier: 
   ownerCard: {fileID: 0}
-  cardName: Penalty
-  cardColor: {r: 0.5471698, g: 0.5471698, b: 0.5471698, a: 1}
+  cardName: TiredTeam
+  cardColor: {r: 1, g: 1, b: 1, a: 1}
   cardDescriptions:
-  - '{Ref} fischia! calcio di rigore per {PenTeam}'
-  leftChoice: 
-  rightChoice: 
+  - Molti giocatori in prima squadra sono stanchi, vuoi mettere giocatori piu in
+    forma nell'11 titolare?
+  leftChoice: Si
+  rightChoice: No
   canAppearMoreThanOnce: 1
-  totalAppearances: 0
-  decreaseCountDown: 0
+  totalAppearances: 1
+  decreaseCountDown: 1
   desiredCardPrefabDirectory: 
   leftValues:
     addedMoney: 0
@@ -43,15 +44,15 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 11400000}
-        m_TargetAssemblyTypeName: SO_MatchCardData, Assembly-CSharp
-        m_MethodName: GenerateRandomPenalty
-        m_Mode: 1
+        m_TargetAssemblyTypeName: SO_CardData, Assembly-CSharp
+        m_MethodName: SetTeamLineup
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Fit
           m_BoolArgument: 0
         m_CallState: 2
   alreadyPicked: 0
@@ -67,10 +68,48 @@ MonoBehaviour:
     triggerChance: 0
     removeOnPhaseChange: 0
   scoreCard:
-  - desiredValue: 15
-    direction: 6
+  - desiredValue: 21
+    direction: 7
     compareString: 
-    compareFloat: 20
+    compareFloat: 0
+    customCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: Infinity
+        outSlope: 0
+        tangentMode: 7
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 0.7
+        value: 1
+        inSlope: Infinity
+        outSlope: -1.0034395
+        tangentMode: 7
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: -1
+        inSlope: 0
+        outSlope: Infinity
+        tangentMode: 97
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
+    scoreMultiplier: 1
+  - desiredValue: 20
+    direction: 5
+    compareString: 
+    compareFloat: 1
     customCurve:
       serializedVersion: 2
       m_Curve: []
@@ -79,56 +118,4 @@ MonoBehaviour:
       m_RotationOrder: 0
     scoreMultiplier: 1
   cardScore: 1
-  cardScoreNotNormalized: 1
-  matchScoreCard: []
-  chanceOfAppearance: 0.1
-  totalScoreMultiplier: 1
-  matchCardDropChance:
-  - rule: 0
-    direction: 7
-    weight: 0.25
-    compareFloat: 0
-    customCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 3
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 6
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 136
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      m_PreInfinity: 2
-      m_PostInfinity: 0
-      m_RotationOrder: 0
-  - rule: 4
-    direction: 0
-    weight: 0.1
-    compareFloat: 0
-    customCurve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 0
-      m_PostInfinity: 0
-      m_RotationOrder: 0
-  formulaDescriptionInfo: 
+  cardScoreNotNormalized: 99.08896

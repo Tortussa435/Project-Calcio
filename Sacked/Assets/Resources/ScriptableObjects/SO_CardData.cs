@@ -210,6 +210,36 @@ public class SO_CardData : ScriptableObject
         s = s.Replace(placeholder, output);
         card.cardDescription.text = s;
     }
+
+    #region TRAINING
+
+    public void ProposeBoosts()
+    {
+        S_Card card = ownerCard.GetComponent<S_Card>();
+        (UnityAction left, UnityAction right, string nameA, string nameB) events = S_PlayerTeamStats.FindTrainingBoosts();
+        leftEffects.AddListener(events.left);
+        rightEffects.AddListener(events.right);
+
+        card.leftChoice.text = events.nameA;
+        card.rightChoice.text = events.nameB;
+
+    }
+    
+    public void RefillTeamEnergy(float energy) => S_GlobalManager.squad.RefillTeamEnergy(energy);
+    
+    public void SetTeamLineup(string lineup)
+    {
+        S_Squad.PossibleTeam lup = (S_Squad.PossibleTeam)System.Enum.Parse(typeof(S_Squad.PossibleTeam), lineup, true);
+        S_GlobalManager.squad.SetLineUp(lup);
+    }
+
+    public void ZombifyPlayer()
+    {
+        SO_PlayerData randomPlayer = S_GlobalManager.squad.playingEleven[Random.Range(0, 11)];
+        ReplaceCardDescription("{Zombie}", randomPlayer.playerName);
+        randomPlayer.injuried = 5;
+    }
+    #endregion
     #region END MATCH
     public void GenerateEndMatchData()
     {

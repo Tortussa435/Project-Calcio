@@ -19,12 +19,23 @@ public class MatchDebugData : EditorWindow
 
         try
         {
+            /*
             string playingEleven = "Playing Eleven:\n";
             foreach(SO_PlayerData player in S_GlobalManager.squad.playingEleven)
             {
                 playingEleven = string.Concat(playingEleven, player.playerName + "\n");
             }
             GUILayout.Label(playingEleven);
+            */
+
+            GUILayout.Label("Atk Skill Level: " + S_PlayerTeamStats.CalcSquadAtk(true));
+            GUILayout.Label("Def Skill Level: " + S_PlayerTeamStats.CalcSquadDef(true));
+
+            GUILayout.Label("\nAtk Boost: " + S_PlayerTeamStats.GetAtkBoost());
+            GUILayout.Label("Def Boost: " + S_PlayerTeamStats.GetDefBoost());
+            GUILayout.Label("Fitness Multiplier: " + S_PlayerTeamStats.GetFitnessBoost());
+            GUILayout.Label("Chemistry Multiplier: " + S_PlayerTeamStats.GetChemistryBoost());
+            GUILayout.Label("Free Kicks Multiplier: " + S_PlayerTeamStats.GetFreeKicksBoost());
 
             GUILayout.Label("Squad Tactic: " + S_GlobalManager.squad.teamLineup.ToString());
             GUILayout.Label("Players Number: " + S_GlobalManager.squad.playingEleven.Count);
@@ -64,6 +75,8 @@ public class MatchDebugData : EditorWindow
             {
                 GUILayout.Label(n);
             }
+
+
         }
 
         catch

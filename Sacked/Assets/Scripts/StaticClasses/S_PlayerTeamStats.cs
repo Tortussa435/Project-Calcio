@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public static class S_PlayerTeamStats
 {
     private static List<SO_PlayerData> elevenRef = S_GlobalManager.squad.playingEleven;
+    private readonly static int MAXBOOSTLEVEL = 6;
 
     private static int AverageSquadAtk;
     private static int AverageSquadDef;
@@ -36,16 +38,14 @@ public static class S_PlayerTeamStats
         }
         return num;
     }
-    public static int CalcSquadAtk()
+    public static int CalcSquadAtk(bool getOnly=false)
     {
-        AverageSquadAtk = (int)((GetTotalSkillByRole(SO_PlayerData.PlayerRole.Atk) / 3) + (GetTotalSkillByRole(SO_PlayerData.PlayerRole.Mid)/25));
-        Debug.LogWarning("ATTACCO: "+AverageSquadAtk);
+        if (!getOnly) AverageSquadAtk = (int)((GetTotalSkillByRole(SO_PlayerData.PlayerRole.Atk) / 3) + (GetTotalSkillByRole(SO_PlayerData.PlayerRole.Mid)/25));
         return Mathf.Clamp(AverageSquadAtk+(SquadAtkBoost/3)+ChemistryMultiplier(),0,5);
     }
-    public static int CalcSquadDef()
+    public static int CalcSquadDef(bool getOnly=false)
     {
-        AverageSquadDef = (int)((GetTotalSkillByRole(SO_PlayerData.PlayerRole.Def) / 3) + (GetTotalSkillByRole(SO_PlayerData.PlayerRole.Def) / 25));
-        Debug.LogWarning("DIFESA: "+AverageSquadDef);
+        if(!getOnly) AverageSquadDef = (int)((GetTotalSkillByRole(SO_PlayerData.PlayerRole.Def) / 3) + (GetTotalSkillByRole(SO_PlayerData.PlayerRole.Def) / 25));
         return Mathf.Clamp(AverageSquadDef + (SquadDefBoost / 3) + ChemistryMultiplier(), 0, 5);
     }
     public static float FitnessMultiplier() => Mathf.Lerp( 0.5f, 1, 1 - Mathf.InverseLerp(0, 6, FitnessBoost)); //spent energy decrease multiplier can reach max 0.5
@@ -53,9 +53,66 @@ public static class S_PlayerTeamStats
     public static int GetChemistryBoost() => ChemistryBoost;
     public static int GetFitnessBoost() => FitnessBoost;
     public static int GetFreeKicksBoost() => FreeKicksBoost;
-    public static void IncreaseAtkBoost() => SquadAtkBoost = Mathf.Clamp(SquadAtkBoost += 1, 0, 6);
-    public static void IncreaseDefBoost() => SquadDefBoost = Mathf.Clamp(SquadDefBoost += 1, 0, 6);
-    public static void IncreaseFitnessBoost() => FitnessBoost = Mathf.Clamp(FitnessBoost += 1, 0, 6);
-    public static void IncreaseChemistryBoost() => ChemistryBoost = Mathf.Clamp(ChemistryBoost += 1, 0, 6);
-    public static void IncreaseFreeKicksBoost() => FreeKicksBoost = Mathf.Clamp(FreeKicksBoost += 1, 0, 6);
+    public static int GetAtkBoost() => SquadAtkBoost;
+    public static int GetDefBoost() => SquadDefBoost;
+    public static void IncreaseAtkBoost() => SquadAtkBoost = Mathf.Clamp(SquadAtkBoost + 1, 0, MAXBOOSTLEVEL);
+    public static void IncreaseDefBoost() => SquadDefBoost = Mathf.Clamp(SquadDefBoost + 1, 0, MAXBOOSTLEVEL);
+    public static void IncreaseFitnessBoost() => FitnessBoost = Mathf.Clamp(FitnessBoost + 1, 0, MAXBOOSTLEVEL);
+    public static void IncreaseChemistryBoost() => ChemistryBoost = Mathf.Clamp(ChemistryBoost + 1, 0, MAXBOOSTLEVEL);
+    public static void IncreaseFreeKicksBoost() => FreeKicksBoost = Mathf.Clamp(FreeKicksBoost + 1, 0, MAXBOOSTLEVEL);
+    public static (UnityAction trainingA, UnityAction trainingB, string trAName, string trBName) FindTrainingBoosts()
+    {
+        //Function to find single action
+
+        UnityAction FindAction(List<(UnityAction ua, int chance)> actionsList)
+        {
+            int total = 0;
+            for (int i = 0; i < actionsList.Count; i++)
+            {
+                total += actionsList[i].chance;
+                actionsList[i] = (actionsList[i].ua, total);
+            }
+
+            int ran = Random.Range(0, total+1);
+
+
+            for (int i = 0; i < actionsList.Count; i++)
+            {
+                if (actionsList[i].chance >= ran)
+                {
+                    return actionsList[i].ua;
+                }
+            }
+            return null;
+        }
+        //------------------------------
+
+        List<(UnityAction ua, int chance)> actions = new List<(UnityAction ua, int chance)>
+        {
+            (IncreaseAtkBoost, MAXBOOSTLEVEL - SquadAtkBoost), (IncreaseChemistryBoost, MAXBOOSTLEVEL - ChemistryBoost), (IncreaseDefBoost, MAXBOOSTLEVEL - SquadDefBoost), (IncreaseFitnessBoost, MAXBOOSTLEVEL - FitnessBoost), (IncreaseFreeKicksBoost, MAXBOOSTLEVEL - FreeKicksBoost)
+        };
+
+        UnityAction firstAction = FindAction(actions);
+
+        for (int i = 0; i < actions.Count; i++) if (actions[i].ua == firstAction) actions.RemoveAt(i);
+
+        UnityAction secondAction = FindAction(actions);
+
+        Dictionary<UnityAction, string> trainingNames = new Dictionary<UnityAction, string> 
+        {
+            { IncreaseAtkBoost, "Train Attack" },
+            { IncreaseDefBoost, "Train Defense" },
+            { IncreaseChemistryBoost, "Increase Team Chemistry" },
+            { IncreaseFitnessBoost, "Increase Team Resistance" },
+            { IncreaseFreeKicksBoost, "Train Free Kicks" },
+        };
+
+        string firstActionString = "";
+        trainingNames.TryGetValue(firstAction, out firstActionString);
+        
+        string secondActionString = "";
+        trainingNames.TryGetValue(secondAction, out secondActionString);
+
+        return (firstAction, secondAction, firstActionString, secondActionString);
+    }
 }

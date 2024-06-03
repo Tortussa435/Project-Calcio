@@ -92,6 +92,7 @@ public static class S_PlayerMatchSimulator
 
     public static void StartMatch()
     {
+        S_GlobalManager.squad.FillTeamHoles();
 
         refereeName = S_PlayersGenerator.CreateRandomName(false); //the ref has only a surname
         
@@ -158,6 +159,8 @@ public static class S_PlayerMatchSimulator
         S_GlobalManager.squad.DecreaseElevenEnergy();
         S_GlobalManager.squad.RefillBenchEnergy();
 
+        S_GlobalManager.squad.FillTeamHoles();
+
         OnMatchEnd.Invoke();
 
     }
@@ -187,7 +190,6 @@ public static class S_PlayerMatchSimulator
     {
         lastCardGoal = true;
 
-        Debug.Log("GOOOALON");
 
 
         SO_GoalCardData golCard = ScriptableObject.CreateInstance<SO_GoalCardData>();
@@ -258,6 +260,7 @@ public static class S_PlayerMatchSimulator
     {
         SO_CardData card=null;
 
+        //generates goal chance float for both teams
         homeGoalCheck = GoalCheck(true);
 
         awayGoalCheck = GoalCheck(false);

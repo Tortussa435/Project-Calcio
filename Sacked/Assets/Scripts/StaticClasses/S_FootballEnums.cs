@@ -48,10 +48,10 @@ public static class S_FootballEnums
                 valueToCheck = customCurve.Evaluate(valueToCheck);
                 break;
             case ScoreDirection.Odd:
-                valueToCheck = valueToCheck % 1;
+                valueToCheck = valueToCheck % 2 != 0 ? 1 : 0;
                 break;
             case ScoreDirection.Even:
-                valueToCheck = valueToCheck % 2;
+                valueToCheck = valueToCheck % 2 == 0 ? 1 : 0;
                 break;
         }
         return valueToCheck;
@@ -79,7 +79,8 @@ public static class S_FootballEnums
         OpponentSubstitutions,
         Week,
         CardAppearances,
-        CardsToNextPhase
+        CardsToNextPhase,
+        TeamEnergy
     }
 
     [System.Serializable]

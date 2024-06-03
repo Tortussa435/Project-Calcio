@@ -299,7 +299,7 @@ public class S_Squad : MonoBehaviour
         foreach (SO_PlayerData player in Attack) player.subbedOut = false;
     }
 
-    public void RefillBenchEnergy(float min=10.0f, float max=20.0f)
+    public void RefillBenchEnergy(float min=15.0f, float max=25.0f)
     {
         foreach(SO_PlayerData player in bench)
         {
@@ -309,7 +309,15 @@ public class S_Squad : MonoBehaviour
         }
     }
 
-    public void DecreaseElevenEnergy(float min=-20.0f, float max=-10.0f)
+    public void RefillTeamEnergy(float energy)
+    {
+        foreach (SO_PlayerData player in playingEleven)
+        {
+            player.AddEnergy(energy,energy);
+        }
+    }
+
+    public void DecreaseElevenEnergy(float min=-10.0f, float max=-5.0f)
     {
         List<SO_PlayerData> players = S_GlobalManager.squad.playingEleven;
         
@@ -427,6 +435,96 @@ public class S_Squad : MonoBehaviour
         return expellables[Random.Range(0, expellables.Count)];
     }
 
+    /// <summary>
+    /// If team has less than 11 players, adjusts team with players from bench
+    /// </summary>
+    public void FillTeamHoles()
+    {
+        for(int i = playingEleven.Count-1; i >= 0; i--)
+        {
+            if (!playingEleven[i].CanPlay())
+            {
+                bench.Add(playingEleven[i]);
+                playingEleven.Remove(playingEleven[i]);
+            }
+        }
+
+        if (playingEleven.Count >= 11) return;
+
+        int gk = 0;
+        int def = 0;
+        int mid = 0;
+        int atk = 0;
+        //finds amount of gk, def, mid and atk in team
+        foreach(SO_PlayerData p in playingEleven)
+        {
+            switch (p.playerRole)
+            {
+                case SO_PlayerData.PlayerRole.Gk:
+                    gk++;
+                    break;
+                case SO_PlayerData.PlayerRole.Def:
+                    def++;
+                    break;
+                case SO_PlayerData.PlayerRole.Mid:
+                    mid++;
+                    break;
+                case SO_PlayerData.PlayerRole.Atk:
+                    atk++;
+                    break;
+            }
+        }
+
+        foreach(SO_PlayerData p in bench)
+        {
+            if (playingEleven.Count == 11) return;
+
+            if (p.CanPlay())
+            {
+                switch (p.playerRole)
+                {
+                    case SO_PlayerData.PlayerRole.Gk:
+                        if (gk > 0) continue;
+                        playingEleven.Add(p);
+                        break;
+
+                    case SO_PlayerData.PlayerRole.Def:
+                        if (def > 5) continue;
+                        playingEleven.Add(p);
+                        break;
+
+                    case SO_PlayerData.PlayerRole.Mid:
+                        if (mid > 5) continue;
+                        playingEleven.Add(p);
+                        break;
+
+                    case SO_PlayerData.PlayerRole.Atk:
+                        if (atk > 5) continue;
+                        playingEleven.Add(p);
+                        break; 
+                }
+            }
+        }
+    }
+
+    public bool IsTeamTired(float tiredAverage = 70f)
+    {
+        float energy = 0;
+        foreach(SO_PlayerData player in playingEleven)
+        {
+            energy += player.playerEnergy;
+        }
+        return energy / 11 < tiredAverage;
+    }
+    public float GetTeamAverageEnergy()
+    {
+        float energy = 0;
+        foreach (SO_PlayerData player in playingEleven)
+        {
+            energy += player.playerEnergy;
+        }
+        return energy / 11;
+    }
     #region LINEUPS
     public PossibleTeam FindNextLineup() => (PossibleTeam) ((int)(teamLineup + 1) % System.Enum.GetValues(typeof(PossibleTeam)).Length);
     public void AddGoalKeeper()
@@ -581,7 +679,12 @@ public class S_Squad : MonoBehaviour
 
         sortedPlayers = sortTeamListBySkill(sortedPlayers);
 
-        AddPlayersToEleven(sortedPlayers, energyThreshold);
+        while (playingEleven.Count < 11)
+        {
+            AddPlayersToEleven(sortedPlayers, energyThreshold);
+            energyThreshold += 5;
+            if (energyThreshold > 100) break;
+        }
 
     }
     private List<SO_PlayerData> sortTeamListBySkill(List<SO_PlayerData> datalist)

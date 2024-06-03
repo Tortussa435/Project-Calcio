@@ -81,5 +81,9 @@ public class S_Card : MonoBehaviour
         cardIcon.sprite = data.cardIcon;
 
     }
-
+    private void OnDestroy()
+    {
+        cardData.leftEffects.RemoveAllListeners();
+        cardData.rightEffects.RemoveAllListeners();
+    }
 }

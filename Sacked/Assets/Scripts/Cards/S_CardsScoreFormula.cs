@@ -129,6 +129,9 @@ public class S_CardsScoreFormula
             case Rule.CardsToNextPhase:
                 valueToCheck = S_GlobalManager.deckManagerRef.nextPhaseCountdown;
                 break;
+            case Rule.TeamEnergy:
+                valueToCheck = S_GlobalManager.squad.GetTeamAverageEnergy()/100.0f;
+                break;
 
         }
 

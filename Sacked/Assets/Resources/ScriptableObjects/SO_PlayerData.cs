@@ -57,6 +57,13 @@ public class SO_PlayerData : ScriptableObject
     public bool subbedOut = false;
     public void AddEnergy(float min, float max)
     {
+        //energy consumed by gk is reduced a lot
+        if (playerRole == PlayerRole.Gk && min < 0 && max < 0)
+        {
+            min /= 10;
+            max /= 10;
+        }
+
         playerEnergy += Random.Range(min, max);
         playerEnergy = Mathf.Clamp(playerEnergy, 0, 100);
     }

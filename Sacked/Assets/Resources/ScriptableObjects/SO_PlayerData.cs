@@ -62,4 +62,6 @@ public class SO_PlayerData : ScriptableObject
     }
 
     public bool CanPlay() => !(expelled > 0 || injuried > 0 || subbedOut);
+
+    public int GetPlayerCurrentSkillLevel()=> skillLevel * Mathf.CeilToInt(playerEnergy / 100);
 }

@@ -22,7 +22,7 @@ static public class S_PlayersGenerator
         */
 
         playerData.playerRole = role;
-        playerData.skillLevel = Random.Range(Mathf.Clamp(minSkill,0,5)+1, Mathf.Clamp(maxSkill,0,5)+1); //max exclusive
+        playerData.skillLevel = Random.Range(Mathf.Clamp(minSkill,1,5), Mathf.Clamp(maxSkill,1,5)+1);
         playerData.playerNationality = (SO_PlayerData.Nationality)Random.Range(0, System.Enum.GetValues(typeof(SO_PlayerData.Nationality)).Length); //esoteric https://discussions.unity.com/t/using-random-range-to-pick-a-random-value-out-of-an-enum/119639/2
         playerData.playerName = FindNameByNationality(playerData.playerNationality, true) + " " + FindNameByNationality(playerData.playerNationality, false);
         playerData.name = playerData.playerName + " " + playerData.skillLevel;

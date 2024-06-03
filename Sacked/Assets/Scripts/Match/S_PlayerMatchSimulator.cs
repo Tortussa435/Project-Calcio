@@ -93,7 +93,6 @@ public static class S_PlayerMatchSimulator
     public static void StartMatch()
     {
 
-
         refereeName = S_PlayersGenerator.CreateRandomName(false); //the ref has only a surname
         
         S_GlobalManager.deckManagerRef.MatchScoreText.gameObject.SetActive(true);
@@ -301,11 +300,15 @@ public static class S_PlayerMatchSimulator
         
         float goalCheck=0;
 
+        int playerAtk = S_PlayerTeamStats.CalcSquadAtk();
+        int playerDef = S_PlayerTeamStats.CalcSquadDef();
+
         //first calc = skill diff check
-        if (homeTeam && IsPlayerHomeTeam()) goalCheck        =  GetSkillDifference(match.homeTeam.SkillLevel, opponentMatchSkillLevel);
-        else if (homeTeam && !IsPlayerHomeTeam()) goalCheck  =  GetSkillDifference(opponentMatchSkillLevel, match.awayTeam.SkillLevel);
-        else if (!homeTeam && IsPlayerHomeTeam()) goalCheck  =  GetSkillDifference(opponentMatchSkillLevel, match.homeTeam.SkillLevel);
-        else if (!homeTeam && !IsPlayerHomeTeam()) goalCheck =  GetSkillDifference(match.awayTeam.SkillLevel, opponentMatchSkillLevel);
+        if (homeTeam && IsPlayerHomeTeam()) goalCheck        =  GetSkillDifference(playerAtk, opponentMatchSkillLevel);
+        else if (!homeTeam && !IsPlayerHomeTeam()) goalCheck =  GetSkillDifference(playerAtk, opponentMatchSkillLevel);
+
+        else if (homeTeam && !IsPlayerHomeTeam()) goalCheck  =  GetSkillDifference(opponentMatchSkillLevel, playerDef);
+        else if (!homeTeam && IsPlayerHomeTeam()) goalCheck  =  GetSkillDifference(opponentMatchSkillLevel, playerDef);
 
         //second calc = goal chance per minute
         goalCheck *= goalChancePerMinute.curve.Evaluate(matchMinute);

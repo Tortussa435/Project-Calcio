@@ -76,11 +76,11 @@ public class S_Squad : MonoBehaviour
          * 5,6 = random[skillLevel-3,skillLevel]
          */
 
-        Defense.Add(S_PlayersGenerator.GeneratePlayer(SO_PlayerData.PlayerRole.Def,skillLevel - 2, skillLevel + 2));
         Defense.Add(S_PlayersGenerator.GeneratePlayer(SO_PlayerData.PlayerRole.Def,skillLevel - 2, skillLevel + 1));
-        Defense.Add(S_PlayersGenerator.GeneratePlayer(SO_PlayerData.PlayerRole.Def,skillLevel - 2, skillLevel + 1));
+        Defense.Add(S_PlayersGenerator.GeneratePlayer(SO_PlayerData.PlayerRole.Def,skillLevel - 2, skillLevel));
+        Defense.Add(S_PlayersGenerator.GeneratePlayer(SO_PlayerData.PlayerRole.Def,skillLevel - 2, skillLevel));
 
-        Defense.Add(S_PlayersGenerator.GeneratePlayer(SO_PlayerData.PlayerRole.Def, skillLevel - 3, skillLevel + 0));
+        Defense.Add(S_PlayersGenerator.GeneratePlayer(SO_PlayerData.PlayerRole.Def, skillLevel - 3, skillLevel));
 
         Defense.Add(S_PlayersGenerator.GeneratePlayer(SO_PlayerData.PlayerRole.Def, skillLevel - 3, skillLevel-1));
 
@@ -91,11 +91,11 @@ public class S_Squad : MonoBehaviour
          * 5,6 = random[skillLevel-3,skillLevel]
          */
 
-        Midfield.Add(S_PlayersGenerator.GeneratePlayer(SO_PlayerData.PlayerRole.Mid, skillLevel - 2, skillLevel + 2));
         Midfield.Add(S_PlayersGenerator.GeneratePlayer(SO_PlayerData.PlayerRole.Mid, skillLevel - 2, skillLevel + 1));
         Midfield.Add(S_PlayersGenerator.GeneratePlayer(SO_PlayerData.PlayerRole.Mid, skillLevel - 2, skillLevel + 1));
+        Midfield.Add(S_PlayersGenerator.GeneratePlayer(SO_PlayerData.PlayerRole.Mid, skillLevel - 1, skillLevel));
         
-        Midfield.Add(S_PlayersGenerator.GeneratePlayer(SO_PlayerData.PlayerRole.Mid, skillLevel - 3, skillLevel + 0));
+        Midfield.Add(S_PlayersGenerator.GeneratePlayer(SO_PlayerData.PlayerRole.Mid, skillLevel - 3, skillLevel - 1));
         
         Midfield.Add(S_PlayersGenerator.GeneratePlayer(SO_PlayerData.PlayerRole.Mid, skillLevel - 3, skillLevel - 1));
 
@@ -106,10 +106,10 @@ public class S_Squad : MonoBehaviour
          */
 
         Attack.Add(S_PlayersGenerator.GeneratePlayer(SO_PlayerData.PlayerRole.Atk, skillLevel - 1, skillLevel + 1));
-        Attack.Add(S_PlayersGenerator.GeneratePlayer(SO_PlayerData.PlayerRole.Atk, skillLevel - 1, skillLevel + 1));
+        Attack.Add(S_PlayersGenerator.GeneratePlayer(SO_PlayerData.PlayerRole.Atk, skillLevel - 1, skillLevel));
 
         Attack.Add(S_PlayersGenerator.GeneratePlayer(SO_PlayerData.PlayerRole.Atk, skillLevel - 2, skillLevel));
-        Attack.Add(S_PlayersGenerator.GeneratePlayer(SO_PlayerData.PlayerRole.Atk, skillLevel - 2, skillLevel));
+        Attack.Add(S_PlayersGenerator.GeneratePlayer(SO_PlayerData.PlayerRole.Atk, skillLevel - 3, skillLevel - 1));
 
         //makes one random player skillLevel = random[4,5]
 
@@ -122,15 +122,15 @@ public class S_Squad : MonoBehaviour
                 break;
             
             case 1://Defense
-                Defense[Random.Range(0, Goalkeepers.Count)].skillLevel = 5;
+                Defense[Random.Range(0, Defense.Count)].skillLevel = 5;
                 break;
             
             case 2://Midfield
-                Midfield[Random.Range(0, Goalkeepers.Count)].skillLevel = 5;
+                Midfield[Random.Range(0, Midfield.Count)].skillLevel = 5;
                 break;
             
             case 3://Attack
-                Attack[Random.Range(0, Goalkeepers.Count)].skillLevel = 5;
+                Attack[Random.Range(0, Attack.Count)].skillLevel = 5;
                 break;
         }
 
@@ -187,7 +187,7 @@ public class S_Squad : MonoBehaviour
         int totalskill = 0;
         foreach(SO_PlayerData player in playingEleven)
         {
-            totalskill += player.skillLevel * Mathf.CeilToInt(player.playerEnergy/100);
+            totalskill += player.GetPlayerCurrentSkillLevel();
         }
         totalskill /= 11;
         return totalskill;
@@ -303,13 +303,19 @@ public class S_Squad : MonoBehaviour
     {
         foreach(SO_PlayerData player in bench)
         {
-            player.AddEnergy(min, max);
+            float mult = 1;
+            if (player.subbedOut) mult = 0.75f; 
+            player.AddEnergy(min*mult, max*mult);
         }
     }
 
     public void DecreaseElevenEnergy(float min=-20.0f, float max=-10.0f)
     {
         List<SO_PlayerData> players = S_GlobalManager.squad.playingEleven;
+        
+        min *= S_PlayerTeamStats.FitnessMultiplier();
+        max *= S_PlayerTeamStats.FitnessMultiplier();
+
         foreach (SO_PlayerData p in players)
         {
             p.AddEnergy(min, max);

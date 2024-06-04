@@ -20,7 +20,7 @@ MonoBehaviour:
   leftChoice: forte
   rightChoice: piano
   canAppearMoreThanOnce: 1
-  totalAppearances: 1
+  totalAppearances: 0
   decreaseCountDown: 1
   desiredCardPrefabDirectory: 
   leftValues:
@@ -70,7 +70,7 @@ MonoBehaviour:
   - desiredValue: 20
     direction: 5
     compareString: 
-    compareFloat: 2
+    compareFloat: 0
     customCurve:
       serializedVersion: 2
       m_Curve: []
@@ -89,5 +89,5 @@ MonoBehaviour:
       m_PostInfinity: 0
       m_RotationOrder: 0
     scoreMultiplier: -100
-  cardScore: 0
-  cardScoreNotNormalized: 0
+  cardScore: -100
+  cardScoreNotNormalized: -100

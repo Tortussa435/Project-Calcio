@@ -11,7 +11,7 @@ static public class S_PlayersGenerator
     {
         possibleNames = Resources.LoadAll<SO_NamesDatabase>(S_ResDirs.namesDatabase).ToList();
     }
-    static public SO_PlayerData GeneratePlayer(SO_PlayerData.PlayerRole role, int minSkill, int maxSkill, bool forPlayer=true)
+    static public SO_PlayerData GeneratePlayer(SO_PlayerData.PlayerRole role, int minSkill, int maxSkill=-1, bool forPlayer=true)
     {
         SO_PlayerData playerData = ScriptableObject.CreateInstance<SO_PlayerData>();
         
@@ -22,8 +22,15 @@ static public class S_PlayersGenerator
         */
 
         playerData.playerRole = role;
-        playerData.skillLevel = Random.Range(Mathf.Clamp(minSkill,1,5), Mathf.Clamp(maxSkill,1,5)+1);
-        playerData.playerNationality = (SO_PlayerData.Nationality)Random.Range(0, System.Enum.GetValues(typeof(SO_PlayerData.Nationality)).Length); //esoteric https://discussions.unity.com/t/using-random-range-to-pick-a-random-value-out-of-an-enum/119639/2
+
+        if (maxSkill == -1) playerData.skillLevel = minSkill;
+        else playerData.skillLevel = Random.Range(Mathf.Clamp(minSkill,1,5), Mathf.Clamp(maxSkill,1,5)+1);
+
+        playerData.playerNationality = (SO_PlayerData.Nationality)Random.Range(0, System.Enum.GetValues(typeof(SO_PlayerData.Nationality)).Length); https://discussions.unity.com/t/using-random-range-to-pick-a-random-value-out-of-an-enum/119639/2
+        
+        //if a player is from vatican it has to give the same nationality twice, to reduce chance of having the pope in your team (chance = 0.01% circa, 1.9% of having one vatican player in 19 players team)
+        if(playerData.playerNationality==SO_PlayerData.Nationality.VaticanCity) playerData.playerNationality = (SO_PlayerData.Nationality)Random.Range(0, System.Enum.GetValues(typeof(SO_PlayerData.Nationality)).Length);
+        
         playerData.playerName = FindNameByNationality(playerData.playerNationality, true) + " " + FindNameByNationality(playerData.playerNationality, false);
         playerData.name = playerData.playerName + " " + playerData.skillLevel;
 
@@ -38,6 +45,13 @@ static public class S_PlayersGenerator
         }
 
         return playerData;
+    }
+
+    static public void ItalianizePlayer(SO_PlayerData player)
+    {
+        player.playerNationality = SO_PlayerData.Nationality.Italy;
+        player.playerName = FindNameByNationality(SO_PlayerData.Nationality.Italy, true) + " " + FindNameByNationality(SO_PlayerData.Nationality.Italy, false);
+        player.name = player.playerName + " " + player.skillLevel;
     }
 
     static public string FindNameByNationality(SO_PlayerData.Nationality nationality, bool nameOrSurname)

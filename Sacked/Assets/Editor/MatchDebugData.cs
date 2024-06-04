@@ -27,6 +27,7 @@ public class MatchDebugData : EditorWindow
             }
             GUILayout.Label(playingEleven);
             */
+            GUILayout.Label("HOME GOAL CHECK: "+homeGoalCheck+" AWAY GOAL CHECK: "+awayGoalCheck);
 
             GUILayout.Label("Atk Skill Level: " + S_PlayerTeamStats.CalcSquadAtk(true));
             GUILayout.Label("Def Skill Level: " + S_PlayerTeamStats.CalcSquadDef(true));
@@ -44,7 +45,6 @@ public class MatchDebugData : EditorWindow
             GUILayout.Label(matchMinute.ToString());
             GUILayout.Label(matchScore.home+" - "+matchScore.away);
             GUILayout.Label(match.homeTeam.teamName + " vs " + match.awayTeam.teamName);
-            GUILayout.Label("Home goal check: "+homeGoalCheck+" Away goal check: "+awayGoalCheck);
             GUILayout.Label("Home Traits Score Chance: "+traitsScoreChance.home+"\nAway Traits Score Chance: "+traitsScoreChance.away);
             GUILayout.Label("Home Injury Chance: "+injuryChance.home+"\nAway Injury Chance: "+injuryChance.away);
             GUILayout.Label("Home Aggressivity: "+matchAggressivity.home+"\nAway Aggressivity: "+matchAggressivity.away);

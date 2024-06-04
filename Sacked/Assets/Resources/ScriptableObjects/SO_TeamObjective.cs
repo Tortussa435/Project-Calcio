@@ -111,7 +111,8 @@ public class SO_TeamObjective : SO_CardData
 
         S_GlobalManager.squad.GenerateTeam();
 
-        S_GlobalManager.deckManagerRef.ChangeCurrentPhase(2,3, S_GlobalManager.CardsPhase.Week);
+        (int min, int max) weekduration = (S_GlobalManager.deckManagerRef.weekDuration.min,S_GlobalManager.deckManagerRef.weekDuration.max);
+        S_GlobalManager.deckManagerRef.ChangeCurrentPhase(weekduration.min+1, weekduration.max+1, S_GlobalManager.CardsPhase.Week);
 
 
     }

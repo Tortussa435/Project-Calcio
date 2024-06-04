@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.ConstrainedExecution;
 using UnityEngine;
 using UnityEngine.Events;
 
 public static class S_PlayerTeamStats
 {
-    private static List<SO_PlayerData> elevenRef = S_GlobalManager.squad.playingEleven;
     private readonly static int MAXBOOSTLEVEL = 6;
 
     private static int AverageSquadAtk;
@@ -20,7 +20,7 @@ public static class S_PlayerTeamStats
     private static float GetTotalSkillByRole(SO_PlayerData.PlayerRole role) 
     {
         float total = 0;
-        foreach (SO_PlayerData p in elevenRef)
+        foreach (SO_PlayerData p in S_GlobalManager.squad.playingEleven)
         {
             if (p.playerRole == role)
             {
@@ -32,7 +32,7 @@ public static class S_PlayerTeamStats
     private static int GetPlayersPerRole(SO_PlayerData.PlayerRole role)
     {
         int num = 0;
-        foreach(SO_PlayerData p in elevenRef)
+        foreach(SO_PlayerData p in S_GlobalManager.squad.playingEleven)
         {
             if (p.playerRole == role) num++;
         }
@@ -40,13 +40,15 @@ public static class S_PlayerTeamStats
     }
     public static int CalcSquadAtk(bool getOnly=false)
     {
-        if (!getOnly) AverageSquadAtk = (int)((GetTotalSkillByRole(SO_PlayerData.PlayerRole.Atk) / 3) + (GetTotalSkillByRole(SO_PlayerData.PlayerRole.Mid)/25));
-        return Mathf.Clamp(AverageSquadAtk+(SquadAtkBoost/3)+ChemistryMultiplier(),0,5);
+        if(!getOnly) AverageSquadAtk = (int)((GetTotalSkillByRole(SO_PlayerData.PlayerRole.Atk) / 3) + (GetTotalSkillByRole(SO_PlayerData.PlayerRole.Mid)/25));
+        int final = Mathf.Clamp(AverageSquadAtk + (SquadAtkBoost / 3) + ChemistryMultiplier(), 0, 5);
+        return final;
     }
     public static int CalcSquadDef(bool getOnly=false)
     {
-        if(!getOnly) AverageSquadDef = (int)((GetTotalSkillByRole(SO_PlayerData.PlayerRole.Def) / 3) + (GetTotalSkillByRole(SO_PlayerData.PlayerRole.Def) / 25));
-        return Mathf.Clamp(AverageSquadDef + (SquadDefBoost / 3) + ChemistryMultiplier(), 0, 5);
+        if(!getOnly) AverageSquadDef = (int)((GetTotalSkillByRole(SO_PlayerData.PlayerRole.Def) / 3) + (GetTotalSkillByRole(SO_PlayerData.PlayerRole.Mid) / 25));
+        int final = Mathf.Clamp(AverageSquadDef + (SquadDefBoost / 3) + ChemistryMultiplier(), 0, 5);
+        return final;
     }
     public static float FitnessMultiplier() => Mathf.Lerp( 0.5f, 1, 1 - Mathf.InverseLerp(0, 6, FitnessBoost)); //spent energy decrease multiplier can reach max 0.5
     private static int ChemistryMultiplier() => (ChemistryBoost - 3) / 3;

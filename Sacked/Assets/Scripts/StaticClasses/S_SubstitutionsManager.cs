@@ -115,6 +115,7 @@ public static class S_SubstitutionsManager
 
         foreach(SO_PlayerData p in elevenRef)
         {
+            if (p.playerRole == SO_PlayerData.PlayerRole.Gk) continue;
             if (p.playerEnergy <= 60)
             {
                 tiredPlayers.Add(p);
@@ -128,6 +129,7 @@ public static class S_SubstitutionsManager
 
         foreach(SO_PlayerData p in benchRef)
         {
+            if (p.playerRole == SO_PlayerData.PlayerRole.Gk) continue;
             if (!p.CanPlay()) continue;
             if (p.skillLevel >= S_GlobalManager.selectedTeam.SkillLevel) goodPlayers.Add(p); //if player is better than the average of the team propose change
         }
@@ -363,6 +365,7 @@ public static class S_SubstitutionsManager
     {
         foreach(SO_PlayerData p in benchRef)
         {
+            if (p.playerRole == SO_PlayerData.PlayerRole.Gk) continue;
             if (!p.CanPlay()) continue;
             if (p.skillLevel >= S_GlobalManager.selectedTeam.SkillLevel) return true;
         }

@@ -268,6 +268,25 @@ public static class S_PlayerMatchSimulator
         float homeRoll = (float)Random.Range(0, 1001) / 1000;
         float awayRoll = (float)Random.Range(0, 1001) / 1000;
 
+        bool homeGoal = false;
+        bool awayGoal = false;
+
+        homeGoal = homeRoll <= homeGoalCheck;
+        awayGoal = awayRoll <= awayGoalCheck;
+        
+        //if both teams scored one of them is chosen randomly
+        if(homeGoal && awayGoal)
+        {
+            int coin = Random.Range(0, 2);
+            if (coin == 0) card = GenerateGolCard(true);
+            else card = GenerateGolCard(false);
+        }
+        else
+        {
+            if (homeGoal) card = GenerateGolCard(true);
+            else if (awayGoal) card = GenerateGolCard(false);
+        }
+        /*
         //the team with the lower goal chance tries to score first
         if (homeGoalCheck <= awayGoalCheck)
         {
@@ -294,7 +313,8 @@ public static class S_PlayerMatchSimulator
             }
 
         }
-        
+        */
+
         return card;
     }
 

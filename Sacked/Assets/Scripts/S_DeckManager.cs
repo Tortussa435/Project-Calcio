@@ -182,7 +182,7 @@ public class S_DeckManager : MonoBehaviour
                     break;
                 
                 case CardsPhase.Market:
-                    ChangeCurrentPhase(marketDuration.min, marketDuration.max, CardsPhase.Week);
+                    ChangeCurrentPhase(weekDuration.min, weekDuration.max, CardsPhase.Week);
                     break;
                 
                 case CardsPhase.MatchFirstHalf:    
@@ -206,7 +206,7 @@ public class S_DeckManager : MonoBehaviour
 
 
                     
-                    ChangeCurrentPhase(matchDuration.min, matchDuration.max, CardsPhase.Week, false);
+                    ChangeCurrentPhase(weekDuration.min, weekDuration.max, CardsPhase.Week, false);
 
                     card = GenerateCard(endMatchCard, null, false);
 

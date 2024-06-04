@@ -53,9 +53,47 @@ public class S_Squad : MonoBehaviour
           
     }
 
+
+
     public void GenerateTeam()
     {
+        List<int> SkillLevelDistribution(int skillLevel)
+        {
+            List<int> skills = new List<int>();
+            //19 players
+            //remember random.range is max exclusive
+            skills.Add(5);
+
+            for (int i = 0; i < 4; i++)
+                skills.Add(skillLevel);
+
+            for (int i = 0; i < 4; i++)
+                skills.Add(Random.Range(skillLevel - 1, skillLevel + 1));
+
+            for (int i = 0; i < 3; i++)
+                skills.Add(skillLevel - 1);
+
+            for (int i = 0; i < 4; i++)
+                skills.Add(Random.Range(1,3));
+
+            for (int i = 0; i < 2; i++)
+                skills.Add(Random.Range(skillLevel - 2, skillLevel + 3));
+            
+            skills.Add(3);
+
+            return skills;
+        }
+
+        int FindSkillLevel(List<int> skillList)
+        {
+            int v = skillList[Random.Range(0, skillList.Count)];
+            skillList.Remove(v);
+            return v;
+        }
+
         int skillLevel = S_GlobalManager.selectedTeam.SkillLevel;
+        
+        List<int> skills = SkillLevelDistribution(skillLevel);
 
         //generate 11 starting players + 7 bench players
 
@@ -66,8 +104,8 @@ public class S_Squad : MonoBehaviour
          * first gk = random[skillLevel-1, skillLevel+1]
          * second gk = random[skillLevel-3, skillLevel-2]
          */
-        Goalkeepers.Add(S_PlayersGenerator.GeneratePlayer(SO_PlayerData.PlayerRole.Gk,skillLevel - 1 , skillLevel + 1));
-        Goalkeepers.Add(S_PlayersGenerator.GeneratePlayer(SO_PlayerData.PlayerRole.Gk, skillLevel -3 ,  skillLevel -2));
+        Goalkeepers.Add(S_PlayersGenerator.GeneratePlayer(SO_PlayerData.PlayerRole.Gk,FindSkillLevel(skills)));
+        Goalkeepers.Add(S_PlayersGenerator.GeneratePlayer(SO_PlayerData.PlayerRole.Gk, FindSkillLevel(skills)));
 
         //Defense
         /*
@@ -76,13 +114,15 @@ public class S_Squad : MonoBehaviour
          * 5,6 = random[skillLevel-3,skillLevel]
          */
 
-        Defense.Add(S_PlayersGenerator.GeneratePlayer(SO_PlayerData.PlayerRole.Def,skillLevel - 2, skillLevel + 1));
-        Defense.Add(S_PlayersGenerator.GeneratePlayer(SO_PlayerData.PlayerRole.Def,skillLevel - 2, skillLevel));
-        Defense.Add(S_PlayersGenerator.GeneratePlayer(SO_PlayerData.PlayerRole.Def,skillLevel - 2, skillLevel));
+        Defense.Add(S_PlayersGenerator.GeneratePlayer(SO_PlayerData.PlayerRole.Def, FindSkillLevel(skills)));
+        Defense.Add(S_PlayersGenerator.GeneratePlayer(SO_PlayerData.PlayerRole.Def, FindSkillLevel(skills)));
+        Defense.Add(S_PlayersGenerator.GeneratePlayer(SO_PlayerData.PlayerRole.Def, FindSkillLevel(skills)));
 
-        Defense.Add(S_PlayersGenerator.GeneratePlayer(SO_PlayerData.PlayerRole.Def, skillLevel - 3, skillLevel));
+        Defense.Add(S_PlayersGenerator.GeneratePlayer(SO_PlayerData.PlayerRole.Def, FindSkillLevel(skills)));
 
-        Defense.Add(S_PlayersGenerator.GeneratePlayer(SO_PlayerData.PlayerRole.Def, skillLevel - 3, skillLevel-1));
+        Defense.Add(S_PlayersGenerator.GeneratePlayer(SO_PlayerData.PlayerRole.Def, FindSkillLevel(skills)));
+
+        Defense.Add(S_PlayersGenerator.GeneratePlayer(SO_PlayerData.PlayerRole.Def, FindSkillLevel(skills)));
 
         //Midfield
         /*
@@ -91,13 +131,15 @@ public class S_Squad : MonoBehaviour
          * 5,6 = random[skillLevel-3,skillLevel]
          */
 
-        Midfield.Add(S_PlayersGenerator.GeneratePlayer(SO_PlayerData.PlayerRole.Mid, skillLevel - 2, skillLevel + 1));
-        Midfield.Add(S_PlayersGenerator.GeneratePlayer(SO_PlayerData.PlayerRole.Mid, skillLevel - 2, skillLevel + 1));
-        Midfield.Add(S_PlayersGenerator.GeneratePlayer(SO_PlayerData.PlayerRole.Mid, skillLevel - 1, skillLevel));
+        Midfield.Add(S_PlayersGenerator.GeneratePlayer(SO_PlayerData.PlayerRole.Mid, FindSkillLevel(skills)));
+        Midfield.Add(S_PlayersGenerator.GeneratePlayer(SO_PlayerData.PlayerRole.Mid, FindSkillLevel(skills)));
+        Midfield.Add(S_PlayersGenerator.GeneratePlayer(SO_PlayerData.PlayerRole.Mid, FindSkillLevel(skills)));
         
-        Midfield.Add(S_PlayersGenerator.GeneratePlayer(SO_PlayerData.PlayerRole.Mid, skillLevel - 3, skillLevel - 1));
+        Midfield.Add(S_PlayersGenerator.GeneratePlayer(SO_PlayerData.PlayerRole.Mid, FindSkillLevel(skills)));
         
-        Midfield.Add(S_PlayersGenerator.GeneratePlayer(SO_PlayerData.PlayerRole.Mid, skillLevel - 3, skillLevel - 1));
+        Midfield.Add(S_PlayersGenerator.GeneratePlayer(SO_PlayerData.PlayerRole.Mid, FindSkillLevel(skills)));
+
+        Midfield.Add(S_PlayersGenerator.GeneratePlayer(SO_PlayerData.PlayerRole.Mid, FindSkillLevel(skills)));
 
         //Attack
         /*
@@ -105,12 +147,15 @@ public class S_Squad : MonoBehaviour
          * last 2 att = random[skillLevel-2,skillLevel]
          */
 
-        Attack.Add(S_PlayersGenerator.GeneratePlayer(SO_PlayerData.PlayerRole.Atk, skillLevel - 1, skillLevel + 1));
-        Attack.Add(S_PlayersGenerator.GeneratePlayer(SO_PlayerData.PlayerRole.Atk, skillLevel - 1, skillLevel));
+        Attack.Add(S_PlayersGenerator.GeneratePlayer(SO_PlayerData.PlayerRole.Atk, FindSkillLevel(skills)));
+        Attack.Add(S_PlayersGenerator.GeneratePlayer(SO_PlayerData.PlayerRole.Atk, FindSkillLevel(skills)));
 
-        Attack.Add(S_PlayersGenerator.GeneratePlayer(SO_PlayerData.PlayerRole.Atk, skillLevel - 2, skillLevel));
-        Attack.Add(S_PlayersGenerator.GeneratePlayer(SO_PlayerData.PlayerRole.Atk, skillLevel - 3, skillLevel - 1));
+        Attack.Add(S_PlayersGenerator.GeneratePlayer(SO_PlayerData.PlayerRole.Atk, FindSkillLevel(skills)));
+        Attack.Add(S_PlayersGenerator.GeneratePlayer(SO_PlayerData.PlayerRole.Atk, FindSkillLevel(skills)));
 
+        Attack.Add(S_PlayersGenerator.GeneratePlayer(SO_PlayerData.PlayerRole.Atk, FindSkillLevel(skills)));
+
+        /*
         //makes one random player skillLevel = random[4,5]
 
         int buffedRole = Random.Range(0, 4);
@@ -133,6 +178,17 @@ public class S_Squad : MonoBehaviour
                 Attack[Random.Range(0, Attack.Count)].skillLevel = 5;
                 break;
         }
+        */
+
+        //Italianize 5 players
+        List<SO_PlayerData> fullPlayersList = GetAllPlayers();
+        for(int i = 0; i < 5; i++)
+        {
+            int ran = Random.Range(0, fullPlayersList.Count);
+            S_PlayersGenerator.ItalianizePlayer(fullPlayersList[ran]);
+            fullPlayersList.RemoveAt(ran);
+        }
+
 
         SetBestPlayingEleven();
 
@@ -722,6 +778,10 @@ public class S_Squad : MonoBehaviour
         datalist.Reverse();
         return datalist;
     }
+
+    public List<SO_PlayerData> GetAllPlayers() => Goalkeepers.Concat(Defense.Concat(Midfield.Concat(Attack))).ToList();
+
+
     #endregion
 }
 

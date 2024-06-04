@@ -230,19 +230,22 @@ public class S_DeckManager : MonoBehaviour
             //Debug.Log("eccolo");
             cardFormat = cardPrefab;
         }
-        
-        //if generate card has no imposed card and the card counter is decreasing, carddata is used to see if theres a branch card to add
-        if(cardData==null) cardData = DecreaseCardsCounter(cardSelector.currentListToRead); 
 
+        //if generate card has no imposed card and the card counter is decreasing, carddata is used to see if theres a branch card to add
+        if (cardData == null)
+        {
+            cardData = DecreaseCardsCounter(cardSelector.currentListToRead);
+        }
 
         if (cardData == null)
         {
             cardData = FindNextCard();
             
-            if (cardData.desiredCardPrefabDirectory != "")
-            {
-                cardFormat = Resources.Load<GameObject>(cardData.desiredCardPrefabDirectory);
-            }
+        }
+
+        if (cardData.desiredCardPrefabDirectory != "")
+        {
+            cardFormat = Resources.Load<GameObject>(cardData.desiredCardPrefabDirectory);
         }
         
 

@@ -47,4 +47,7 @@ public static class S_ResDirs
 
     [Header("Errors")]
     public static string errorCard = "ScriptableObjects/OtherCards/SO_ErrorCard";
+
+    [Header("Gol Descriptions")]
+    public static string penaltyDescriptions = "ScriptableObjects/GoalDescriptions/SpecialDescriptions/PenaltyGoals";
 }

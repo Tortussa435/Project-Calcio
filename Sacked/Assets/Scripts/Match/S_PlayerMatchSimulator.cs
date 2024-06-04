@@ -190,16 +190,14 @@ public static class S_PlayerMatchSimulator
     {
         lastCardGoal = true;
 
-
-
         SO_GoalCardData golCard = ScriptableObject.CreateInstance<SO_GoalCardData>();
-        
-        
+
+        SO_PlayerData golScorer = FindPlayerGoalScorer();
         golCard.cardDescriptions.Add("GOOOOL");
 
         if (homeTeam == IsPlayerHomeTeam()) //returns if player has scored
         {
-            golCard.goalDescription = S_GoalDescriptionGenerator.GenerateGoalDescription(FindPlayerGoalScorer());
+            golCard.goalDescription = S_GoalDescriptionGenerator.GenerateGoalDescription(golScorer);
         }
 
         //REDO generate gol description also for opponent
@@ -242,16 +240,17 @@ public static class S_PlayerMatchSimulator
             UpdateMatchTextData();
             if (homeTeam)
             {
-                revokeGoal.leftEffects.AddListener(() => matchScore.home = Mathf.Max(0,matchScore.home - 1));
+                revokeGoal.leftEffects.AddListener(() => matchScore.home = Mathf.Max(0, matchScore.home - 1));
                 revokeGoal.rightEffects.AddListener(() => matchScore.home = Mathf.Max(0, matchScore.home - 1));
             }
-        
+
             else
             {
                 revokeGoal.leftEffects.AddListener(() => matchScore.away = Mathf.Max(0, matchScore.away - 1));
                 revokeGoal.rightEffects.AddListener(() => matchScore.away = Mathf.Max(0, matchScore.away - 1));
-            } 
+            }
         }
+        else S_GlobalManager.squad.AddGolScorer(golScorer.playerName);
 
         return golCard;
     }
@@ -389,7 +388,7 @@ public static class S_PlayerMatchSimulator
 
             playerChance.Add((player, chance));
         }
-        float random = Random.Range(0, totalchance + 1);
+        float random = Random.Range(0, totalchance);
         
         for(int i = 0; i < playerChance.Count; i++)
         {
@@ -399,7 +398,7 @@ public static class S_PlayerMatchSimulator
                 return playerChance[i].player;
             }
         }
-
+        Debug.LogWarning("Non è stato trovato il goal scorer in FindPlayerGoalScorer()");
         return null;
     }
 

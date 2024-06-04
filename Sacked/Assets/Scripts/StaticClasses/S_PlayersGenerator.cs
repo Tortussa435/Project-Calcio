@@ -26,7 +26,7 @@ static public class S_PlayersGenerator
         if (maxSkill == -1) playerData.skillLevel = minSkill;
         else playerData.skillLevel = Random.Range(Mathf.Clamp(minSkill,1,5), Mathf.Clamp(maxSkill,1,5)+1);
 
-        playerData.playerNationality = (SO_PlayerData.Nationality)Random.Range(0, System.Enum.GetValues(typeof(SO_PlayerData.Nationality)).Length); https://discussions.unity.com/t/using-random-range-to-pick-a-random-value-out-of-an-enum/119639/2
+        playerData.playerNationality = (SO_PlayerData.Nationality)Random.Range(0, System.Enum.GetValues(typeof(SO_PlayerData.Nationality)).Length); //https://discussions.unity.com/t/using-random-range-to-pick-a-random-value-out-of-an-enum/119639/2
         
         //if a player is from vatican it has to give the same nationality twice, to reduce chance of having the pope in your team (chance = 0.01% circa, 1.9% of having one vatican player in 19 players team)
         if(playerData.playerNationality==SO_PlayerData.Nationality.VaticanCity) playerData.playerNationality = (SO_PlayerData.Nationality)Random.Range(0, System.Enum.GetValues(typeof(SO_PlayerData.Nationality)).Length);

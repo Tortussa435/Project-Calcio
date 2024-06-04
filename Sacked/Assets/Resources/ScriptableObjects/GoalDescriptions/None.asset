@@ -10,9 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 28987566429995541b625431620bf7d6, type: 3}
-  m_Name: HeadGoals
+  m_Name: None
   m_EditorClassIdentifier: 
-  goalReason: 1
+  goalReason: 0
   goalDescriptions:
-  - Colpo di testa devastante di {Scorer} !
-  - "Svetta col capo {Scorer} , {Gk} non pu\xF2 nulla"
+  - "Non c'\xE8 nessun gol scorer, la situazione \xE8 quantomeno inquietante"

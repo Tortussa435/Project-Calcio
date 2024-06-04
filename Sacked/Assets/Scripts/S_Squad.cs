@@ -35,11 +35,13 @@ public class S_Squad : MonoBehaviour
     private GameObject teamCardRef;
 
     public SO_PlayerData captain;
+
+    public Dictionary<string, int> Scorers = new Dictionary<string, int>();
+
     // Start is called before the first frame update
     void Awake()
     {
         S_GlobalManager.squad = this;
-        
     }
 
     // Update is called once per frame
@@ -237,7 +239,6 @@ public class S_Squad : MonoBehaviour
         }
     }
     
-
     public int FindGameSkillLevel()
     {
         int totalskill = 0;
@@ -563,6 +564,7 @@ public class S_Squad : MonoBehaviour
         }
     }
 
+    public SO_PlayerData GetRandomPlayerRef() => playingEleven[Random.Range(0, playingEleven.Count)];
     public bool IsTeamTired(float tiredAverage = 70f)
     {
         float energy = 0;
@@ -693,7 +695,7 @@ public class S_Squad : MonoBehaviour
         sortedPlayers.AddRange(Midfield);
         sortedPlayers.AddRange(Attack);
 
-        sortedPlayers = sortTeamListBySkill(sortedPlayers);
+        sortedPlayers = SortTeamListBySkill(sortedPlayers);
 
         AddPlayersToEleven(sortedPlayers);
     }
@@ -733,7 +735,7 @@ public class S_Squad : MonoBehaviour
         sortedPlayers.AddRange(Midfield);
         sortedPlayers.AddRange(Attack);
 
-        sortedPlayers = sortTeamListBySkill(sortedPlayers);
+        sortedPlayers = SortTeamListBySkill(sortedPlayers);
 
         while (playingEleven.Count < 11)
         {
@@ -743,7 +745,7 @@ public class S_Squad : MonoBehaviour
         }
 
     }
-    private List<SO_PlayerData> sortTeamListBySkill(List<SO_PlayerData> datalist)
+    private List<SO_PlayerData> SortTeamListBySkill(List<SO_PlayerData> datalist)
     {
         int n = datalist.Count;
 
@@ -779,10 +781,17 @@ public class S_Squad : MonoBehaviour
         return datalist;
     }
 
-    public List<SO_PlayerData> GetAllPlayers() => Goalkeepers.Concat(Defense.Concat(Midfield.Concat(Attack))).ToList();
-
-
     #endregion
+    public List<SO_PlayerData> GetAllPlayers() => Goalkeepers.Concat(Defense.Concat(Midfield.Concat(Attack))).ToList();
+    
+    public void AddGolScorer(string playerName)
+    {
+        if (Scorers.ContainsKey(playerName))
+        {
+            Scorers[playerName] += 1;
+        }
+        else Scorers.Add(playerName, 1);
+    }
 }
 
 

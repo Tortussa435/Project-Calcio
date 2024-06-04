@@ -66,7 +66,7 @@ public class S_Card : MonoBehaviour
         cardData.rightEffect();
     }
 
-    public void RefreshCardData(SO_CardData data)
+    public virtual void RefreshCardData(SO_CardData data)
     {
         cardData = data;
 

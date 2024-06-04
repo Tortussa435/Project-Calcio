@@ -21,11 +21,8 @@ public static class S_GoalDescriptionGenerator
             goalReason = possibleGoalReasons[Random.Range(0, possibleGoalReasons.Count)];
         }
 
-        List<string> possibleDescriptions = FindRightDescriptionsDatabase(goalReason);
-        
-        string goalDescription=possibleDescriptions[Random.Range(0, possibleDescriptions.Count)];
-
-        return ReplaceVariablesInPlayerGoalDescripion(goalDescription, goalScorer.playerName); //Replaces {Player} with player name etc.
+        SO_GoalDescriptions possibleDescriptions = FindRightDescriptionsDatabase(goalReason);
+        return possibleDescriptions.GetRandomDescription(goalScorer, true); //Replaces {Player} with player name etc.
 
     }
 
@@ -34,9 +31,8 @@ public static class S_GoalDescriptionGenerator
         //REDO add goal type chance that depends on team's traits
 
         SO_GoalDescriptions.GoalReason goalReason = (SO_GoalDescriptions.GoalReason)Random.Range(1, System.Enum.GetValues(typeof(SO_GoalDescriptions.GoalReason)).Length);
-        List<string> possibleDescriptions = FindRightDescriptionsDatabase(goalReason);
-        string goalDescription = possibleDescriptions[Random.Range(0, possibleDescriptions.Count)];
-        return ReplaceVariablesInOpponentGoalDescripion(goalDescription);
+        SO_GoalDescriptions golDescription = FindRightDescriptionsDatabase(goalReason);
+        return golDescription.GetRandomDescription(null,false);
     }
 
     //REDO the player should have a low chance of scoring with his bad trait, not 0 (ex. small player should have a low chance of scoring with head, not 0) Sau Moment
@@ -96,16 +92,16 @@ public static class S_GoalDescriptionGenerator
         }
         return SO_GoalDescriptions.GoalReason.None;
     }
-    private static List<string> FindRightDescriptionsDatabase(SO_GoalDescriptions.GoalReason goalReason)
+    private static SO_GoalDescriptions FindRightDescriptionsDatabase(SO_GoalDescriptions.GoalReason goalReason)
     {
         foreach(SO_GoalDescriptions gd in goalDescriptionsDB)
         {
             if (gd.goalReason == goalReason)
             {
-                return gd.goalDescriptions;
+                return gd;
             }
         }
-        return new List<string> {"ha segnato in maniera abbastanza generica"};
+        return null;
     }
 
     private static string ReplaceVariablesInPlayerGoalDescripion(string description, string goalScorerName)
@@ -118,6 +114,7 @@ public static class S_GoalDescriptionGenerator
         //REDO a little ugly, not the worst thing I've seen
         description = description.Replace("{Opponent}", S_PlayerMatchSimulator.RandomlyGetNewOrExistingOpponentPlayer());
 
+        description = description.Replace("{Gk}", S_PlayerMatchSimulator.RandomlyGetNewOrExistingOpponentPlayer());
         return description;
     }
 
@@ -128,12 +125,15 @@ public static class S_GoalDescriptionGenerator
 
         //REDO opponent generato in maniera un po piu contestuale
         string opponent = S_GlobalManager.squad.playingEleven[Random.Range(0,S_GlobalManager.squad.playingEleven.Count)].playerName;
+        string goalkeeper = S_GlobalManager.squad.GetPlayingPlayerByRole(SO_PlayerData.PlayerRole.Gk);
 
         description = description.Replace("{Scorer}", scorer);
 
         description = description.Replace("{Supporter}", supporter);
 
         description = description.Replace("{Opponent}", opponent);
+
+        description = description.Replace("{Gk}", goalkeeper);
 
         return description;
     }

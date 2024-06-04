@@ -11,4 +11,10 @@ public class S_GoalCard : S_Card
         base.GenerateCardData(data);
         goalDescription.text = (data as SO_GoalCardData).goalDescription;
     }
+    public override void RefreshCardData(SO_CardData data)
+    {
+        base.RefreshCardData(data);
+        goalDescription.text = (data as SO_GoalCardData).goalDescription;
+    }
+
 }

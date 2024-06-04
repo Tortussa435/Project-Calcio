@@ -67,10 +67,10 @@ MonoBehaviour:
     triggerChance: 0
     removeOnPhaseChange: 0
   scoreCard:
-  - desiredValue: 5
-    direction: 0
+  - desiredValue: 15
+    direction: 6
     compareString: 
-    compareFloat: 0
+    compareFloat: 20
     customCurve:
       serializedVersion: 2
       m_Curve: []
@@ -81,7 +81,7 @@ MonoBehaviour:
   cardScore: 1
   cardScoreNotNormalized: 1
   matchScoreCard: []
-  chanceOfAppearance: 1
+  chanceOfAppearance: 0
   totalScoreMultiplier: 1
   matchCardDropChance:
   - rule: 7

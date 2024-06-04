@@ -20,7 +20,7 @@ MonoBehaviour:
   leftChoice: 
   rightChoice: 
   canAppearMoreThanOnce: 1
-  totalAppearances: 1
+  totalAppearances: 0
   decreaseCountDown: 1
   desiredCardPrefabDirectory: 
   leftValues:
@@ -67,10 +67,10 @@ MonoBehaviour:
     triggerChance: 100
     removeOnPhaseChange: 1
   scoreCard:
-  - desiredValue: 5
-    direction: 0
+  - desiredValue: 15
+    direction: 6
     compareString: 
-    compareFloat: 0
+    compareFloat: 20
     customCurve:
       serializedVersion: 2
       m_Curve: []
@@ -81,7 +81,7 @@ MonoBehaviour:
   cardScore: 1
   cardScoreNotNormalized: 1
   matchScoreCard: []
-  chanceOfAppearance: 0.15740743
+  chanceOfAppearance: 0.6000001
   totalScoreMultiplier: 1
   matchCardDropChance:
   - rule: 0

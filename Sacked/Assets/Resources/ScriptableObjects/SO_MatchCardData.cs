@@ -481,14 +481,16 @@ public class SO_MatchCardData : SO_CardData
     }
     public void GeneratePlayerPenalty()
     {
-        Debug.Log("RIGORE RIGORE RIGORE");
         //REDO approfondire calcolo rigori
         if (Random.Range(0, 100) < S_Chances.PENALTYGOALCHANCE)
         {
             bool homeTeam = S_PlayerMatchSimulator.IsPlayerHomeTeam();
+            SO_PlayerData scorer = S_GlobalManager.squad.GetRandomPlayerRef();
             SO_CardData card = S_PlayerMatchSimulator.GenerateGolCard(homeTeam,false);
+            card.desiredCardPrefabDirectory = S_ResDirs.golCardDir;
             S_GlobalManager.deckManagerRef.AddCardToDeck(card,0,null,null,true);
-            (card as SO_GoalCardData).goalDescription = " Gol! freddissimo dal dischetto!";
+            SO_GoalDescriptions penaltyDescriptions = Resources.Load<SO_GoalDescriptions>(S_ResDirs.penaltyDescriptions);
+            (card as SO_GoalCardData).goalDescription = penaltyDescriptions.GetRandomDescription(scorer,true);
         }
         else
         {
@@ -496,21 +498,24 @@ public class SO_MatchCardData : SO_CardData
             S_GlobalManager.deckManagerRef.AddCardToDeck(card, 0, null, null, true);
         }
 
+        
         string description = ownerCard.GetComponent<S_Card>().cardDescription.text;
         description = description.Replace("{PenTeam}", S_GlobalManager.selectedTeam.teamName);
         ownerCard.GetComponent<S_Card>().cardDescription.text = description;
+        
     }
     public void GenerateOpponentPenalty()
     {
-        Debug.Log("RIGORE RIGORE RIGORE 2");
         //REDO approfondire calcolo rigori
         if (Random.Range(0, 100) < S_Chances.PENALTYGOALCHANCE)
         {
             bool homeGoal = S_PlayerMatchSimulator.IsOpponentHomeTeam();
             SO_CardData card = S_PlayerMatchSimulator.GenerateGolCard(homeGoal, false);
+            card.desiredCardPrefabDirectory = S_ResDirs.golCardDir;
             S_GlobalManager.deckManagerRef.AddCardToDeck(card, 0, null, null, true);
 
-            (card as SO_GoalCardData).goalDescription = " Gol! freddissimo dal dischetto!";
+            SO_GoalDescriptions penaltyDescriptions = Resources.Load<SO_GoalDescriptions>(S_ResDirs.penaltyDescriptions);
+            (card as SO_GoalCardData).goalDescription = penaltyDescriptions.GetRandomDescription(null,false);
 
         }
         else
@@ -518,11 +523,11 @@ public class SO_MatchCardData : SO_CardData
             SO_CardData card = ScriptableObject.Instantiate(Resources.Load<SO_CardData>(S_ResDirs.missedPenalty));
             S_GlobalManager.deckManagerRef.AddCardToDeck(card, 0, null, null, true);
         }
-
+        
         string description = ownerCard.GetComponent<S_Card>().cardDescription.text;
         description = description.Replace("{PenTeam}", S_PlayerMatchSimulator.GetOpponentTeam().teamName);
         ownerCard.GetComponent<S_Card>().cardDescription.text = description;
-
+        
     }
     #endregion
 

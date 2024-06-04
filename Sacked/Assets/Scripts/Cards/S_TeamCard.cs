@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class S_TeamCard : S_Card
 {
+    public readonly float ELEVENSCALE = 1f;
+    public readonly float BENCHSCALE = 0.75f;
+
     public GameObject inputLocker;
 
     public GameObject gkLine;
@@ -44,7 +47,7 @@ public class S_TeamCard : S_Card
             p.GetComponent<S_PlayerIcon>().playerData = player;
             p = Instantiate(p, new Vector2(0, 0), Quaternion.identity, this.transform);
             p.GetComponent<RectTransform>().localPosition = new Vector2(0, 0);
-
+            p.GetComponent<RectTransform>().localScale = new Vector2(ELEVENSCALE, ELEVENSCALE);
             switch (player.playerRole)
             {
                 case SO_PlayerData.PlayerRole.Gk:
@@ -91,7 +94,7 @@ public class S_TeamCard : S_Card
             benchlist.Add(p);
             foreach(GameObject pl in benchlist)
             {
-                pl.GetComponent<RectTransform>().localScale = new Vector2(0.5f,0.5f);
+                pl.GetComponent<RectTransform>().localScale = new Vector2(BENCHSCALE,BENCHSCALE);
                 pl.transform.SetParent(bench.transform);
             }
         }

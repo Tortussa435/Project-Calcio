@@ -32,12 +32,14 @@ public class S_InputHandler : MonoBehaviour, IPointerDownHandler, IBeginDragHand
     [HideInInspector] public bool overrideMovement = false;
 
     public UnityEvent OnCardSwiped=new UnityEvent();
+
     public void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
         cardRef = GetComponent<S_Card>();
         cardYBound = Screen.height * 0.165f;
         cardXBound = Screen.width * 0.66f;
+
     }
     public void OnDrag(PointerEventData eventData)
     {
@@ -69,6 +71,7 @@ public class S_InputHandler : MonoBehaviour, IPointerDownHandler, IBeginDragHand
         if(cardRef.leftChoice!=null) cardRef.leftChoice.alpha = GetNormalizedCardXPosition()*6;
         if (cardRef.rightChoice != null) cardRef.rightChoice.alpha = GetNormalizedCardXPosition()*-6;
 
+
         totalMovement += eventData.delta.magnitude;
     }
 
@@ -81,12 +84,16 @@ public class S_InputHandler : MonoBehaviour, IPointerDownHandler, IBeginDragHand
         if (GetNormalizedCardXPosition() > 0.25f)
         {
             cardDirection = Direction.Left;
+            try { Destroy(GetComponent<S_KnobsHandler>()); }
+            catch { }
             StartCoroutine("SwipeCard");
             cardRef.GoLeft();
         }
         else if (GetNormalizedCardXPosition() < -0.25f)
         {
             cardDirection = Direction.Right;
+            try { Destroy(GetComponent<S_KnobsHandler>()); }
+            catch { }
             StartCoroutine("SwipeCard");
             cardRef.GoRight();
         }

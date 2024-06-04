@@ -21,6 +21,7 @@ public class S_DeckManager : MonoBehaviour
     public GameObject cardPrefab;
     public GameObject matchCardPrefab;
 
+
     [Header("Other")]
     public S_Card lastCard;
     public GameObject background;
@@ -44,9 +45,16 @@ public class S_DeckManager : MonoBehaviour
     [Header("Unity Events")]
     public UnityEvent onPhaseChange = new UnityEvent();
 
+    [Header("Knobs References")]
+    public GameObject Knob_Money;
+    public GameObject Knob_Supporters;
+    public GameObject Knob_Team;
+    public GameObject Knob_President;
+
     // Start is called before the first frame update
     void Start()
     {
+
         Random.InitState(System.DateTime.Now.Millisecond);
 
         deckManagerRef = this;

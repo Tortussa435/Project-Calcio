@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 public class S_MatchIconsHandler : MonoBehaviour
 {
     [SerializeField] GameObject homeIcons;
@@ -10,12 +11,13 @@ public class S_MatchIconsHandler : MonoBehaviour
     public Sprite redCard;
     public Sprite substitution;
 
-    private List<GameObject> icons = new List<GameObject>();
+    public List<GameObject> icons = new List<GameObject>();
     public void AddRedCard(bool homeTeam) => GenerateIcon(redCard, homeTeam, 0);
     public void AddSubstitution(bool homeTeam) => GenerateIcon(substitution, homeTeam, 1);
     public void ClearIcons()
     {
         foreach(GameObject go in icons) Destroy(go);
+
         icons.Clear();
     }
     private void GenerateIcon(Sprite icon,bool home, int child)
@@ -27,6 +29,7 @@ public class S_MatchIconsHandler : MonoBehaviour
         parent = home ? homeIcons.transform.GetChild(child) : awayIcons.transform.GetChild(child);
         GameObject result = Instantiate(go, Vector3.zero, Quaternion.identity, parent);
         icons.Add(result);
+        Destroy(go);
     }
     private void Start()
     {

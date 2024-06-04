@@ -54,9 +54,6 @@ public class S_Squad : MonoBehaviour
     {
           
     }
-
-
-
     public void GenerateTeam()
     {
         List<int> SkillLevelDistribution(int skillLevel)
@@ -196,9 +193,8 @@ public class S_Squad : MonoBehaviour
 
         showTeamButtonRef.SetActive(true);
 
-        S_SubstitutionsManager.SetElevenAndBenchList(playingEleven, bench);
+       
     }
-
     public void ShowTeam()
     {
         if (teamListVisible)

@@ -2,6 +2,7 @@ using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class S_TeamCard : S_Card
 {
@@ -16,11 +17,17 @@ public class S_TeamCard : S_Card
     public GameObject atkLine;
     public GameObject bench;
 
+    private UnityAction LockInput;
+    private UnityAction UnlockInput;
     private void Start()
     {
         if (S_GlobalManager.currentPhase == S_GlobalManager.CardsPhase.MatchFirstHalf || S_GlobalManager.currentPhase == S_GlobalManager.CardsPhase.MatchSecondHalf) inputLocker.SetActive(true);
-        S_PlayerMatchSimulator.OnMatchStart.AddListener(() => inputLocker.SetActive(true));
-        S_PlayerMatchSimulator.OnMatchEnd.AddListener(() => inputLocker.SetActive(false));
+        
+        LockInput = () => inputLocker.SetActive(true);
+        UnlockInput = () => inputLocker.SetActive(false);
+
+        S_PlayerMatchSimulator.OnMatchStart.AddListener(LockInput);
+        S_PlayerMatchSimulator.OnMatchEnd.AddListener(UnlockInput);
     }
 
     public override void GenerateCardData(SO_CardData data)
@@ -109,5 +116,10 @@ public class S_TeamCard : S_Card
     public override void GoRight()
     {
         base.GoRight();
+    }
+    private void OnDestroy()
+    {
+        S_PlayerMatchSimulator.OnMatchStart.RemoveListener(LockInput);
+        S_PlayerMatchSimulator.OnMatchStart.RemoveListener(UnlockInput);
     }
 }

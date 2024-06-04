@@ -15,15 +15,11 @@ static public class S_PlayersGenerator
     {
         SO_PlayerData playerData = ScriptableObject.CreateInstance<SO_PlayerData>();
         
-        /*REDO
-        List<string> names = new List<string>();
-        names.AddRange(new string[] {"Mario","Luigi","Wario"});
-        playerData.playerName = names[Random.Range(0,names.Count)];
-        */
 
         playerData.playerRole = role;
 
-        if (maxSkill == -1) playerData.skillLevel = minSkill;
+        if (maxSkill == -1) playerData.skillLevel = Mathf.Clamp(minSkill,1,5);
+
         else playerData.skillLevel = Random.Range(Mathf.Clamp(minSkill,1,5), Mathf.Clamp(maxSkill,1,5)+1);
 
         playerData.playerNationality = (SO_PlayerData.Nationality)Random.Range(0, System.Enum.GetValues(typeof(SO_PlayerData.Nationality)).Length); //https://discussions.unity.com/t/using-random-range-to-pick-a-random-value-out-of-an-enum/119639/2

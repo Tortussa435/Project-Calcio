@@ -6,14 +6,9 @@ using UnityEngine;
 
 public static class S_SubstitutionsManager
 {
-    private static List<SO_PlayerData> elevenRef;
-    private static List<SO_PlayerData> benchRef;
-    
-    public static void SetElevenAndBenchList(List<SO_PlayerData> eleven, List<SO_PlayerData> bench)
-    {
-        elevenRef = eleven;
-        benchRef = bench;
-    }
+    private static List<SO_PlayerData> ElevenRef()=>S_GlobalManager.squad.playingEleven;
+    private static List<SO_PlayerData> BenchRef()=>S_GlobalManager.squad.bench;
+
 
     public static (SO_PlayerData pOut, SO_PlayerData pIn) ProposeSubstitution()
     {
@@ -78,7 +73,7 @@ public static class S_SubstitutionsManager
         (SO_PlayerData gk, SO_PlayerData outP) sub = (null, null);
 
         List<SO_PlayerData> alternatives = new List<SO_PlayerData>();
-        foreach(SO_PlayerData p in benchRef)
+        foreach(SO_PlayerData p in BenchRef())
         {
             if (!p.CanPlay() || p==banned) continue;
             if (p.playerRole == SO_PlayerData.PlayerRole.Gk) 
@@ -92,11 +87,11 @@ public static class S_SubstitutionsManager
         {
             sub.gk = alternatives[Random.Range(0, alternatives.Count)];
         }
-        else sub.gk = benchRef[Random.Range(0,benchRef.Count)];
+        else sub.gk = BenchRef()[Random.Range(0,BenchRef().Count)];
 
         //decide player to send out to put goalkeeper (always removes a striker)
         (SO_PlayerData p, int skill) badAtk = (null,100);
-        foreach(SO_PlayerData p in elevenRef)
+        foreach(SO_PlayerData p in ElevenRef())
         {
             if (p.playerRole == SO_PlayerData.PlayerRole.Atk)
             {
@@ -108,12 +103,11 @@ public static class S_SubstitutionsManager
 
         return sub;
     }
-
     private static SO_PlayerData ProposeTiredPlayerOut()
     {
         List<SO_PlayerData> tiredPlayers = new List<SO_PlayerData>();
 
-        foreach(SO_PlayerData p in elevenRef)
+        foreach(SO_PlayerData p in ElevenRef())
         {
             if (p.playerRole == SO_PlayerData.PlayerRole.Gk) continue;
             if (p.playerEnergy <= 60)
@@ -127,7 +121,7 @@ public static class S_SubstitutionsManager
     {
         List<SO_PlayerData> goodPlayers = new List<SO_PlayerData>();
 
-        foreach(SO_PlayerData p in benchRef)
+        foreach(SO_PlayerData p in BenchRef())
         {
             if (p.playerRole == SO_PlayerData.PlayerRole.Gk) continue;
             if (!p.CanPlay()) continue;
@@ -142,7 +136,7 @@ public static class S_SubstitutionsManager
         (SO_PlayerData player, float score) worstPlayer = (null,100);
         
         //find worst player to swap with good player in bench
-        foreach(SO_PlayerData pEl in elevenRef)
+        foreach(SO_PlayerData pEl in ElevenRef())
         {
             if (pEl.skillLevel < worstPlayer.score) worstPlayer = (pEl, pEl.skillLevel);    
         }
@@ -155,7 +149,7 @@ public static class S_SubstitutionsManager
 
         SO_PlayerData.PlayerRole role = playerToSub.playerRole;
 
-        foreach(SO_PlayerData p in benchRef)
+        foreach(SO_PlayerData p in BenchRef())
         {
             if (impossibleSubs != null)
                 if (impossibleSubs.Contains(p)) continue;
@@ -186,7 +180,7 @@ public static class S_SubstitutionsManager
         (SO_PlayerData pl, float score) worstAtk = (null, 100);
         (SO_PlayerData pl, float score) worstMid = (null, 100);
 
-        foreach (SO_PlayerData p in elevenRef)
+        foreach (SO_PlayerData p in ElevenRef())
         {
             if (p.playerRole == SO_PlayerData.PlayerRole.Atk)
             {
@@ -208,7 +202,7 @@ public static class S_SubstitutionsManager
 
         //find best defender
         (SO_PlayerData def, float score) bestDef = (null, 0);
-        foreach(SO_PlayerData p in benchRef)
+        foreach(SO_PlayerData p in BenchRef())
         {
             if (!p.CanPlay()) continue;
             if (p.playerRole == SO_PlayerData.PlayerRole.Def)
@@ -228,7 +222,7 @@ public static class S_SubstitutionsManager
         (SO_PlayerData pl, float score) worstDef = (null, 100);
         (SO_PlayerData pl, float score) worstMid = (null, 100);
 
-        foreach (SO_PlayerData p in elevenRef)
+        foreach (SO_PlayerData p in ElevenRef())
         {
             if (p.playerRole == SO_PlayerData.PlayerRole.Def)
             {
@@ -250,7 +244,7 @@ public static class S_SubstitutionsManager
 
         //find best defender
         (SO_PlayerData atk, float score) bestAtk = (null, 0);
-        foreach (SO_PlayerData p in benchRef)
+        foreach (SO_PlayerData p in BenchRef())
         {
             if (!p.CanPlay()) continue;
             if (p.playerRole == SO_PlayerData.PlayerRole.Atk)
@@ -264,7 +258,7 @@ public static class S_SubstitutionsManager
     private static (SO_PlayerData outP, SO_PlayerData inP) ProposeRandomSubstitution()
     {
         List<SO_PlayerData> eligibles = new List<SO_PlayerData>();
-        foreach (SO_PlayerData p in benchRef)
+        foreach (SO_PlayerData p in BenchRef())
         {
             if (p.playerRole == SO_PlayerData.PlayerRole.Gk || !p.CanPlay()) continue;
             eligibles.Add(p);
@@ -273,7 +267,7 @@ public static class S_SubstitutionsManager
         (SO_PlayerData outP, SO_PlayerData inP) sub=(null,null);
         sub.inP = eligibles[Random.Range(0, eligibles.Count)];
         
-        foreach(SO_PlayerData p in elevenRef)
+        foreach(SO_PlayerData p in ElevenRef())
         {
             if (p.playerRole == sub.inP.playerRole) sub.outP = p;
         }
@@ -282,17 +276,17 @@ public static class S_SubstitutionsManager
     public static bool Substitute(SO_PlayerData pOut, SO_PlayerData pIn)
     {
 
-        if (!elevenRef.Remove(pOut))
+        if (!ElevenRef().Remove(pOut))
         {
             Debug.LogWarning("Uscita dal campo fallita!");
         }
-        if (!benchRef.Remove(pIn))
+        if (!BenchRef().Remove(pIn))
         {
             Debug.Log("Rimozione da panchina fallita!");
         }
 
-        benchRef.Add(pOut);
-        elevenRef.Add(pIn);
+        BenchRef().Add(pOut);
+        ElevenRef().Add(pIn);
 
         pOut.subbedOut = true;
         
@@ -307,7 +301,7 @@ public static class S_SubstitutionsManager
         int def = 0;
         int mid = 0;
         int atk = 0;
-        foreach (SO_PlayerData p in elevenRef)
+        foreach (SO_PlayerData p in ElevenRef())
         {
             switch (p.playerRole)
             {
@@ -324,7 +318,7 @@ public static class S_SubstitutionsManager
             if (atk > 4) return false; //cannot have more than 5 defs 
         }
 
-        foreach (SO_PlayerData p in benchRef) //checks if there's a def in bench
+        foreach (SO_PlayerData p in BenchRef()) //checks if there's a def in bench
         {
             if (p.playerRole == SO_PlayerData.PlayerRole.Atk)
                 if (p.CanPlay()) return true;
@@ -336,7 +330,7 @@ public static class S_SubstitutionsManager
         int def = 0;
         int mid = 0;
         int atk = 0;
-        foreach(SO_PlayerData p in elevenRef)
+        foreach(SO_PlayerData p in ElevenRef())
         {
             switch (p.playerRole)
             {
@@ -353,7 +347,7 @@ public static class S_SubstitutionsManager
             if (def > 5) return false; //cannot have more than 5 defs 
         }
 
-        foreach(SO_PlayerData p in benchRef) //checks if there's a def in bench
+        foreach(SO_PlayerData p in BenchRef()) //checks if there's a def in bench
         {
             if (p.playerRole == SO_PlayerData.PlayerRole.Def)
                 if (p.CanPlay()) return true;
@@ -363,7 +357,7 @@ public static class S_SubstitutionsManager
     }
     private static bool BenchHasGoodSub()
     {
-        foreach(SO_PlayerData p in benchRef)
+        foreach(SO_PlayerData p in BenchRef())
         {
             if (p.playerRole == SO_PlayerData.PlayerRole.Gk) continue;
             if (!p.CanPlay()) continue;

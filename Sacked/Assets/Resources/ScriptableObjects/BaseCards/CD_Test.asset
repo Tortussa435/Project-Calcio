@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acddcb2ef5ce4c84b8aa4c3a78bf158c, type: 3}
+  m_Name: CD_Test
+  m_EditorClassIdentifier: 
+  ownerCard: {fileID: 0}
+  cardName: z
+  cardColor: {r: 1, g: 1, b: 1, a: 1}
+  cardDescriptions:
+  - Ziopierozs
+  leftChoice: a
+  rightChoice: b
+  canAppearMoreThanOnce: 0
+  totalAppearances: 1
+  decreaseCountDown: 1
+  desiredCardPrefabDirectory: 
+  leftValues:
+    addedMoney: 10
+    addedTeam: 20
+    addedPresident: 30
+    addedSupporters: 40
+  rightValues:
+    addedMoney: 100
+    addedTeam: 90
+    addedPresident: 80
+    addedSupporters: 70
+  leftEffects:
+    m_PersistentCalls:
+      m_Calls: []
+  rightEffects:
+    m_PersistentCalls:
+      m_Calls: []
+  onGeneratedEffects:
+    m_PersistentCalls:
+      m_Calls: []
+  alreadyPicked: 1
+  cardIcon: {fileID: 0}
+  leftBranchCard:
+    branchData: {fileID: 0}
+    addPosition: 0
+    triggerChance: 0
+    removeOnPhaseChange: 0
+  rightBranchCard:
+    branchData: {fileID: 0}
+    addPosition: 0
+    triggerChance: 0
+    removeOnPhaseChange: 0
+  scoreCard:
+  - desiredValue: 5
+    direction: 0
+    compareString: 
+    compareFloat: 0
+    customCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
+    scoreMultiplier: 100
+  cardScore: 1
+  cardScoreNotNormalized: 100

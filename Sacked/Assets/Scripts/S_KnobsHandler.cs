@@ -70,21 +70,8 @@ public class S_KnobsHandler : MonoBehaviour
 
     private float SetKnobScale(RectTransform knob, int valueLeft, int valueRight)
     {
-        float targetSize=1;
         int value = rect.anchoredPosition.x / Screen.width > 0 ? valueLeft : valueRight ;
-        switch (Mathf.Abs(value))
-        {
-            case int n when n < 10:
-                targetSize = .75f;
-                break;
-            case int n when n < 25:
-                targetSize = 1f;
-                break;
-            case int n when n < 50:
-                targetSize = 1.25f;
-                break;
-        }
-        return targetSize;
+        return Mathf.Lerp(0.5f, 2, ((float)Mathf.Abs(value) / 100.0f));
     }
 
     private void Update()

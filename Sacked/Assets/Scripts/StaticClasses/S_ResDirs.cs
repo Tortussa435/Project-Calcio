@@ -16,6 +16,7 @@ public static class S_ResDirs
     public static string forcedSubstitution = "ScriptableObjects/MatchCards/Match/ForcedSubstitution/SO_ForcedSubstitution";
     public static string playerSubstitution = "ScriptableObjects/MatchCards/Match/SO_PlayerSubstitution";
     public static string goalkeeperSubstitution = "ScriptableObjects/MatchCards/Match/ForcedSubstitution/SO_GKSubstitution";
+    public static string gkSaveCard = "ScriptableObjects/MatchCards/Match/GKSave/SO_GKSave";
 
     [Header("Pools")]
     public static string matchPreviewPool = "ScriptableObjects/CardsPools/MatchPreviewCardsPool";

@@ -531,6 +531,11 @@ public class SO_MatchCardData : SO_CardData
     }
     #endregion
 
+    public void GenerateGKSaveDescription()
+    {
+        ReplaceCardDescription("{Gk}", (passedExtraData[0] as string));
+    }
+
     #endregion
 }
 

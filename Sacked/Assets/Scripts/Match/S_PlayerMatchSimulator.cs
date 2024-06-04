@@ -257,6 +257,8 @@ public static class S_PlayerMatchSimulator
 
     private static SO_CardData ScoreGoalRoll()
     {
+        (float minGkSaveChance, float maxGkSaveChance) gkSaveMultipliers = (1.25f, 1.75f);
+
         SO_CardData card=null;
 
         //generates goal chance float for both teams
@@ -264,11 +266,19 @@ public static class S_PlayerMatchSimulator
 
         awayGoalCheck = GoalCheck(false);
 
-        float homeRoll = (float)Random.Range(0, 1001) / 1000;
-        float awayRoll = (float)Random.Range(0, 1001) / 1000;
+        float homeRoll = Random.Range(0.0f, 1.0f);
+        float awayRoll = Random.Range(0.0f, 1.0f);
 
         bool homeGoal = false;
         bool awayGoal = false;
+
+        float homeGoalkeeperMult = (IsPlayerHomeTeam() ? S_GlobalManager.squad.GetRandomPlayerRefByRole(SO_PlayerData.PlayerRole.Gk).skillLevel : GetOpponentTeam().SkillLevel)/5.0f;
+        homeGoalkeeperMult = Mathf.Lerp(S_Chances.GKSaveChanceMult.min, S_Chances.GKSaveChanceMult.max, homeGoalkeeperMult);
+
+        float awayGoalkeeperMult = (!IsPlayerHomeTeam() ? S_GlobalManager.squad.GetRandomPlayerRefByRole(SO_PlayerData.PlayerRole.Gk).skillLevel : GetOpponentTeam().SkillLevel) / 5.0f;
+        awayGoalkeeperMult = Mathf.Lerp(S_Chances.GKSaveChanceMult.min, S_Chances.GKSaveChanceMult.max, homeGoalkeeperMult);
+
+
 
         homeGoal = homeRoll <= homeGoalCheck;
         awayGoal = awayRoll <= awayGoalCheck;
@@ -285,36 +295,41 @@ public static class S_PlayerMatchSimulator
             if (homeGoal) card = GenerateGolCard(true);
             else if (awayGoal) card = GenerateGolCard(false);
         }
-        /*
-        //the team with the lower goal chance tries to score first
-        if (homeGoalCheck <= awayGoalCheck)
-        {
-            if (homeRoll <= homeGoalCheck)
-            {
-                card = GenerateGolCard(true);
-            }
 
-            else if (awayRoll <= awayGoalCheck)
+        if (card == null)
+        {
+            //see if generate goalkeeper save card, multiply by other team gk ability
+            homeGoalCheck *= awayGoalkeeperMult;
+            awayGoalCheck *= homeGoalkeeperMult;
+            
+            homeGoal = homeRoll <= homeGoalCheck;
+            awayGoal = awayRoll <= awayGoalCheck;
+
+            if (homeGoal && awayGoal)
             {
-                card = GenerateGolCard(false);
+                int coin = Random.Range(0, 2);
+                if (coin == 0) GenerateGKSaveCard(false); //generate away team save
+                else GenerateGKSaveCard(true); //generate home team save
+            }
+            else
+            {
+                if (homeGoal) GenerateGKSaveCard(false); //generate away team save
+                else if (awayGoal) GenerateGKSaveCard(true); //generate home team save
             }
         }
-
-        else
-        {
-            if (awayRoll <= awayGoalCheck) 
-            {
-                card = GenerateGolCard(false);
-            }
-            else if (homeRoll <= homeGoalCheck)
-            {
-                card = GenerateGolCard(true);
-            }
-
-        }
-        */
 
         return card;
+        
+        void GenerateGKSaveCard(bool homeTeam=true)
+        {
+            
+            SO_CardData save = ScriptableObject.Instantiate<SO_CardData>(Resources.Load<SO_CardData>(S_ResDirs.gkSaveCard));
+            string gk = "";
+            if (homeTeam == IsPlayerHomeTeam()) gk = S_GlobalManager.squad.GetRandomPlayerRefByRole(SO_PlayerData.PlayerRole.Gk).playerName;
+            else gk = RandomlyGetNewOrExistingOpponentPlayer();
+            save.passedExtraData.Add(gk);
+            S_GlobalManager.deckManagerRef.AddCardToDeck(save); 
+        }
     }
 
     private static float GoalCheck(bool homeTeam)

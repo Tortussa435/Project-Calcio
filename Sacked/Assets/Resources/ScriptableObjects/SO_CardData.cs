@@ -203,7 +203,7 @@ public class SO_CardData : ScriptableObject
         ReplaceCardDescription("{InjDur}", injLen.ToString());
     }
 
-    private void ReplaceCardDescription(string placeholder, string output)
+    protected void ReplaceCardDescription(string placeholder, string output)
     {
         S_Card card = ownerCard.GetComponent<S_Card>();
         string s = card.cardDescription.text;

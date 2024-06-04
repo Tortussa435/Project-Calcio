@@ -780,6 +780,14 @@ public class S_Squad : MonoBehaviour
     #endregion
     public List<SO_PlayerData> GetAllPlayers() => Goalkeepers.Concat(Defense.Concat(Midfield.Concat(Attack))).ToList();
     
+    public SO_PlayerData GetRandomPlayerRefByRole(SO_PlayerData.PlayerRole role)
+    {
+        foreach(SO_PlayerData p in playingEleven)
+        {
+            if (p.playerRole == role) return p;
+        }
+        return null;
+    }
     public void AddGolScorer(string playerName)
     {
         if (Scorers.ContainsKey(playerName))

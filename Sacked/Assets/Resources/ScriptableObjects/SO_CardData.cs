@@ -89,6 +89,7 @@ public class SO_CardData : ScriptableObject
         leftEffects.RemoveAllListeners();
 
         if (!S_GlobalManager.DefeatCheck()) S_GlobalManager.deckManagerRef.GenerateCard(null,null,decreaseCountDown);
+        
     }
     virtual public void rightEffect()
     {

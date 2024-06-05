@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class S_PlayerInfoCard : S_Card
 {
@@ -39,7 +40,17 @@ public class S_PlayerInfoCard : S_Card
     }
     public override void GenerateCardData(SO_CardData data)
     {
+        void DestroyOnToggle(bool Toggle)
+        {
+            if (!Toggle)
+            {
+                Destroy(gameObject);
+            }
+        }
+
         cardData = data;
+        S_GlobalManager.squad.OnToggleSquadViewer.AddListener(DestroyOnToggle);
+
     }
 
     public void GeneratePlayerInfoData(SO_PlayerData player)

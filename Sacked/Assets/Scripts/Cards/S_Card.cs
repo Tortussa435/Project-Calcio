@@ -31,12 +31,12 @@ public class S_Card : MonoBehaviour
             cardText = "Ti sei scordato di mettere la descrizione a questa carta brutto coglione";
         }
 
-        cardDescription.text = S_GlobalManager.ReplaceVariablesInString(cardText);
+        if(cardDescription!=null) cardDescription.text = S_GlobalManager.ReplaceVariablesInString(cardText);
         
         cardBackground.color = data.cardColor;
         if(leftChoice!=null) leftChoice.text = S_GlobalManager.ReplaceVariablesInString(data.leftChoice);
         if(rightChoice!=null) rightChoice.text = S_GlobalManager.ReplaceVariablesInString(data.rightChoice);
-        cardIcon.sprite = data.cardIcon;
+        if(cardIcon!=null) cardIcon.sprite = data.cardIcon;
         
         cardData.onGeneratedEffects.Invoke();
         

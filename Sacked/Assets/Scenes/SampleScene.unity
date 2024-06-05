@@ -641,6 +641,7 @@ MonoBehaviour:
   awayIcons: {fileID: 1646917310}
   redCard: {fileID: 21300000, guid: ce50cf1e4ecc95448b59cbca693b2e6c, type: 3}
   substitution: {fileID: 21300000, guid: 9e9357090369a4d4894f3e1c2a759ac3, type: 3}
+  icons: []
 --- !u!1 &516200659
 GameObject:
   m_ObjectHideFlags: 0
@@ -3130,6 +3131,9 @@ MonoBehaviour:
   teamListVisible: 0
   teamCardPrefab: {fileID: 6703929602991736198, guid: adb56aa4cc76c574a92803bb8b7febfa, type: 3}
   captain: {fileID: 0}
+  OnToggleSquadViewer:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1660856490
 MonoBehaviour:
   m_ObjectHideFlags: 0

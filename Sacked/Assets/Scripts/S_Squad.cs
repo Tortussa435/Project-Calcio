@@ -5,6 +5,7 @@ using System.Security.Cryptography;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class S_Squad : MonoBehaviour
@@ -38,6 +39,7 @@ public class S_Squad : MonoBehaviour
 
     public Dictionary<string, int> Scorers = new Dictionary<string, int>();
 
+    public UnityEvent<bool> OnToggleSquadViewer = new UnityEvent<bool>();
     // Start is called before the first frame update
     void Awake()
     {
@@ -390,17 +392,20 @@ public class S_Squad : MonoBehaviour
     /// <param name="forceSpawn"></param>
     public void ShowTeamElevenCard(bool forceSpawn = false)
     {
+        //open
         if (teamCardRef == null || forceSpawn)
         {
+            OnToggleSquadViewer.Invoke(true);
             SO_CardData data = ScriptableObject.Instantiate(Resources.Load<SO_CardData>(S_ResDirs.teamCard));
             data.leftChoice = S_GlobalManager.squad.FindNextLineup().ToString();
             teamCardRef = S_GlobalManager.deckManagerRef.GenerateCard(data, teamCardPrefab, false);
             S_GlobalManager.deckManagerRef.SetCardOnTop(teamCardRef);
             data.rightEffects.AddListener(() => teamCardRef = null); //reference must be lost even before than card destruction
         }
-
+        //close
         else
         {
+            OnToggleSquadViewer.Invoke(false);
             Destroy(teamCardRef);
         }
     }

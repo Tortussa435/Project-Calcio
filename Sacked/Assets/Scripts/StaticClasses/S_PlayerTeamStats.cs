@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 public static class S_PlayerTeamStats
 {
-    private readonly static int MAXBOOSTLEVEL = 6;
+    public readonly static int MAXBOOSTLEVEL = 6;
 
     private static int AverageSquadAtk;
     private static int AverageSquadDef;
@@ -50,13 +50,13 @@ public static class S_PlayerTeamStats
         int final = Mathf.Clamp(AverageSquadDef + (SquadDefBoost / 3) + ChemistryMultiplier(), 0, 5);
         return final;
     }
-    public static float FitnessMultiplier() => Mathf.Lerp( 0.5f, 1, 1 - Mathf.InverseLerp(0, 6, FitnessBoost)); //spent energy decrease multiplier can reach max 0.5
-    private static int ChemistryMultiplier() => (ChemistryBoost - 3) / 3;
     public static int GetChemistryBoost() => ChemistryBoost;
     public static int GetFitnessBoost() => FitnessBoost;
     public static int GetFreeKicksBoost() => FreeKicksBoost;
     public static int GetAtkBoost() => SquadAtkBoost;
     public static int GetDefBoost() => SquadDefBoost;
+    public static float FitnessMultiplier() => Mathf.Lerp( 0.5f, 1, 1 - Mathf.InverseLerp(0, 6, FitnessBoost)); //spent energy decrease multiplier can reach max 0.5
+    private static int ChemistryMultiplier() => (ChemistryBoost - 3) / 3;
     public static void IncreaseAtkBoost() => SquadAtkBoost = Mathf.Clamp(SquadAtkBoost + 1, 0, MAXBOOSTLEVEL);
     public static void IncreaseDefBoost() => SquadDefBoost = Mathf.Clamp(SquadDefBoost + 1, 0, MAXBOOSTLEVEL);
     public static void IncreaseFitnessBoost() => FitnessBoost = Mathf.Clamp(FitnessBoost + 1, 0, MAXBOOSTLEVEL);

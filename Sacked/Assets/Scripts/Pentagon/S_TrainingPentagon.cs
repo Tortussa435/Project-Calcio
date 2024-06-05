@@ -20,19 +20,26 @@ public class S_TrainingPentagon : MonoBehaviour
     private CanvasRenderer cv;
     [SerializeField] private Material cvMaterial;
     [SerializeField] private Texture2D cvTexture;
+
+    private Vector3 currAtk=Vector3.zero;
+    private Vector3 currDef=Vector3.zero;
+    private Vector3 currChem=Vector3.zero;
+    private Vector3 currFK=Vector3.zero;
+    private Vector3 currRes=Vector3.zero;
+
     // Start is called before the first frame update
     void Start()
     {
         cv = GetComponent<CanvasRenderer>();
-        UpdateStatsVisual();
+        //UpdateStatsVisual();
     }
 
     // Update is called once per frame
     void Update()
     {
-#if UNITY_EDITOR
+
         UpdateStatsVisual();
-#endif
+
     }
 
     private void UpdateStatsVisual()
@@ -47,25 +54,32 @@ public class S_TrainingPentagon : MonoBehaviour
 
         int attackVertexIndex = 1;
         Vector3 atkVertex = Quaternion.Euler(0, 0, -angleIncrement * (attackVertexIndex-1)) * Vector3.up *  FindStatLength("atk");
+        currAtk = S_CoolFuncs.V3Lerpoler(currAtk, atkVertex);
 
         int defVertexIndex = 2;
         Vector3 defVertex = Quaternion.Euler(0, 0, -angleIncrement * (defVertexIndex-1)) * Vector3.up * FindStatLength("def");
+        currDef = S_CoolFuncs.V3Lerpoler(currDef, defVertex);
 
         int chemVertexIndex = 3;
         Vector3 chemVertex = Quaternion.Euler(0, 0, -angleIncrement * (chemVertexIndex - 1)) * Vector3.up * FindStatLength("chem");
+        currChem = S_CoolFuncs.V3Lerpoler(currChem, chemVertex);
 
         int fkVertexIndex = 4;
         Vector3 fkVertex = Quaternion.Euler(0, 0, -angleIncrement * (fkVertexIndex - 1)) * Vector3.up * FindStatLength("fk");
+        currFK = S_CoolFuncs.V3Lerpoler(currFK, fkVertex);
+
 
         int resVertexIndex = 5;
         Vector3 resVertex = Quaternion.Euler(0, 0, -angleIncrement * (resVertexIndex - 1)) * Vector3.up * FindStatLength("res");
+        currRes = S_CoolFuncs.V3Lerpoler(currRes, resVertex);
+
 
         vertices[0] = Vector3.zero;
-        vertices[attackVertexIndex] = atkVertex;
-        vertices[defVertexIndex] = defVertex;
-        vertices[chemVertexIndex] = chemVertex;
-        vertices[fkVertexIndex] = fkVertex;
-        vertices[resVertexIndex] = resVertex;
+        vertices[attackVertexIndex] = currAtk;
+        vertices[defVertexIndex] = currDef;
+        vertices[chemVertexIndex] = currChem;
+        vertices[fkVertexIndex] = currFK;
+        vertices[resVertexIndex] = currRes;
 
         triangles[0] = 0;
         triangles[1] = attackVertexIndex;

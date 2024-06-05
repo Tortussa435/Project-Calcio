@@ -582,7 +582,7 @@ public class S_Squad : MonoBehaviour
         {
             energy += player.playerEnergy;
         }
-        return energy / 11;
+        return energy / 11.0f;
     }
     #region LINEUPS
     public PossibleTeam FindNextLineup() => (PossibleTeam) ((int)(teamLineup + 1) % System.Enum.GetValues(typeof(PossibleTeam)).Length);

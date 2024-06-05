@@ -363,11 +363,12 @@ public class SO_MatchCardData : SO_CardData
     {
         SO_CardData penalty = ScriptableObject.Instantiate(Resources.Load<SO_CardData>(S_ResDirs.penaltyCard));
 
-        penalty.onGeneratedEffects.RemoveAllListeners();
+        penalty.onGeneratedEffects = new UnityEvent();
 
         if (player)
             penalty.onGeneratedEffects.AddListener(GeneratePlayerPenalty);
-        else
+        
+        else if(!player)
             penalty.onGeneratedEffects.AddListener(GenerateOpponentPenalty);
 
         S_GlobalManager.deckManagerRef.AddCardToDeck(penalty);
@@ -479,6 +480,7 @@ public class SO_MatchCardData : SO_CardData
         }
         else GenerateOpponentPenalty();
     }
+
     public void GeneratePlayerPenalty()
     {
         //REDO approfondire calcolo rigori
@@ -498,11 +500,7 @@ public class SO_MatchCardData : SO_CardData
             S_GlobalManager.deckManagerRef.AddCardToDeck(card, 0, null, null, true);
         }
 
-        
-        string description = ownerCard.GetComponent<S_Card>().cardDescription.text;
-        description = description.Replace("{PenTeam}", S_GlobalManager.selectedTeam.teamName);
-        ownerCard.GetComponent<S_Card>().cardDescription.text = description;
-        
+        ReplaceCardDescription("{PenTeam}", S_GlobalManager.selectedTeam.teamName);
     }
     public void GenerateOpponentPenalty()
     {
@@ -524,16 +522,23 @@ public class SO_MatchCardData : SO_CardData
             S_GlobalManager.deckManagerRef.AddCardToDeck(card, 0, null, null, true);
         }
         
-        string description = ownerCard.GetComponent<S_Card>().cardDescription.text;
-        description = description.Replace("{PenTeam}", S_PlayerMatchSimulator.GetOpponentTeam().teamName);
-        ownerCard.GetComponent<S_Card>().cardDescription.text = description;
-        
+        ReplaceCardDescription("{PenTeam}", S_PlayerMatchSimulator.GetOpponentTeam().teamName);
     }
     #endregion
 
     public void GenerateGKSaveDescription()
     {
-        ReplaceCardDescription("{Gk}", (passedExtraData[0] as string));
+        
+        if (passedExtraData.Count > 0)
+        {
+            if (passedExtraData[0] as string != null)
+                ReplaceCardDescription("{Zeb}", (passedExtraData[0] as string));
+        }
+        else
+        {
+            Debug.Log("aaa");
+        }
+        
     }
 
     #endregion

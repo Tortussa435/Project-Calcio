@@ -32,8 +32,7 @@ public static class S_SubstitutionsManager
         else if (BenchHasGoodSub())
         {
             Debug.LogWarning("Faccio entrare un giocatore buono");
-            subs.pOut = ProposeGoodPlayerIn();
-            subs.pIn = FindOptimalSubstitute(subs.pOut);
+            subs = ProposeGoodPlayerIn();
             return subs;
         }
 
@@ -117,7 +116,7 @@ public static class S_SubstitutionsManager
         }
         return tiredPlayers.Count>0 ? tiredPlayers[Random.Range(0, tiredPlayers.Count)] : null;
     } 
-    private static SO_PlayerData ProposeGoodPlayerIn()
+    private static (SO_PlayerData outP, SO_PlayerData inP) ProposeGoodPlayerIn()
     {
         List<SO_PlayerData> goodPlayers = new List<SO_PlayerData>();
 
@@ -125,22 +124,25 @@ public static class S_SubstitutionsManager
         {
             if (p.playerRole == SO_PlayerData.PlayerRole.Gk) continue;
             if (!p.CanPlay()) continue;
-            if (p.skillLevel >= S_GlobalManager.selectedTeam.SkillLevel) goodPlayers.Add(p); //if player is better than the average of the team propose change
+            if (p.skillLevel > S_GlobalManager.selectedTeam.SkillLevel) goodPlayers.Add(p); //if player is better than the average of the team propose change
         }
 
-        if (goodPlayers.Count == 0) return null;
+        if (goodPlayers.Count == 0) return (null, null);
 
-        SO_PlayerData.PlayerRole pRole = goodPlayers[Random.Range(0, goodPlayers.Count)].playerRole;
-        //it is not needed to transfer who is the good player, but to propose changing the worst player in that role
+        SO_PlayerData pl = goodPlayers[Random.Range(0, goodPlayers.Count)];
 
         (SO_PlayerData player, float score) worstPlayer = (null,100);
         
         //find worst player to swap with good player in bench
         foreach(SO_PlayerData pEl in ElevenRef())
         {
+            if (pEl.playerRole != pl.playerRole) continue;
+
             if (pEl.skillLevel < worstPlayer.score) worstPlayer = (pEl, pEl.skillLevel);    
         }
-        return worstPlayer.player;
+        if (worstPlayer.player == null) return (null, null);
+
+        return (worstPlayer.player, pl); 
 
     }
     public static SO_PlayerData FindOptimalSubstitute(SO_PlayerData playerToSub,List<SO_PlayerData> impossibleSubs=null)
@@ -361,7 +363,7 @@ public static class S_SubstitutionsManager
         {
             if (p.playerRole == SO_PlayerData.PlayerRole.Gk) continue;
             if (!p.CanPlay()) continue;
-            if (p.skillLevel >= S_GlobalManager.selectedTeam.SkillLevel) return true;
+            if (p.skillLevel > S_GlobalManager.selectedTeam.SkillLevel) return true;
         }
         return false;
     }

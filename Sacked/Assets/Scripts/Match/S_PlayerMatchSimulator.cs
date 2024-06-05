@@ -257,7 +257,6 @@ public static class S_PlayerMatchSimulator
 
     private static SO_CardData ScoreGoalRoll()
     {
-        (float minGkSaveChance, float maxGkSaveChance) gkSaveMultipliers = (1.25f, 1.75f);
 
         SO_CardData card=null;
 
@@ -327,8 +326,7 @@ public static class S_PlayerMatchSimulator
             string gk = "";
             if (homeTeam == IsPlayerHomeTeam()) gk = S_GlobalManager.squad.GetRandomPlayerRefByRole(SO_PlayerData.PlayerRole.Gk).playerName;
             else gk = RandomlyGetNewOrExistingOpponentPlayer();
-            save.passedExtraData.Add(gk);
-            S_GlobalManager.deckManagerRef.AddCardToDeck(save); 
+            S_GlobalManager.deckManagerRef.AddCardToDeck(save,0,null,new List<object> {gk}); 
         }
     }
 

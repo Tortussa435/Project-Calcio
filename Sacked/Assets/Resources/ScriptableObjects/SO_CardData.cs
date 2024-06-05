@@ -168,10 +168,10 @@ public class SO_CardData : ScriptableObject
         possibleTactics.Remove(left);
         SO_Tactics.Tactic right = possibleTactics[Random.Range(0, possibleTactics.Count)];
 
-        leftEffects.RemoveAllListeners();
+        leftEffects = new UnityEvent();
         leftEffects.AddListener(()=>SetPlayerTeamTactic(left.ToString()));
 
-        rightEffects.RemoveAllListeners();
+        rightEffects = new UnityEvent();
         rightEffects.AddListener(() => SetPlayerTeamTactic(right.ToString()));
 
         leftChoice = left.ToString();
@@ -206,7 +206,8 @@ public class SO_CardData : ScriptableObject
 
     protected void ReplaceCardDescription(string placeholder, string output)
     {
-        S_Card card = ownerCard.GetComponent<S_Card>();
+        S_Card card;
+        if(!ownerCard.TryGetComponent<S_Card>(out card)) return;
         string s = card.cardDescription.text;
         s = s.Replace(placeholder, output);
         card.cardDescription.text = s;

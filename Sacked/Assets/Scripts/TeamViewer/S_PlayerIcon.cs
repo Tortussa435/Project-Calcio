@@ -106,6 +106,7 @@ public class S_PlayerIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHandle
 
     public void OnPointerDown(PointerEventData eventData)
     {
+
         ownerCard.OnPointerDown(eventData);
         
         StartCoroutine("ClickTimer");
@@ -165,6 +166,7 @@ public class S_PlayerIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHandle
 
     public void OnDrag(PointerEventData eventData)
     {
+        Debug.Log("Grodolo");
         if(!disableDrag)
             ownerCard.OnDrag(eventData);
     }

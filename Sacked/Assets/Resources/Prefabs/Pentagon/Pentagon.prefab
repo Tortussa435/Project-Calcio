@@ -135,7 +135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -216,13 +216,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pentagonSize: 150
-  debugPentagonSize: 150
+  debugPentagonSize: -1
   debugPentagonAtk: -1
   debugPentagonDef: -1
   debugPentagonChem: -1
   debugPentagonFK: -1
   debugPentagonRes: -1
   cvMaterial: {fileID: 2100000, guid: 1c06649768ddf054f97cfe783114d336, type: 2}
+  cvTexture: {fileID: 2800000, guid: ccf36b5cfc00e3749a05d6b7b8b425ce, type: 3}
 --- !u!1 &2974892210693717191
 GameObject:
   m_ObjectHideFlags: 0

@@ -19,6 +19,7 @@ public class S_TrainingPentagon : MonoBehaviour
 
     private CanvasRenderer cv;
     [SerializeField] private Material cvMaterial;
+    [SerializeField] private Texture2D cvTexture;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +30,9 @@ public class S_TrainingPentagon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+#if UNITY_EDITOR
+        UpdateStatsVisual();
+#endif
     }
 
     private void UpdateStatsVisual()
@@ -83,13 +87,19 @@ public class S_TrainingPentagon : MonoBehaviour
         triangles[13] = resVertexIndex;
         triangles[14] = attackVertexIndex;
 
+        UVs[0] = Vector2.zero;
+        UVs[attackVertexIndex] = Vector2.one;
+        UVs[defVertexIndex] = Vector2.one;
+        UVs[chemVertexIndex] = Vector2.one;
+        UVs[fkVertexIndex] = Vector2.one;
+        UVs[resVertexIndex] = Vector2.one;
 
         mesh.vertices = vertices;
         mesh.uv = UVs;
         mesh.triangles = triangles;
 
         cv.SetMesh(mesh);
-        cv.SetMaterial(cvMaterial, null);
+        cv.SetMaterial(cvMaterial, cvTexture);
     }
 
     private float FindStatLength(string stat)

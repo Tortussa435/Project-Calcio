@@ -349,8 +349,9 @@ public static class S_PlayerMatchSimulator
         int playerDef = S_PlayerTeamStats.CalcSquadDef();
 
         //first calc = skill diff check
-        if (homeTeam == IsPlayerHomeTeam())      goalCheck  =  GetSkillDifference(playerAtk, opponentMatchSkillLevel);
-        else if (homeTeam != IsPlayerHomeTeam()) goalCheck  =  GetSkillDifference(opponentMatchSkillLevel, playerDef);
+        if (homeTeam == IsPlayerHomeTeam()) goalCheck = GetSkillDifference(playerAtk, opponentMatchSkillLevel);
+        else if (homeTeam != IsPlayerHomeTeam()) goalCheck = GetSkillDifference(opponentMatchSkillLevel, playerDef);
+        
 
         //second calc = goal chance per minute
         goalCheck *= goalChancePerMinute.curve.Evaluate(matchMinute);
@@ -370,6 +371,7 @@ public static class S_PlayerMatchSimulator
 
         //takes the score (should be in 0-1 range) and sets it in range of 0 - max possible score
         goalCheck = Mathf.Lerp(0, MAXGOALCHANCE, goalCheck);
+
 
         return goalCheck;
     }

@@ -30,7 +30,7 @@ static public class S_PlayersGenerator
         playerData.playerName = FindNameByNationality(playerData.playerNationality, true) + " " + FindNameByNationality(playerData.playerNationality, false);
         playerData.name = playerData.playerName + " " + playerData.skillLevel;
 
-        SO_PlayerTrait randomTrait = ScriptableObject.Instantiate<SO_PlayerTrait>(S_PlayerTraitsList.playerTraitsDatabase[Random.Range(0, S_PlayerTraitsList.playerTraitsDatabase.Count)]);
+        SO_PlayerTrait randomTrait = S_PlayerTraitsList.AssignPlayerTrait(playerData.skillLevel);
         randomTrait.playerRef = playerData;
         playerData.playerTraits.Add(randomTrait);
 

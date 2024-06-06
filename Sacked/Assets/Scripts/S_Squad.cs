@@ -543,7 +543,7 @@ public class S_Squad : MonoBehaviour
         void AddPlayers(int extraslot=0)
         {
             bench = SortTeamListBySkill(bench);
-            for (int i=bench.Count; i>=0; i--)
+            for (int i=bench.Count-1; i>=0; i--)
             {
                 if (playingEleven.Count == 11) return;
 

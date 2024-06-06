@@ -85,8 +85,9 @@ public static class S_PlayerMatchSimulator
             //rollData = matchCards[Random.Range(0, matchCards.Count)];
             rollData = FindChanceWeightedMatchCard(matchCards);
         }
-        
-        if(rollData.decreaseCountDown) matchMinute += Random.Range(minMinutes, maxMinutes);
+
+        if (rollData.decreaseCountDown) matchMinute += Random.Range(minMinutes, maxMinutes);
+        else matchMinute += Random.Range(1, 5);
         
         return rollData;
 
@@ -279,7 +280,7 @@ public static class S_PlayerMatchSimulator
         bool homeGoal = false;
         bool awayGoal = false;
 
-        float homeGoalkeeperMult = (IsPlayerHomeTeam() ? S_GlobalManager.squad.GetRandomPlayerRefByRole(SO_PlayerData.PlayerRole.Gk).skillLevel : GetOpponentTeam().SkillLevel)/5.0f;
+        float homeGoalkeeperMult = (IsPlayerHomeTeam() ? S_GlobalManager.squad.GetRandomPlayerRefByRole(SO_PlayerData.PlayerRole.Gk).skillLevel : GetOpponentTeam().SkillLevel) / 5.0f;
         homeGoalkeeperMult = Mathf.Lerp(S_Chances.GKSaveChanceMult.min, S_Chances.GKSaveChanceMult.max, homeGoalkeeperMult);
 
         float awayGoalkeeperMult = (!IsPlayerHomeTeam() ? S_GlobalManager.squad.GetRandomPlayerRefByRole(SO_PlayerData.PlayerRole.Gk).skillLevel : GetOpponentTeam().SkillLevel) / 5.0f;
@@ -296,6 +297,7 @@ public static class S_PlayerMatchSimulator
             int coin = Random.Range(0, 2);
             if (coin == 0) card = GenerateGolCard(true);
             else card = GenerateGolCard(false);
+            Debug.LogWarning("in verito  entrambi segnaverunt");
         }
         else
         {
@@ -347,17 +349,14 @@ public static class S_PlayerMatchSimulator
         int playerDef = S_PlayerTeamStats.CalcSquadDef();
 
         //first calc = skill diff check
-        if (homeTeam && IsPlayerHomeTeam()) goalCheck        =  GetSkillDifference(playerAtk, opponentMatchSkillLevel);
-        else if (!homeTeam && !IsPlayerHomeTeam()) goalCheck =  GetSkillDifference(playerAtk, opponentMatchSkillLevel);
-
-        else if (homeTeam && !IsPlayerHomeTeam()) goalCheck  =  GetSkillDifference(opponentMatchSkillLevel, playerDef);
-        else if (!homeTeam && IsPlayerHomeTeam()) goalCheck  =  GetSkillDifference(opponentMatchSkillLevel, playerDef);
+        if (homeTeam == IsPlayerHomeTeam())      goalCheck  =  GetSkillDifference(playerAtk, opponentMatchSkillLevel);
+        else if (homeTeam != IsPlayerHomeTeam()) goalCheck  =  GetSkillDifference(opponentMatchSkillLevel, playerDef);
 
         //second calc = goal chance per minute
         goalCheck *= goalChancePerMinute.curve.Evaluate(matchMinute);
 
         //third calc = home team gets a goal chance boost
-        if (homeTeam) goalCheck += 0.1f;
+        if (homeTeam) goalCheck *= 1.2f;
 
         //decrease goal chance for each already scored goal
         goalCheck *= Mathf.Pow(GOALCHANCEDECREASEPERGOAL, homeTeam ? matchScore.home : matchScore.away);

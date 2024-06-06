@@ -21,6 +21,8 @@ public class S_TrainingPentagon : MonoBehaviour
     [SerializeField] private Material cvMaterial;
     [SerializeField] private Texture2D cvTexture;
 
+    private Mesh mesh;
+
     private Vector3 currAtk=Vector3.zero;
     private Vector3 currDef=Vector3.zero;
     private Vector3 currChem=Vector3.zero;
@@ -31,6 +33,7 @@ public class S_TrainingPentagon : MonoBehaviour
     void Start()
     {
         cv = GetComponent<CanvasRenderer>();
+        mesh = new Mesh();
         //UpdateStatsVisual();
     }
 
@@ -45,7 +48,7 @@ public class S_TrainingPentagon : MonoBehaviour
     private void UpdateStatsVisual()
     {
 
-        Mesh mesh = new Mesh();
+        if (mesh == null) return;
         Vector3[] vertices = new Vector3[6]; //size = pentagon+1
         Vector2[] UVs = new Vector2[6];
         int[] triangles = new int[15]; //size = 3 * pentagon

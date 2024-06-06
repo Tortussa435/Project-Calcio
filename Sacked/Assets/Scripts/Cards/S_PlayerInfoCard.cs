@@ -60,7 +60,23 @@ public class S_PlayerInfoCard : S_Card
         
         playerName.text = playerInfo.playerName;
         roleRef.text = playerInfo.playerRole.ToString();
+        
         traitRef.text = playerInfo.playerTraits[0].traitName.ToString().Replace('_',' ');
+        Color traitColor=Color.black;
+        switch (playerInfo.playerTraits[0].positiveTrait)
+        {
+            case S_FootballEnums.Positivity.Positive:
+                traitColor = Color.green*0.5f;
+                break;
+            case S_FootballEnums.Positivity.Neutral:
+                traitColor = Color.black;
+                break;
+            case S_FootballEnums.Positivity.Negative:
+                traitColor = Color.red;
+                break;
+        }
+        traitRef.color = traitColor;
+
         playerSkillRef.fillAmount = (float)playerInfo.skillLevel / 5.0f;
         nationality.text = playerInfo.playerNationality.ToString();
         GenerateFace();

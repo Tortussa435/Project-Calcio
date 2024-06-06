@@ -10,12 +10,12 @@ public class S_TrainingPentagon : MonoBehaviour
     
     [Header("Debug")]
     [SerializeField] private float debugPentagonSize = -1f;
-
-    [SerializeField] private float debugPentagonAtk = -1f;
-    [SerializeField] private float debugPentagonDef = -1f;
-    [SerializeField] private float debugPentagonChem = -1f;
-    [SerializeField] private float debugPentagonFK = -1f;
-    [SerializeField] private float debugPentagonRes = -1f;
+    
+    public float debugPentagonAtk = -1f;
+    public float debugPentagonDef = -1f;
+    public float debugPentagonChem = -1f;
+    public float debugPentagonFK = -1f;
+    public float debugPentagonRes = -1f;
 
     private CanvasRenderer cv;
     [SerializeField] private Material cvMaterial;
@@ -123,45 +123,45 @@ public class S_TrainingPentagon : MonoBehaviour
         {
             case "atk":
                 val=S_PlayerTeamStats.GetAtkBoost();
-#if UNITY_EDITOR
+
                 if (debugPentagonAtk != -1) val = debugPentagonAtk;
-#endif
+
                 break;
 
             case "def":
                 val = S_PlayerTeamStats.GetDefBoost();
-#if UNITY_EDITOR
+
                 if (debugPentagonDef != -1) val = debugPentagonDef;
-#endif
+
                 break;
 
             case "chem":
                 val = S_PlayerTeamStats.GetChemistryBoost();
-#if UNITY_EDITOR
+
                 if (debugPentagonChem != -1) val = debugPentagonChem;
-#endif
+
                 break;
 
             case "fk":
                 val = S_PlayerTeamStats.GetFreeKicksBoost();
-#if UNITY_EDITOR
+
                 if (debugPentagonFK != -1) val = debugPentagonFK;
-#endif
+
 
                 break;
 
             case "res":
                 val = S_PlayerTeamStats.GetFitnessBoost();
-#if UNITY_EDITOR
+
                 if (debugPentagonRes != -1) val = debugPentagonRes;
-#endif
+
 
                 break;
         }
         val = Mathf.Lerp(pentagonSize/5, pentagonSize, val / (float)S_PlayerTeamStats.MAXBOOSTLEVEL);
-#if UNITY_EDITOR
+
         if (debugPentagonSize != -1) val = debugPentagonSize;
-#endif
+
         return val;
     }
 }

@@ -35,7 +35,7 @@ public class MatchDebugData : EditorWindow
             GUILayout.Label("\nAtk Boost: " + S_PlayerTeamStats.GetAtkBoost());
             GUILayout.Label("Def Boost: " + S_PlayerTeamStats.GetDefBoost());
             GUILayout.Label("Fitness Multiplier: " + S_PlayerTeamStats.GetFitnessBoost());
-            GUILayout.Label("Chemistry Multiplier: " + S_PlayerTeamStats.GetChemistryBoost());
+            GUILayout.Label("Chemistry: " + S_PlayerTeamStats.GetChemistryBoost()+"\nChemistry Multiplier: "+S_PlayerTeamStats.ChemistryMultiplier());
             GUILayout.Label("Free Kicks Multiplier: " + S_PlayerTeamStats.GetFreeKicksBoost());
 
             GUILayout.Label("Squad Tactic: " + S_GlobalManager.squad.teamLineup.ToString());

@@ -503,7 +503,7 @@ public class S_Squad : MonoBehaviour
             if (!playingEleven[i].CanPlay())
             {
                 bench.Add(playingEleven[i]);
-                playingEleven.Remove(playingEleven[i]);
+                playingEleven.RemoveAt(i);
             }
         }
 
@@ -533,38 +533,54 @@ public class S_Squad : MonoBehaviour
             }
         }
 
-        foreach(SO_PlayerData p in bench)
+        int j = 0;
+        while (playingEleven.Count < 11)
         {
-            if (playingEleven.Count == 11) return;
+            AddPlayers(j);
+            j++;
+        }
 
-            if (p.CanPlay())
+        void AddPlayers(int extraslot=0)
+        {
+            bench = SortTeamListBySkill(bench);
+            for (int i=bench.Count; i>=0; i--)
             {
-                switch (p.playerRole)
+                if (playingEleven.Count == 11) return;
+
+                if (bench[i].CanPlay())
                 {
-                    case SO_PlayerData.PlayerRole.Gk:
-                        if (gk > 0) continue;
-                        playingEleven.Add(p);
-                        break;
+                    switch (bench[i].playerRole)
+                    {
+                        case SO_PlayerData.PlayerRole.Gk:
+                            if (gk > 0) continue;
+                            playingEleven.Add(bench[i]);
+                            bench.RemoveAt(i);
+                            break;
 
-                    case SO_PlayerData.PlayerRole.Def:
-                        if (def > 5) continue;
-                        playingEleven.Add(p);
-                        break;
+                        case SO_PlayerData.PlayerRole.Def:
+                            if (def >= 4+extraslot) continue;
+                            playingEleven.Add(bench[i]);
+                            bench.RemoveAt(i);
+                            break;
 
-                    case SO_PlayerData.PlayerRole.Mid:
-                        if (mid > 5) continue;
-                        playingEleven.Add(p);
-                        break;
+                        case SO_PlayerData.PlayerRole.Mid:
+                            if (mid >= 4+extraslot) continue;
+                            playingEleven.Add(bench[i]);
+                            bench.RemoveAt(i);
+                            break;
 
-                    case SO_PlayerData.PlayerRole.Atk:
-                        if (atk > 5) continue;
-                        playingEleven.Add(p);
-                        break; 
+                        case SO_PlayerData.PlayerRole.Atk:
+                            if (atk >= 3+extraslot) continue;
+                            playingEleven.Add(bench[i]);
+                            bench.RemoveAt(i);
+                            break;
+                    }
                 }
             }
         }
     }
 
+    
     public SO_PlayerData GetRandomPlayerRef() => playingEleven[Random.Range(0, playingEleven.Count)];
     public bool IsTeamTired(float tiredAverage = 70f)
     {
@@ -746,7 +762,9 @@ public class S_Squad : MonoBehaviour
         }
 
     }
-    private List<SO_PlayerData> SortTeamListBySkill(List<SO_PlayerData> datalist)
+    
+    #region SORTING
+    public List<SO_PlayerData> SortTeamListBySkill(List<SO_PlayerData> datalist)
     {
         int n = datalist.Count;
 
@@ -763,8 +781,7 @@ public class S_Squad : MonoBehaviour
         datalist.Reverse();
         return datalist;
     }
-
-    private List<SO_PlayerData> SortTeamListByEnergy(List<SO_PlayerData> datalist)
+    public List<SO_PlayerData> SortTeamListByEnergy(List<SO_PlayerData> datalist)
     {
         int n = datalist.Count;
 
@@ -781,6 +798,24 @@ public class S_Squad : MonoBehaviour
         datalist.Reverse();
         return datalist;
     }
+    public List<SO_PlayerData> SortPlayersByRole(List<SO_PlayerData> datalist)
+    {
+        int n = datalist.Count;
+
+        for (int i = 0; i < n - 1; i++)
+
+            for (int j = 0; j < n - i - 1; j++)
+
+                if ((int)datalist[j].playerRole > (int)datalist[j + 1].playerRole)
+                {
+                    SO_PlayerData player = datalist[j];
+                    datalist[j] = datalist[j + 1];
+                    datalist[j + 1] = player;
+                }
+        datalist.Reverse();
+        return datalist;
+    }
+    #endregion
 
     #endregion
     public List<SO_PlayerData> GetAllPlayers() => Goalkeepers.Concat(Defense.Concat(Midfield.Concat(Attack))).ToList();
@@ -801,6 +836,8 @@ public class S_Squad : MonoBehaviour
         }
         else Scorers.Add(playerName, 1);
     }
+
+
 }
 
 

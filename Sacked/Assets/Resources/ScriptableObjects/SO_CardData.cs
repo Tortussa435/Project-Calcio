@@ -218,13 +218,16 @@ public class SO_CardData : ScriptableObject
     public void ProposeBoosts()
     {
         S_Card card = ownerCard.GetComponent<S_Card>();
-        (UnityAction left, UnityAction right, string nameA, string nameB) events = S_PlayerTeamStats.FindTrainingBoosts();
+        (UnityAction left, UnityAction right, string nameA, string nameB, string statLeft, string statRight) events = S_PlayerTeamStats.FindTrainingBoosts();
         leftEffects.AddListener(events.left);
         rightEffects.AddListener(events.right);
 
         card.leftChoice.text = events.nameA;
         card.rightChoice.text = events.nameB;
 
+        S_TrainingPentagonPreviewer prev = card.GetComponent<S_TrainingPentagonPreviewer>();
+        prev.left = events.statLeft;
+        prev.right = events.statRight;
     }
     
     public void RefillTeamEnergy(float energy) => S_GlobalManager.squad.RefillTeamEnergy(energy);

@@ -51,4 +51,7 @@ public static class S_ResDirs
 
     [Header("Gol Descriptions")]
     public static string penaltyDescriptions = "ScriptableObjects/GoalDescriptions/SpecialDescriptions/PenaltyGoals";
+
+    [Header("Stats")]
+    public static string pentagon = "Prefabs/Pentagon/Pentagon";
 }

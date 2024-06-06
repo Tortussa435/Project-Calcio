@@ -20,9 +20,9 @@ MonoBehaviour:
   leftChoice: forte
   rightChoice: piano
   canAppearMoreThanOnce: 1
-  totalAppearances: 0
+  totalAppearances: 1
   decreaseCountDown: 1
-  desiredCardPrefabDirectory: 
+  desiredCardPrefabDirectory: Prefabs/P_TrainingCard
   leftValues:
     addedMoney: 0
     addedTeam: 0
@@ -89,5 +89,5 @@ MonoBehaviour:
       m_PostInfinity: 0
       m_RotationOrder: 0
     scoreMultiplier: -100
-  cardScore: -100
-  cardScoreNotNormalized: -100
+  cardScore: 1
+  cardScoreNotNormalized: 100

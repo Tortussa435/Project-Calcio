@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using UnityEngine;
+using UnityEngine.Events;
 
 public static class S_SubstitutionsManager
 {
@@ -12,6 +13,9 @@ public static class S_SubstitutionsManager
 
     public static (SO_PlayerData pOut, SO_PlayerData pIn) ProposeSubstitution()
     {
+        //REDO maro che schifo
+        S_GlobalManager.squad.bench = S_GlobalManager.squad.SortTeamListBySkill(S_GlobalManager.squad.bench);
+        
         (SO_PlayerData pOut, SO_PlayerData pIn) subs = (null, null);
 
         //REDO pretty ugly
@@ -99,6 +103,17 @@ public static class S_SubstitutionsManager
         }
 
         sub.outP = badAtk.p;
+
+        if (sub.gk.playerRole != SO_PlayerData.PlayerRole.Gk)
+        {
+            SO_PlayerData.PlayerRole pRole = sub.gk.playerRole;
+
+            sub.gk.playerRole = SO_PlayerData.PlayerRole.Gk;
+            UnityAction resetPlayerRole = () => sub.gk.playerRole = pRole;
+
+            S_PlayerMatchSimulator.OnMatchEnd.AddListener(resetPlayerRole);
+            S_PlayerMatchSimulator.OnMatchEnd.RemoveListener(resetPlayerRole);
+        }
 
         return sub;
     }

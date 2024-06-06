@@ -56,13 +56,17 @@ public static class S_PlayerTeamStats
     public static int GetAtkBoost() => SquadAtkBoost;
     public static int GetDefBoost() => SquadDefBoost;
     public static float FitnessMultiplier() => Mathf.Lerp( 0.5f, 1, 1 - Mathf.InverseLerp(0, 6, FitnessBoost)); //spent energy decrease multiplier can reach max 0.5
-    private static int ChemistryMultiplier() => (ChemistryBoost - 3) / 3;
+    public static int ChemistryMultiplier()
+    {
+        if (ChemistryBoost == 0) return -1; //cannot do log of <1 numbers
+        return ((int)Mathf.Round(Mathf.Log(ChemistryBoost))) -1;
+    }
     public static void IncreaseAtkBoost() => SquadAtkBoost = Mathf.Clamp(SquadAtkBoost + 1, 0, MAXBOOSTLEVEL);
     public static void IncreaseDefBoost() => SquadDefBoost = Mathf.Clamp(SquadDefBoost + 1, 0, MAXBOOSTLEVEL);
     public static void IncreaseFitnessBoost() => FitnessBoost = Mathf.Clamp(FitnessBoost + 1, 0, MAXBOOSTLEVEL);
     public static void IncreaseChemistryBoost() => ChemistryBoost = Mathf.Clamp(ChemistryBoost + 1, 0, MAXBOOSTLEVEL);
     public static void IncreaseFreeKicksBoost() => FreeKicksBoost = Mathf.Clamp(FreeKicksBoost + 1, 0, MAXBOOSTLEVEL);
-    public static (UnityAction trainingA, UnityAction trainingB, string trAName, string trBName) FindTrainingBoosts()
+    public static (UnityAction trainingA, UnityAction trainingB, string trAName, string trBName, string leftAction, string rightAction) FindTrainingBoosts()
     {
         //Function to find single action
 
@@ -104,7 +108,7 @@ public static class S_PlayerTeamStats
         {
             { IncreaseAtkBoost, "Train Attack" },
             { IncreaseDefBoost, "Train Defense" },
-            { IncreaseChemistryBoost, "Increase Team Chemistry" },
+            { IncreaseChemistryBoost, "Team Building" },
             { IncreaseFitnessBoost, "Increase Team Resistance" },
             { IncreaseFreeKicksBoost, "Train Free Kicks" },
         };
@@ -115,6 +119,18 @@ public static class S_PlayerTeamStats
         string secondActionString = "";
         trainingNames.TryGetValue(secondAction, out secondActionString);
 
-        return (firstAction, secondAction, firstActionString, secondActionString);
+        Dictionary<UnityAction, string> shortNames = new Dictionary<UnityAction, string>
+        {
+            { IncreaseAtkBoost, "atk" },
+            { IncreaseDefBoost, "def" },
+            { IncreaseChemistryBoost, "chem" },
+            { IncreaseFitnessBoost, "res" },
+            { IncreaseFreeKicksBoost, "fk" },
+        };
+
+        string left = shortNames[firstAction];
+        string right = shortNames[secondAction];
+
+        return (firstAction, secondAction, firstActionString, secondActionString,left,right);
     }
 }

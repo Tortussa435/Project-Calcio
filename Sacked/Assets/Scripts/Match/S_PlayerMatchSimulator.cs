@@ -56,9 +56,11 @@ public static class S_PlayerMatchSimulator
     public static string refereeName;
 
     public static List<string> opponentTeamNames = new List<string>();
-
     
     private static bool lastCardGoal = false;
+
+    //stores eleven and bench on match start, then resets it at game end
+    private static (List<SO_PlayerData> eleven, List<SO_PlayerData> bench) matchStartEleven=(new List<SO_PlayerData>(),new List<SO_PlayerData>());
     static S_PlayerMatchSimulator()
     {
         goalChancePerMinute = Resources.Load<SO_Curve>(S_ResDirs.goalChancePerMinute);
@@ -93,6 +95,8 @@ public static class S_PlayerMatchSimulator
     public static void StartMatch()
     {
         S_GlobalManager.squad.FillTeamHoles();
+
+        matchStartEleven = (new List<SO_PlayerData>(S_GlobalManager.squad.playingEleven),new List<SO_PlayerData>(S_GlobalManager.squad.bench));
 
         refereeName = S_PlayersGenerator.CreateRandomName(false); //the ref has only a surname
         
@@ -159,6 +163,10 @@ public static class S_PlayerMatchSimulator
         S_GlobalManager.squad.DecreaseElevenEnergy();
         S_GlobalManager.squad.RefillBenchEnergy();
 
+        //resets team to what it was on match start (then replace injuried and expelled players with players in bench)
+        S_GlobalManager.squad.playingEleven = new List<SO_PlayerData>(matchStartEleven.eleven);
+        S_GlobalManager.squad.bench = new List<SO_PlayerData>(matchStartEleven.bench);
+        
         S_GlobalManager.squad.FillTeamHoles();
 
         OnMatchEnd.Invoke();

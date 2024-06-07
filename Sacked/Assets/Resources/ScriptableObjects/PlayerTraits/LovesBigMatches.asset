@@ -29,5 +29,5 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  excludedTraits: 08000000
+  excludedTraits: 09000000
   playerRef: {fileID: 0}

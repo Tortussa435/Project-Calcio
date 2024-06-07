@@ -15,7 +15,11 @@ public class S_Squad : MonoBehaviour
     {
         BestTeam,
         Turnover,
-        Fit
+        Fit,
+        _343,
+        _433,
+        _532,
+        _424
     }
 
     public GameObject showTeamButtonRef;
@@ -397,7 +401,7 @@ public class S_Squad : MonoBehaviour
         {
             OnToggleSquadViewer.Invoke(true);
             SO_CardData data = ScriptableObject.Instantiate(Resources.Load<SO_CardData>(S_ResDirs.teamCard));
-            data.leftChoice = S_GlobalManager.squad.FindNextLineup().ToString();
+            data.leftChoice = S_GlobalManager.squad.FindNextLineup().ToString().Replace('_',' ');
             teamCardRef = S_GlobalManager.deckManagerRef.GenerateCard(data, teamCardPrefab, false);
             S_GlobalManager.deckManagerRef.SetCardOnTop(teamCardRef);
             data.rightEffects.AddListener(() => teamCardRef = null); //reference must be lost even before than card destruction
@@ -693,6 +697,22 @@ public class S_Squad : MonoBehaviour
             case PossibleTeam.Fit:
                 SetFittestEleven();
                 break;
+
+            case PossibleTeam._343:
+                SetTeamByModule(3, 4, 3);
+                break;
+
+            case PossibleTeam._433:
+                SetTeamByModule(4, 3, 3);
+                break;
+
+            case PossibleTeam._532:
+                SetTeamByModule(5, 3, 2);
+                break;
+
+            case PossibleTeam._424:
+                SetTeamByModule(4, 2, 4);
+                break;
         }
     }
     
@@ -762,7 +782,51 @@ public class S_Squad : MonoBehaviour
         }
 
     }
-    
+
+    public void SetTeamByModule(int def, int mid, int atk)
+    {
+        List<SO_PlayerData> pgk = new List<SO_PlayerData>(SortTeamListBySkill(Goalkeepers));
+        List<SO_PlayerData> pdef = new List<SO_PlayerData>(SortTeamListBySkill(Defense));
+        List<SO_PlayerData> pmid = new List<SO_PlayerData>(SortTeamListBySkill(Midfield));
+        List<SO_PlayerData> patk = new List<SO_PlayerData>(SortTeamListBySkill(Attack));
+
+        playingEleven = new List<SO_PlayerData>();
+        bench = new List<SO_PlayerData>();
+
+
+        int gks = 0;
+        foreach(SO_PlayerData p in pgk)
+        {
+            if (gks >= 1 || !p.CanPlay()) bench.Add(p);
+            else playingEleven.Add(p);
+            gks++;
+        }
+        
+        int defs = 0;
+        foreach(SO_PlayerData p in pdef)
+        {
+            if (defs >= def || !p.CanPlay()) bench.Add(p);
+            else playingEleven.Add(p);
+            defs++;
+        }
+
+        int mids = 0;
+        foreach(SO_PlayerData p in pmid)
+        {
+            if (mids >= mid || !p.CanPlay()) bench.Add(p);
+            else playingEleven.Add(p);
+            mids++;
+        }
+
+        int atks = 0;
+        foreach (SO_PlayerData p in patk)
+        {
+            if (atks >= atk || !p.CanPlay()) bench.Add(p);
+            else playingEleven.Add(p);
+            atks++;
+        }
+    }
+
     #region SORTING
     public List<SO_PlayerData> SortTeamListBySkill(List<SO_PlayerData> datalist)
     {

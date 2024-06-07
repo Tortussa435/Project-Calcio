@@ -19,7 +19,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 11400000}
         m_TargetAssemblyTypeName: SO_PlayerTrait, Assembly-CSharp
-        m_MethodName: Test
+        m_MethodName: T_HatesBigMatches
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -30,3 +30,4 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   excludedTraits: 
+  playerRef: {fileID: 0}

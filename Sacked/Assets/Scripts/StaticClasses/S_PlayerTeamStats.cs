@@ -58,8 +58,11 @@ public static class S_PlayerTeamStats
     public static float FitnessMultiplier() => Mathf.Lerp( 0.5f, 1, 1 - Mathf.InverseLerp(0, 6, FitnessBoost)); //spent energy decrease multiplier can reach max 0.5
     public static int ChemistryMultiplier()
     {
-        if (ChemistryBoost == 0) return -1; //cannot do log of <1 numbers
-        return ((int)Mathf.Round(Mathf.Log(ChemistryBoost))) -1;
+        int baseChem = 0;
+        if (ChemistryBoost == 0) baseChem = -1; //cannot do log of <1 numbers
+        else baseChem = ((int)Mathf.Round(Mathf.Log(ChemistryBoost))) -1;
+        baseChem -= S_GlobalManager.squad.GetPlayersWithTrait(SO_PlayerTrait.PlayerTraitNames.Does_Not_Know_The_Language).Count / 2; //every two players that do not know the language, chem decreases by 1
+        return baseChem;
     }
     public static void IncreaseAtkBoost() => SquadAtkBoost = Mathf.Clamp(SquadAtkBoost + 1, 0, MAXBOOSTLEVEL);
     public static void IncreaseDefBoost() => SquadDefBoost = Mathf.Clamp(SquadDefBoost + 1, 0, MAXBOOSTLEVEL);

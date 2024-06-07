@@ -49,21 +49,38 @@ public class SO_PlayerTrait : ScriptableObject
 
     public void T_LovesBigMatches()
     {
+        if(playerRef.skillLevel < 5) S_PlayerMatchSimulator.OnMatchEnd.AddListener(T_LovesBigMatchEnd);
+
         if (S_GlobalManager.nextOpponent.SkillLevel >= 4)
         {
-            playerRef.skillLevel += 1;
+            playerRef.skillLevel = Mathf.Clamp(playerRef.skillLevel+1, 1, 5);
         }
-        //if the value gets clamped then it should not be decreased on match end (it would not be very epic!)
-        if (playerRef.skillLevel > 5) playerRef.skillLevel = 5;
-        else S_PlayerMatchSimulator.OnMatchEnd.AddListener(T_LovesBigMatchTrigger);
+        
+        void T_LovesBigMatchEnd()
+        {
+            playerRef.skillLevel = Mathf.Clamp(playerRef.skillLevel -1 , 1, 5);
+            S_PlayerMatchSimulator.OnMatchEnd.RemoveListener(T_LovesBigMatchEnd);
+        }
     }
-    private void T_LovesBigMatchTrigger()
+
+    public void  T_HatesBigMatches()
     {
-        playerRef.skillLevel -= 1;
-        S_PlayerMatchSimulator.OnMatchEnd.RemoveListener(T_LovesBigMatchTrigger);
+        if (playerRef.skillLevel > 1) S_PlayerMatchSimulator.OnMatchEnd.AddListener(T_HatesBigMatchEnd);
+
+        if (S_GlobalManager.nextOpponent.SkillLevel >= 4)
+        {
+            playerRef.skillLevel = Mathf.Clamp(playerRef.skillLevel - 1, 1, 5);
+        }
+
+        void T_HatesBigMatchEnd()
+        {
+            playerRef.skillLevel = Mathf.Clamp(playerRef.skillLevel + 1, 1, 5);
+            S_PlayerMatchSimulator.OnMatchEnd.RemoveListener(T_HatesBigMatchEnd);
+        }
     }
-    
-    
+
+
+
     public void IncreaseInjuryChance()
     {
         if (S_PlayerMatchSimulator.IsPlayerHomeTeam()) S_PlayerMatchSimulator.injuryChance.home++;

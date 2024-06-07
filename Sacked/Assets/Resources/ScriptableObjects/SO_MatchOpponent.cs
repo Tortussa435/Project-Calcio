@@ -49,6 +49,7 @@ public class SO_MatchOpponent : SO_CardData
         SO_CardData previewcard = GenerateMatchPreviewCard();
         previewcard.onGeneratedEffects.AddListener(() => GenerateMatchPreviewCard());
         S_GlobalManager.deckManagerRef.GenerateCard(null,null,false);
+        S_GlobalManager.canEditLineup = false;
     }
 
     public SO_CardData GenerateMatchPreviewCard()

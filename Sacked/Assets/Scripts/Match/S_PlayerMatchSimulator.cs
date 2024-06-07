@@ -169,7 +169,11 @@ public static class S_PlayerMatchSimulator
         S_GlobalManager.squad.bench = new List<SO_PlayerData>(matchStartEleven.bench);
         
         S_GlobalManager.squad.FillTeamHoles();
+        S_GlobalManager.canEditLineup = true;
 
+        homeGoalCheck = 0;
+        awayGoalCheck = 0;
+        
         OnMatchEnd.Invoke();
 
     }

@@ -37,24 +37,36 @@ public static class S_GlobalManager
 
     static public bool sacked = false;
 
+    static public bool canEditLineup = true;
     //values ranging 0-100 with their invoke event
     public enum Values { President, Team, Supporters, Money};
 
     static public float President=50f;
+
     static public UnityEvent OnUpdatePresident;
 
     static public SO_Team nextOpponent;
 
-    
-
     public static int currentMatchDay = 0;
+
+    /// <summary>
+    /// First time the player dies, the stat goes to 5 instead of 0
+    /// </summary>
+    public static bool focusSash = true;
     static S_GlobalManager()
     {
     
     }
     static public float SetPresident(float presidentAdd)
     {
-        President += presidentAdd;
+        if(President+presidentAdd<=0 && focusSash)
+        {
+            focusSash = false;
+            President = 5;
+        }
+        else
+            President += presidentAdd;
+
         President = Mathf.Clamp(President, 0, 100);
         if (OnUpdatePresident == null) OnUpdatePresident = new UnityEvent();
         OnUpdatePresident.Invoke();
@@ -65,7 +77,13 @@ public static class S_GlobalManager
     static public UnityEvent OnUpdateTeam;
     static public float SetTeam(float teamAdd)
     {
-        Team += teamAdd;
+        if (Team + teamAdd <= 0 && focusSash)
+        {
+            focusSash = false;
+            Team = 5;
+        }
+        else
+            Team += teamAdd;
         Team=Mathf.Clamp(Team, 0, 100);
         if (OnUpdateTeam == null) OnUpdateTeam = new UnityEvent();
         OnUpdateTeam.Invoke();
@@ -76,7 +94,14 @@ public static class S_GlobalManager
     static public UnityEvent OnUpdateSupporters;
     static public float SetSupporters(float supportersAdd)
     {
-        Supporters += supportersAdd;
+        if (Supporters + supportersAdd <= 0 && focusSash)
+        {
+            focusSash = false;
+            Supporters = 5;
+        }
+        else
+            Supporters += supportersAdd;
+
         Supporters = Mathf.Clamp(Supporters, 0, 100);
 
         if (OnUpdateSupporters == null) OnUpdateSupporters = new UnityEvent();
@@ -88,7 +113,13 @@ public static class S_GlobalManager
     static public UnityEvent OnUpdateMoney;
     static public float SetMoney(float moneyAdd)
     {
-        Money += moneyAdd;
+        if (Money + moneyAdd <= 0 && focusSash)
+        {
+            focusSash = false;
+            Money = 5;
+        }
+        else
+            Money += moneyAdd;
         Money = Mathf.Clamp(Money, 0, 100);
 
         if (OnUpdateMoney == null) OnUpdateMoney = new UnityEvent();

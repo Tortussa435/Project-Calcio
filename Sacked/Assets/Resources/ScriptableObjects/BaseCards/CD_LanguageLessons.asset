@@ -1,0 +1,93 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acddcb2ef5ce4c84b8aa4c3a78bf158c, type: 3}
+  m_Name: CD_LanguageLessons
+  m_EditorClassIdentifier: 
+  ownerCard: {fileID: 0}
+  cardName: LanguageLessons
+  cardColor: {r: 1, g: 1, b: 1, a: 1}
+  cardDescriptions:
+  - '{Lang} non sa l''italiano, vuoi mandarlo a un corso?'
+  leftChoice: Manda
+  rightChoice: Non Mandare
+  canAppearMoreThanOnce: 1
+  totalAppearances: 0
+  decreaseCountDown: 1
+  desiredCardPrefabDirectory: 
+  leftValues:
+    addedMoney: -10
+    addedTeam: 0
+    addedPresident: 0
+    addedSupporters: 0
+  rightValues:
+    addedMoney: 0
+    addedTeam: 0
+    addedPresident: 0
+    addedSupporters: 0
+  leftEffects:
+    m_PersistentCalls:
+      m_Calls: []
+  rightEffects:
+    m_PersistentCalls:
+      m_Calls: []
+  onGeneratedEffects:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000}
+        m_TargetAssemblyTypeName: SO_CardData, Assembly-CSharp
+        m_MethodName: MakeLanguageLearner
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  alreadyPicked: 0
+  cardIcon: {fileID: 0}
+  leftBranchCard:
+    branchData: {fileID: 11400000, guid: 74a57df2d857fb64490bd13aa4d52eda, type: 2}
+    addPosition: 3
+    triggerChance: 50
+    removeOnPhaseChange: 0
+  rightBranchCard:
+    branchData: {fileID: 0}
+    addPosition: 0
+    triggerChance: 0
+    removeOnPhaseChange: 0
+  scoreCard:
+  - desiredValue: 22
+    direction: 6
+    compareString: Does_Not_Know_The_Language
+    compareFloat: 0
+    customCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
+    scoreMultiplier: 0.5
+  - desiredValue: 18
+    direction: 6
+    compareString: 
+    compareFloat: 2
+    customCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
+    scoreMultiplier: 0.5
+  cardScore: 0.005
+  cardScoreNotNormalized: 0.5

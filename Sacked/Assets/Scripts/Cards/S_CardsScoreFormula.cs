@@ -19,8 +19,6 @@ public class S_CardsScoreFormula
 
     public ScoreDirection direction;
 
-    [ShowIf("direction",ScoreDirection.Equal)]
-    [AllowNesting]
     public string compareString;
 
     private bool needsCompareFloat() { return direction == ScoreDirection.HigherThan || direction == ScoreDirection.LowerThan || direction == ScoreDirection.Equal; }
@@ -131,6 +129,9 @@ public class S_CardsScoreFormula
                 break;
             case Rule.TeamEnergy:
                 valueToCheck = S_GlobalManager.squad.GetTeamAverageEnergy() / 100.0f;
+                break;
+            case Rule.PlayersWithTrait:
+                valueToCheck = S_GlobalManager.squad.GetPlayersWithTrait((SO_PlayerTrait.PlayerTraitNames)Enum.Parse(typeof(SO_PlayerTrait.PlayerTraitNames),compareString),false).Count;
                 break;
 
         }

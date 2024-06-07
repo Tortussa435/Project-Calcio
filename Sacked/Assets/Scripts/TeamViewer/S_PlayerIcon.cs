@@ -77,9 +77,7 @@ public class S_PlayerIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHandle
 
         ownerCard = transform.parent.parent.parent.GetComponent<S_InputHandler>(); //REDO trisnonno momento
 
-        disableDrag = S_GlobalManager.IsMatchPlaying();
-        S_PlayerMatchSimulator.OnMatchStart.AddListener(() => disableDrag = true);
-        S_PlayerMatchSimulator.OnMatchEnd.AddListener(() => disableDrag = false);
+        disableDrag = !S_GlobalManager.canEditLineup;
     }
 
     public void GeneratePlayerFace()

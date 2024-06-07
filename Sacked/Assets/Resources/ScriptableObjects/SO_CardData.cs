@@ -244,6 +244,21 @@ public class SO_CardData : ScriptableObject
         ReplaceCardDescription("{Zombie}", randomPlayer.playerName);
         randomPlayer.injuried = 5;
     }
+
+    public void MakeLanguageLearner()
+    {
+        List<SO_PlayerData> learners = S_GlobalManager.squad.GetPlayersWithTrait(SO_PlayerTrait.PlayerTraitNames.Does_Not_Know_The_Language,false);
+        SO_PlayerData langLearner = learners[Random.Range(0, learners.Count)];
+        ReplaceCardDescription("{Lang}", langLearner.playerName);
+        leftBranchCard.extraData=new List<object> { langLearner };
+    }
+    public void PlayerLearnLanguage()
+    {
+        SO_PlayerData langLearner = passedExtraData[0] as SO_PlayerData;
+        ReplaceCardDescription("{Lang}", langLearner.playerName);
+        langLearner.playerTraits.RemoveAt(0);
+        langLearner.playerTraits.Add(S_PlayerTraitsList.AssignPlayerTrait(langLearner.skillLevel, new List<SO_PlayerTrait.PlayerTraitNames> { SO_PlayerTrait.PlayerTraitNames.Does_Not_Know_The_Language }));
+    }
     #endregion
     #region END MATCH
     public void GenerateEndMatchData()
@@ -298,7 +313,7 @@ public class SO_CardData : ScriptableObject
     {
         //on card generated, updates the lineup based on the decided tactic, then sets the left choice to the next tactic
         S_GlobalManager.squad.SetLineUp(S_GlobalManager.squad.FindNextLineup());  
-        leftChoice = S_GlobalManager.squad.FindNextLineup().ToString(); //REDO pretty weird
+        leftChoice = S_GlobalManager.squad.FindNextLineup().ToString().Replace("_",""); //REDO pretty weird
     }
     #endregion
 }

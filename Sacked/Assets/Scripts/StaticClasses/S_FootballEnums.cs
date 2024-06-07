@@ -80,7 +80,8 @@ public static class S_FootballEnums
         Week,
         CardAppearances,
         CardsToNextPhase,
-        TeamEnergy
+        TeamEnergy,
+        PlayersWithTrait
     }
 
     [System.Serializable]

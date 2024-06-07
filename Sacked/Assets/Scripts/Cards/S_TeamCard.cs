@@ -20,14 +20,8 @@ public class S_TeamCard : S_Card
     private UnityAction LockInput;
     private UnityAction UnlockInput;
     private void Start()
-    {
-        if (S_GlobalManager.currentPhase == S_GlobalManager.CardsPhase.MatchFirstHalf || S_GlobalManager.currentPhase == S_GlobalManager.CardsPhase.MatchSecondHalf) inputLocker.SetActive(true);
-        
-        LockInput = () => inputLocker.SetActive(true);
-        UnlockInput = () => inputLocker.SetActive(false);
-
-        S_PlayerMatchSimulator.OnMatchStart.AddListener(LockInput);
-        S_PlayerMatchSimulator.OnMatchEnd.AddListener(UnlockInput);
+    {        
+        inputLocker.SetActive(!S_GlobalManager.canEditLineup);
     }
 
     public override void GenerateCardData(SO_CardData data)
@@ -116,10 +110,5 @@ public class S_TeamCard : S_Card
     public override void GoRight()
     {
         base.GoRight();
-    }
-    private void OnDestroy()
-    {
-        S_PlayerMatchSimulator.OnMatchStart.RemoveListener(LockInput);
-        S_PlayerMatchSimulator.OnMatchStart.RemoveListener(UnlockInput);
     }
 }

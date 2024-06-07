@@ -401,7 +401,9 @@ public class S_Squad : MonoBehaviour
         {
             OnToggleSquadViewer.Invoke(true);
             SO_CardData data = ScriptableObject.Instantiate(Resources.Load<SO_CardData>(S_ResDirs.teamCard));
-            data.leftChoice = S_GlobalManager.squad.FindNextLineup().ToString().Replace('_',' ');
+            string tacticName = S_GlobalManager.squad.FindNextLineup().ToString();
+            tacticName = tacticName.Replace("_", " ");
+            data.leftChoice = tacticName;
             teamCardRef = S_GlobalManager.deckManagerRef.GenerateCard(data, teamCardPrefab, false);
             S_GlobalManager.deckManagerRef.SetCardOnTop(teamCardRef);
             data.rightEffects.AddListener(() => teamCardRef = null); //reference must be lost even before than card destruction

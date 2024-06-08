@@ -30,7 +30,8 @@ public static class S_ResDirs
     public static string goalChancePerMinute = "ScriptableObjects/Curves/PlayerMatch/MatchGoalChanceMultiplier";
 
     [Header("Prefabs")]
-    public static string teambox = "Prefabs/Teambox";
+    public static string teambox = "Prefabs/Ladder/Teambox";
+    public static string ladderLegend = "Prefabs/Ladder/LadderLegend";
     public static string playerbox = "Prefabs/PlayerBox";
     public static string playerPrefab = "Prefabs/P_Player";
 

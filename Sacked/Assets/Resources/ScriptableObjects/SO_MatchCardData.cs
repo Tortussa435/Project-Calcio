@@ -1,5 +1,4 @@
 using NaughtyAttributes;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -249,7 +248,7 @@ public class SO_MatchCardData : SO_CardData
         //penalty
         if (Random.Range(0, 100) < penaltyChance)
         {
-            GivePenaltyFromCard(true);
+            GivePenaltyFromCard(false);
         }
 
         //ownerCard.GetComponent<S_Card>().GenerateCardData(this);
@@ -284,7 +283,7 @@ public class SO_MatchCardData : SO_CardData
         //penalty
         if (Random.Range(0, 100) < 25)
         {
-            GivePenaltyFromCard(true);
+            GivePenaltyFromCard(false);
         }
 
     }
@@ -331,7 +330,7 @@ public class SO_MatchCardData : SO_CardData
         float penaltyChance = expelled ? 15 : 5;
         if (Random.Range(0, 100) < penaltyChance)
         {
-            GivePenaltyFromCard(false);
+            GivePenaltyFromCard(true);
         }
 
     }
@@ -355,7 +354,7 @@ public class SO_MatchCardData : SO_CardData
 
         if (Random.Range(0, 100) < 25)
         {
-            GivePenaltyFromCard(false);
+            GivePenaltyFromCard(true);
         }
     }
 
@@ -366,11 +365,13 @@ public class SO_MatchCardData : SO_CardData
         penalty.onGeneratedEffects = new UnityEvent();
 
         if (player)
+        {
             penalty.onGeneratedEffects.AddListener(GeneratePlayerPenalty);
-        
-        else if(!player)
+        }
+        else if (!player)
+        {
             penalty.onGeneratedEffects.AddListener(GenerateOpponentPenalty);
-
+        }
         S_GlobalManager.deckManagerRef.AddCardToDeck(penalty);
     }
     #endregion

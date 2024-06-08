@@ -1,7 +1,4 @@
-using JetBrains.Annotations;
-using System.Collections;
 using System.Collections.Generic;
-using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -214,7 +211,7 @@ public static class S_SubstitutionsManager
 
         SO_PlayerData playerToSub = null;
         
-        if (atkCount >= midCount) playerToSub = worstAtk.pl;
+        if (atkCount > 1) playerToSub = worstAtk.pl; //swap an atk for a def almost always
         else playerToSub = worstMid.pl;
 
         //find best defender

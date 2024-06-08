@@ -1,15 +1,10 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine.Events;
-using UnityEngine.UI;
 using TMPro; 
 using UnityEngine;
-using UnityEngine.UIElements;
 using System.Linq;
 using static S_GlobalManager;
-using System.Globalization;
-using static SO_CardData;
+
 
 public class S_DeckManager : MonoBehaviour
 {
@@ -58,7 +53,6 @@ public class S_DeckManager : MonoBehaviour
         Random.InitState(System.DateTime.Now.Millisecond);
 
         deckManagerRef = this;
-
         selectedLeague = ScriptableObject.Instantiate(selectedLeague);
         selectedLeague.GenerateTeamInstances(); //makes instances of the teams scriptable objects to avoid editing the source assets during game time
 

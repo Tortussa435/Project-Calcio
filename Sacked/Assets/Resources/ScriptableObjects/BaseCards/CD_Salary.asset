@@ -20,17 +20,17 @@ MonoBehaviour:
   leftChoice: Aumenta
   rightChoice: Ignora richiesta
   canAppearMoreThanOnce: 1
-  totalAppearances: 2
+  totalAppearances: 0
   decreaseCountDown: 1
   desiredCardPrefabDirectory: 
   leftValues:
-    addedMoney: -20
-    addedTeam: 20
+    addedMoney: -15
+    addedTeam: 15
     addedPresident: 0
     addedSupporters: 0
   rightValues:
     addedMoney: 0
-    addedTeam: -30
+    addedTeam: -20
     addedPresident: 0
     addedSupporters: 0
   leftEffects:
@@ -76,6 +76,6 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    scoreMultiplier: -0.05
+    scoreMultiplier: -0.1
   cardScore: 0.9
   cardScoreNotNormalized: 0.9

@@ -20,6 +20,7 @@ public class S_MatchDirectionViewer : MonoBehaviour
             targetDirection = 0.5f;
         }
         else targetDirection = homeGoalCheck / (homeGoalCheck+awayGoalCheck);
+        targetDirection = Mathf.Clamp(targetDirection, 0.2f, 0.8f);//avoids showing absolute domination from one team
         direction = S_CoolFuncs.Lerpoler(direction, targetDirection,5);
         if (fillBar != null) fillBar.fillAmount = direction;
     }

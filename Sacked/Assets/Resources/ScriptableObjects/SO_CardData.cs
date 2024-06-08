@@ -1,10 +1,6 @@
-using Mono.Cecil;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.Events;
-using System.Linq;
 using NaughtyAttributes;
 
 [CreateAssetMenu(fileName = "New Card Data", menuName = "Cards/Card")]

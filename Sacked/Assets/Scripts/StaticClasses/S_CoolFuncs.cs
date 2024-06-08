@@ -25,7 +25,38 @@ static public class S_CoolFuncs
 
     #region COLORS
     public static Color ChangeAlpha(float a, Color c) => new Color(c.r, c.g, c.b, a);
-    #endregion
 
+    public static Color ChangeHue(float h, Color c)
+    {
+        float nh;
+        float ns;
+        float nv;
+
+        Color.RGBToHSV(c, out nh, out ns, out nv);
+        return Color.HSVToRGB(h, ns, nv);
+    }
+
+    public static Color ChangeSaturation(float s, Color c)
+    {
+        float nh;
+        float ns;
+        float nv;
+
+        Color.RGBToHSV(c, out nh, out ns, out nv);
+        return Color.HSVToRGB(nh, s, nv);
+    }
+
+    public static Color ChangeValue(float v, Color c)
+    {
+        float nh;
+        float ns;
+        float nv;
+
+        Color.RGBToHSV(c, out nh, out ns, out nv);
+        return Color.HSVToRGB(nh, ns, v);
+    }
+
+    #endregion
 }
+
 

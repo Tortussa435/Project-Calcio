@@ -89,5 +89,16 @@ MonoBehaviour:
       m_PostInfinity: 0
       m_RotationOrder: 0
     scoreMultiplier: 0.5
+  - desiredValue: 22
+    direction: 5
+    compareString: Does_Not_Know_The_Language
+    compareFloat: 0
+    customCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
+    scoreMultiplier: -1
   cardScore: 0.005
   cardScoreNotNormalized: 0.5

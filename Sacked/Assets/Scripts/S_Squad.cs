@@ -1,9 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -17,6 +14,7 @@ public class S_Squad : MonoBehaviour
         Turnover,
         Fit,
         _343,
+        _442,
         _433,
         _532,
         _424
@@ -708,6 +706,10 @@ public class S_Squad : MonoBehaviour
                 SetTeamByModule(4, 3, 3);
                 break;
 
+            case PossibleTeam._442:
+                SetTeamByModule(4, 4, 2);
+                break;
+
             case PossibleTeam._532:
                 SetTeamByModule(5, 3, 2);
                 break;
@@ -800,32 +802,44 @@ public class S_Squad : MonoBehaviour
         foreach(SO_PlayerData p in pgk)
         {
             if (gks >= 1 || !p.CanPlay()) bench.Add(p);
-            else playingEleven.Add(p);
-            gks++;
+            else
+            {
+                playingEleven.Add(p);
+                gks++;
+            } 
         }
         
         int defs = 0;
         foreach(SO_PlayerData p in pdef)
         {
             if (defs >= def || !p.CanPlay()) bench.Add(p);
-            else playingEleven.Add(p);
-            defs++;
+            else
+            {
+                playingEleven.Add(p);
+                defs++;
+            }
         }
 
         int mids = 0;
         foreach(SO_PlayerData p in pmid)
         {
             if (mids >= mid || !p.CanPlay()) bench.Add(p);
-            else playingEleven.Add(p);
-            mids++;
+            else
+            {
+                playingEleven.Add(p);
+                mids++;
+            }
         }
 
         int atks = 0;
         foreach (SO_PlayerData p in patk)
         {
             if (atks >= atk || !p.CanPlay()) bench.Add(p);
-            else playingEleven.Add(p);
-            atks++;
+            else
+            {
+                playingEleven.Add(p);
+                atks++;
+            }
         }
     }
 

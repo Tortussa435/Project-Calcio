@@ -101,4 +101,5 @@ public static class S_FootballEnums
     };
 
     public static List<string> vehicles = new List<string> { "Bici", "Elicottero", "Torpedone", "Trattore" };
+
 }

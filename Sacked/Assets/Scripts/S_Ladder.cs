@@ -47,27 +47,34 @@ public class S_Ladder : MonoBehaviour
             ladderVisible = true;
             gameObject.SetActive(true);
             QuickSortLadder(leagueLadder, 0, leagueLadder.Count - 1);
+            
+            //generate legend
+            GameObject legend = Resources.Load<GameObject>(S_ResDirs.ladderLegend);
+            legend = Instantiate(legend, Vector3.zero, Quaternion.identity, gameObject.transform);
+
             for (int i = 0; i < leagueLadder.Count; i++)
             {
                 GameObject teambox = Resources.Load<GameObject>(S_ResDirs.teambox);
                 teambox = Instantiate(teambox, Vector3.zero, Quaternion.identity, gameObject.transform);
-                teambox.transform.GetChild(0).GetComponent<TextMeshProUGUI>().SetText(leagueLadder[i].team.teamName);
-                teambox.transform.GetChild(1).GetComponent<TextMeshProUGUI>().SetText(leagueLadder[i].points.ToString());
+                teambox.transform.Find("TeamLogo").GetComponent<Image>().sprite=leagueLadder[i].team.teamLogo;
+                teambox.transform.Find("T_TeamName").GetComponent<TextMeshProUGUI>().SetText(leagueLadder[i].team.teamName);
+                teambox.transform.Find("T_TeamPoints").GetComponent<TextMeshProUGUI>().SetText(leagueLadder[i].points.ToString());
                 switch (i+1)
                 {
                     default:
                         teambox.GetComponent<Image>().color = Color.gray;
                         break;
                     case 1:
-                        teambox.GetComponent<Image>().color = Color.cyan;
+                        teambox.GetComponent<Image>().color = S_CoolFuncs.ChangeSaturation(0.5f,Color.cyan);
                         break;
                     case int n when n <= 7:
-                        teambox.GetComponent<Image>().color = Color.green;
+                        teambox.GetComponent<Image>().color = S_CoolFuncs.ChangeSaturation(0.5f, Color.green);
                         break;
                     case int n when n >= 18:
-                        teambox.GetComponent<Image>().color = Color.red;
+                        teambox.GetComponent<Image>().color = S_CoolFuncs.ChangeSaturation(0.5f, Color.red);
                         break;
                 }
+                
             }
         }
     }

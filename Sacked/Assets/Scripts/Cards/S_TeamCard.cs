@@ -109,6 +109,6 @@ public class S_TeamCard : S_Card
     }
     public override void GoRight()
     {
-        base.GoRight();
+    
     }
 }

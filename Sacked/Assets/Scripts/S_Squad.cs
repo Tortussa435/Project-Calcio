@@ -22,6 +22,8 @@ public class S_Squad : MonoBehaviour
 
     public GameObject showTeamButtonRef;
 
+    public GameObject teamStatsViewer;
+
     public PossibleTeam teamLineup = PossibleTeam.BestTeam;
 
     public List<SO_PlayerData> Goalkeepers;
@@ -405,10 +407,14 @@ public class S_Squad : MonoBehaviour
             teamCardRef = S_GlobalManager.deckManagerRef.GenerateCard(data, teamCardPrefab, false);
             S_GlobalManager.deckManagerRef.SetCardOnTop(teamCardRef);
             data.rightEffects.AddListener(() => teamCardRef = null); //reference must be lost even before than card destruction
+            teamStatsViewer.SetActive(true);
+            S_PlayerTeamStats.CalcSquadDef();
+            S_PlayerTeamStats.CalcSquadAtk();
         }
         //close
         else
         {
+            teamStatsViewer.SetActive(false);
             OnToggleSquadViewer.Invoke(false);
             Destroy(teamCardRef);
         }
@@ -718,6 +724,8 @@ public class S_Squad : MonoBehaviour
                 SetTeamByModule(4, 2, 4);
                 break;
         }
+        S_PlayerTeamStats.CalcSquadDef(false);
+        S_PlayerTeamStats.CalcSquadAtk(false);
     }
     
     //REDO these functions have a lot of redundancy and identical code

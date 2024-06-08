@@ -25,9 +25,10 @@ public static class S_PlayerMatchSimulator
 
     public static (int home, int away) tacticEffectiveness = ( 0, 0);
 
+    public static (int home, int away) luck = (0, 0);
+
     public static (int home, int away) substitutions = (0, 0);
 
-    public static (int home, int away) luck = (0, 0);
 
     public static float homeGoalCheck = 0.0f;
     public static float awayGoalCheck = 0.0f;
@@ -366,7 +367,7 @@ public static class S_PlayerMatchSimulator
         //decrease goal chance for each already scored goal
         goalCheck *= Mathf.Pow(GOALCHANCEDECREASEPERGOAL, homeTeam ? matchScore.home : matchScore.away);
         
-        //adds a -0.2:0.2 chance bonus based on tactic effectiveness
+        //adds a -.1:.1 chance multiplier based on tactic effectiveness
         goalCheck += GoalChanceFromTactics(homeTeam);
         //Debug.Log("la tattica stabilisce che il boost alla goal chance è" + GoalChanceFromTactics(homeTeam));
 
@@ -453,8 +454,8 @@ public static class S_PlayerMatchSimulator
     public static SO_Team GetOpponentTeam() => S_GlobalManager.selectedTeam.teamName == match.homeTeam.teamName ? match.awayTeam : match.homeTeam;
     public static bool IsOpponentHomeTeam() => !(S_GlobalManager.selectedTeam.teamName == match.homeTeam.teamName);
     public static bool IsPlayerHomeTeam() => (S_GlobalManager.selectedTeam.teamName == match.homeTeam.teamName);
-    private static float GoalChanceFromTactics(bool homeTeam) => homeTeam ? (float)tacticEffectiveness.home/10.0f : (float)tacticEffectiveness.away/10.0f;
-    private static float GoalChanceFromTraits(bool homeTeam) => homeTeam ? (float)traitsScoreChance.home/10.0f : (float)traitsScoreChance.away/10.0f;
+    private static float GoalChanceFromTactics(bool homeTeam) => (homeTeam ? tacticEffectiveness.home : tacticEffectiveness.away) / 20.0f;
+    private static float GoalChanceFromTraits(bool homeTeam) => (homeTeam ? (float)traitsScoreChance.home : (float)traitsScoreChance.away)/10.0f;
     public static bool PlayerWinning() => IsPlayerHomeTeam() == matchScore.HomeWinning();
     public static bool OpponentWinning() => IsPlayerHomeTeam() == matchScore.AwayWinning();
     public static bool IsMatchDrawing() => matchScore.Drawing();

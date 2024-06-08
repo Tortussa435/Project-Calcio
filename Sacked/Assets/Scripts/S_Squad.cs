@@ -461,7 +461,7 @@ public class S_Squad : MonoBehaviour
         return players[Random.Range(0, players.Count)].playerName;
     }
 
-    public SO_PlayerData DecidePlayerToExpel(int gkchance = 5 , int defchance = 35, int midchance = 70, int atkchance = 100)
+    public SO_PlayerData DecidePlayerToExpel(int gkchance = 0 , int defchance = 35, int midchance = 70, int atkchance = 100)
     {
         int seed = Random.Range(0, 100);
         SO_PlayerData.PlayerRole roleToExpel;

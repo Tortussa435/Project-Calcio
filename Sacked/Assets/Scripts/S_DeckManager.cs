@@ -72,6 +72,7 @@ public class S_DeckManager : MonoBehaviour
                 SO_TeamCardData tcd = ScriptableObject.CreateInstance<SO_TeamCardData>();
                 tcd.SetTeamData(team);
                 tcd.decreaseCountDown = false;
+                tcd.desiredCardPrefabDirectory = S_ResDirs.chooseTeamCard;
                 GameObject go = GenerateCard(tcd,null,false);
                 if (firstCard)
                 {

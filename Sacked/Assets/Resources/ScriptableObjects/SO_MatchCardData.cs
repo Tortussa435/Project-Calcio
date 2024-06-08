@@ -360,17 +360,17 @@ public class SO_MatchCardData : SO_CardData
 
     private void GivePenaltyFromCard(bool player)
     {
-        SO_CardData penalty = ScriptableObject.Instantiate(Resources.Load<SO_CardData>(S_ResDirs.penaltyCard));
+        SO_MatchCardData penalty = ScriptableObject.Instantiate(Resources.Load<SO_MatchCardData>(S_ResDirs.penaltyCard));
 
         penalty.onGeneratedEffects = new UnityEvent();
 
         if (player)
         {
-            penalty.onGeneratedEffects.AddListener(GeneratePlayerPenalty);
+            penalty.onGeneratedEffects.AddListener(penalty.GeneratePlayerPenalty);
         }
         else if (!player)
         {
-            penalty.onGeneratedEffects.AddListener(GenerateOpponentPenalty);
+            penalty.onGeneratedEffects.AddListener(penalty.GenerateOpponentPenalty);
         }
         S_GlobalManager.deckManagerRef.AddCardToDeck(penalty);
     }

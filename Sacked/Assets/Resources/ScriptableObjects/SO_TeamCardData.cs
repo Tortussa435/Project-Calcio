@@ -5,6 +5,8 @@ using UnityEngine;
 public class SO_TeamCardData : SO_CardData
 {
     public SO_Team cardTeam;
+    int minDesiredPlace = 1;
+    int optDesiredPlace = 1;
     public override void rightEffect()
     {
         //respawn card after other 2 offers
@@ -24,19 +26,57 @@ public class SO_TeamCardData : SO_CardData
         //REDO
         Destroy(S_GlobalManager.deckManagerRef.deck.transform.GetChild(0).gameObject);
         Destroy(S_GlobalManager.deckManagerRef.deck.transform.GetChild(1).gameObject);
-
-        //Generates team objective
-        SO_TeamObjective teamobjective = ScriptableObject.CreateInstance<SO_TeamObjective>();
-        teamobjective.SetTeamObjectivesData();
-
-        S_GlobalManager.deckManagerRef.AddCardToDeck(teamobjective);
         
         S_GlobalManager.nextOpponent = S_Calendar.FindOpponent();
 
-        //base.leftEffect();
-        if (!S_GlobalManager.DefeatCheck()) S_GlobalManager.deckManagerRef.GenerateCard(null, null, decreaseCountDown);
+        StartCareer();
+    }
 
-        //----
+    private void SetTeamObjective()
+    {
+        int skillLevel = cardTeam.SkillLevel;
+
+        string obj = "";
+        switch (skillLevel)
+        {
+            case int i when i<=2:
+                obj = "Avoid relegation";
+                minDesiredPlace = 17;
+                optDesiredPlace = 14;
+                break;
+            case 3:
+                obj = "Reach the mid of the table";
+                minDesiredPlace = 14;
+                optDesiredPlace = 10;
+                break;
+            case 4:
+                obj = "Reach the top 4";
+                minDesiredPlace = 6;
+                optDesiredPlace = 4;
+                break;
+            case 5:
+                obj = "Win the title";
+                minDesiredPlace = 1;
+                optDesiredPlace = 1;
+                break;
+        }
+
+        ownerCard.transform.Find("T_Objective").GetComponent<TMPro.TextMeshProUGUI>().text = obj;
+    }
+
+    public void StartCareer()
+    {
+        S_GlobalManager.minRankingObjective = minDesiredPlace;
+        S_GlobalManager.optimalRankingObjective = optDesiredPlace;
+
+        //REDO metodo per evitare che riappaia una carta scegli squadra molto grezzo
+        S_GlobalManager.deckManagerRef.cardSelector.appendedWeekCards.Clear();
+
+        S_GlobalManager.squad.GenerateTeam();
+
+        (int min, int max) weekduration = (S_GlobalManager.deckManagerRef.weekDuration.min, S_GlobalManager.deckManagerRef.weekDuration.max);
+        S_GlobalManager.deckManagerRef.ChangeCurrentPhase(weekduration.min + 1, weekduration.max + 1, S_GlobalManager.CardsPhase.Week);
+
     }
 
     public void SetTeamData(SO_Team team)
@@ -57,6 +97,8 @@ public class SO_TeamCardData : SO_CardData
         else cardColor = cardTeam.teamColor1;
 
         cardDescriptions.Add(team.teamName);
+
+        onGeneratedEffects.AddListener(SetTeamObjective);
     }
     
 }

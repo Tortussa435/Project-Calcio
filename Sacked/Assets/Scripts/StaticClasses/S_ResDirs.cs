@@ -34,7 +34,7 @@ public static class S_ResDirs
     public static string ladderLegend = "Prefabs/Ladder/LadderLegend";
     public static string playerbox = "Prefabs/PlayerBox";
     public static string playerPrefab = "Prefabs/P_Player";
-
+    public static string chooseTeamCard = "Prefabs/CardTypes/P_ChooseTeamCard";
 
     [Header("Players")]
     public static string playerCardDir = "ScriptableObjects/TeamCard/PlayerCard";

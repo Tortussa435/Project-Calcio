@@ -203,7 +203,7 @@ public class SO_CardData : ScriptableObject
     protected void ReplaceCardDescription(string placeholder, string output)
     {
         S_Card card;
-        if(!ownerCard.TryGetComponent<S_Card>(out card)) return;
+        if (!ownerCard.TryGetComponent<S_Card>(out card)) { Debug.LogWarning("Non riuscii nel fare sostituto"); return; }
         string s = card.cardDescription.text;
         s = s.Replace(placeholder, output);
         card.cardDescription.text = s;

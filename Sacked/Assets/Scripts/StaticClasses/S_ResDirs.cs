@@ -17,6 +17,8 @@ public static class S_ResDirs
     public static string playerSubstitution = "ScriptableObjects/MatchCards/Match/SO_PlayerSubstitution";
     public static string goalkeeperSubstitution = "ScriptableObjects/MatchCards/Match/ForcedSubstitution/SO_GKSubstitution";
     public static string gkSaveCard = "ScriptableObjects/MatchCards/Match/GKSave/SO_GKSave";
+    public static string cornerFailed = "ScriptableObjects/MatchCards/Match/CornerFailed/SO_CornerFailed";
+    public static string fkFailed = "ScriptableObjects/MatchCards/Match/FKFailed/SO_FKFailed";
 
     [Header("Pools")]
     public static string matchPreviewPool = "ScriptableObjects/CardsPools/MatchPreviewCardsPool";
@@ -52,6 +54,8 @@ public static class S_ResDirs
 
     [Header("Gol Descriptions")]
     public static string penaltyDescriptions = "ScriptableObjects/GoalDescriptions/SpecialDescriptions/PenaltyGoals";
+    public static string cornerGoalDescriptions = "ScriptableObjects/GoalDescriptions/SpecialDescriptions/CornerGoals";
+    public static string fkGoalDescriptions = "ScriptableObjects/GoalDescriptions/SpecialDescriptions/FKGoals";
 
     [Header("Stats")]
     public static string pentagon = "Prefabs/Pentagon/Pentagon";

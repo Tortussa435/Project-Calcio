@@ -17,6 +17,18 @@ public static class S_PlayerTeamStats
     private static int ChemistryBoost;
     private static int FitnessBoost;
     private static int FreeKicksBoost;
+    
+    public static void ResetS_PlayerTeamStats()
+    {
+        AverageSquadAtk = 0;
+        AverageSquadDef = 0;
+        SquadDefBoost = 0;
+        SquadAtkBoost = 0;
+        ChemistryBoost = 0;
+        FitnessBoost = 0;
+        FreeKicksBoost = 0;
+    }
+
     private static float GetTotalSkillByRole(SO_PlayerData.PlayerRole role) 
     {
         float total = 0;
@@ -41,13 +53,13 @@ public static class S_PlayerTeamStats
     public static int CalcSquadAtk(bool getOnly=false)
     {
         if(!getOnly) AverageSquadAtk = (int)((GetTotalSkillByRole(SO_PlayerData.PlayerRole.Atk) / 3) + (GetTotalSkillByRole(SO_PlayerData.PlayerRole.Mid)/25));
-        int final = Mathf.Clamp(AverageSquadAtk + (SquadAtkBoost / 3) + ChemistryMultiplier(), 0, 5);
+        int final = Mathf.Clamp(AverageSquadAtk + (SquadAtkBoost / 3) + ChemistryMultiplier(), 1, 5);
         return final;
     }
     public static int CalcSquadDef(bool getOnly=false)
     {
         if(!getOnly) AverageSquadDef = (int)((GetTotalSkillByRole(SO_PlayerData.PlayerRole.Def) / 3) + (GetTotalSkillByRole(SO_PlayerData.PlayerRole.Mid) / 25));
-        int final = Mathf.Clamp(AverageSquadDef + (SquadDefBoost / 3) + ChemistryMultiplier(), 0, 5);
+        int final = Mathf.Clamp(AverageSquadDef + (SquadDefBoost / 3) + ChemistryMultiplier(), 1, 5);
         return final;
     }
     public static int GetChemistryBoost() => ChemistryBoost;
@@ -56,6 +68,7 @@ public static class S_PlayerTeamStats
     public static int GetAtkBoost() => SquadAtkBoost;
     public static int GetDefBoost() => SquadDefBoost;
     public static float FitnessMultiplier() => Mathf.Lerp( 0.5f, 1, 1 - Mathf.InverseLerp(0, 6, FitnessBoost)); //spent energy decrease multiplier can reach max 0.5
+    public static float GetFKExtraChance() => FreeKicksBoost / 18.0f;
     public static int ChemistryMultiplier()
     {
         int baseChem = 0;

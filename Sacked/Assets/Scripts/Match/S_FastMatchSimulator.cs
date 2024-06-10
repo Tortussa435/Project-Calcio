@@ -16,6 +16,10 @@ public static class S_FastMatchSimulator
     {
         fastGoalChanceCurve = Resources.Load<SO_Curve>(S_ResDirs.fastGoalChanceCurve);
     }
+    public static void ResetS_FastMatchSimulator()
+    {
+        weekResults = new List<(S_Calendar.Match match, Score score)>();
+    }
 
     public struct Score
     {

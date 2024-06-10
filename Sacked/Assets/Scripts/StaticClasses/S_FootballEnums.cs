@@ -81,7 +81,9 @@ public static class S_FootballEnums
         CardAppearances,
         CardsToNextPhase,
         TeamEnergy,
-        PlayersWithTrait
+        PlayersWithTrait,
+        TeamTactic,
+        OpponentTactic,
     }
 
     [System.Serializable]

@@ -17,6 +17,7 @@ public class SO_Sacking : SO_CardData
 
     private void ReloadGame()
     {
-        //SceneManager.LoadScene(0,LoadSceneMode.Single);
+        S_GlobalManager.deckManagerRef.ResetStaticClasses();
+        SceneManager.LoadScene(0,LoadSceneMode.Single);
     }
 }

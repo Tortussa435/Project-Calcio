@@ -1,5 +1,7 @@
+using JetBrains.Annotations;
 using NaughtyAttributes;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using static S_FootballEnums;
@@ -17,6 +19,8 @@ public class SO_MatchCardData : SO_CardData
     public List<CardDropChance> matchCardDropChance = new List<CardDropChance>();
 
     [SerializeField] private string formulaDescriptionInfo;
+   
+    
     public override void SetCardScore()
     {
 
@@ -527,6 +531,245 @@ public class SO_MatchCardData : SO_CardData
     }
     #endregion
 
+    #region CORNER
+    public void CalcCorner()
+    {
+        //Decide who's beating the corner
+        bool playerCorner = false;
+
+        SO_Team Cornerer;
+        int playerChance = S_GlobalManager.selectedTeam.SkillLevel;
+        int oppChance = S_GlobalManager.nextOpponent.SkillLevel;
+        int seed = Random.Range(0, playerChance + oppChance);
+        if (seed < playerChance)
+        {
+            Cornerer = S_GlobalManager.selectedTeam;
+            playerCorner = true;
+        }
+        else
+        {
+            Cornerer = S_GlobalManager.nextOpponent;
+            playerCorner = false;
+        }
+
+        ReplaceCardDescription("{T}", Cornerer.teamName);
+
+        if (playerCorner)
+        {
+            //calc player goal chance
+            float cornerGoalChance = 0;
+            int tallPlayers = S_GlobalManager.squad.GetPlayersWithTrait(SO_PlayerTrait.PlayerTraitNames.Tall).Count;
+            bool smallOpp = false;
+            bool goodCornerShooter = false;
+            float cornerTrainingExtraChance = S_PlayerTeamStats.GetFKExtraChance();
+
+            SO_PlayerData fks = S_GlobalManager.squad.freeKicksShooter;
+            if (!fks.CanPlay()) fks = S_GlobalManager.squad.GetFreeKicksShooter();
+            goodCornerShooter = (fks.playerTraits[0].traitName == SO_PlayerTrait.PlayerTraitNames.Old_Wise_Man || fks.playerTraits[0].traitName == SO_PlayerTrait.PlayerTraitNames.Lucky);
+                
+            foreach (SO_TeamTrait t in S_GlobalManager.nextOpponent.teamTraits) 
+            {
+                if (t.traitName == SO_TeamTrait.TraitNames.Small)
+                {
+                    smallOpp = true;
+                    break;
+                }            
+            }
+            //the total score is in range 0-1, then it gets used as a lerp on the actual max corner chance (it should be circa 33%)
+            cornerGoalChance += smallOpp ? 0.2f : 0;
+            cornerGoalChance += goodCornerShooter ? 0.2f : 0;
+            cornerGoalChance += 0.2f * tallPlayers;
+            cornerGoalChance += (fks.skillLevel / 50.0f);
+            cornerGoalChance = Mathf.Clamp(cornerGoalChance, 0, 1);
+
+            cornerGoalChance = Mathf.Lerp(0, S_Chances.MAXCORNERGOALCHANCE+cornerTrainingExtraChance, cornerGoalChance);
+            
+            //Generate Goal Card
+            if (Random.Range(0.0f, 1.0f) < cornerGoalChance)
+            {
+                SO_CardData card = S_PlayerMatchSimulator.GenerateGolCard(S_PlayerMatchSimulator.IsPlayerHomeTeam(), false);
+                card.desiredCardPrefabDirectory = S_ResDirs.golCardDir;
+                S_GlobalManager.deckManagerRef.AddCardToDeck(card, 0, null, null, true);
+                SO_GoalDescriptions cornerDescriptions = Resources.Load<SO_GoalDescriptions>(S_ResDirs.cornerGoalDescriptions);
+                
+                //Find gol scorer
+                List<SO_PlayerData> eligibles = new List<SO_PlayerData>();
+                SO_PlayerData golScorer=null;
+                foreach(SO_PlayerData p in S_GlobalManager.squad.playingEleven)
+                {
+                    if (p.playerTraits[0].traitName == SO_PlayerTrait.PlayerTraitNames.Tall) eligibles.Add(p);
+                }
+
+                if (Random.Range(0, 100) < 75)
+                {   if(eligibles.Count>0)
+                        golScorer = eligibles[Random.Range(0, eligibles.Count)];
+                }
+                if (golScorer == null)
+                {
+                    List<SO_PlayerData> possibleScorers = new List<SO_PlayerData>(S_GlobalManager.squad.playingEleven);
+                    possibleScorers.Remove(fks);
+                    golScorer = possibleScorers[Random.Range(0, possibleScorers.Count)];
+                }
+                
+                
+                (card as SO_GoalCardData).goalDescription = cornerDescriptions.GetRandomDescription(golScorer, true);
+                string s = (card as SO_GoalCardData).goalDescription;
+                s=s.Replace("{Corner}", fks.playerName);
+                (card as SO_GoalCardData).goalDescription = s;
+            }
+            //Generate Corner Failed Card
+            else
+            {
+                GenerateCornerFailedCard(fks.playerName);
+            }
+
+        }
+        
+        //Opponent corner
+        else
+        {
+            //calc player goal chance
+            float cornerGoalChance = 0;
+            bool tallTeam = S_GlobalManager.nextOpponent.TeamHasTrait(SO_TeamTrait.TraitNames.Tall);
+            int smallOpp = S_GlobalManager.squad.GetPlayersWithTrait(SO_PlayerTrait.PlayerTraitNames.Small).Count;
+            int teamSkill = S_GlobalManager.squad.FindGameSkillLevel();
+            
+            cornerGoalChance += tallTeam ? 0.25f : 0;
+            cornerGoalChance += smallOpp * 0.1f;
+            cornerGoalChance += (teamSkill / 50.0f);
+            cornerGoalChance = Mathf.Clamp(cornerGoalChance, 0.0f, 1.0f);
+            cornerGoalChance = Mathf.Lerp(0, S_Chances.MAXCORNERGOALCHANCE, cornerGoalChance);
+
+            if (Random.Range(0.0f, 1.0f) < cornerGoalChance)
+            {
+                SO_CardData card = S_PlayerMatchSimulator.GenerateGolCard(!S_PlayerMatchSimulator.IsPlayerHomeTeam(), false);
+                card.desiredCardPrefabDirectory = S_ResDirs.golCardDir;
+                S_GlobalManager.deckManagerRef.AddCardToDeck(card, 0, null, null, true);
+                SO_GoalDescriptions cornerDescriptions = Resources.Load<SO_GoalDescriptions>(S_ResDirs.cornerGoalDescriptions);
+
+                (card as SO_GoalCardData).goalDescription = cornerDescriptions.GetRandomDescription(null, false);
+                string s = (card as SO_GoalCardData).goalDescription;
+                s = s.Replace("{Corner}", S_PlayerMatchSimulator.RandomlyGetNewOrExistingOpponentPlayer());
+                (card as SO_GoalCardData).goalDescription = s;
+            }
+            else
+            {
+                GenerateCornerFailedCard(S_PlayerMatchSimulator.RandomlyGetNewOrExistingOpponentPlayer());
+                //generate corner failed card
+            }
+        }
+
+        void GenerateCornerFailedCard(string cornerShooterName)
+        {
+            SO_CardData cornerFailed = ScriptableObject.Instantiate(Resources.Load<SO_CardData>(S_ResDirs.cornerFailed));
+            S_GlobalManager.deckManagerRef.AddCardToDeck(cornerFailed, 0, null, null, true);
+            cornerFailed.passedExtraData = new List<object> { cornerShooterName };
+        }
+    }
+
+    public void GenerateCornerFailedDescription() => ReplaceCardDescription("{Corner}", passedExtraData[0] as string);
+    public void GenerateFreeKickFailedDescription() => ReplaceCardDescription("{FK}", passedExtraData[0] as string);
+
+    #endregion
+
+    #region FREE KICKS
+    public void CalcFreeKick()
+    {
+        //calc who shoots free kick
+        int playerSkill = S_GlobalManager.selectedTeam.SkillLevel;
+        int opponentSkill = S_GlobalManager.nextOpponent.SkillLevel;
+
+        int playerAggro = S_PlayerMatchSimulator.IsPlayerHomeTeam() ? (int)S_PlayerMatchSimulator.matchAggressivity.home : (int)S_PlayerMatchSimulator.matchAggressivity.away;
+        int opponentAggro = S_PlayerMatchSimulator.IsOpponentHomeTeam() ? (int)S_PlayerMatchSimulator.matchAggressivity.home : (int)S_PlayerMatchSimulator.matchAggressivity.away;
+
+        int playerChance = playerSkill + opponentAggro;
+        int opponentChance = opponentSkill + playerAggro;
+
+        int seed = Random.Range(0, playerChance + opponentChance);
+
+        ReplaceCardDescription("{T}", seed<playerChance ? S_GlobalManager.selectedTeam.teamName : S_GlobalManager.nextOpponent.teamName);
+
+        //Player Free Kick
+        if (seed < playerChance)
+        {
+            //Calc goal chance
+            float fkGoalChance = 0;
+
+            float FKTrainingExtraChance = S_PlayerTeamStats.GetFKExtraChance();
+
+            if (!S_GlobalManager.squad.freeKicksShooter.CanPlay()) S_GlobalManager.squad.GetFreeKicksShooter();
+            SO_PlayerData fks = S_GlobalManager.squad.freeKicksShooter;
+
+            bool goodFK = fks.playerTraits[0].traitName == SO_PlayerTrait.PlayerTraitNames.Old_Wise_Man;
+
+            fkGoalChance += goodFK ? 0.33f : 0;
+            fkGoalChance += fks.skillLevel / 15.0f; //max = .33
+            fkGoalChance += FKTrainingExtraChance; //max = .33
+
+            Mathf.Lerp(0, S_Chances.MAXFKGOALCHANCE, fkGoalChance);
+
+            //Generate Goal Card
+            if (Random.Range(0.0f, 1.0f) < fkGoalChance)
+            {
+                SO_CardData card = S_PlayerMatchSimulator.GenerateGolCard(S_PlayerMatchSimulator.IsPlayerHomeTeam(), false);
+                card.desiredCardPrefabDirectory = S_ResDirs.golCardDir;
+                S_GlobalManager.deckManagerRef.AddCardToDeck(card, 0, null, null, true);
+                SO_GoalDescriptions fkDescriptions = Resources.Load<SO_GoalDescriptions>(S_ResDirs.fkGoalDescriptions);
+
+                //Find gol scorer
+                SO_PlayerData golScorer = S_GlobalManager.squad.freeKicksShooter;
+
+                (card as SO_GoalCardData).goalDescription = fkDescriptions.GetRandomDescription(golScorer, true);
+                string s = (card as SO_GoalCardData).goalDescription;
+                s = s.Replace("{FK}", fks.playerName);
+                (card as SO_GoalCardData).goalDescription = s;
+            }
+            //Generate Corner Failed Card
+            else
+            {
+                GenerateFreeKickFailedCard(fks.playerName);
+            }
+
+        }
+
+        //Opponent Free Kick
+        else
+        {
+            //calc player goal chance
+            float cornerGoalChance = 0;
+            int teamSkill = S_GlobalManager.squad.FindGameSkillLevel();
+
+            cornerGoalChance += (teamSkill / 5.0f);
+            cornerGoalChance = Mathf.Clamp(cornerGoalChance, 0.0f, 1.0f);
+            cornerGoalChance = Mathf.Lerp(0, S_Chances.MAXFKGOALCHANCE, cornerGoalChance);
+
+            if (Random.Range(0.0f, 1.0f) < cornerGoalChance)
+            {
+                SO_CardData card = S_PlayerMatchSimulator.GenerateGolCard(!S_PlayerMatchSimulator.IsPlayerHomeTeam(), false);
+                card.desiredCardPrefabDirectory = S_ResDirs.golCardDir;
+                S_GlobalManager.deckManagerRef.AddCardToDeck(card, 0, null, null, true);
+                SO_GoalDescriptions fkDescriptions = Resources.Load<SO_GoalDescriptions>(S_ResDirs.fkGoalDescriptions);
+
+                (card as SO_GoalCardData).goalDescription = fkDescriptions.GetRandomDescription(null, false);
+                string s = (card as SO_GoalCardData).goalDescription;
+                s = s.Replace("{FK}", S_PlayerMatchSimulator.RandomlyGetNewOrExistingOpponentPlayer());
+                (card as SO_GoalCardData).goalDescription = s;
+            }
+            //Free kick failed
+            else
+            {
+                GenerateFreeKickFailedCard(S_PlayerMatchSimulator.RandomlyGetNewOrExistingOpponentPlayer());
+            }
+        }
+
+        void GenerateFreeKickFailedCard(string scorer)
+        {
+            SO_CardData fkFailed = ScriptableObject.Instantiate(Resources.Load<SO_CardData>(S_ResDirs.fkFailed));
+            S_GlobalManager.deckManagerRef.AddCardToDeck(fkFailed, 0, null, null, true);
+            fkFailed.passedExtraData = new List<object> { scorer };
+        }
+    }
+    #endregion
     public void GenerateGKSaveDescription()
     {
         

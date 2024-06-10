@@ -31,6 +31,7 @@ public class MatchScoresViewer : EditorWindow
             
             foreach(SO_MatchCardData mcd in S_GlobalManager.deckManagerRef.cardSelector.matchCardsPool.cardsPool)
             {
+                if (mcd.cardScore <= 0) continue;
                 int cao = (int)((mcd.chanceOfAppearance/totalScore) * 100);
 
                 GUILayout.BeginHorizontal();

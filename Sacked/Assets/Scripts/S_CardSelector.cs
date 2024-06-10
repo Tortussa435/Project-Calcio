@@ -30,6 +30,8 @@ public class S_CardSelector : MonoBehaviour
         matchCardsPool.DisableAlreadyPicked();
         marketCardsPool.DisableAlreadyPicked();
         firstHalfBreakCardsPool.DisableAlreadyPicked();
+
+        S_PlayerMatchSimulator.OnMatchStart.AddListener(ResetMatchCardsAppearancesCounter);
     }
 
     //REDO avoid errors if cards do not have any formula in it
@@ -103,12 +105,20 @@ public class S_CardSelector : MonoBehaviour
     {
         foreach(SO_CardData.Branch card in currentListToRead)
         {
-            if (card.addPosition == 0)
+            if (card.addPosition <= 0)
             {
                 Debug.Log("No aspe un secondo");
                 return true;
             }
         }
         return false;
+    }
+
+    public void ResetMatchCardsAppearancesCounter()
+    {
+        foreach(SO_CardData c in matchCardsPool.cardsPool)
+        {
+            c.totalAppearances = 0;
+        }
     }
 }

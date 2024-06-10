@@ -46,10 +46,21 @@ public class S_DeckManager : MonoBehaviour
     public GameObject Knob_Team;
     public GameObject Knob_President;
 
+    public void ResetStaticClasses()
+    {
+        //Resets all static classes
+        Reset_SGlobalManager();
+        S_Calendar.ResetS_Calendar();
+        S_PlayerTeamStats.ResetS_PlayerTeamStats();
+        S_FastMatchSimulator.ResetS_FastMatchSimulator();
+        S_PlayerMatchSimulator.ResetS_PlayerMatchSimulator();
+    }
     // Start is called before the first frame update
     void Start()
     {
 
+
+        //Start game
         Random.InitState(System.DateTime.Now.Millisecond);
 
         deckManagerRef = this;

@@ -54,17 +54,6 @@ MonoBehaviour:
     addPosition: 0
     triggerChance: 0
     removeOnPhaseChange: 0
-  scoreCard:
-  - desiredValue: 5
-    direction: 0
-    compareString: 
-    compareFloat: 0
-    customCurve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    scoreMultiplier: 0
+  scoreCard: []
   cardScore: 0
   cardScoreNotNormalized: 0

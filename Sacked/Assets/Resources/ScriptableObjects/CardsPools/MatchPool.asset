@@ -15,9 +15,17 @@ MonoBehaviour:
   poolDirectories:
   - ScriptableObjects/MatchCards/Match
   cardsPool:
+  - {fileID: 11400000, guid: a49fae60b87d2934b95d06bf513b53d8, type: 2}
+  - {fileID: 11400000, guid: e45b0cdf6dba84c44a205a18184d66d9, type: 2}
+  - {fileID: 11400000, guid: 9768cf099ba5f794cbc97b9ba929ed77, type: 2}
+  - {fileID: 11400000, guid: 0c0abd4fc4e43e84bb551e09927046f0, type: 2}
+  - {fileID: 11400000, guid: c90b37dfe62285142827ad58b9739cd1, type: 2}
+  - {fileID: 11400000, guid: 94e41947c1ad9494a9d6e0d9d38eae6e, type: 2}
+  - {fileID: 11400000, guid: 9b0eeb467d5f4774cb55958ef53698a1, type: 2}
+  - {fileID: 11400000, guid: 79606baf39ca5754994c98f63c7fa966, type: 2}
   - {fileID: 11400000, guid: b865a41514aaf594ab1e46fe92cd7705, type: 2}
-  - {fileID: 11400000, guid: e3c9bc1633967214fb784f7b1dfbe3ad, type: 2}
-  - {fileID: 11400000, guid: ddc8530a75dd66a44ba2115a1e471964, type: 2}
+  - {fileID: 11400000, guid: c92197edfc157844e8dcbb7b96f8d276, type: 2}
+  - {fileID: 11400000, guid: e9c9bb03a2718104d92402b3d171da35, type: 2}
   - {fileID: 11400000, guid: 64f7315f336bfd1478ed81bd72ca4d3f, type: 2}
   - {fileID: 11400000, guid: 900790f2cbfb04341a054db1760575a4, type: 2}
   - {fileID: 11400000, guid: f8bf9158abf55764f96d6f991568a4e3, type: 2}
@@ -26,5 +34,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 76f938fa40a8f1441a70bf6846383ae5, type: 2}
   - {fileID: 11400000, guid: 96462b3db4ae40049a0195b157f83a8a, type: 2}
   - {fileID: 11400000, guid: e7eaeae7c1d34464584ed75174b00944, type: 2}
+  - {fileID: 11400000, guid: ddc8530a75dd66a44ba2115a1e471964, type: 2}
   - {fileID: 11400000, guid: 5a6b5258dcbc2214cb245e778263ac5a, type: 2}
   updateList: 0

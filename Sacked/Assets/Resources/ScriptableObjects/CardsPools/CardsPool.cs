@@ -20,6 +20,24 @@ public class CardsPool : ScriptableObject
                 cardsPool.AddRange(Resources.LoadAll<SO_CardData>(s).ToList());
             }
             updateList = false;
+
+            for(int i=cardsPool.Count-1;i>=0;i--)
+            {
+                if (cardsPool[i].scoreCard.Count == 0)
+                {
+                    try
+                    {
+                        if((cardsPool[i] as SO_MatchCardData).matchScoreCard.Count == 0)
+                        {
+                            cardsPool.RemoveAt(i);
+                        }
+                    }
+                    catch
+                    {
+                        cardsPool.RemoveAt(i);
+                    }
+                }
+            }
         }
     }
 

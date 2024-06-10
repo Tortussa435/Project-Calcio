@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Analytics;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
@@ -36,14 +37,16 @@ public class S_Squad : MonoBehaviour
 
     public bool teamListVisible = false;
 
-    public GameObject teamCardPrefab;
+    public  GameObject teamCardPrefab;
     private GameObject teamCardRef;
 
-    public SO_PlayerData captain;
 
     public Dictionary<string, int> Scorers = new Dictionary<string, int>();
 
     public UnityEvent<bool> OnToggleSquadViewer = new UnityEvent<bool>();
+
+    public SO_PlayerData freeKicksShooter;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -358,7 +361,7 @@ public class S_Squad : MonoBehaviour
         foreach (SO_PlayerData player in Attack) player.subbedOut = false;
     }
 
-    public void RefillBenchEnergy(float min=15.0f, float max=25.0f)
+    public void RefillBenchEnergy(float min=40.0f, float max=50.0f)
     {
         foreach(SO_PlayerData player in bench)
         {
@@ -925,6 +928,70 @@ public class S_Squad : MonoBehaviour
         else Scorers.Add(playerName, 1);
     }
 
+    public SO_PlayerData GetCaptain()
+    {
+        SO_PlayerData bestPlayer = ScriptableObject.CreateInstance<SO_PlayerData>();
+        foreach(SO_PlayerData p in playingEleven)
+        {
+            if (!p.CanPlay()) continue;
+
+            if(bestPlayer.skillLevel<p.skillLevel) bestPlayer = p;
+
+            //prefer offensive player
+            if (bestPlayer.skillLevel == p.skillLevel)
+            {
+                if ((int)bestPlayer.playerRole < (int)p.playerRole) bestPlayer = p;
+            }
+
+            //prefer player with positive trait
+            else if (bestPlayer.skillLevel == p.skillLevel)
+            {
+                if (bestPlayer.playerTraits[0].positiveTrait != S_FootballEnums.Positivity.Positive)
+                {
+                    if (p.playerTraits[0].positiveTrait == S_FootballEnums.Positivity.Positive)
+                    {
+                        bestPlayer = p;
+                    }
+                }
+            }
+        }
+
+        if (bestPlayer.skillLevel == 0) return null;
+        return bestPlayer;
+    }
+
+    public SO_PlayerData GetFreeKicksShooter()
+    {
+        List<SO_PlayerData> eligibles = GetPlayersWithTrait(SO_PlayerTrait.PlayerTraitNames.Old_Wise_Man);
+        if (eligibles.Count <= 0)
+        {
+            foreach(SO_PlayerData p in playingEleven)
+            {
+                if (
+                    p.playerTraits[0].traitName == SO_PlayerTrait.PlayerTraitNames.Longshot
+                    || p.playerTraits[0].traitName == SO_PlayerTrait.PlayerTraitNames.Lucky
+                   ) eligibles.Add(p);
+            }
+
+            if (eligibles.Count <= 0)
+            {
+                foreach(SO_PlayerData p in playingEleven)
+                {
+                    if (
+                        p.playerRole == SO_PlayerData.PlayerRole.Gk
+                        || p.playerRole == SO_PlayerData.PlayerRole.Def
+                        || p.playerTraits[0].traitName == SO_PlayerTrait.PlayerTraitNames.Bad_Long_Shot
+                        || p.playerTraits[0].traitName == SO_PlayerTrait.PlayerTraitNames.Tall
+                    ) continue;
+
+                    eligibles.Add(p);
+                }
+            }
+        }
+        SO_PlayerData fks = eligibles[Random.Range(0, eligibles.Count)];
+        freeKicksShooter = fks;
+        return fks;
+    }
 
 }
 

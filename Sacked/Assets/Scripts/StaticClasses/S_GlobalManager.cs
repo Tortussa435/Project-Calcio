@@ -33,6 +33,13 @@ public static class S_GlobalManager
     static public bool sacked = false;
 
     static public bool canEditLineup = true;
+
+    static public SO_Team nextOpponent;
+
+    public static int currentMatchDay = 0;
+    
+    public static bool focusSash = true;
+
     //values ranging 0-100 with their invoke event
     public enum Values { President, Team, Supporters, Money};
 
@@ -40,14 +47,10 @@ public static class S_GlobalManager
 
     static public UnityEvent OnUpdatePresident;
 
-    static public SO_Team nextOpponent;
-
-    public static int currentMatchDay = 0;
 
     /// <summary>
     /// First time the player dies, the stat goes to 5 instead of 0
     /// </summary>
-    public static bool focusSash = true;
     static S_GlobalManager()
     {
     
@@ -120,6 +123,32 @@ public static class S_GlobalManager
         if (OnUpdateMoney == null) OnUpdateMoney = new UnityEvent();
         OnUpdateMoney.Invoke();
         return Money;
+    }
+
+    public static void Reset_SGlobalManager()
+    {
+        currentPhase = CardsPhase.Contract;
+        selectedTeam = null;
+        squad = null;
+        minRankingObjective = 0;
+        optimalRankingObjective = 0;
+        sacked = false;
+        canEditLineup = true;
+        nextOpponent = null;
+        currentMatchDay = 0;
+        focusSash = true;
+
+        President = 50.0f;
+        OnUpdatePresident = new UnityEvent();
+        
+        Supporters = 50.0f;
+        OnUpdateSupporters = new UnityEvent();
+
+        Team = 50.0f;
+        OnUpdateTeam = new UnityEvent();
+
+        Money = 50.0f;
+        OnUpdateMoney = new UnityEvent();
     }
 
     static public bool DefeatCheck() => (President <= 0 || Team <= 0 || Supporters <= 0 || Money <= 0) && (!deckManagerRef.DebugImmortal);

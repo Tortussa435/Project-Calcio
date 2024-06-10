@@ -118,21 +118,40 @@ public class S_CardsScoreFormula
             case Rule.OpponentSubstitutions:
                 valueToCheck = !S_PlayerMatchSimulator.IsPlayerHomeTeam() ? S_PlayerMatchSimulator.substitutions.home : S_PlayerMatchSimulator.substitutions.away;
                 break;
+
             case Rule.Week:
                 valueToCheck = S_GlobalManager.currentMatchDay;
                 break;
+
             case Rule.CardAppearances:
                 valueToCheck = cardRef.totalAppearances;
                 break;
+
             case Rule.CardsToNextPhase:
                 valueToCheck = S_GlobalManager.deckManagerRef.nextPhaseCountdown;
                 break;
+
             case Rule.TeamEnergy:
                 valueToCheck = S_GlobalManager.squad.GetTeamAverageEnergy() / 100.0f;
                 break;
+
             case Rule.PlayersWithTrait:
                 valueToCheck = S_GlobalManager.squad.GetPlayersWithTrait((SO_PlayerTrait.PlayerTraitNames)Enum.Parse(typeof(SO_PlayerTrait.PlayerTraitNames),compareString),false).Count;
                 break;
+
+            case Rule.TeamTactic:
+                valueToCheck = ((SO_Tactics.Tactic)Enum.Parse(typeof(SO_Tactics.Tactic),compareString) == S_GlobalManager.selectedTeam.teamTactics.teamTactic) ? 1 : 0;
+                break;
+
+            case Rule.OpponentTactic:
+                SO_Team opponent = S_PlayerMatchSimulator.GetOpponentTeam();
+                if (opponent.teamTactics != null)
+                    valueToCheck = ((SO_Tactics.Tactic)Enum.Parse(typeof(SO_Tactics.Tactic), compareString) == S_PlayerMatchSimulator.GetOpponentTeam().teamTactics.teamTactic) ? 1 : 0;
+                
+                else valueToCheck = 0;
+
+                break;
+
 
         }
 

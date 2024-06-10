@@ -52,5 +52,14 @@ public class SO_Team : ScriptableObject
             Debug.Log(teamTraits[i].traitName);
         }
     }
+    
+    public bool TeamHasTrait(SO_TeamTrait.TraitNames traitName)
+    {
+        foreach(SO_TeamTrait t in teamTraits)
+        {
+            if (t.traitName == traitName) return true;
+        }
+        return false;
+    }
 }
 

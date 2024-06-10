@@ -28,6 +28,11 @@ static public class S_Calendar
         currentLeague = S_GlobalManager.deckManagerRef.selectedLeague;
         calendar = new List<List<Match>>();
     }
+
+    public static void ResetS_Calendar()
+    {
+        calendar = new List<List<Match>>();
+    }
     static bool WeekAlreadyContainsTeam(SO_Team team, List<Match> matches)
     {
         foreach (Match match in matches)

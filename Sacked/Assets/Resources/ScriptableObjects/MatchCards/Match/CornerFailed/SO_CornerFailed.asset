@@ -9,20 +9,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acddcb2ef5ce4c84b8aa4c3a78bf158c, type: 3}
-  m_Name: CD_Bike_2
+  m_Script: {fileID: 11500000, guid: 324455af10ec1b44f81a1c65019448d2, type: 3}
+  m_Name: SO_CornerFailed
   m_EditorClassIdentifier: 
   ownerCard: {fileID: 0}
-  cardName: Bike2
+  cardName: CornerFailed
   cardColor: {r: 1, g: 1, b: 1, a: 1}
   cardDescriptions:
-  - "{Renter} \xE8 caduto da {Vehicle} e si \xE8 rotto il crociato! potr\xE0 tornare
-    a giocare tra {InjDur} partite"
+  - '{Corner} crossa sul fondo'
   leftChoice: 
   rightChoice: 
-  canAppearMoreThanOnce: 1
+  canAppearMoreThanOnce: 0
   totalAppearances: 0
-  decreaseCountDown: 0
+  decreaseCountDown: 1
   desiredCardPrefabDirectory: 
   leftValues:
     addedMoney: 0
@@ -44,8 +43,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 11400000}
-        m_TargetAssemblyTypeName: SO_CardData, Assembly-CSharp
-        m_MethodName: BreakPlayerLeg
+        m_TargetAssemblyTypeName: SO_MatchCardData, Assembly-CSharp
+        m_MethodName: GenerateCornerFailedDescription
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -70,3 +69,8 @@ MonoBehaviour:
   scoreCard: []
   cardScore: 0
   cardScoreNotNormalized: 0
+  matchScoreCard: []
+  chanceOfAppearance: 0
+  totalScoreMultiplier: 1
+  matchCardDropChance: []
+  formulaDescriptionInfo: 

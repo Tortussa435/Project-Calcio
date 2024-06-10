@@ -60,6 +60,29 @@ public static class S_PlayerMatchSimulator
     
     private static bool lastCardGoal = false;
 
+    public static void ResetS_PlayerMatchSimulator()
+    {
+        matchMinute = 0;
+        match = new S_Calendar.Match();
+        matchScore = new S_FastMatchSimulator.Score();
+        matchAggressivity = (0, 0);
+        injuryChance = (0, 0);
+        traitsScoreChance = (0, 0);
+        tacticEffectiveness = (0, 0);
+        luck = (0, 0);
+        substitutions = (0, 0);
+        homeGoalCheck = 0;
+        awayGoalCheck = 0;
+        injuries = (0, 0);
+        OnMatchStart = new UnityEvent();
+        OnMatchEnd = new UnityEvent();
+        OnRedCard = new UnityEvent<bool>();
+        OnSubstitution = new UnityEvent<bool>();
+        refereeName = "";
+        opponentTeamNames = new List<string>();
+        lastCardGoal = false;
+    }
+
     //stores eleven and bench on match start, then resets it at game end
     private static (List<SO_PlayerData> eleven, List<SO_PlayerData> bench) matchStartEleven=(new List<SO_PlayerData>(),new List<SO_PlayerData>());
     static S_PlayerMatchSimulator()
@@ -70,8 +93,9 @@ public static class S_PlayerMatchSimulator
     #region MATCH SIMULATION
     public static SO_CardData SimulateMatchSegment(int minMinutes=9,int maxMinutes=13)
     {
-        Debug.LogWarning("Sto passando per la simulazione segmentata del match");
+        //Debug.LogWarning("Sto passando per la simulazione segmentata del match");
         UpdateMatchTextData();
+
         SO_CardData rollData = null;
 
         if (!S_GlobalManager.deckManagerRef.cardSelector.SpawningAppendedCard() && !lastCardGoal)
@@ -132,6 +156,7 @@ public static class S_PlayerMatchSimulator
 
         OnMatchStart.Invoke();
 
+        S_GlobalManager.squad.GetFreeKicksShooter();
     }
 
     public static void EndMatch()
@@ -177,8 +202,10 @@ public static class S_PlayerMatchSimulator
         
         OnMatchEnd.Invoke();
 
+        if (S_GlobalManager.sacked) Debug.LogWarning("Dovrebbero esonerarti eh");
+
     }
-    
+
     private static void EndMatchAddPoints()
     {
         if (matchScore.home > matchScore.away) S_Ladder.UpdateTeamPoints(match.homeTeam, 3);
@@ -188,7 +215,6 @@ public static class S_PlayerMatchSimulator
             S_Ladder.UpdateTeamPoints(match.homeTeam, 1);
             S_Ladder.UpdateTeamPoints(match.awayTeam, 1);
         }
-
     }
     #endregion
 
@@ -286,10 +312,10 @@ public static class S_PlayerMatchSimulator
         bool awayGoal = false;
 
         float homeGoalkeeperMult = (IsPlayerHomeTeam() ? S_GlobalManager.squad.GetRandomPlayerRefByRole(SO_PlayerData.PlayerRole.Gk).skillLevel : GetOpponentTeam().SkillLevel) / 5.0f;
-        homeGoalkeeperMult = Mathf.Lerp(S_Chances.GKSaveChanceMult.min, S_Chances.GKSaveChanceMult.max, homeGoalkeeperMult);
+        homeGoalkeeperMult = Mathf.Lerp(S_Chances.GKSAVECHANCEMULT.min, S_Chances.GKSAVECHANCEMULT.max, homeGoalkeeperMult);
 
         float awayGoalkeeperMult = (!IsPlayerHomeTeam() ? S_GlobalManager.squad.GetRandomPlayerRefByRole(SO_PlayerData.PlayerRole.Gk).skillLevel : GetOpponentTeam().SkillLevel) / 5.0f;
-        awayGoalkeeperMult = Mathf.Lerp(S_Chances.GKSaveChanceMult.min, S_Chances.GKSaveChanceMult.max, homeGoalkeeperMult);
+        awayGoalkeeperMult = Mathf.Lerp(S_Chances.GKSAVECHANCEMULT.min, S_Chances.GKSAVECHANCEMULT.max, homeGoalkeeperMult);
 
 
 
@@ -334,15 +360,15 @@ public static class S_PlayerMatchSimulator
 
         return card;
         
-        void GenerateGKSaveCard(bool homeTeam=true)
-        {
+            void GenerateGKSaveCard(bool homeTeam=true)
+            {
             
-            SO_CardData save = ScriptableObject.Instantiate<SO_CardData>(Resources.Load<SO_CardData>(S_ResDirs.gkSaveCard));
-            string gk = "";
-            if (homeTeam == IsPlayerHomeTeam()) gk = S_GlobalManager.squad.GetRandomPlayerRefByRole(SO_PlayerData.PlayerRole.Gk).playerName;
-            else gk = RandomlyGetNewOrExistingOpponentPlayer();
-            S_GlobalManager.deckManagerRef.AddCardToDeck(save,0,null,new List<object> {gk}); 
-        }
+                SO_CardData save = ScriptableObject.Instantiate<SO_CardData>(Resources.Load<SO_CardData>(S_ResDirs.gkSaveCard));
+                string gk = "";
+                if (homeTeam == IsPlayerHomeTeam()) gk = S_GlobalManager.squad.GetRandomPlayerRefByRole(SO_PlayerData.PlayerRole.Gk).playerName;
+                else gk = RandomlyGetNewOrExistingOpponentPlayer();
+                S_GlobalManager.deckManagerRef.AddCardToDeck(save,0,null,new List<object> {gk}); 
+            }
     }
 
     private static float GoalCheck(bool homeTeam)
@@ -721,6 +747,7 @@ public static class S_PlayerMatchSimulator
         S_GlobalManager.SetSupporters(supporters);
         S_GlobalManager.SetPresident(president);
         S_GlobalManager.SetTeam(team);
+
 
     }
 

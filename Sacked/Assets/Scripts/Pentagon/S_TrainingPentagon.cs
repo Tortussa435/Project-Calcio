@@ -7,7 +7,7 @@ public class S_TrainingPentagon : MonoBehaviour
 {
     //made following tutorial https://www.youtube.com/watch?v=twjMW7CxIKk&ab_channel=CodeMonkey
     public float pentagonSize = 145f;
-    
+
     [Header("Debug")]
     [SerializeField] private float debugPentagonSize = -1f;
     
@@ -34,13 +34,11 @@ public class S_TrainingPentagon : MonoBehaviour
     {
         cv = GetComponent<CanvasRenderer>();
         mesh = new Mesh();
-        //UpdateStatsVisual();
     }
 
     // Update is called once per frame
     void Update()
     {
-
         UpdateStatsVisual();
 
     }

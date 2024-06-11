@@ -107,7 +107,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3790418352098801373}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -188,7 +188,7 @@ RectTransform:
   - {fileID: 4946427339108469565}
   - {fileID: 5215850075791157012}
   m_Father: {fileID: 3790418352098801373}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -223,6 +223,207 @@ MonoBehaviour:
   debugPentagonFK: -1
   debugPentagonRes: -1
   cvMaterial: {fileID: 2100000, guid: 1c06649768ddf054f97cfe783114d336, type: 2}
+  cvTexture: {fileID: 2800000, guid: ccf36b5cfc00e3749a05d6b7b8b425ce, type: 3}
+--- !u!1 &2128576738764742967
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7168583363188771944}
+  - component: {fileID: 4983237393145849674}
+  - component: {fileID: 415936161419716704}
+  m_Layer: 5
+  m_Name: P_PentagonBG (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7168583363188771944
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2128576738764742967}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.34965035, y: 0.36363634, z: 0.36363634}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 3170627947914526578}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -5.454545}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &4983237393145849674
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2128576738764742967}
+  m_CullTransparentMesh: 1
+--- !u!114 &415936161419716704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2128576738764742967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a577944aba69bc459e43c337f3152c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pentagonSize: 150
+  debugPentagonSize: -1
+  debugPentagonAtk: 5
+  debugPentagonDef: 5
+  debugPentagonChem: 5
+  debugPentagonFK: 5
+  debugPentagonRes: 5
+  cvMaterial: {fileID: 2100000, guid: 9bc12b0e8f8946d429e517089d7e8764, type: 2}
+  cvTexture: {fileID: 2800000, guid: ccf36b5cfc00e3749a05d6b7b8b425ce, type: 3}
+--- !u!1 &2199614102944357522
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8095041962932362449}
+  - component: {fileID: 617245632501152941}
+  - component: {fileID: 2492659976381883869}
+  m_Layer: 5
+  m_Name: P_PentagonBG (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &8095041962932362449
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2199614102944357522}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.34965035, y: 0.36363634, z: 0.36363634}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 3170627947914526578}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -5.454545}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &617245632501152941
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2199614102944357522}
+  m_CullTransparentMesh: 1
+--- !u!114 &2492659976381883869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2199614102944357522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a577944aba69bc459e43c337f3152c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pentagonSize: 150
+  debugPentagonSize: -1
+  debugPentagonAtk: 4
+  debugPentagonDef: 4
+  debugPentagonChem: 4
+  debugPentagonFK: 4
+  debugPentagonRes: 4
+  cvMaterial: {fileID: 2100000, guid: 9bc12b0e8f8946d429e517089d7e8764, type: 2}
+  cvTexture: {fileID: 2800000, guid: ccf36b5cfc00e3749a05d6b7b8b425ce, type: 3}
+--- !u!1 &2811742088237716716
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4205465678381439870}
+  - component: {fileID: 5623116345690776671}
+  - component: {fileID: 5157023157791654042}
+  m_Layer: 5
+  m_Name: P_PentagonBG (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4205465678381439870
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2811742088237716716}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.34965035, y: 0.36363634, z: 0.36363634}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 3170627947914526578}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -5.454545}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &5623116345690776671
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2811742088237716716}
+  m_CullTransparentMesh: 1
+--- !u!114 &5157023157791654042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2811742088237716716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a577944aba69bc459e43c337f3152c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pentagonSize: 150
+  debugPentagonSize: -1
+  debugPentagonAtk: 3
+  debugPentagonDef: 3
+  debugPentagonChem: 3
+  debugPentagonFK: 3
+  debugPentagonRes: 3
+  cvMaterial: {fileID: 2100000, guid: 9bc12b0e8f8946d429e517089d7e8764, type: 2}
   cvTexture: {fileID: 2800000, guid: ccf36b5cfc00e3749a05d6b7b8b425ce, type: 3}
 --- !u!1 &2974892210693717191
 GameObject:
@@ -300,6 +501,140 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &3497295420174827196
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7277954471710539875}
+  - component: {fileID: 6208082511923344705}
+  - component: {fileID: 9047629418050527758}
+  m_Layer: 5
+  m_Name: P_PentagonBG
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7277954471710539875
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3497295420174827196}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.34965035, y: 0.36363634, z: 0.36363634}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 3170627947914526578}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -5.454545}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &6208082511923344705
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3497295420174827196}
+  m_CullTransparentMesh: 1
+--- !u!114 &9047629418050527758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3497295420174827196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a577944aba69bc459e43c337f3152c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pentagonSize: 150
+  debugPentagonSize: -1
+  debugPentagonAtk: 1
+  debugPentagonDef: 1
+  debugPentagonChem: 1
+  debugPentagonFK: 1
+  debugPentagonRes: 1
+  cvMaterial: {fileID: 2100000, guid: 9bc12b0e8f8946d429e517089d7e8764, type: 2}
+  cvTexture: {fileID: 2800000, guid: ccf36b5cfc00e3749a05d6b7b8b425ce, type: 3}
+--- !u!1 &4246454022520672329
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2861356045608427730}
+  - component: {fileID: 1996423837794348544}
+  - component: {fileID: 2541547439391287780}
+  m_Layer: 5
+  m_Name: P_PentagonBG (5)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2861356045608427730
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4246454022520672329}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.34965035, y: 0.36363634, z: 0.36363634}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 3170627947914526578}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -5.454545}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &1996423837794348544
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4246454022520672329}
+  m_CullTransparentMesh: 1
+--- !u!114 &2541547439391287780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4246454022520672329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a577944aba69bc459e43c337f3152c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pentagonSize: 150
+  debugPentagonSize: -1
+  debugPentagonAtk: 6
+  debugPentagonDef: 6
+  debugPentagonChem: 6
+  debugPentagonFK: 6
+  debugPentagonRes: 6
+  cvMaterial: {fileID: 2100000, guid: 9bc12b0e8f8946d429e517089d7e8764, type: 2}
+  cvTexture: {fileID: 2800000, guid: ccf36b5cfc00e3749a05d6b7b8b425ce, type: 3}
 --- !u!1 &4338424623701521670
 GameObject:
   m_ObjectHideFlags: 0
@@ -332,6 +667,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
+  - {fileID: 3170627947914526578}
   - {fileID: 1836162712075070421}
   - {fileID: 7447258632995112022}
   m_Father: {fileID: 0}
@@ -559,6 +895,115 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &6344242929247009506
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1178991510971357700}
+  - component: {fileID: 6779543767240191017}
+  - component: {fileID: 8488399424514853066}
+  m_Layer: 5
+  m_Name: P_PentagonBG (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1178991510971357700
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6344242929247009506}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.34965035, y: 0.36363634, z: 0.36363634}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 3170627947914526578}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -5.454545}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &6779543767240191017
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6344242929247009506}
+  m_CullTransparentMesh: 1
+--- !u!114 &8488399424514853066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6344242929247009506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a577944aba69bc459e43c337f3152c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pentagonSize: 150
+  debugPentagonSize: -1
+  debugPentagonAtk: 2
+  debugPentagonDef: 2
+  debugPentagonChem: 2
+  debugPentagonFK: 2
+  debugPentagonRes: 2
+  cvMaterial: {fileID: 2100000, guid: 9bc12b0e8f8946d429e517089d7e8764, type: 2}
+  cvTexture: {fileID: 2800000, guid: ccf36b5cfc00e3749a05d6b7b8b425ce, type: 3}
+--- !u!1 &7515036168472266973
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3170627947914526578}
+  m_Layer: 5
+  m_Name: BG
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &3170627947914526578
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7515036168472266973}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2861356045608427730}
+  - {fileID: 7168583363188771944}
+  - {fileID: 8095041962932362449}
+  - {fileID: 4205465678381439870}
+  - {fileID: 1178991510971357700}
+  - {fileID: 7277954471710539875}
+  m_Father: {fileID: 3790418352098801373}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &7835496038426058078
 GameObject:
   m_ObjectHideFlags: 0

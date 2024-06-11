@@ -22,7 +22,7 @@ MonoBehaviour:
   canAppearMoreThanOnce: 1
   totalAppearances: 1
   decreaseCountDown: 1
-  desiredCardPrefabDirectory: Prefabs/P_TrainingCard
+  desiredCardPrefabDirectory: Prefabs/CardTypes/P_TrainingCard
   leftValues:
     addedMoney: 0
     addedTeam: 0

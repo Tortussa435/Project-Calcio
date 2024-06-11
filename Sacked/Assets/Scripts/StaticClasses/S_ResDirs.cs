@@ -11,7 +11,7 @@ public static class S_ResDirs
     public static string opponentSub = "ScriptableObjects/MatchCards/Match/SO_OpponentSubstitution";
     public static string penaltyCard = "ScriptableObjects/MatchCards/Match/SO_Penalty";
     public static string invalidGoal = "ScriptableObjects/MatchCards/Match/InvalidGoal/SO_InvalidGoal";
-    public static string golCardDir = "Prefabs/P_GolCard";
+    public static string golCardDir = "Prefabs/CardTypes/P_GolCard";
     public static string missedPenalty = "ScriptableObjects/MatchCards/Match/PenaltyFailed/SO_PenaltyFailed";
     public static string forcedSubstitution = "ScriptableObjects/MatchCards/Match/ForcedSubstitution/SO_ForcedSubstitution";
     public static string playerSubstitution = "ScriptableObjects/MatchCards/Match/SO_PlayerSubstitution";

@@ -152,6 +152,17 @@ public class S_CardsScoreFormula
 
                 break;
 
+            case Rule.PlayerBadTactic:
+                SO_Tactics homeTactic = S_GlobalManager.selectedTeam.teamTactics;
+                SO_Tactics oppTactic = S_GlobalManager.nextOpponent.teamTactics;
+                if(homeTactic==null || oppTactic==null)
+                {
+                    valueToCheck = 0;
+                    break;
+                }
+                valueToCheck = homeTactic.FindEffectivenessAgainstTactic(oppTactic.teamTactic) < 0 ? 1 : 0;
+                break;
+
 
         }
 

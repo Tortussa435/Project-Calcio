@@ -6,6 +6,9 @@ using static S_PlayerMatchSimulator;
 
 public class S_MatchInfo : MonoBehaviour
 {
+    private int currentScoreHome = 0;
+    private int currentScoreAway = 0;
+
     private int currentMinute = 0;
     private int targetMinute = 0;
     public TextMeshProUGUI textRef;
@@ -15,11 +18,17 @@ public class S_MatchInfo : MonoBehaviour
     {
         OnMatchEnd.AddListener(() => currentMinute = 0);
     }
-    public void UpdateMatchInfo(int matchMinute)
+    public void UpdateMatchInfo(int matchMinute,bool updateScore=true)
     {
+        if (updateScore)
+        {
+            currentScoreHome = matchScore.home;
+            currentScoreAway = matchScore.away;
+        }
         if (gameObject.activeSelf)
         {
-            matchInfo = "'\n" + match.homeTeam.teamName + " " + matchScore.home + " - " + matchScore.away + " " + match.awayTeam.teamName;
+            matchInfo = "'\n" + match.homeTeam.teamName + " " + currentScoreHome + " - " + currentScoreAway + " " + match.awayTeam.teamName;
+            StopCoroutine(LerpGameMinute(matchMinute));
             StartCoroutine(LerpGameMinute(matchMinute));
         }
         else Debug.LogWarning("Provato ad avviare coroutine in oggetto disattivo");

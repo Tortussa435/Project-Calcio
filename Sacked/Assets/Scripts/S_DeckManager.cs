@@ -242,12 +242,16 @@ public class S_DeckManager : MonoBehaviour
         if (cardData == null)
         {
             cardData = DecreaseCardsCounter(cardSelector.currentListToRead);
+            
+            if(cardData != null && IsMatchPlaying())
+            {
+                S_PlayerMatchSimulator.matchMinute += Random.Range(4, 8);
+            }
         }
 
         if (cardData == null)
         {
             cardData = FindNextCard();
-            
         }
 
         if (cardData.desiredCardPrefabDirectory != "")
@@ -273,7 +277,7 @@ public class S_DeckManager : MonoBehaviour
         //event if during match
         if (currentPhase == CardsPhase.MatchFirstHalf || currentPhase == CardsPhase.MatchSecondHalf)
         {
-            SO_CardData matchCard = S_PlayerMatchSimulator.SimulateMatchSegment(45/matchDuration.max , 45/matchDuration.min);
+            SO_CardData matchCard = S_PlayerMatchSimulator.SimulateMatchSegment(45/matchDuration.max-1 , 45/matchDuration.min-1);
             return matchCard;
         }
 

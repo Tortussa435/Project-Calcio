@@ -9,23 +9,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acddcb2ef5ce4c84b8aa4c3a78bf158c, type: 3}
-  m_Name: CD_Preview_ChiVince
+  m_Script: {fileID: 11500000, guid: 324455af10ec1b44f81a1c65019448d2, type: 3}
+  m_Name: CD_TeamLosing
   m_EditorClassIdentifier: 
   ownerCard: {fileID: 0}
-  cardName: Preview_ChiVince
+  cardName: Losing
   cardColor: {r: 1, g: 1, b: 1, a: 1}
   cardDescriptions:
-  - Chi credi vincera il match?
-  leftChoice: '{Team}'
-  rightChoice: '{Opponent}'
-  canAppearMoreThanOnce: 0
+  - Siamo in svantaggio
+  leftChoice: Rimprovera
+  rightChoice: Incita
+  canAppearMoreThanOnce: 1
   totalAppearances: 0
   decreaseCountDown: 0
   desiredCardPrefabDirectory: 
   leftValues:
     addedMoney: 0
-    addedTeam: 0
+    addedTeam: -5
     addedPresident: 0
     addedSupporters: 0
   rightValues:
@@ -43,7 +43,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   alreadyPicked: 0
-  cardIcon: {fileID: 0}
+  cardIcon: {fileID: 21300000, guid: 5d9472cd45b9f3744bd38c164b560f65, type: 3}
   leftBranchCard:
     branchData: {fileID: 0}
     addPosition: 0
@@ -55,16 +55,31 @@ MonoBehaviour:
     triggerChance: 0
     removeOnPhaseChange: 0
   scoreCard:
-  - desiredValue: 5
+  - desiredValue: 11
     direction: 0
     compareString: 
     compareFloat: 0
     customCurve:
       serializedVersion: 2
       m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
     scoreMultiplier: 1
-  cardScore: NaN
+  cardScore: 0
   cardScoreNotNormalized: 0
+  matchScoreCard: []
+  chanceOfAppearance: 1
+  totalScoreMultiplier: 1
+  matchCardDropChance:
+  - rule: 4
+    direction: 0
+    weight: 1
+    compareFloat: 0
+    customCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
+  formulaDescriptionInfo: 

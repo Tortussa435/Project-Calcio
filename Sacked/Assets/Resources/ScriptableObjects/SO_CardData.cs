@@ -151,13 +151,13 @@ public class SO_CardData : ScriptableObject
 
     public void GeneratePossibleTactics()
     {
+        
         List<SO_Tactics.Tactic> possibleTactics = new List<SO_Tactics.Tactic> 
         {
             SO_Tactics.Tactic.BallPossession,
             SO_Tactics.Tactic.Pressing,
             SO_Tactics.Tactic.Counterattack,
             SO_Tactics.Tactic.Catenaccio
-
         };
 
         SO_Tactics.Tactic left = possibleTactics[Random.Range(0, possibleTactics.Count)];
@@ -174,7 +174,25 @@ public class SO_CardData : ScriptableObject
         rightChoice = right.ToString();
 
         ownerCard.GetComponent<S_Card>().RefreshCardData(this);
+        
+    }
 
+    public void GenerateAlternativeTactic()
+    {
+        List<SO_Tactics.Tactic> possibleTactics = new List<SO_Tactics.Tactic>
+        {
+            SO_Tactics.Tactic.BallPossession,
+            SO_Tactics.Tactic.Pressing,
+            SO_Tactics.Tactic.Counterattack,
+            SO_Tactics.Tactic.Catenaccio
+        };
+        possibleTactics.Remove(S_GlobalManager.selectedTeam.teamTactics.teamTactic);
+
+        SO_Tactics.Tactic t = S_CoolFuncs.RandomArrayItem(possibleTactics);
+        leftEffects = new UnityEvent();
+        leftEffects.AddListener(() => SetPlayerTeamTactic(t.ToString()));
+        leftChoice = t.ToString();
+        ownerCard.GetComponent<S_Card>().RefreshCardData(this);
     }
 
     public void BorrowBike()

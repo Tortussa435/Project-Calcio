@@ -227,7 +227,7 @@ public static class S_SubstitutionsManager
 
         return (playerToSub, bestDef.def);
     }
-    private static (SO_PlayerData outP, SO_PlayerData inP) FindOffensiveSubstitute()
+    public static (SO_PlayerData outP, SO_PlayerData inP) FindOffensiveSubstitute()
     {
         //decide whether to sub a mid or an atk
 

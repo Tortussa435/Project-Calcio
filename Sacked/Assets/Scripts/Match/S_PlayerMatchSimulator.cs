@@ -94,7 +94,7 @@ public static class S_PlayerMatchSimulator
     public static SO_CardData SimulateMatchSegment(int minMinutes=9,int maxMinutes=13)
     {
         //Debug.LogWarning("Sto passando per la simulazione segmentata del match");
-        UpdateMatchTextData();
+        UpdateMatchTextData(true);
 
         SO_CardData rollData = null;
 
@@ -111,9 +111,11 @@ public static class S_PlayerMatchSimulator
             rollData = FindChanceWeightedMatchCard(matchCards);
         }
 
-        if (rollData.decreaseCountDown) matchMinute += Random.Range(minMinutes, maxMinutes);
-        else matchMinute += Random.Range(1, 5);
-        
+        if (rollData.decreaseCountDown) matchMinute += Random.Range(Mathf.Max(0,minMinutes),Mathf.Max(0,maxMinutes));
+        else matchMinute += Random.Range(4, 8);
+
+        UpdateMatchTextData(false);
+
         return rollData;
 
     }
@@ -219,9 +221,9 @@ public static class S_PlayerMatchSimulator
     #endregion
 
     #region UI
-    public static void UpdateMatchTextData()
+    public static void UpdateMatchTextData(bool updateScore=true)
     {
-        S_GlobalManager.deckManagerRef.MatchScoreText.GetComponent<S_MatchInfo>().UpdateMatchInfo(matchMinute);
+        S_GlobalManager.deckManagerRef.MatchScoreText.GetComponent<S_MatchInfo>().UpdateMatchInfo(matchMinute,updateScore);
     }
     #endregion
 
@@ -367,7 +369,8 @@ public static class S_PlayerMatchSimulator
                 string gk = "";
                 if (homeTeam == IsPlayerHomeTeam()) gk = S_GlobalManager.squad.GetRandomPlayerRefByRole(SO_PlayerData.PlayerRole.Gk).playerName;
                 else gk = RandomlyGetNewOrExistingOpponentPlayer();
-                S_GlobalManager.deckManagerRef.AddCardToDeck(save,0,null,new List<object> {gk}); 
+                S_GlobalManager.deckManagerRef.AddCardToDeck(save,0,null,new List<object> {gk});
+                save.onGeneratedEffects.AddListener(() => matchMinute += Random.Range(2, 5));
             }
     }
 
@@ -482,9 +485,24 @@ public static class S_PlayerMatchSimulator
     public static bool IsPlayerHomeTeam() => (S_GlobalManager.selectedTeam.teamName == match.homeTeam.teamName);
     private static float GoalChanceFromTactics(bool homeTeam) => (homeTeam ? tacticEffectiveness.home : tacticEffectiveness.away) / 20.0f;
     private static float GoalChanceFromTraits(bool homeTeam) => (homeTeam ? (float)traitsScoreChance.home : (float)traitsScoreChance.away)/10.0f;
-    public static bool PlayerWinning() => IsPlayerHomeTeam() == matchScore.HomeWinning();
-    public static bool OpponentWinning() => IsPlayerHomeTeam() == matchScore.AwayWinning();
-    public static bool IsMatchDrawing() => matchScore.Drawing();
+    public static bool PlayerWinning()
+    {
+        //before it was written in a cooler way but this computer hates me therefore I'm writing it like the ancient ones
+        if (IsPlayerHomeTeam() && matchScore.home > matchScore.away) return true;
+        if (!IsPlayerHomeTeam() && matchScore.away > matchScore.home) return true;
+        else return false;
+    }
+    public static bool OpponentWinning()
+    {
+        //before it was written in a cooler way but this computer hates me therefore I'm writing it like the ancient ones
+        if (IsPlayerHomeTeam() && matchScore.away > matchScore.home) return true;
+        if (!IsPlayerHomeTeam() && matchScore.home > matchScore.away) return true;
+        else return false;
+    }
+    public static bool IsMatchDrawing()
+    {
+        return matchScore.home == matchScore.away;
+    }
     public static string GetGeneratedOpponentPlayer() => opponentTeamNames[Random.Range(0, opponentTeamNames.Count)];
     
     public static int GetGoalDifference() => Mathf.Abs(matchScore.home - matchScore.away);

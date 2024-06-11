@@ -84,6 +84,7 @@ public static class S_FootballEnums
         PlayersWithTrait,
         TeamTactic,
         OpponentTactic,
+        PlayerBadTactic
     }
 
     [System.Serializable]

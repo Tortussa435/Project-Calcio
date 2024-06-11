@@ -1,8 +1,5 @@
-using JetBrains.Annotations;
 using NaughtyAttributes;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.Hardware;
 using UnityEngine;
 using UnityEngine.Events;
 using static S_FootballEnums;
@@ -86,10 +83,10 @@ public class SO_MatchCardData : SO_CardData
     public void PlayerInjury()
     {
         SO_PlayerData player=null;
-        List<SO_PlayerData> possibleInjuries = new List<SO_PlayerData>(S_GlobalManager.squad.playingEleven);
+        List<SO_PlayerData> possibleInjuries = new List<SO_PlayerData>();
         
-        for(int i = possibleInjuries.Count - 1; i <= 0; i--)
-            if (possibleInjuries[i].playerRole == SO_PlayerData.PlayerRole.Gk) possibleInjuries.RemoveAt(i);
+        for(int i = 0; i < S_GlobalManager.squad.playingEleven.Count; i++)
+            if (S_GlobalManager.squad.playingEleven[i].playerRole != SO_PlayerData.PlayerRole.Gk) possibleInjuries.Add(S_GlobalManager.squad.playingEleven[i]);
         
         if (Random.Range(0, 100) < 60) //[n]% of the times the player that gets an injury is a glass player
         {
@@ -456,7 +453,7 @@ public class SO_MatchCardData : SO_CardData
         cardRef.leftChoice.text = sub.inP != null ? sub.inP.playerName + "\n" + sub.inP.skillLevel + "\n" + sub.inP.playerRole.ToString() + "\n" + sub.inP.playerTraits[0].traitName.ToString() : "No Player Found!";
 
         string s = cardRef.cardDescription.text;
-        s = s.Replace("{SubOut}", sub.outP.playerName);
+        s = s.Replace("{SubOut}", sub.outP.playerName + " " + sub.outP.skillLevel + " " + sub.outP.playerRole.ToString());
         cardRef.cardDescription.text = s;
 
         leftEffects.AddListener(() => S_SubstitutionsManager.Substitute(sub.outP, sub.inP));
@@ -464,6 +461,19 @@ public class SO_MatchCardData : SO_CardData
          
     }
     
+    public void ProposeOffensiveSubstitution()
+    {
+        
+        (SO_PlayerData outP, SO_PlayerData inP) sub;
+
+        sub = S_SubstitutionsManager.FindOffensiveSubstitute();
+
+        ownerCard.GetComponent<S_Card>().leftChoice.text = sub.inP != null ? sub.inP.playerName + "\n" + sub.inP.skillLevel + "\n" + sub.inP.playerRole.ToString() + "\n" + sub.inP.playerTraits[0].traitName.ToString() : "No Player Found!";
+
+        ReplaceCardDescription("{SubOut}", sub.outP.playerName);
+        leftEffects.AddListener(() => S_SubstitutionsManager.Substitute(sub.outP, sub.inP));
+    }
+
     public void FindGoalkeeperSubstitution()
     {
         S_Card cardRef = ownerCard.GetComponent<S_Card>();

@@ -28,7 +28,9 @@ public class SO_Face : ScriptableObject
         skin = face.face;
 
         eyebrowsColor = Random.ColorHSV();
-        hairColor = Random.ColorHSV();
+        
+        if (hair == null) hairColor = new Color(0, 0, 0, 0);
+        else hairColor = Random.ColorHSV();
 
     }
 }

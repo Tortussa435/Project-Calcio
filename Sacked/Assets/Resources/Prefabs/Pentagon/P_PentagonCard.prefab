@@ -1038,6 +1038,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1545617042508682297}
     m_Modifications:
+    - target: {fileID: 1353782244852873843, guid: 9da78156b6a727543883caffa06680c1, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1836162712075070422, guid: 9da78156b6a727543883caffa06680c1, type: 3}
       propertyPath: debugPentagonSize
       value: -1

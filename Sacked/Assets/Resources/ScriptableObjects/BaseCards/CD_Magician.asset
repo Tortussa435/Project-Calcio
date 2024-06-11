@@ -24,7 +24,7 @@ MonoBehaviour:
   decreaseCountDown: 1
   desiredCardPrefabDirectory: 
   leftValues:
-    addedMoney: -10
+    addedMoney: -20
     addedTeam: 0
     addedPresident: 0
     addedSupporters: 0
@@ -68,16 +68,43 @@ MonoBehaviour:
     removeOnPhaseChange: 0
   scoreCard:
   - desiredValue: 21
-    direction: 4
+    direction: 7
     compareString: 
     compareFloat: 0.6
     customCurve:
       serializedVersion: 2
-      m_Curve: []
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 5
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.6
+        value: -1
+        inSlope: Infinity
+        outSlope: 0
+        tangentMode: 7
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: -1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 1
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 0
       m_PostInfinity: 0
       m_RotationOrder: 0
-    scoreMultiplier: 5
+    scoreMultiplier: 1
   - desiredValue: 13
     direction: 0
     compareString: 

@@ -9,18 +9,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acddcb2ef5ce4c84b8aa4c3a78bf158c, type: 3}
-  m_Name: CD_Preview_Screzio
+  m_Script: {fileID: 11500000, guid: 324455af10ec1b44f81a1c65019448d2, type: 3}
+  m_Name: CD_HotTea
   m_EditorClassIdentifier: 
   ownerCard: {fileID: 0}
-  cardName: Preview_Screzio
+  cardName: EndFirstHalf
   cardColor: {r: 1, g: 1, b: 1, a: 1}
   cardDescriptions:
-  - L'allenatore di {Opponent} ti ha attaccato. cosa ne pensi?
-  leftChoice: '{Opponent} merda'
-  rightChoice: Ci sta dai
-  canAppearMoreThanOnce: 0
-  totalAppearances: 0
+  - "Fine primo tempo, tutti a bere un t\xE9 caldo"
+  leftChoice: Bevi
+  rightChoice: Non Bere
+  canAppearMoreThanOnce: 1
+  totalAppearances: 1
   decreaseCountDown: 0
   desiredCardPrefabDirectory: 
   leftValues:
@@ -43,11 +43,11 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   alreadyPicked: 0
-  cardIcon: {fileID: 0}
+  cardIcon: {fileID: 21300000, guid: 4e3b8c88a1e7c5143b284b1d214d7d5a, type: 3}
   leftBranchCard:
-    branchData: {fileID: 0}
+    branchData: {fileID: 11400000, guid: d5ff0767b074b384187af0e0edda5eb4, type: 2}
     addPosition: 0
-    triggerChance: 0
+    triggerChance: 30
     removeOnPhaseChange: 0
   rightBranchCard:
     branchData: {fileID: 0}
@@ -62,9 +62,24 @@ MonoBehaviour:
     customCurve:
       serializedVersion: 2
       m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
     scoreMultiplier: 1
-  cardScore: NaN
-  cardScoreNotNormalized: 0
+  cardScore: 1
+  cardScoreNotNormalized: 1
+  matchScoreCard: []
+  chanceOfAppearance: 1
+  totalScoreMultiplier: 1
+  matchCardDropChance:
+  - rule: 4
+    direction: 0
+    weight: 1
+    compareFloat: 0
+    customCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
+  formulaDescriptionInfo: 

@@ -35,7 +35,14 @@ public static class S_FacesDatabase
         (Sprite face, Sprite hair, Sprite eyebrows, Sprite eyes, Sprite mouth, Sprite nose) fullFace;
         
         fullFace.face = faces[Random.Range(0, faces.Count)];
-        fullFace.hair = hairs[Random.Range(0, hairs.Count)];
+
+        //bald player chance
+        int hairSeed = Random.Range(0, hairs.Count + 1);
+        if (hairSeed != hairs.Count)
+            fullFace.hair = hairs[Random.Range(0, hairs.Count)];
+        else fullFace.hair = null;
+        //------------------
+
         fullFace.eyebrows = eyebrows[Random.Range(0, eyebrows.Count)];
         fullFace.eyes = eyes[Random.Range(0, eyes.Count)];
         fullFace.mouth = mouths[Random.Range(0, mouths.Count)];

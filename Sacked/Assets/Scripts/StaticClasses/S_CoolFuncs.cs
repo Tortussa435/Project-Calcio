@@ -57,6 +57,11 @@ static public class S_CoolFuncs
     }
 
     #endregion
+
+    #region LISTS
+    public static T RandomArrayItem<T>(List<T> list) => list[Random.Range(0, list.Count)];
+    
+    #endregion
 }
 
 

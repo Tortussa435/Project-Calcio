@@ -15,6 +15,9 @@ MonoBehaviour:
   poolDirectories:
   - ScriptableObjects/TeamSpeeches
   cardsPool:
-  - {fileID: 11400000, guid: 1cb805533f63b6b46902764f9feeaad0, type: 2}
-  - {fileID: 11400000, guid: cab1bf3c883f2784aa5da60bd0a75d1e, type: 2}
+  - {fileID: 11400000, guid: 850b7c5f08d33d64298bfee8a6b03ae9, type: 2}
+  - {fileID: 11400000, guid: 89a24ad68068d334db8abfb641589368, type: 2}
+  - {fileID: 11400000, guid: ceafb683d8ae21c499139aed8a6b6d1a, type: 2}
+  - {fileID: 11400000, guid: 26f7bb28258336e4cbfd7b0f9bb40715, type: 2}
+  - {fileID: 11400000, guid: 2006eac8ffd62444c8d9577c7765c691, type: 2}
   updateList: 0

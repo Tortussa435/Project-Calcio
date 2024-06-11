@@ -20,7 +20,7 @@ MonoBehaviour:
   leftChoice: Multa
   rightChoice: Non Multare
   canAppearMoreThanOnce: 1
-  totalAppearances: 2
+  totalAppearances: 0
   decreaseCountDown: 1
   desiredCardPrefabDirectory: 
   leftValues:
@@ -77,5 +77,5 @@ MonoBehaviour:
       m_PostInfinity: 0
       m_RotationOrder: 0
     scoreMultiplier: 1
-  cardScore: 0.75
-  cardScoreNotNormalized: 0.75
+  cardScore: 0.66999996
+  cardScoreNotNormalized: 0.66999996

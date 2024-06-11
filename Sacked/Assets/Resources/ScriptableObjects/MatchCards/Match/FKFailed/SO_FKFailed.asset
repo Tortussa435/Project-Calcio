@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SO_FKFailed
   m_EditorClassIdentifier: 
   ownerCard: {fileID: 0}
-  cardName: FKFailed
+  cardName: FreeKick
   cardColor: {r: 1, g: 1, b: 1, a: 1}
   cardDescriptions:
   - '{FK} tira sopra la traversa'

@@ -20,7 +20,7 @@ MonoBehaviour:
   leftChoice: Compra
   rightChoice: Rifiuta
   canAppearMoreThanOnce: 0
-  totalAppearances: 1
+  totalAppearances: 0
   decreaseCountDown: 1
   desiredCardPrefabDirectory: 
   leftValues:
@@ -54,7 +54,7 @@ MonoBehaviour:
   onGeneratedEffects:
     m_PersistentCalls:
       m_Calls: []
-  alreadyPicked: 1
+  alreadyPicked: 0
   cardIcon: {fileID: 0}
   leftBranchCard:
     branchData: {fileID: 11400000, guid: 874d73915003be1418af96b9d02b11cf, type: 2}
@@ -70,7 +70,7 @@ MonoBehaviour:
   - desiredValue: 21
     direction: 4
     compareString: 
-    compareFloat: 0.4
+    compareFloat: 0.6
     customCurve:
       serializedVersion: 2
       m_Curve: []

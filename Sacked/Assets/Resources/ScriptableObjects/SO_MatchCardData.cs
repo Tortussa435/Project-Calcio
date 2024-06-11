@@ -2,6 +2,7 @@ using JetBrains.Annotations;
 using NaughtyAttributes;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.Hardware;
 using UnityEngine;
 using UnityEngine.Events;
 using static S_FootballEnums;
@@ -84,17 +85,26 @@ public class SO_MatchCardData : SO_CardData
     }
     public void PlayerInjury()
     {
-        SO_PlayerData player;
-
+        SO_PlayerData player=null;
+        List<SO_PlayerData> possibleInjuries = new List<SO_PlayerData>(S_GlobalManager.squad.playingEleven);
+        
+        for(int i = possibleInjuries.Count - 1; i <= 0; i--)
+            if (possibleInjuries[i].playerRole == SO_PlayerData.PlayerRole.Gk) possibleInjuries.RemoveAt(i);
+        
         if (Random.Range(0, 100) < 60) //[n]% of the times the player that gets an injury is a glass player
         {
-            List<SO_PlayerData> glass = S_GlobalManager.squad.GetPlayersWithTrait(SO_PlayerTrait.PlayerTraitNames.Glass);
+            List<SO_PlayerData> glass = new List<SO_PlayerData>();
+            foreach(SO_PlayerData p in possibleInjuries)
+            {
+                if (p.playerTraits[0].traitName == SO_PlayerTrait.PlayerTraitNames.Glass)
+                    glass.Add(p);
+            }
             if (glass.Count > 0) player = glass[Random.Range(0, glass.Count)];
-
-            else player = S_GlobalManager.squad.playingEleven[Random.Range(0, S_GlobalManager.squad.playingEleven.Count)];
+            if (player == null)
+                player = possibleInjuries[Random.Range(0, possibleInjuries.Count)];
         }
 
-        else player = S_GlobalManager.squad.playingEleven[Random.Range(0, S_GlobalManager.squad.playingEleven.Count)];
+        else player = possibleInjuries[Random.Range(0, possibleInjuries.Count)];
 
         //Injuries player for random amount of matches
         int injurySeed = Random.Range(0, 100);
@@ -424,11 +434,11 @@ public class SO_MatchCardData : SO_CardData
         SO_PlayerData subA = S_SubstitutionsManager.FindOptimalSubstitute(p);
         SO_PlayerData subB = S_SubstitutionsManager.FindOptimalSubstitute(p, new List<SO_PlayerData> { subA });
 
-        cardRef.leftChoice.text =  subA != null ? subA.playerName : "No Player Found!";
-        cardRef.rightChoice.text = subB != null ? subB.playerName : "No Player Found!";
+        cardRef.leftChoice.text =  subA != null ? subA.playerName +"\n"+ subA.skillLevel +"\n"+subA.playerRole.ToString()+ "\n" + subA.playerTraits[0].traitName.ToString() : "No Player Found!";
+        cardRef.rightChoice.text = subB != null ? subB.playerName +"\n"+ subB.skillLevel +"\n"+subB.playerRole.ToString()+ "\n" + subB.playerTraits[0].traitName.ToString() : "No Player Found!";
 
         string s = cardRef.cardDescription.text;
-        s = s.Replace("{InjPlayer}", p.playerName);
+        s = s.Replace("{InjPlayer}", p.playerName+" ("+p.skillLevel+" "+p.playerRole.ToString()+")");
         ownerCard.GetComponent<S_Card>().cardDescription.text = s;
 
         leftEffects.AddListener(() => S_SubstitutionsManager.Substitute(p,  subA));
@@ -443,7 +453,7 @@ public class SO_MatchCardData : SO_CardData
        
         sub = S_SubstitutionsManager.ProposeSubstitution();
         
-        cardRef.leftChoice.text = sub.inP != null ? sub.inP.playerName : "No Player Found!";
+        cardRef.leftChoice.text = sub.inP != null ? sub.inP.playerName + "\n" + sub.inP.skillLevel + "\n" + sub.inP.playerRole.ToString() + "\n" + sub.inP.playerTraits[0].traitName.ToString() : "No Player Found!";
 
         string s = cardRef.cardDescription.text;
         s = s.Replace("{SubOut}", sub.outP.playerName);

@@ -11,7 +11,7 @@ using UnityEngine.EventSystems;
 public class S_InputHandler : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
 
-
+    bool isCardOnTop = false;
     public bool isCardDragged = false;
     [HideInInspector] public float totalMovement = 0; //gives how much distance the card has made
 
@@ -44,7 +44,7 @@ public class S_InputHandler : MonoBehaviour, IPointerDownHandler, IBeginDragHand
     public void OnDrag(PointerEventData eventData)
     {
         //REDO - Cards keep moving on x and y endlessly, creepy!
-        if (cardDirection!=Direction.Center) return;
+        if (cardDirection!=Direction.Center || !isCardOnTop) return;
 
         if (!overrideMovement)
         {
@@ -102,16 +102,20 @@ public class S_InputHandler : MonoBehaviour, IPointerDownHandler, IBeginDragHand
     
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (cardDirection!=Direction.Center) return;
+        if (cardDirection!=Direction.Center || !isCardOnTop) return;
         isCardDragged = true;
     }
 
     private void Update()
     {
+        if(transform.parent!=null)
+            isCardOnTop = transform.parent.GetChild(transform.parent.childCount-1) == transform;
         //moves card back to center if not dragged enough
         if (!isCardDragged)
         {
-            rectTransform.anchoredPosition = Vector2.Lerp(rectTransform.anchoredPosition, new Vector2(0, 0) + S_GlobalManager.CardsSpawnOffset, Time.deltaTime * 10);
+            //rectTransform.anchoredPosition = Vector2.Lerp(rectTransform.anchoredPosition, new Vector2(0, 0) + S_GlobalManager.CardsSpawnOffset, Time.deltaTime * 10);
+            rectTransform.anchoredPosition = S_CoolFuncs.V3Lerpoler(rectTransform.anchoredPosition, Vector2.zero + S_GlobalManager.CardsSpawnOffset);
+            if (Vector2.Distance(rectTransform.anchoredPosition, Vector2.zero+S_GlobalManager.CardsSpawnOffset) < 0.1f) rectTransform.anchoredPosition = Vector2.zero + S_GlobalManager.CardsSpawnOffset;
             rectTransform.eulerAngles = new Vector3(
             0,
             0,
@@ -136,6 +140,7 @@ public class S_InputHandler : MonoBehaviour, IPointerDownHandler, IBeginDragHand
 
     IEnumerator SwipeCard()
     {
+        transform.SetParent(S_GlobalManager.deckManagerRef.graveYard.transform, true);
         OnCardSwiped.Invoke();
         Vector2 cardSpeed = Vector2.one;
         Vector2 direction = cardDirection == Direction.Left ? new Vector2(Screen.width * 1.25f, 0) : new Vector2(-Screen.width * 1.25f, 0);

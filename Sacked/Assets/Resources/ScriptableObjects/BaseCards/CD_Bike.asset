@@ -20,7 +20,7 @@ MonoBehaviour:
   leftChoice: Presta
   rightChoice: Non Prestare
   canAppearMoreThanOnce: 1
-  totalAppearances: 5
+  totalAppearances: 0
   decreaseCountDown: 1
   desiredCardPrefabDirectory: 
   leftValues:
@@ -90,4 +90,4 @@ MonoBehaviour:
       m_RotationOrder: 4
     scoreMultiplier: -0.1
   cardScore: 1
-  cardScoreNotNormalized: 1000.5
+  cardScoreNotNormalized: 1

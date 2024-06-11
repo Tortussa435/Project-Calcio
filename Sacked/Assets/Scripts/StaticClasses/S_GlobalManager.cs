@@ -139,16 +139,16 @@ public static class S_GlobalManager
         focusSash = true;
 
         President = 50.0f;
-        OnUpdatePresident = new UnityEvent();
+        OnUpdatePresident .RemoveAllListeners();
         
         Supporters = 50.0f;
-        OnUpdateSupporters = new UnityEvent();
+        OnUpdateSupporters.RemoveAllListeners();
 
         Team = 50.0f;
-        OnUpdateTeam = new UnityEvent();
+        OnUpdateTeam.RemoveAllListeners();
 
         Money = 50.0f;
-        OnUpdateMoney = new UnityEvent();
+        OnUpdateMoney.RemoveAllListeners();
     }
 
     static public bool DefeatCheck() => (President <= 0 || Team <= 0 || Supporters <= 0 || Money <= 0) && (!deckManagerRef.DebugImmortal);

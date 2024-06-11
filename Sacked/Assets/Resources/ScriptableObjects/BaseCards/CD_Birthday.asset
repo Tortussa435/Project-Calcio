@@ -66,5 +66,16 @@ MonoBehaviour:
       m_PostInfinity: 0
       m_RotationOrder: 0
     scoreMultiplier: 1
+  - desiredValue: 18
+    direction: 6
+    compareString: 
+    compareFloat: 3
+    customCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 0
+      m_PostInfinity: 0
+      m_RotationOrder: 0
+    scoreMultiplier: 0.5
   cardScore: 0
   cardScoreNotNormalized: 0

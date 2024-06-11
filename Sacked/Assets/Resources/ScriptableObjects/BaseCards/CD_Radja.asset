@@ -21,7 +21,7 @@ MonoBehaviour:
   leftChoice: Punisci
   rightChoice: Ignora
   canAppearMoreThanOnce: 0
-  totalAppearances: 1
+  totalAppearances: 0
   decreaseCountDown: 1
   desiredCardPrefabDirectory: 
   leftValues:
@@ -43,7 +43,7 @@ MonoBehaviour:
   onGeneratedEffects:
     m_PersistentCalls:
       m_Calls: []
-  alreadyPicked: 1
+  alreadyPicked: 0
   cardIcon: {fileID: 0}
   leftBranchCard:
     branchData: {fileID: 0}
@@ -78,5 +78,5 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     scoreMultiplier: -1
-  cardScore: 0
-  cardScoreNotNormalized: 0
+  cardScore: 1
+  cardScoreNotNormalized: 1

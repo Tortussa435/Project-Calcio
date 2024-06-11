@@ -100,5 +100,5 @@ MonoBehaviour:
       m_PostInfinity: 0
       m_RotationOrder: 0
     scoreMultiplier: -1
-  cardScore: 0.005
-  cardScoreNotNormalized: 0.5
+  cardScore: -1
+  cardScoreNotNormalized: -1

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SO_CornerFailed
   m_EditorClassIdentifier: 
   ownerCard: {fileID: 0}
-  cardName: CornerFailed
+  cardName: Corner
   cardColor: {r: 1, g: 1, b: 1, a: 1}
   cardDescriptions:
   - '{Corner} crossa sul fondo'

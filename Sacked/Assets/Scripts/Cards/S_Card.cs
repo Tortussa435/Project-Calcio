@@ -13,7 +13,7 @@ public class S_Card : MonoBehaviour
     public TextMeshProUGUI rightChoice;
     public Image cardIcon;
     public Image cardBackground;
-
+    bool triggered = false;
     public virtual void GenerateCardData(SO_CardData data)
     {
         cardData = data;
@@ -43,6 +43,7 @@ public class S_Card : MonoBehaviour
         cardData.SetCardAlreadyPicked();
         cardData.totalAppearances++;
 
+        name = cardData.cardName;
     }
     // Start is called before the first frame update
     void Awake()
@@ -60,10 +61,16 @@ public class S_Card : MonoBehaviour
 
     
     public virtual void GoLeft() {
+        if (triggered) return;
+        
         cardData.leftEffect();
+        triggered = true;
     }
     public virtual void GoRight() {
+        if (triggered) return;
+
         cardData.rightEffect();
+        triggered = true;
     }
 
     public virtual void RefreshCardData(SO_CardData data)

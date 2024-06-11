@@ -46,6 +46,7 @@ public class S_DeckManager : MonoBehaviour
     public GameObject Knob_Team;
     public GameObject Knob_President;
 
+    public GameObject graveYard;
     public void ResetStaticClasses()
     {
         //Resets all static classes

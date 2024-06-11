@@ -88,11 +88,16 @@ public class S_ValueManager : MonoBehaviour
         targetValue = target;
 
         //generate ending if value reaches 0
-        if (targetValue == 0 && !S_GlobalManager.deckManagerRef.DebugImmortal) //REDO remove this check in published version
+        if (targetValue <= 0 && !S_GlobalManager.deckManagerRef.DebugImmortal) //REDO remove this check in published version
         {
             SO_Sacking sackingReason = Resources.Load<SO_Sacking>(ending);
-            S_GlobalManager.deckManagerRef.AddCardToDeck(sackingReason, 0);
-            S_GlobalManager.deckManagerRef.GenerateCard();
+            //S_GlobalManager.deckManagerRef.AddCardToDeck(sackingReason, 0);
+            
+            /*foreach(Transform t in S_GlobalManager.deckManagerRef.deck.transform)
+                Destroy(t.gameObject);*/
+            
+            S_GlobalManager.deckManagerRef.GenerateCard(sackingReason,null,false);
+            
             S_GlobalManager.sacked = true;
         }
         if (lerpingValue) StopCoroutine("LerpUpdateValue");

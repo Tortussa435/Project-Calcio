@@ -20,7 +20,7 @@ MonoBehaviour:
   leftChoice: 
   rightChoice: 
   canAppearMoreThanOnce: 1
-  totalAppearances: 0
+  totalAppearances: 6
   decreaseCountDown: 1
   desiredCardPrefabDirectory: 
   leftValues:
@@ -79,9 +79,9 @@ MonoBehaviour:
       m_RotationOrder: 0
     scoreMultiplier: 1
   cardScore: 1
-  cardScoreNotNormalized: 1
+  cardScoreNotNormalized: 101
   matchScoreCard: []
-  chanceOfAppearance: 0.6000001
+  chanceOfAppearance: 0
   totalScoreMultiplier: 1
   matchCardDropChance:
   - rule: 0

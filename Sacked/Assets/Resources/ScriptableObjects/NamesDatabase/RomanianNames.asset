@@ -16,7 +16,12 @@ MonoBehaviour:
     nationalitiesGroup: 20000000
     names:
     - Samir
+    - Gheorghe
+    - Andrei
+    - Nicolae
     surnames:
     - Lucescu
     - Hagi
+    - Ratiu
+    - Stanciu
     nicknames: []

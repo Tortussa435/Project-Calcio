@@ -78,10 +78,10 @@ MonoBehaviour:
       m_PostInfinity: 0
       m_RotationOrder: 0
     scoreMultiplier: 1
-  cardScore: 1
+  cardScore: 0.00990099
   cardScoreNotNormalized: 1
   matchScoreCard: []
-  chanceOfAppearance: 0
+  chanceOfAppearance: 1
   totalScoreMultiplier: 1
   matchCardDropChance:
   - rule: 7

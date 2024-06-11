@@ -74,10 +74,10 @@ public static class S_PlayerMatchSimulator
         homeGoalCheck = 0;
         awayGoalCheck = 0;
         injuries = (0, 0);
-        OnMatchStart = new UnityEvent();
-        OnMatchEnd = new UnityEvent();
-        OnRedCard = new UnityEvent<bool>();
-        OnSubstitution = new UnityEvent<bool>();
+        OnMatchStart.RemoveAllListeners();
+        OnMatchEnd.RemoveAllListeners();
+        OnRedCard.RemoveAllListeners();
+        OnSubstitution.RemoveAllListeners();
         refereeName = "";
         opponentTeamNames = new List<string>();
         lastCardGoal = false;

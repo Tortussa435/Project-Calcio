@@ -751,6 +751,7 @@ public class S_Squad : MonoBehaviour
         sortedPlayers = SortTeamListBySkill(sortedPlayers);
 
         AddPlayersToEleven(sortedPlayers);
+
     }
 
     public void SetFittestEleven()
@@ -774,7 +775,7 @@ public class S_Squad : MonoBehaviour
         AddPlayersToEleven(sortedPlayers);
     }
 
-    public void SetTurnOverEleven(List<SO_PlayerData> previousList = null, float energyThreshold = 80f, int skillThreshold = 1, int def=0, int mid=0, int atk=0)
+    public void SetTurnOverEleven(float energyThreshold = 80f)
     {
         /* OLD
         //Best team but players with energy below [n] are excluded
@@ -799,6 +800,7 @@ public class S_Squad : MonoBehaviour
         }
         */
 
+        /*OLD 2
         //starts creating turnover team starting from best team
 
 
@@ -892,6 +894,131 @@ public class S_Squad : MonoBehaviour
 
         if (turnoverEleven.Count == 11) playingEleven = new List<SO_PlayerData>(turnoverEleven);
         else SetTurnOverEleven(turnoverEleven, energyThreshold - 10, skillThreshold-1, def, mid, atk);
+        */
+
+        List<SO_PlayerData> p11Clone = new List<SO_PlayerData>(playingEleven);
+        List<SO_PlayerData> benchClone = new List<SO_PlayerData>(bench);
+
+        List<SO_PlayerData> turnoverEleven = new List<SO_PlayerData>();
+        List<SO_PlayerData> turnoverBench = new List<SO_PlayerData>();
+
+        bool gkAdded = false;
+        for(int i=p11Clone.Count-1;i>=0;i--)
+        {
+            if (p11Clone[i].playerRole == SO_PlayerData.PlayerRole.Gk)
+            {
+                turnoverEleven.Add(p11Clone[i]);
+                p11Clone.RemoveAt(i);
+                gkAdded = true;
+            }
+        }
+
+
+        for(int i = benchClone.Count - 1; i >= 0; i--)
+        {
+            if (benchClone[i].playerRole == SO_PlayerData.PlayerRole.Gk)
+            {
+                if (!gkAdded)
+                {
+                    turnoverEleven.Add(benchClone[i]);
+                    benchClone.RemoveAt(i);
+                    gkAdded = true;
+                }
+            }
+        }
+        
+
+        int def = 0;
+        int mid = 0;
+        int atk = 0;
+
+        RecursiveTurnover(turnoverEleven);
+
+        playingEleven = new List<SO_PlayerData>(turnoverEleven);
+        bench = new List<SO_PlayerData>(turnoverBench);
+
+
+        void RecursiveTurnover(List<SO_PlayerData> previousList, float energyThreshold = 80f, int skillThreshold = 1)
+        {
+            for(int i=p11Clone.Count-1;i>=0;i--)
+            {
+
+                if (p11Clone[i].CanPlay() && p11Clone[i].playerEnergy >= energyThreshold && p11Clone[i].playerRole != SO_PlayerData.PlayerRole.Gk && turnoverEleven.Count<11)
+                {
+                    switch (p11Clone[i].playerRole)
+                    {
+                        case SO_PlayerData.PlayerRole.Def:
+                            if (def > 3)
+                            {
+                                continue;
+                            }
+                            def++;
+                            break;
+                        case SO_PlayerData.PlayerRole.Mid:
+                            if (mid > 3)
+                            {
+                                continue;
+                            }
+                            mid++;
+                            break;
+                        case SO_PlayerData.PlayerRole.Atk:
+                            if (atk > 2)
+                            {
+                                continue;
+                            }
+                            atk++;
+                            break;
+                    }
+                    turnoverEleven.Add(p11Clone[i]);
+                    p11Clone.RemoveAt(i);
+                }
+            }
+
+            for(int i = benchClone.Count-1; i >= 0; i--)
+            {
+                if(
+                    turnoverEleven.Count < 11
+                    && benchClone[i].skillLevel >= S_GlobalManager.selectedTeam.SkillLevel - skillThreshold 
+                    && benchClone[i].CanPlay() 
+                    && benchClone[i].playerEnergy >= energyThreshold 
+                    && benchClone[i].playerRole != SO_PlayerData.PlayerRole.Gk
+                )
+                {
+                    switch (benchClone[i].playerRole)
+                    {
+                        case SO_PlayerData.PlayerRole.Def:
+                            if (def > 3)
+                            {
+                                continue;
+                            }
+                            def++;
+                            break;
+                        case SO_PlayerData.PlayerRole.Mid:
+                            if (mid > 3)
+                            {
+                                continue;
+                            }
+                            mid++;
+                            break;
+                        case SO_PlayerData.PlayerRole.Atk:
+                            if (atk > 2)
+                            {
+                                continue;
+                            }
+                            atk++;
+                            break;
+                    }
+                    turnoverEleven.Add(benchClone[i]);
+                    benchClone.RemoveAt(i);
+                }
+            }
+            if (turnoverEleven.Count == 11)
+            {
+                turnoverBench = p11Clone.Concat(benchClone).ToList(); //add left players to bench
+                return;
+            }
+            else RecursiveTurnover(turnoverEleven, energyThreshold - 10, skillThreshold + 1);
+        }
     }
 
     public void SetTeamByModule(int def, int mid, int atk)

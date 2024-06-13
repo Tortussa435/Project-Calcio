@@ -52,13 +52,25 @@ public static class S_PlayerTeamStats
     }
     public static int CalcSquadAtk(bool getOnly=false)
     {
-        if(!getOnly) AverageSquadAtk = (int)((GetTotalSkillByRole(SO_PlayerData.PlayerRole.Atk) / 3) + (GetTotalSkillByRole(SO_PlayerData.PlayerRole.Mid)/25));
+        int midfieldBoost = 0;
+        if (GetPlayersPerRole(SO_PlayerData.PlayerRole.Mid) > 2)
+        {
+            midfieldBoost=Mathf.RoundToInt(GetTotalSkillByRole(SO_PlayerData.PlayerRole.Mid) / 20.0f);
+        }
+        
+        if(!getOnly) AverageSquadAtk = (int)((GetTotalSkillByRole(SO_PlayerData.PlayerRole.Atk) / 3.0f) + midfieldBoost);
         int final = Mathf.Clamp(AverageSquadAtk + (SquadAtkBoost / 3) + ChemistryMultiplier(), 1, 5);
         return final;
     }
     public static int CalcSquadDef(bool getOnly=false)
     {
-        if(!getOnly) AverageSquadDef = (int)((GetTotalSkillByRole(SO_PlayerData.PlayerRole.Def) / 3) + (GetTotalSkillByRole(SO_PlayerData.PlayerRole.Mid) / 25));
+        int midfieldBoost = 0;
+        if (GetPlayersPerRole(SO_PlayerData.PlayerRole.Mid) > 2)
+        {
+            midfieldBoost = Mathf.RoundToInt((GetTotalSkillByRole(SO_PlayerData.PlayerRole.Mid) / 20));
+        }
+
+        if (!getOnly) AverageSquadDef = (int)((GetTotalSkillByRole(SO_PlayerData.PlayerRole.Def) / 4) + midfieldBoost);
         int final = Mathf.Clamp(AverageSquadDef + (SquadDefBoost / 3) + ChemistryMultiplier(), 1, 5);
         return final;
     }
@@ -74,7 +86,7 @@ public static class S_PlayerTeamStats
         int baseChem = 0;
         if (ChemistryBoost == 0) baseChem = -1; //cannot do log of <1 numbers
         else baseChem = ((int)Mathf.Round(Mathf.Log(ChemistryBoost))) -1;
-        baseChem -= S_GlobalManager.squad.GetPlayersWithTrait(SO_PlayerTrait.PlayerTraitNames.Does_Not_Know_The_Language).Count / 2; //every two players that do not know the language, chem decreases by 1
+        baseChem -= S_GlobalManager.squad.GetPlayersWithTrait(SO_PlayerTrait.PlayerTraitNames.Does_Not_Know_The_Language).Count / 3; //every two players that do not know the language, chem decreases by 1
         return baseChem;
     }
     public static void IncreaseAtkBoost() => SquadAtkBoost = Mathf.Clamp(SquadAtkBoost + 1, 0, MAXBOOSTLEVEL);

@@ -16,8 +16,7 @@ MonoBehaviour:
   cardName: TiredTeam
   cardColor: {r: 1, g: 1, b: 1, a: 1}
   cardDescriptions:
-  - Molti giocatori in prima squadra sono stanchi, vuoi mettere giocatori piu in
-    forma nell'11 titolare?
+  - Molti giocatori in prima squadra sono stanchi, vuoi fare turnover?
   leftChoice: Si
   rightChoice: No
   canAppearMoreThanOnce: 1
@@ -46,7 +45,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Fit
+          m_StringArgument: Turnover
           m_BoolArgument: 0
         m_CallState: 2
   rightEffects:
@@ -85,14 +84,23 @@ MonoBehaviour:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 0.7
-        value: 1
+        time: 0.7083313
+        value: 0.9952812
         inSlope: Infinity
         outSlope: -19.364605
         tangentMode: 7
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.03960073
+      - serializedVersion: 3
+        time: 0.71
+        value: -1
+        inSlope: -12.204618
+        outSlope: 0.097382315
+        tangentMode: 1
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.41091952
       - serializedVersion: 3
         time: 1
         value: -1
@@ -117,5 +125,5 @@ MonoBehaviour:
       m_PostInfinity: 0
       m_RotationOrder: 0
     scoreMultiplier: 1
-  cardScore: -0.01
-  cardScoreNotNormalized: -1
+  cardScore: 0
+  cardScoreNotNormalized: 0

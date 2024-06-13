@@ -12,8 +12,8 @@ public class S_TeamStatsViewer : MonoBehaviour
     float currentAtk;
     void Update()
     {
-        currentDef = Lerpoler(currentDef, S_PlayerTeamStats.CalcSquadDef(true),5);   
-        currentAtk = Lerpoler(currentAtk, S_PlayerTeamStats.CalcSquadAtk(true),5);
+        currentDef = Lerpoler(currentDef, S_PlayerTeamStats.CalcSquadDef(false),5);   
+        currentAtk = Lerpoler(currentAtk, S_PlayerTeamStats.CalcSquadAtk(false),5);
         atk.fillAmount = Mathf.InverseLerp(0, 5, currentAtk);
         def.fillAmount = Mathf.InverseLerp(0, 5, currentDef);
     }

@@ -11,14 +11,14 @@ public class S_Squad : MonoBehaviour
 
     public enum PossibleTeam
     {
-        BestTeam,
-        Turnover,
-        Fit,
-        _343,
-        _442,
-        _433,
-        _532,
-        _424
+        BestTeam = 0,
+        Turnover = 1,
+        Fit = 2,
+        _343 = 4,
+        _433 = 3,
+        _532 = 5,
+        _424 = 6,
+        Violents = 7
     }
 
     public GameObject showTeamButtonRef;
@@ -716,16 +716,15 @@ public class S_Squad : MonoBehaviour
                 SetTeamByModule(4, 3, 3);
                 break;
 
-            case PossibleTeam._442:
-                SetTeamByModule(4, 4, 2);
-                break;
-
             case PossibleTeam._532:
                 SetTeamByModule(5, 3, 2);
                 break;
 
             case PossibleTeam._424:
                 SetTeamByModule(4, 2, 4);
+                break;
+            case PossibleTeam.Violents:
+                SetTeamByTrait(SO_PlayerTrait.PlayerTraitNames.Hot_Head);
                 break;
         }
         S_PlayerTeamStats.CalcSquadDef(false);
@@ -1019,6 +1018,55 @@ public class S_Squad : MonoBehaviour
             }
             else RecursiveTurnover(turnoverEleven, energyThreshold - 10, skillThreshold + 1);
         }
+    }
+
+    void SetTeamByTrait(SO_PlayerTrait.PlayerTraitNames trait)
+    {
+        SetBestPlayingEleven();
+        List<SO_PlayerData> traitPlayers = GetPlayersWithTrait(trait,false);
+        if (traitPlayers.Count <= 0)
+        {
+            Debug.LogWarning("Non ci sono giocatori trattanti");
+            return;
+        }
+        bool hasGk = false;
+        for(int i = traitPlayers.Count - 1; i >= 0; i--)
+        {
+            if (traitPlayers[i].playerRole == SO_PlayerData.PlayerRole.Gk)
+            {
+                if (hasGk) traitPlayers.RemoveAt(i);
+                else hasGk = true;
+            }
+        }
+        for(int i = traitPlayers.Count - 1; i >= 0; i--)
+        {
+            if (playingEleven.Contains(traitPlayers[i]))
+                traitPlayers.RemoveAt(i);
+        }
+
+        for(int i = traitPlayers.Count - 1; i >= 0; i--)
+        {
+            bool found = false;
+            for(int j = playingEleven.Count - 1; j >= 0; j--)
+            {
+                if(!found)
+                    if (traitPlayers[i].playerRole == playingEleven[j].playerRole)
+                    {
+                        Swap(traitPlayers[i], playingEleven[j]);
+                        found = true;
+                    }
+            }
+        }
+
+        void Swap(SO_PlayerData inP, SO_PlayerData outP)
+        {
+            playingEleven.Add(inP);
+            playingEleven.Remove(outP);
+            bench.Add(outP);
+            bench.Remove(inP);
+
+        }
+        
     }
 
     public void SetTeamByModule(int def, int mid, int atk)

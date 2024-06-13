@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Match Opponent", menuName = "Cards/Match/Match Opponent")]
@@ -33,7 +34,9 @@ public class SO_MatchOpponent : SO_CardData
         {
            traitsInfo.Add((nextTeam.teamTraits[i].traitName, nextTeam.teamTraits[i].positiveTrait));
         }
-            
+        S_GlobalManager.squad.showTeamButtonRef.GetComponent<S_ImageHighlighter>().HighlightButton();
+
+
     }
     public override void leftEffect()
     {
@@ -43,6 +46,8 @@ public class SO_MatchOpponent : SO_CardData
     {
         bothSidesEffect();
     }
+    
+    
 
     public void bothSidesEffect()
     {
@@ -50,6 +55,7 @@ public class SO_MatchOpponent : SO_CardData
         //previewcard.onGeneratedEffects.AddListener(() => GenerateMatchPreviewCard());
         S_GlobalManager.deckManagerRef.GenerateCard(null,null,false);
         S_GlobalManager.canEditLineup = false;
+        
     }
 
     public SO_CardData GenerateMatchPreviewCard()
@@ -64,6 +70,8 @@ public class SO_MatchOpponent : SO_CardData
         previewCard.decreaseCountDown = false;
 
         S_GlobalManager.deckManagerRef.AddCardToDeck(previewCard, 0);
+
+        
 
         return previewCard;
     }

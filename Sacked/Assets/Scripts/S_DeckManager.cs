@@ -277,7 +277,7 @@ public class S_DeckManager : MonoBehaviour
         //event if during match
         if (currentPhase == CardsPhase.MatchFirstHalf || currentPhase == CardsPhase.MatchSecondHalf)
         {
-            SO_CardData matchCard = S_PlayerMatchSimulator.SimulateMatchSegment(45/matchDuration.max-1 , 45/matchDuration.min-1);
+            SO_CardData matchCard = S_PlayerMatchSimulator.SimulateMatchSegment(45/matchDuration.max , 45/matchDuration.min);
             return matchCard;
         }
 

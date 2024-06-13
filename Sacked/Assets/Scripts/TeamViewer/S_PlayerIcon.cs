@@ -114,7 +114,7 @@ public class S_PlayerIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHandle
     {
 
         StopCoroutine("ClickTimer");
-        if (clickLength < 0.2f)
+        if (clickLength < 0.1f)
         {
             OpenPlayerCard();
         }

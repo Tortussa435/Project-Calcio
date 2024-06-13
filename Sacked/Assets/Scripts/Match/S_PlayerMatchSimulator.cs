@@ -112,7 +112,7 @@ public static class S_PlayerMatchSimulator
         }
 
         if (rollData.decreaseCountDown) matchMinute += Random.Range(Mathf.Max(0,minMinutes),Mathf.Max(0,maxMinutes));
-        else matchMinute += Random.Range(4, 8);
+        else matchMinute += Random.Range(1, 4);
 
         UpdateMatchTextData(false);
 
@@ -338,6 +338,8 @@ public static class S_PlayerMatchSimulator
             else if (awayGoal) card = GenerateGolCard(false);
         }
 
+        //return card;
+        
         if (card == null)
         {
             //see if generate goalkeeper save card, multiply by other team gk ability
@@ -350,28 +352,31 @@ public static class S_PlayerMatchSimulator
             if (homeGoal && awayGoal)
             {
                 int coin = Random.Range(0, 2);
-                if (coin == 0) GenerateGKSaveCard(false); //generate away team save
-                else GenerateGKSaveCard(true); //generate home team save
+                if (coin == 0) card=GenerateGKSaveCard(false); //generate away team save
+                else card=GenerateGKSaveCard(true); //generate home team save
             }
             else
             {
-                if (homeGoal) GenerateGKSaveCard(false); //generate away team save
-                else if (awayGoal) GenerateGKSaveCard(true); //generate home team save
+                if (homeGoal) card=GenerateGKSaveCard(false); //generate away team save
+                else if (awayGoal) card=GenerateGKSaveCard(true); //generate home team save
             }
         }
 
         return card;
         
-            void GenerateGKSaveCard(bool homeTeam=true)
-            {
+        SO_CardData GenerateGKSaveCard(bool homeTeam=true)
+        {
             
-                SO_CardData save = ScriptableObject.Instantiate<SO_CardData>(Resources.Load<SO_CardData>(S_ResDirs.gkSaveCard));
-                string gk = "";
-                if (homeTeam == IsPlayerHomeTeam()) gk = S_GlobalManager.squad.GetRandomPlayerRefByRole(SO_PlayerData.PlayerRole.Gk).playerName;
-                else gk = RandomlyGetNewOrExistingOpponentPlayer();
-                S_GlobalManager.deckManagerRef.AddCardToDeck(save,0,null,new List<object> {gk});
-                save.onGeneratedEffects.AddListener(() => matchMinute += Random.Range(2, 5));
-            }
+            SO_CardData save = ScriptableObject.Instantiate<SO_CardData>(Resources.Load<SO_CardData>(S_ResDirs.gkSaveCard));
+            string gk = "";
+            if (homeTeam == IsPlayerHomeTeam()) gk = S_GlobalManager.squad.GetRandomPlayerRefByRole(SO_PlayerData.PlayerRole.Gk).playerName;
+            else gk = RandomlyGetNewOrExistingOpponentPlayer();
+            save.passedExtraData = new List<object> { gk };
+            //S_GlobalManager.deckManagerRef.AddCardToDeck(save,0,null,new List<object> {gk},true);
+            save.onGeneratedEffects.AddListener(() => matchMinute += Random.Range(2, 5));
+            return save;
+        }
+        
     }
 
     private static float GoalCheck(bool homeTeam)

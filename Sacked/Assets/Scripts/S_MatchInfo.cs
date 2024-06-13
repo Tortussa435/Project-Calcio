@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using static S_PlayerMatchSimulator;
+using UnityEngine.Events;
 
 public class S_MatchInfo : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class S_MatchInfo : MonoBehaviour
     }
     public void UpdateMatchInfo(int matchMinute,bool updateScore=true)
     {
+
         if (updateScore)
         {
             currentScoreHome = matchScore.home;
@@ -28,8 +30,8 @@ public class S_MatchInfo : MonoBehaviour
         if (gameObject.activeSelf)
         {
             matchInfo = "'\n" + match.homeTeam.teamName + " " + currentScoreHome + " - " + currentScoreAway + " " + match.awayTeam.teamName;
-            StopCoroutine(LerpGameMinute(matchMinute));
-            StartCoroutine(LerpGameMinute(matchMinute));
+            StopCoroutine("LerpGameMinute");
+            StartCoroutine("LerpGameMinute",matchMinute);
         }
         else Debug.LogWarning("Provato ad avviare coroutine in oggetto disattivo");
     }
@@ -41,21 +43,26 @@ public class S_MatchInfo : MonoBehaviour
             //Debug.Log("Ziopera");
             currentMinute++;
 
-            if (currentMinute > 90)
+            if(S_GlobalManager.currentPhase==S_GlobalManager.CardsPhase.MatchFirstHalf && currentMinute > 45)
+                textRef.text = "45 +" + (currentMinute - 45).ToString() + matchInfo;
+
+            else if (currentMinute > 90)
                 textRef.text = "90 +" + (currentMinute - 90).ToString() + matchInfo;
 
             else textRef.text = currentMinute.ToString() + matchInfo;
 
             yield return new WaitForSeconds(FindLerpSpeed(currentMinute, targetMinute));
         }
-
-        if (currentMinute > 90)
-            textRef.text = "90+" + (currentMinute - 90).ToString() + matchInfo;
+        if (S_GlobalManager.currentPhase == S_GlobalManager.CardsPhase.MatchFirstHalf && currentMinute > 45)
+            textRef.text = "45 +" + (currentMinute - 45).ToString() + matchInfo;
+        
+        else if (currentMinute > 90)
+            textRef.text = "90 +" + (currentMinute - 90).ToString() + matchInfo;
 
         else textRef.text = currentMinute.ToString() + matchInfo;
 
         yield break;
     }
 
-    private float FindLerpSpeed(int currentMinute, int targetMinute) => Mathf.Max((currentMinute / (float)targetMinute) * 0.15f, 0.001f);
+    private float FindLerpSpeed(int currentMinute, int targetMinute) => Mathf.Max((currentMinute / (float)targetMinute) * 0.15f, 0.05f);
 }

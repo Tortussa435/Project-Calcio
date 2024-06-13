@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 static public class S_CoolFuncs
 {
@@ -16,10 +17,19 @@ static public class S_CoolFuncs
     public static float Lerpoler(float a, float b, float decay = 16) => b + (a - b) * Mathf.Exp(-decay * Time.deltaTime);
     public static Vector3 V3Lerpoler(Vector3 a, Vector3 b, float decay = 16)
     {
-        float x = Lerpoler(a.x, b.x);
-        float y = Lerpoler(a.y, b.y);
-        float z = Lerpoler(a.z, b.z);
+        float x = Lerpoler(a.x, b.x,decay);
+        float y = Lerpoler(a.y, b.y,decay);
+        float z = Lerpoler(a.z, b.z,decay);
         return new Vector3(x, y, z);
+    }
+
+    public static Color ColorLerpoler(Color a, Color b, float decay = 16)
+    {
+        float cr = Lerpoler(a.r, b.r, decay);
+        float cg = Lerpoler(a.g, b.g, decay);
+        float cb = Lerpoler(a.b, b.b, decay);
+        float ca = Lerpoler(a.a, b.a, decay);
+        return new Color(cr, cg, cb, ca);
     }
     #endregion
 
@@ -61,6 +71,7 @@ static public class S_CoolFuncs
     #region LISTS
     public static T RandomArrayItem<T>(List<T> list) => list[Random.Range(0, list.Count)];
     
+
     #endregion
 }
 

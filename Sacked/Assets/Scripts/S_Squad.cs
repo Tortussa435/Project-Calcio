@@ -388,6 +388,7 @@ public class S_Squad : MonoBehaviour
 
         foreach (SO_PlayerData p in players)
         {
+            if (p.playerRole == SO_PlayerData.PlayerRole.Gk) continue; //gk does not get tired
             p.AddEnergy(min, max);
         }
     }
@@ -773,8 +774,9 @@ public class S_Squad : MonoBehaviour
         AddPlayersToEleven(sortedPlayers);
     }
 
-    public void SetTurnOverEleven(float energyThreshold=80f)
+    public void SetTurnOverEleven(List<SO_PlayerData> previousList = null, float energyThreshold = 80f, int skillThreshold = 1, int def=0, int mid=0, int atk=0)
     {
+        /* OLD
         //Best team but players with energy below [n] are excluded
         playingEleven = new List<SO_PlayerData>();
         bench = new List<SO_PlayerData>();
@@ -795,7 +797,101 @@ public class S_Squad : MonoBehaviour
             energyThreshold += 5;
             if (energyThreshold > 100) break;
         }
+        */
 
+        //starts creating turnover team starting from best team
+
+
+        if (previousList == null)
+        {
+            SetBestPlayingEleven();
+        }
+        
+
+        List<SO_PlayerData> turnoverEleven = new List<SO_PlayerData>();
+        if (previousList != null) turnoverEleven = previousList;
+
+        //Add goalkeeper
+        if (turnoverEleven.Count == 0)
+        {
+            foreach(SO_PlayerData p in playingEleven)
+            {
+                if (p.playerRole == SO_PlayerData.PlayerRole.Gk) turnoverEleven.Add(p);
+            }
+            if (turnoverEleven.Count == 0)
+            {
+                for(int i = bench.Count - 1; i >= 0; i--)
+                {
+                    if (bench[i].playerRole == SO_PlayerData.PlayerRole.Gk)
+                    {
+                        turnoverEleven.Add(bench[i]);
+                        bench.RemoveAt(i);
+
+                    }
+                }
+            }
+        }
+
+        for(int i = playingEleven.Count-1; i >= 0; i--)
+        {
+            if (playingEleven[i].playerEnergy > energyThreshold && playingEleven[i].playerRole!=SO_PlayerData.PlayerRole.Gk)
+            {
+                if (turnoverEleven.Count == 11) break;
+                turnoverEleven.Add(playingEleven[i]);
+                switch (playingEleven[i].playerRole)
+                {
+                    case SO_PlayerData.PlayerRole.Def:
+                        if (def > 3) continue;
+                        def++;
+                        break;
+                    case SO_PlayerData.PlayerRole.Mid:
+                        if (mid > 3) continue;
+                        mid++;
+                        break;
+                    case SO_PlayerData.PlayerRole.Atk:
+                        if (atk > 3) continue;
+                        atk++;
+                        break;
+                }
+
+                
+            }
+            else
+            {
+                bench.Add(playingEleven[i]);
+                playingEleven.RemoveAt(i);
+            }
+        }
+
+        for(int i = bench.Count-1; i >= 0; i--)
+        {
+            if (turnoverEleven.Count == 11) break;
+            
+            if(bench[i].CanPlay() && bench[i].playerEnergy > energyThreshold && bench[i].skillLevel >= S_GlobalManager.selectedTeam.SkillLevel-skillThreshold && bench[i].playerRole != SO_PlayerData.PlayerRole.Gk)
+            {
+                switch (bench[i].playerRole)
+                {
+                    case SO_PlayerData.PlayerRole.Def:
+                        if (def > 4) continue;
+                        def++;
+                        break;
+                    case SO_PlayerData.PlayerRole.Mid:
+                        if (mid > 4) continue;
+                        mid++;
+                        break;
+                    case SO_PlayerData.PlayerRole.Atk:
+                        if (atk > 3) continue;
+                        atk++;
+                        break;
+                }
+                turnoverEleven.Add(bench[i]);
+                bench.RemoveAt(i);
+            }
+        }
+
+
+        if (turnoverEleven.Count == 11) playingEleven = new List<SO_PlayerData>(turnoverEleven);
+        else SetTurnOverEleven(turnoverEleven, energyThreshold - 10, skillThreshold-1, def, mid, atk);
     }
 
     public void SetTeamByModule(int def, int mid, int atk)

@@ -759,8 +759,7 @@ public class S_Squad : MonoBehaviour
         playingEleven = new List<SO_PlayerData>();
         bench = new List<SO_PlayerData>();
         
-        //sets goalkeeper
-        AddGoalKeeper();
+
 
         //sorts other players by skill
         List<SO_PlayerData> sortedPlayers = new List<SO_PlayerData>();
@@ -771,7 +770,55 @@ public class S_Squad : MonoBehaviour
 
         sortedPlayers = SortTeamListByEnergy(sortedPlayers);
 
-        AddPlayersToEleven(sortedPlayers);
+        List<SO_PlayerData> selectedPlayers = new List<SO_PlayerData>();
+
+        sortedPlayers.Reverse();
+
+        int def = 0, mid = 0, atk = 0;
+
+        RecursiveFitPlayers();
+
+        playingEleven = new List<SO_PlayerData>(selectedPlayers);
+        bench = new List<SO_PlayerData>(sortedPlayers);
+
+        //sets goalkeeper
+        AddGoalKeeper();
+
+
+        void RecursiveFitPlayers(int minSkill=0)
+        {
+            for(int i = sortedPlayers.Count - 1; i >= 0; i--)
+            {
+                if (selectedPlayers.Count == 10)
+                {
+                    return;
+                }
+                if (sortedPlayers[i].skillLevel >= S_GlobalManager.selectedTeam.SkillLevel - minSkill)
+                {
+                    switch (sortedPlayers[i].playerRole)
+                    {
+                        case SO_PlayerData.PlayerRole.Atk:
+                            if (atk >= 3) continue;
+                            atk++;
+                            break;
+                        case SO_PlayerData.PlayerRole.Mid:
+                            if (mid >= 4) continue;
+                            mid++;
+                            break;
+                        case SO_PlayerData.PlayerRole.Def:
+                            if (def >= 4) continue;
+                            def++;
+                            break;
+                    }
+                    selectedPlayers.Add(sortedPlayers[i]);
+                    sortedPlayers.RemoveAt(i);
+                }
+            }
+
+            if (selectedPlayers.Count < 10) RecursiveFitPlayers(minSkill + 1);
+            else return;
+            
+        }
     }
 
     public void SetTurnOverEleven(float energyThreshold = 80f)

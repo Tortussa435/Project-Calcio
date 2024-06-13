@@ -68,7 +68,7 @@ public class S_TeamCard : S_Card
                     break;
             }
 
-            gk[0].transform.SetParent(gkLine.transform);
+            if(gk.Count > 0) gk[0].transform.SetParent(gkLine.transform);
             
             foreach(GameObject d in def)
             {

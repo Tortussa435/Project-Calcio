@@ -14,11 +14,9 @@ public class S_Squad : MonoBehaviour
         BestTeam = 0,
         Turnover = 1,
         Fit = 2,
-        _343 = 4,
-        _433 = 3,
-        _532 = 5,
-        _424 = 6,
-        Violents = 7
+        Defensive = 3,
+        Offensive = 4,
+        Violents = 5,
     }
 
     public GameObject showTeamButtonRef;
@@ -708,23 +706,16 @@ public class S_Squad : MonoBehaviour
                 SetFittestEleven();
                 break;
 
-            case PossibleTeam._343:
-                SetTeamByModule(3, 4, 3);
-                break;
-
-            case PossibleTeam._433:
-                SetTeamByModule(4, 3, 3);
-                break;
-
-            case PossibleTeam._532:
-                SetTeamByModule(5, 3, 2);
-                break;
-
-            case PossibleTeam._424:
-                SetTeamByModule(4, 2, 4);
-                break;
             case PossibleTeam.Violents:
                 SetTeamByTrait(SO_PlayerTrait.PlayerTraitNames.Hot_Head);
+                break;
+
+            case PossibleTeam.Defensive:
+                FindBestModuleApproach(false);
+                break;
+
+            case PossibleTeam.Offensive:
+                FindBestModuleApproach(true);
                 break;
         }
         S_PlayerTeamStats.CalcSquadDef(false);
@@ -1171,6 +1162,36 @@ public class S_Squad : MonoBehaviour
             }
         }
     }
+
+    public void FindBestModuleApproach(bool offensive)
+    {
+        //REDO what the hell is this
+        List<((int d, int m, int a) mod, float score)> modules = new List<((int d, int m, int a) mod, float score)>
+        {
+            ((3,4,3),0),
+            ((3,5,2),0),
+            ((4,2,4),0),
+            //((5,3,2),0),
+            ((4,3,3),0),
+            ((4,4,2),0),
+            //((4,5,1),0),
+        };
+        for(int i=0;i<modules.Count;i++)
+        {
+            SetTeamByModule(modules[i].mod.d, modules[i].mod.m, modules[i].mod.a);
+            modules[i] = ((modules[i].mod.d, modules[i].mod.m, modules[i].mod.a), offensive ? S_PlayerTeamStats.CalcSquadAtk() : S_PlayerTeamStats.CalcSquadDef());
+        }
+
+        ((int d, int m, int a) mod, float score) bestModule = ((0, 0, 0), 0);
+        for(int i = 0; i < modules.Count; i++)
+        {
+            if (modules[i].score >= bestModule.score)
+            {
+                bestModule = modules[i];
+            }
+        }
+        SetTeamByModule(bestModule.mod.d, bestModule.mod.m, bestModule.mod.a);
+    }  
 
     #region SORTING
     public List<SO_PlayerData> SortTeamListBySkill(List<SO_PlayerData> datalist)

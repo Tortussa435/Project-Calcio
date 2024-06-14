@@ -59,7 +59,7 @@ public static class S_PlayerTeamStats
         }
         
         if(!getOnly) AverageSquadAtk = (int)((GetTotalSkillByRole(SO_PlayerData.PlayerRole.Atk) / 3.0f) + midfieldBoost);
-        int final = Mathf.Clamp(AverageSquadAtk + (SquadAtkBoost / 3) + ChemistryMultiplier(), 1, 5);
+        int final = Mathf.Clamp(AverageSquadAtk + (SquadAtkBoost / 3)  + ChemistryMultiplier(), 1, 5);
         return final;
     }
     public static int CalcSquadDef(bool getOnly=false)

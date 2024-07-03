@@ -599,7 +599,7 @@ public class SO_MatchCardData : SO_CardData
             cornerGoalChance += smallOpp ? 0.2f : 0;
             cornerGoalChance += goodCornerShooter ? 0.2f : 0;
             cornerGoalChance += 0.2f * tallPlayers;
-            cornerGoalChance += (fks.skillLevel / 50.0f);
+            cornerGoalChance += (fks.skillLevel / S_GlobalManager.MAXTEAMSKILLLEVEL*10.0f);
             cornerGoalChance = Mathf.Clamp(cornerGoalChance, 0, 1);
 
             cornerGoalChance = Mathf.Lerp(0, S_Chances.MAXCORNERGOALCHANCE+cornerTrainingExtraChance, cornerGoalChance);
@@ -656,7 +656,7 @@ public class SO_MatchCardData : SO_CardData
             
             cornerGoalChance += tallTeam ? 0.25f : 0;
             cornerGoalChance += smallOpp * 0.1f;
-            cornerGoalChance += (teamSkill / 50.0f);
+            cornerGoalChance += (teamSkill / S_GlobalManager.MAXTEAMSKILLLEVEL*10.0f);
             cornerGoalChance = Mathf.Clamp(cornerGoalChance, 0.0f, 1.0f);
             cornerGoalChance = Mathf.Lerp(0, S_Chances.MAXCORNERGOALCHANCE, cornerGoalChance);
 
@@ -759,7 +759,7 @@ public class SO_MatchCardData : SO_CardData
             float cornerGoalChance = 0;
             int teamSkill = S_GlobalManager.squad.FindGameSkillLevel();
 
-            cornerGoalChance += (teamSkill / 5.0f);
+            cornerGoalChance += (teamSkill / (float)S_GlobalManager.MAXTEAMSKILLLEVEL);
             cornerGoalChance = Mathf.Clamp(cornerGoalChance, 0.0f, 1.0f);
             cornerGoalChance = Mathf.Lerp(0, S_Chances.MAXFKGOALCHANCE, cornerGoalChance);
 

@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teamName: ACF Viola
   shortName: ACF
-  SkillLevel: 4
+  SkillLevel: 7
   teamColor1: {r: 0.33334047, g: 0.18534178, b: 0.46226418, a: 1}
   teamColor2: {r: 0.33333334, g: 0.18431373, b: 0.4627451, a: 1}
   teamLogo: {fileID: 21300000, guid: 6c7278576b45369488a034c051ae33ba, type: 3}
   teamTraits: []
+  derbies: []
   teamTactics: {fileID: 11400000, guid: bff7afe3d07f4074eb66ddd5d39a2ce1, type: 2}

@@ -77,7 +77,7 @@ public class S_PlayerInfoCard : S_Card
         }
         traitRef.color = traitColor;
 
-        playerSkillRef.fillAmount = (float)playerInfo.skillLevel / 5.0f;
+        playerSkillRef.fillAmount = (float)playerInfo.skillLevel / (float)S_GlobalManager.MAXTEAMSKILLLEVEL;
         nationality.text = playerInfo.playerNationality.ToString();
         GenerateFace();
         SetUnavInfo();

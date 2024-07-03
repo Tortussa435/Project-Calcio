@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teamName: U.S. Salerno
   shortName: USS
-  SkillLevel: 1
+  SkillLevel: 2
   teamColor1: {r: 0.3679245, g: 0.019090425, b: 0.019090425, a: 1}
   teamColor2: {r: 0.36862746, g: 0.019607844, b: 0.019607844, a: 1}
   teamLogo: {fileID: 21300000, guid: 1b9bf9caf2b39a546b769e0e2fe948eb, type: 3}

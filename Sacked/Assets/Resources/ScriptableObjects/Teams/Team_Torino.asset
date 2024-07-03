@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teamName: Granata F.C.
   shortName: GRA
-  SkillLevel: 3
+  SkillLevel: 7
   teamColor1: {r: 0.3301887, g: 0.12681119, b: 0.05762727, a: 1}
   teamColor2: {r: 0.32941177, g: 0.1254902, b: 0.05882353, a: 1}
   teamLogo: {fileID: 21300000, guid: 467d30153075bab4899e88c5155a3abc, type: 3}

@@ -53,7 +53,7 @@ public class S_PlayerIcon : MonoBehaviour, IPointerDownHandler, IBeginDragHandle
 
         playerName.text = playerData.playerName;
 
-        playerSkill.fillAmount = (float)playerData.skillLevel / 5.0f ;
+        playerSkill.fillAmount = (float)playerData.skillLevel / (float)S_GlobalManager.MAXTEAMSKILLLEVEL ;
 
         if (playerData.expelled > 0 || playerData.injuried>0)
         {

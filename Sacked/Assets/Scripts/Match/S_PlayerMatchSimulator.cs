@@ -313,10 +313,10 @@ public static class S_PlayerMatchSimulator
         bool homeGoal = false;
         bool awayGoal = false;
 
-        float homeGoalkeeperMult = (IsPlayerHomeTeam() ? S_GlobalManager.squad.GetRandomPlayerRefByRole(SO_PlayerData.PlayerRole.Gk).skillLevel : GetOpponentTeam().SkillLevel) / 5.0f;
+        float homeGoalkeeperMult = (IsPlayerHomeTeam() ? S_GlobalManager.squad.GetRandomPlayerRefByRole(SO_PlayerData.PlayerRole.Gk).skillLevel : GetOpponentTeam().SkillLevel) / (float)S_GlobalManager.MAXTEAMSKILLLEVEL;
         homeGoalkeeperMult = Mathf.Lerp(S_Chances.GKSAVECHANCEMULT.min, S_Chances.GKSAVECHANCEMULT.max, homeGoalkeeperMult);
 
-        float awayGoalkeeperMult = (!IsPlayerHomeTeam() ? S_GlobalManager.squad.GetRandomPlayerRefByRole(SO_PlayerData.PlayerRole.Gk).skillLevel : GetOpponentTeam().SkillLevel) / 5.0f;
+        float awayGoalkeeperMult = (!IsPlayerHomeTeam() ? S_GlobalManager.squad.GetRandomPlayerRefByRole(SO_PlayerData.PlayerRole.Gk).skillLevel : GetOpponentTeam().SkillLevel) / (float)S_GlobalManager.MAXTEAMSKILLLEVEL;
         awayGoalkeeperMult = Mathf.Lerp(S_Chances.GKSAVECHANCEMULT.min, S_Chances.GKSAVECHANCEMULT.max, homeGoalkeeperMult);
 
 

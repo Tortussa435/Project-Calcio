@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teamName: A.C. Mediolanum
   shortName: MED
-  SkillLevel: 4
+  SkillLevel: 8
   teamColor1: {r: 0.6698113, g: 0.3949359, b: 0.3949359, a: 1}
   teamColor2: {r: 0, g: 0, b: 0, a: 1}
   teamLogo: {fileID: 21300000, guid: 311c17676b54daf438877e896f521655, type: 3}

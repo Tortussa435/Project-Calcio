@@ -80,12 +80,12 @@ public class S_Squad : MonoBehaviour
                 skills.Add(skillLevel - 1);
 
             for (int i = 0; i < 4; i++)
-                skills.Add(Random.Range(1,3));
+                skills.Add(Random.Range(2,6));
 
             for (int i = 0; i < 2; i++)
-                skills.Add(Random.Range(skillLevel - 2, skillLevel + 3));
+                skills.Add(Random.Range(skillLevel - 4, skillLevel + 6));
             
-            skills.Add(3);
+            skills.Add(6);
 
             return skills;
         }

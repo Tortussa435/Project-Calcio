@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teamName: B.C. La Dea
   shortName: DEA
-  SkillLevel: 4
+  SkillLevel: 8
   teamColor1: {r: 0, g: 0, b: 0, a: 1}
   teamColor2: {r: 0.21444462, g: 0.26721883, b: 0.745283, a: 1}
   teamLogo: {fileID: 21300000, guid: 2e2b5c739dd49984bb4a3fb4ab3a4282, type: 3}

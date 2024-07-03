@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teamName: Scaligeri F.C.
   shortName: SCA
-  SkillLevel: 3
+  SkillLevel: 5
   teamColor1: {r: 0.8962264, g: 0.73747194, b: 0.32551616, a: 1}
   teamColor2: {r: 0.42733178, g: 0.47650582, b: 0.9150943, a: 1}
   teamLogo: {fileID: 21300000, guid: 2f2d14167a310c4448901aa3408a76a7, type: 3}

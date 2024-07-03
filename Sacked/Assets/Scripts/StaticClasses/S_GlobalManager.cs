@@ -6,7 +6,7 @@ public static class S_GlobalManager
 {
 
     //Constants
-    public const int MAXTEAMSKILLLEVEL=5;
+    public const int MAXTEAMSKILLLEVEL=10;
     //---------
 
     [System.Serializable]

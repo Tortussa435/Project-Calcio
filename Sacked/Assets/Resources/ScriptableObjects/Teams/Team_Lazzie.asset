@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teamName: SS Lazzie
   shortName: SSL
-  SkillLevel: 3
+  SkillLevel: 7
   teamColor1: {r: 1, g: 1, b: 1, a: 1}
   teamColor2: {r: 0.58762014, g: 0.8962264, b: 0.82629377, a: 1}
   teamLogo: {fileID: 21300000, guid: 032e6d537cd86d249838f047790756f8, type: 3}

@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teamName: Empolaretti F.C.
   shortName: EMP
-  SkillLevel: 2
+  SkillLevel: 4
   teamColor1: {r: 0.23073156, g: 0.50175434, b: 0.8018868, a: 1}
   teamColor2: {r: 0.23137255, g: 0.5019608, b: 0.8, a: 1}
   teamLogo: {fileID: 21300000, guid: 224ac966fe96c2e4889e13c3df7234cd, type: 3}
   teamTraits: []
+  derbies: []
   teamTactics: {fileID: 11400000, guid: bff7afe3d07f4074eb66ddd5d39a2ce1, type: 2}

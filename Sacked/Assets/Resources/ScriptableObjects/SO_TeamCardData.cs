@@ -39,22 +39,22 @@ public class SO_TeamCardData : SO_CardData
         string obj = "";
         switch (skillLevel)
         {
-            case int i when i<=2:
+            case int i when i<=4:
                 obj = "Avoid relegation";
                 minDesiredPlace = 17;
                 optDesiredPlace = 14;
                 break;
-            case 3:
+            case int i when i<=6:
                 obj = "Reach the mid of the table";
                 minDesiredPlace = 14;
                 optDesiredPlace = 10;
                 break;
-            case 4:
+            case int i when i<=8:
                 obj = "Reach the top 4";
                 minDesiredPlace = 6;
                 optDesiredPlace = 4;
                 break;
-            case 5:
+            case int i when i<=10:
                 obj = "Win the title";
                 minDesiredPlace = 1;
                 optDesiredPlace = 1;
